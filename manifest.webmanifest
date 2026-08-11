@@ -1,0 +1,17 @@
+{
+  "name": "CPPI 한국 필라테스 교육협회",
+  "short_name": "CPPI",
+  "description": "기능해부학 기반 · 교정재활 국제 필라테스 강사 자격과정 — 영상강의 · 워크숍 · 정규과정 · 교재 미리보기",
+  "lang": "ko",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E7F5C1",
+  "theme_color": "#82B17A",
+  "categories": ["education", "health", "fitness"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
