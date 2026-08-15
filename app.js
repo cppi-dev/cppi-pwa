@@ -297,6 +297,22 @@ function render() {
   window.scrollTo({ top: 0 });
   closeSheet();
   if (SERVER && r === "my" && me()) loadMyOrders();
+  initDesktopFX();
+}
+
+/* ---------- Renewal v1: 데스크톱 스크롤 연출 (1024px+, GSAP 없으면 조용히 무시) ---------- */
+let _dfxTriggers = [];
+function initDesktopFX() {
+  if (typeof gsap === "undefined" || !window.matchMedia("(min-width:1024px)").matches) return;
+  gsap.registerPlugin(ScrollTrigger);
+  _dfxTriggers.forEach(t => t.kill());
+  _dfxTriggers = [];
+  const els = document.querySelectorAll(".dreveal");
+  if (!els.length) return;
+  gsap.set(els, { opacity: 0, y: 30 });
+  gsap.to(els, {
+    opacity: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.12, delay: 0.15
+  });
 }
 
 /* ---------- 8) 공통 조각 ---------- */
@@ -328,6 +344,19 @@ function showCohort(i) {
 /* ---------- 9) 뷰 ---------- */
 /* 홈 = 레이아웃 1안 (그리드 대시보드형) */
 routes.home = () => `
+  <div class="dhero">
+    <video src="${heroSrc()}" poster="hero-poster.jpg" autoplay muted loop playsinline></video>
+    <div class="din">
+      <div class="dmarquee"><span>${Array(2).fill(L({ ko: "근거 기반 · 기능해부학 · 임상 재활 필라테스 · ", en: "EVIDENCE-BASED · FUNCTIONAL ANATOMY · CLINICAL REHAB PILATES · ", zh: "循证教学 · 功能解剖学 · 临床康复普拉提 · ", ja: "根拠に基づく · 機能解剖学 · 臨床リハビリピラティス · " })).join("")}</span></div>
+      <h1 class="dreveal">${L({ ko: "감각이 아니라,<br>근거로 가르칩니다", en: "We teach with<br>evidence, not intuition", zh: "以循证教学，<br>而非凭感觉", ja: "感覚ではなく、<br>根拠で教えます" })}</h1>
+      <p class="dsub dreveal">${L({ ko: "분당서울대병원 척추·관절센터 임상 경험을 기반으로 설계된 국제 필라테스 강사 자격과정. 8대 커리큘럼, 1,300여 페이지의 출판교재로 증명합니다.", en: "An international Pilates instructor certification built on clinical experience from SNUH Bundang Spine & Joint Center. 8 core courses, 1,300+ pages of published textbooks.", zh: "以分堂首尔大学医院脊柱关节中心临床经验为基础设计的国际普拉提教练资格课程。8大课程体系，1300余页出版教材佐证。", ja: "盆唐ソウル大学病院脊椎·関節センターの臨床経験を基に設計された国際ピラティス指導者資格課程。8大カリキュラム、1,300ページ超の出版教材で証明します。" })}</p>
+      <div class="dcta dreveal">
+        <a class="dpri" href="#curriculum">${L({ ko: "정규과정 알아보기", en: "Explore the Curriculum", zh: "了解正规课程", ja: "正規課程を見る" })}</a>
+        <a class="dgh" href="#founder">${L({ ko: "박은주 교수 소개", en: "Meet the Founder", zh: "创始人介绍", ja: "創立者紹介" })}</a>
+      </div>
+    </div>
+    <div class="dscroll"><span>SCROLL</span><span class="ln"></span></div>
+  </div>
   <section style="padding-top:14px">
     <!-- Row 1 : 히어로(2) + 파운더(1) -->
     <div class="lay-hero">

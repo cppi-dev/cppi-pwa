@@ -44,6 +44,10 @@
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<!-- ===== Renewal v1: desktop 에디토리얼 타이포 ===== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    CPPI PWA v4 - CPPI Identity Color (Sunrise Orange)
@@ -248,6 +252,37 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 .viewer .vtop button{color:#fff; font-size:22px; padding:4px 8px}
 .viewer .stage{flex:1; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:0 6px}
 .viewer .stage img{max-width:100%; max-height:100%; object-fit:contain; border-radius:4px; background:#fff}
+
+/* ============================================================
+   RENEWAL v1 — 데스크톱 에디토리얼 히어로 (1024px+ 전용)
+   모바일 앱 화면은 절대 건드리지 않음. 아래 규칙은 min-width:1024px 안에서만 동작.
+============================================================ */
+@media(min-width:1024px){
+  .wrap{max-width:1180px}
+  .hbar{max-width:1180px}
+  .tabbar .in{max-width:1180px}
+}
+.dhero{display:none}
+@media(min-width:1024px){
+  .dhero{position:relative; width:100%; height:92vh; min-height:640px; max-height:940px; overflow:hidden; border-radius:0 0 32px 32px; margin-bottom:64px; color:#fff; display:flex; flex-direction:column; justify-content:flex-end}
+  .dhero video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+  .dhero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(36,28,24,.10) 0%,rgba(36,28,24,.18) 40%,rgba(36,28,24,.88) 100%)}
+  .dhero .din{position:relative; z-index:2; max-width:1180px; margin:0 auto; width:100%; padding:0 48px 68px}
+  .dhero .dmarquee{overflow:hidden; white-space:nowrap; margin-bottom:26px; opacity:.8}
+  .dhero .dmarquee span{display:inline-block; font-family:'Noto Serif KR',serif; font-size:12.5px; letter-spacing:.34em; font-weight:500; padding-right:52px; animation:dmarquee 24s linear infinite}
+  @keyframes dmarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .dhero h1{font-family:'Noto Serif KR',serif; font-weight:600; font-size:clamp(38px,4.6vw,64px); line-height:1.3; letter-spacing:-.01em; max-width:800px}
+  .dhero p.dsub{margin-top:18px; font-size:16.5px; line-height:1.75; color:rgba(255,255,255,.82); max-width:540px; font-weight:400}
+  .dhero .dcta{margin-top:32px; display:flex; gap:14px}
+  .dhero .dcta a{padding:15px 30px; border-radius:100px; font-size:14.5px; font-weight:700; text-decoration:none; letter-spacing:.01em; transition:opacity .2s}
+  .dhero .dcta a:hover{opacity:.82}
+  .dhero .dcta a.dpri{background:var(--pri); color:#fff}
+  .dhero .dcta a.dgh{border:1.5px solid rgba(255,255,255,.55); color:#fff}
+  .dhero .dscroll{position:absolute; right:48px; bottom:30px; z-index:2; display:flex; flex-direction:column; align-items:center; gap:9px; color:rgba(255,255,255,.72); font-size:10.5px; letter-spacing:.2em}
+  .dhero .dscroll .ln{width:1px; height:40px; background:rgba(255,255,255,.5); animation:dscroll 1.9s ease-in-out infinite}
+  @keyframes dscroll{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.01%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  .dreveal{opacity:0; transform:translateY(30px)}
+}
 .viewer .vbot{display:flex; align-items:center; justify-content:space-between; padding:13px 18px calc(14px + var(--safe-b)); color:#fff}
 .viewer .vbot button{background:rgba(255,255,255,.16); border-radius:11px; padding:10px 18px; color:#fff; font-size:14.5px; font-weight:700}
 .viewer .vbot .cnt{font-size:13px; color:var(--sun)}
@@ -356,6 +391,8 @@ footer .sns a img{width:22px; height:22px; object-fit:contain}
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
