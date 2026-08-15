@@ -880,7 +880,7 @@ routes.support = () => `
 
 routes.login = () => me() ? routes.my() : `
   <section>
-    ${secHead("LOGIN", L({ ko: "로그인 · 간편 가입", en: "Log in / Sign up", zh: "登录·注册", ja: "ログイン·登録" }), L({ ko: "이메일로 가입하고, 소셜 로그인은 곧 연결됩니다.", en: "Sign up with email; social login coming soon.", zh: "邮箱注册，社交登录即将开通。", ja: "メール登録、ソーシャルは近日。" }))}
+    ${secHead("LOGIN", L({ ko: "로그인 · 간편 가입", en: "Log in / Sign up", zh: "登录·注册", ja: "ログイン·登録" }), L({ ko: "이메일로 가입하거나, 카카오·네이버·구글로 간편하게 시작하세요.", en: "Sign up with email, or start instantly with Kakao, NAVER or Google.", zh: "邮箱注册，或使用Kakao·NAVER·Google一键开始。", ja: "メール登録、またはKakao·NAVER·Googleで簡単に開始。" }))}
     <form class="form card" onsubmit="return doLogin(event)">
       <label>${L({ ko: "이메일", en: "Email", zh: "邮箱", ja: "メール" })}</label><input name="email" type="email" required>
       <label>${L({ ko: "비밀번호", en: "Password", zh: "密码", ja: "パスワード" })}</label><input name="pw" type="password" required>
