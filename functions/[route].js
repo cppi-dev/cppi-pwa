@@ -260,6 +260,8 @@ export async function onRequest(context) {
   const { params } = context;
   const route = String(params.route || "");
   const c = CONTENT[route];
-  if (!c) return new Response("Not found", { status: 404 });
+  /* 등록된 SEO 경로가 아니면 정적 자산(app.js, 이미지, 영상 등)으로 그대로 통과시킨다.
+     이 처리가 없으면 Functions가 모든 최상위 경로를 가로채 앱이 로드되지 않는다. */
+  if (!c) return context.next();
   return new Response(pageHTML(route, c), { headers: { "content-type": "text/html; charset=UTF-8", "cache-control": "public, max-age=300" } });
 }

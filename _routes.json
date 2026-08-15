@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "include": [
+    "/api/*",
+    "/about",
+    "/founder",
+    "/curriculum",
+    "/courses",
+    "/workshop",
+    "/master",
+    "/stories",
+    "/global",
+    "/learn",
+    "/store"
+  ],
+  "exclude": []
+}
