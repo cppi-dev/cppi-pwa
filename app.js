@@ -396,6 +396,96 @@ const chapterBand = (no, title, sub) => `
     <div class="cband-no">${esc(no)}</div>
   </div>`;
 const secHead = (eye, h, lead) => `<div class="eyebrow">${eye}</div><h2 class="sec">${h}</h2>${lead ? `<p class="lead">${lead}</p>` : ""}`;
+
+/* ---------- 데스크톱 전용 에디토리얼 홈 (1024px+) ----------
+   모바일 카드 대시보드(.mhome)는 그대로 두고, 넓은 화면에서만 이 레이아웃으로 대체.
+   콘텐츠·링크는 모바일판과 동일하며 표현 방식만 다르다.                              */
+function desktopHome() {
+  const curList = CURRICULUM.map((c, i) => {
+    const name = LANG === "ko" ? c.n.ko.split(" 10가지")[0].split(",")[0] : c.n.en.split(" - ")[0];
+    return `<a class="ed-cur-row" href="#curriculum">
+      <span class="n">${String(i + 1).padStart(2, "0")}</span>
+      <span class="t">${esc(name)}</span>
+      <span class="h">${esc(c.hrs)}${L({ ko: "시간", en: "h", zh: "小时", ja: "時間" })}</span>
+    </a>`;
+  }).join("");
+
+  return `
+  <div class="dhome">
+
+    ${chapterBand("01", L({ ko: "정규 자격과정", en: "CERTIFICATION" }), L({ ko: "기능해부학 · 8대 커리큘럼", en: "FUNCTIONAL ANATOMY · 8 COURSES" }))}
+
+    <section class="ed-split">
+      <div class="ed-media sreveal"><img src="img/curriculum_banner.jpg" alt="${esc(L({ ko: "CPPI 정규과정", en: "CPPI Certification" }))}"></div>
+      <div class="ed-body sreveal">
+        <div class="ed-eyebrow">ESSENTIAL CURRICULUM</div>
+        <h2 class="ed-h2">${L({ ko: "여덟 개의 과정,<br>하나의 기준", en: "Eight courses,<br>one standard", zh: "八门课程，<br>一个标准", ja: "八つの課程、<br>ひとつの基準" })}</h2>
+        <p class="ed-lead">${L({ ko: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다. 동작을 외우는 것이 아니라, 왜 그렇게 움직이는지 설명할 수 있는 강사를 길러냅니다.", en: "Every course is built on functional anatomy and medical evidence. We train instructors who can explain why the body moves - not merely memorize sequences.", zh: "所有课程均基于功能解剖学与医学循证设计。我们培养能解释身体为何如此运动的教练，而非死记动作。", ja: "全課程が機能解剖学と医学的根拠に基づき設計。動作を暗記するのではなく、なぜそう動くかを説明できる指導者を育てます。" })}</p>
+        <div class="ed-cur-list">${curList}</div>
+        <a class="ed-link" href="#curriculum">${L({ ko: "커리큘럼 자세히 보기", en: "View full curriculum", zh: "查看完整课程", ja: "カリキュラム詳細" })}</a>
+      </div>
+    </section>
+
+    <section class="ed-quad sreveal">
+      <a class="ed-quad-i" href="#about"><b>${L({ ko: "협회 소개", en: "About CPPI", zh: "协会介绍", ja: "協会紹介" })}</b><span>EST. 2016</span></a>
+      <a class="ed-quad-i" href="#members"><b>${L({ ko: "멤버스 · 수료강사", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>56+ CLASSES</span></a>
+      <a class="ed-quad-i" href="#support"><b>${L({ ko: "FAQ · 후기", en: "FAQ & Reviews", zh: "FAQ·评价", ja: "FAQ·口コミ" })}</b><span>SUPPORT</span></a>
+      <a class="ed-quad-i" href="#apply"><b>${L({ ko: "무료 상담 신청", en: "Free Consultation", zh: "免费咨询", ja: "無料相談" })}</b><span>1:1 SESSION</span></a>
+    </section>
+
+    ${chapterBand("02", L({ ko: "강의와 교재", en: "LECTURES & BOOKS" }), L({ ko: "출판교재 9권 · 온라인 복습", en: "9 PUBLISHED BOOKS · ONLINE REVIEW" }))}
+
+    <section class="ed-split rev">
+      <div class="ed-media sreveal"><img src="img/covers_fan.jpg" alt="${esc(L({ ko: "CPPI 출판교재", en: "CPPI textbooks" }))}" style="object-fit:contain;background:#fff"></div>
+      <div class="ed-body sreveal">
+        <div class="ed-eyebrow">TEXTBOOKS &amp; LECTURES</div>
+        <h2 class="ed-h2">${L({ ko: "1,300 페이지로<br>증명합니다", en: "Proven across<br>1,300 pages", zh: "以1,300页<br>加以证明", ja: "1,300ページで<br>証明します" })}</h2>
+        <p class="ed-lead">${L({ ko: "매트 53 · 리포머 79 · 캐딜락 62 · 체어 28 · 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39 동작. 배리에이션과 모디피케이션까지 출판교재 9권에 담았습니다.", en: "Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39 movements - with variations and modifications, across 9 published volumes.", zh: "垫上53·核心床79·凯迪拉克62·椅28·梯桶27·弧形桶29·脊柱矫正器39个动作，含变式与调整，收录于9册出版教材。", ja: "マット53·リフォーマー79·キャデラック62·チェア28·ラダーバレル27·アークバレル29·スパインコレクター39動作。バリエーションと修正法まで出版教材9冊に収録。" })}</p>
+        <div class="ed-inline-links">
+          <a href="#store">${L({ ko: "교재 미리보기 · 스토어", en: "Preview & Store", zh: "教材预览·商店", ja: "教材プレビュー·ストア" })}</a>
+          <a href="#learn">${L({ ko: "온라인 강의", en: "Online lectures", zh: "在线课程", ja: "オンライン講義" })}</a>
+        </div>
+      </div>
+    </section>
+
+    ${chapterBand("03", L({ ko: "워크숍과 멤버스", en: "WORKSHOP & MEMBERS" }), L({ ko: "심화 실습 · 수료강사 56기+", en: "INTENSIVE PRACTICE · 56+ CLASSES" }))}
+
+    <section class="ed-duo">
+      <a class="ed-tile sreveal" href="#workshop">
+        <img src="img/workshop_banner.jpg" alt="" style="object-position:50% 24%">
+        <div class="ov"><div class="ed-eyebrow light">WORKSHOP</div><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div>
+      </a>
+      <a class="ed-tile sreveal" href="#members">
+        <img src="img/members.jpg" alt="" style="object-position:50% 18%">
+        <div class="ov"><div class="ed-eyebrow light">MEMBERS</div><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", ja: "修了56期+名簿" })}</span></div>
+      </a>
+    </section>
+
+    ${chapterBand("04", L({ ko: "수료강사의 이야기", en: "GRADUATE STORIES" }), L({ ko: "현장에서 증명된 교육", en: "PROVEN IN THE FIELD" }))}
+
+    <section class="ed-stories">
+      <div class="ed-body narrow sreveal">
+        <div class="ed-eyebrow">STORIES</div>
+        <h2 class="ed-h2">${L({ ko: "교육의 증거는<br>현장에 있습니다", en: "The proof of teaching<br>lives in the field", zh: "教育的证据<br>在现场", ja: "教育の証拠は<br>現場にあります" })}</h2>
+      </div>
+      <div class="ed-story-strip sreveal">
+        ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="" loading="lazy"></a>`).join("")}
+      </div>
+      <a class="ed-link center sreveal" href="#stories">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", ja: "口コミをすべて見る" })}</a>
+    </section>
+
+    <section class="ed-closing sreveal">
+      <div class="ed-eyebrow light">FREE SESSION</div>
+      <h2 class="ed-h2 light">${L({ ko: "어떤 과정이 맞을지,<br>먼저 물어보세요", en: "Not sure which course<br>fits you? Just ask.", zh: "不确定哪门课程适合？<br>先来问问吧", ja: "どの課程が合うか、<br>まずご相談ください" })}</h2>
+      <p class="ed-lead light">${L({ ko: "커리큘럼 · 수료 후 활동 · 비용을 1:1로 안내드립니다.", en: "1:1 guidance on curriculum, career paths and cost.", zh: "1对1介绍课程、结业去向与费用。", ja: "カリキュラム・修了後・費用を1:1でご案内。" })}</p>
+      <div class="ed-closing-cta">
+        <a class="dpri" href="#apply">${L({ ko: "내게 맞는 과정 물어보기", en: "Find my right course", zh: "咨询适合我的课程", ja: "私に合う課程を相談" })}</a>
+        <a class="dgh" href="${NAVER_TALK}" target="_blank" rel="noopener">${L({ ko: "네이버 톡톡 상담", en: "Chat on NAVER TalkTalk", zh: "NAVER TalkTalk咨询", ja: "NAVERトークトーク相談" })}</a>
+      </div>
+    </section>
+
+  </div>`;
+}
 const tierBadge = (t) => `<span class="badge ${t === "free" ? "free" : t === "l2" ? "l2" : "l3"}">${L(UI.badge[t === "free" ? "free" : t])}</span>`;
 const bookCard = (b, i) => `<div class="bookcard">
   <img src="${COVER(b.slug)}" alt="${esc(L(b.t))}" loading="lazy" onclick="openViewer(${i})">
@@ -436,7 +526,10 @@ routes.home = () => `
     </div>
     <div class="dscroll"><span>SCROLL</span><span class="ln"></span></div>
   </div>
-  <section style="padding-top:14px">
+
+  ${desktopHome()}
+
+  <section class="mhome" style="padding-top:14px">
     <!-- Row 1 : 히어로(2) + 파운더(1) -->
     <div class="lay-hero">
       <a class="hcard big" href="#courses">
@@ -468,8 +561,6 @@ routes.home = () => `
       </button>
     </div>
 
-    ${chapterBand("01", L({ ko: "정규 자격과정", en: "CERTIFICATION" }), L({ ko: "기능해부학 · 8대 커리큘럼", en: "FUNCTIONAL ANATOMY · 8 COURSES" }))}
-
     <!-- Row 3 : 에센셜 커리큘럼 대형 박스 (오렌지-옐로우) + 8칩 -->
     <div class="curbox sreveal">
       <div class="curtop">
@@ -481,23 +572,17 @@ routes.home = () => `
       </div>
     </div>
 
-    ${chapterBand("02", L({ ko: "강의와 교재", en: "LECTURES & BOOKS" }), L({ ko: "출판교재 9권 · 온라인 복습", en: "9 PUBLISHED BOOKS · ONLINE REVIEW" }))}
-
     <!-- Row 4 : 온라인 강의 + 스토어 -->
     <div class="grid2 sreveal" style="margin-top:12px">
       <a class="card imgcard" href="#learn"><img src="frame1.jpg" alt=""><div class="cap"><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div></a>
       <a class="card imgcard" href="#store"><img src="img/covers_fan.jpg" alt="" style="object-fit:contain;background:#fff"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
     </div>
 
-    ${chapterBand("03", L({ ko: "워크숍과 멤버스", en: "WORKSHOP & MEMBERS" }), L({ ko: "심화 실습 · 수료강사 56기+", en: "INTENSIVE PRACTICE · 56+ CLASSES" }))}
-
     <!-- Row 5 : 전문 강사 워크숍 + 멤버스 -->
     <div class="grid2 sreveal" style="margin-top:12px">
       <a class="card imgcard" href="#workshop"><img src="img/workshop_banner.jpg" alt="" style="object-position:50% 24%"><div class="cap"><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div></a>
       <a class="card imgcard" href="#members"><img src="img/members.jpg" alt="" style="object-position:50% 18%"><div class="cap"><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", ja: "修了56期+名簿" })}</span></div></a>
     </div>
-
-    ${chapterBand("04", L({ ko: "수료강사의 이야기", en: "GRADUATE STORIES" }), L({ ko: "현장에서 증명된 교육", en: "PROVEN IN THE FIELD" }))}
 
     <!-- Row 5.5 : 수료강사 후기 (CPPI 자체 후기 카드) -->
     <div class="sreveal" style="margin-top:18px"><div class="eyebrow">REVIEWS</div><h2 class="sec">${L(UI.menu.stories)}</h2></div>
