@@ -151,8 +151,86 @@ export async function onRequest(context) {
         return new Response(null, { status: 302, headers: { location: origin + "/#my", ...setSid(t) } });
       }
 
-      /* --- 네이버 / 구글 (키 발급 후 활성화) --- */
-      return json({ error: "coming-soon", provider }, { status: 501 });
+      /* --- 네이버 --- */
+      if (provider === "naver") {
+        const KEY = env.NAVER_CLIENT_ID, SECRET = env.NAVER_CLIENT_SECRET;
+        if (!KEY || !SECRET) return json({ error: "no-key", hint: "환경변수 NAVER_CLIENT_ID / NAVER_CLIENT_SECRET 미설정" }, { status: 503 });
+
+        // 1) 로그인 시작 - 네이버 동의 화면으로 보냄
+        if (!code) {
+          const state = tok();
+          const auth = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${KEY}&redirect_uri=${encodeURIComponent(redirect)}&state=${state}`;
+          return Response.redirect(auth, 302);
+        }
+
+        // 2) code → 토큰
+        const state = url.searchParams.get("state") || "";
+        const tokUrl = `https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=${KEY}&client_secret=${SECRET}&code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`;
+        const tr = await fetch(tokUrl);
+        const tj = await tr.json();
+        if (!tj.access_token) return json({ error: "token-failed", detail: tj }, { status: 400 });
+
+        // 3) 사용자 정보
+        const ur = await fetch("https://openapi.naver.com/v1/nid/me", { headers: { authorization: "Bearer " + tj.access_token } });
+        const uj = await ur.json();
+        const info = uj.response || {};
+        const nid = String(info.id || "");
+        const email = (info.email || `naver_${nid}@social.cppipilates.com`).toLowerCase();
+        const nick = info.name || info.nickname || "네이버회원";
+
+        // 4) 회원 생성 또는 로그인 (이메일 기준 연동)
+        let u = await DB.prepare("SELECT * FROM users WHERE email=?").bind(email).first();
+        const t = tok();
+        if (!u) {
+          await DB.prepare("INSERT INTO users(nameKo,nameEn,email,phone,pw,grade,token,joined) VALUES(?,?,?,?,?,1,?,?)")
+            .bind(nick, "", email, info.mobile || "", "social:naver:" + nid, t, new Date().toISOString().slice(0, 10)).run();
+        } else {
+          await DB.prepare("UPDATE users SET token=? WHERE id=?").bind(t, u.id).run();
+        }
+        // 5) 앱으로 복귀 (세션 쿠키 세팅)
+        return new Response(null, { status: 302, headers: { location: origin + "/#my", ...setSid(t) } });
+      }
+
+      /* --- 구글 --- */
+      if (provider === "google") {
+        const KEY = env.GOOGLE_CLIENT_ID, SECRET = env.GOOGLE_CLIENT_SECRET;
+        if (!KEY || !SECRET) return json({ error: "no-key", hint: "환경변수 GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET 미설정" }, { status: 503 });
+
+        // 1) 로그인 시작 - 구글 동의 화면으로 보냄
+        if (!code) {
+          const auth = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${KEY}&redirect_uri=${encodeURIComponent(redirect)}&response_type=code&scope=${encodeURIComponent("openid email profile")}&prompt=select_account`;
+          return Response.redirect(auth, 302);
+        }
+
+        // 2) code → 토큰
+        const form = new URLSearchParams({ grant_type: "authorization_code", client_id: KEY, client_secret: SECRET, redirect_uri: redirect, code });
+        const tr = await fetch("https://oauth2.googleapis.com/token", {
+          method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: form
+        });
+        const tj = await tr.json();
+        if (!tj.access_token) return json({ error: "token-failed", detail: tj }, { status: 400 });
+
+        // 3) 사용자 정보
+        const ur = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers: { authorization: "Bearer " + tj.access_token } });
+        const uj = await ur.json();
+        const gid = String(uj.sub || "");
+        const email = (uj.email || `google_${gid}@social.cppipilates.com`).toLowerCase();
+        const nick = uj.name || "구글회원";
+
+        // 4) 회원 생성 또는 로그인 (이메일 기준 연동)
+        let u = await DB.prepare("SELECT * FROM users WHERE email=?").bind(email).first();
+        const t = tok();
+        if (!u) {
+          await DB.prepare("INSERT INTO users(nameKo,nameEn,email,phone,pw,grade,token,joined) VALUES(?,?,?,?,?,1,?,?)")
+            .bind(nick, "", email, "", "social:google:" + gid, t, new Date().toISOString().slice(0, 10)).run();
+        } else {
+          await DB.prepare("UPDATE users SET token=? WHERE id=?").bind(t, u.id).run();
+        }
+        // 5) 앱으로 복귀 (세션 쿠키 세팅)
+        return new Response(null, { status: 302, headers: { location: origin + "/#my", ...setSid(t) } });
+      }
+
+      return json({ error: "unknown-provider", provider }, { status: 400 });
     }
 
     return json({ error: "not-found" }, { status: 404 });

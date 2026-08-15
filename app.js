@@ -815,8 +815,8 @@ routes.login = () => me() ? routes.my() : `
     </form>
     <div class="orline">${L({ ko: "또는 간편하게", en: "or continue with", zh: "或使用", ja: "または" })}</div>
     <button class="socialbtn kakao" onclick="socialLogin('kakao')">${L({ ko: "카카오로 계속하기", en: "Continue with Kakao", zh: "使用Kakao继续", ja: "Kakaoで続ける" })}</button>
-    <button class="socialbtn naver" onclick="socialStub('NAVER')">${L({ ko: "네이버로 계속하기", en: "Continue with NAVER", zh: "使用NAVER继续", ja: "NAVERで続ける" })}</button>
-    <button class="socialbtn google" onclick="socialStub('Google')">${L({ ko: "구글로 계속하기", en: "Continue with Google", zh: "使用Google继续", ja: "Googleで続ける" })}</button>
+    <button class="socialbtn naver" onclick="socialLogin('naver')">${L({ ko: "네이버로 계속하기", en: "Continue with NAVER", zh: "使用NAVER继续", ja: "NAVERで続ける" })}</button>
+    <button class="socialbtn google" onclick="socialLogin('google')">${L({ ko: "구글로 계속하기", en: "Continue with Google", zh: "使用Google继续", ja: "Googleで続ける" })}</button>
   </section>`;
 
 routes.signup = () => `
