@@ -286,9 +286,36 @@ function go(h) { location.hash = h; }
 window.addEventListener("hashchange", render);
 function currentRoute() { return (location.hash || "#home").replace("#", "").split("/")[0]; }
 function subRoute() { return (location.hash || "").split("/")[1] || ""; }
+/* ---------- Renewal v1: 라우트별 SEO 메타 (GEO/SEO 보강, 해시라우팅 한계 내 최선) ---------- */
+const ROUTE_META = {
+  about: { t: { ko: "협회 소개", en: "About CPPI" }, d: { ko: "감각이 아니라 근거로 가르치는 CPPI 한국 필라테스 교육협회 - EST.2016, 한국·캐나다·일본 글로벌 운영, 분당서울대병원 임상 기반 커리큘럼.", en: "About CPPI Korea - evidence-based Pilates education since 2016, operating in Korea, Canada and Japan, built on SNUH Bundang clinical experience." } },
+  founder: { t: { ko: "박은주 교수 - 파운더", en: "Prof. Eun-Ju Park - Founder" }, d: { ko: "분당서울대병원 척추·관절센터 임상 경험과 나사렛대 강단 경력을 지닌 CPPI 창립자 박은주 교수의 전체 프로필.", en: "Founder profile - clinical and academic credentials of Prof. Eun-Ju Park, founder of CPPI Korea." } },
+  curriculum: { t: { ko: "정규과정 에센셜 커리큘럼", en: "CPPI Essential Curriculum" }, d: { ko: "기능해부학과 의학적 근거 위에 설계된 CPPI 정규과정 8대 커리큘럼 - 매트·리포머·캐딜락·체어·바렐 시리즈 상세 안내.", en: "8 core courses of the CPPI certification, built on functional anatomy and medical evidence." } },
+  courses: { t: { ko: "교육 안내 - CPPI 필라테스 자격과정", en: "CPPI Pilates Certification Course Guide" }, d: { ko: "이론+실기+티칭실습 중심의 CPPI 국제 필라테스 강사 자격과정 안내. 마스터 강사진, 수료 혜택, 모집 정보.", en: "CPPI's theory + practice + teaching-focused international Pilates instructor certification." } },
+  workshop: { t: { ko: "전문 강사 워크숍", en: "CPPI Workshops" }, d: { ko: "현직 강사·재활 종사자를 위한 단기 심화 실습 워크숍 - 리커버링 재활, 임산부, 소도구 필라테스 과정.", en: "Short intensive workshops for active instructors and rehab professionals." } },
+  master: { t: { ko: "마스터 강사진", en: "Master Instructors" }, d: { ko: "엄격한 심화교육과 프레젠터 스피치 과정을 거친 CPPI 마스터 인스트럭터를 소개합니다.", en: "Meet CPPI's master instructors, trained through rigorous advanced education." } },
+  stories: { t: { ko: "수료강사 후기", en: "Graduate Stories" }, d: { ko: "CPPI와 함께 성장한 수료강사들의 생생한 후기와 56기 이상의 수료강사 명단.", en: "Real stories and the graduates directory from CPPI alumni." } },
+  global: { t: { ko: "글로벌 운영 - 한국·캐나다·일본", en: "Global - Korea, Canada, Japan" }, d: { ko: "CPPI는 한국-캐나다-일본에서 교육을 운영합니다. 지역별 교육센터와 운영 현황 안내.", en: "CPPI operates education programs in Korea, Canada and Japan." } },
+  learn: { t: { ko: "온라인 강의", en: "Online Lectures" }, d: { ko: "정규과정 온라인 강의, 척추 필라테스 어프로치, 무브먼트 테라피 등 CPPI 복습 영상 안내.", en: "CPPI's online lecture library - certification review, spine approach and movement therapy." } },
+  store: { t: { ko: "스토어 - 교재·수강권", en: "Store - Textbooks & Passes" }, d: { ko: "CPPI 출판교재 9권, 전자책, 수강권을 미리보기와 함께 만나보세요.", en: "CPPI's published textbooks, e-books and course passes with previews." } },
+};
+const _DEFAULT_TITLE = document.title;
+const _DEFAULT_DESC = document.querySelector('meta[name="description"]')?.content || "";
+function updateMeta(r) {
+  const m = ROUTE_META[r];
+  const title = m ? `${L(m.t)} | CPPI 한국 필라테스 교육협회` : _DEFAULT_TITLE;
+  const desc = m ? L(m.d) : _DEFAULT_DESC;
+  document.title = title;
+  const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
+  set('meta[name="description"]', "content", desc);
+  set('meta[property="og:title"]', "content", title);
+  set('meta[property="og:description"]', "content", desc);
+}
+
 function render() {
   const r = currentRoute();
   $("#view").innerHTML = (routes[r] || routes.home)();
+  updateMeta(r);
   const tabMap = { home: "home", learn: "learn", lecture: "learn", prep: "learn", courses: "courses", curriculum: "courses", workshop: "courses", master: "courses", store: "store", books: "store", ebooks: "store", guide: "store", checkout: "store", bank: "store", my: "my", login: "my", signup: "my" };
   document.querySelectorAll(".tabbar a").forEach(a => {
     a.textContent = L(UI.tabs[a.dataset.tab]);
