@@ -459,12 +459,14 @@ routes.global = () => `
   <section>
     ${secHead("GLOBAL", L(UI.menu.global), L({ ko: "CPPI는 한국 - 캐나다 - 일본에서 교육을 운영합니다.", en: "CPPI operates in Korea, Canada and Japan.", zh: "CPPI在韩国、加拿大和日本开展教育。", ja: "CPPIは韓国・カナダ・日本で教育を運営しています。" }))}
     <img src="img/global_map.jpg" alt="Global" style="border-radius:14px;margin-bottom:12px">
+    <div class="global-grid">
     <div class="card" style="margin-bottom:9px"><b>${L({ ko: "대한민국 KOREA", en: "KOREA", zh: "韩国 KOREA", ja: "韓国 KOREA" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "분당 · 서울 · 김포 교육센터 운영.", en: "Education centers in Bundang, Seoul and Gimpo.", zh: "运营盆唐、首尔、金浦教育中心。", ja: "盆唐・ソウル・金浦の教育センターを運営。" })}<br>${L({ ko: "정규과정 · 워크숍 · 자격검정 진행.", en: "Certification courses, workshops and assessments.", zh: "进行正规课程·工作坊·资格检定。", ja: "正規課程・ワークショップ・検定を実施。" })}</p></div>
     <div class="card" style="margin-bottom:9px"><b>${L({ ko: "캐나다 CANADA", en: "CANADA", zh: "加拿大 CANADA", ja: "カナダ CANADA" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "밴쿠버 - 팬데믹 기간에도 온라인 병행으로 교육을 지속했습니다.", en: "Vancouver - education continued online through the pandemic.", zh: "温哥华 - 疫情期间线上持续教学。", ja: "バンクーバー - パンデミック期間もオンラインで継続。" })}</p></div>
     <div class="card" style="margin-bottom:12px"><b>${L({ ko: "일본 JAPAN", en: "JAPAN", zh: "日本 JAPAN", ja: "日本 JAPAN" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "도쿄 - 국제 자격 대응 인스트럭터 양성 과정 운영.", en: "Tokyo - instructor training aligned with international certification.", zh: "东京 - 运营国际资格对应教练课程。", ja: "東京 - 国際資格対応の養成コースを運営。" })}</p></div>
+    </div>
     <a class="btn pri" href="#apply">${L(UI.btn.consult)}</a>
   </section>`;
 
@@ -472,7 +474,7 @@ const REVIEW_IMGS = 11; // CPPI 자체 후기 카드 (reviews/r1~r11.jpg)
 routes.stories = () => `
   <section>
     ${secHead("STORIES", L(UI.menu.stories), L({ ko: "CPPI와 함께 성장한 수료강사들의 생생한 이야기입니다.", en: "Real stories from CPPI graduates.", zh: "与CPPI共同成长的结业教练心声。", ja: "CPPIと共に成長した修了講師のリアルな声。" }))}
-    <div class="grid2">
+    <div class="grid2 reviews-grid">
       ${Array.from({ length: REVIEW_IMGS }, (_, i) => `<img src="reviews/r${i + 1}.jpg" alt="CPPI graduate review ${i + 1}" loading="lazy" style="border-radius:12px;border:1px solid var(--line)">`).join("")}
     </div>
     <div style="height:18px"></div>
@@ -568,6 +570,7 @@ routes.curriculum = () => `
   <section>
     ${secHead("CURRICULUM", L({ ko: "CPPI 정규과정 에센셜 커리큘럼", en: "CPPI Essential Curriculum", zh: "CPPI正规课程核心课程", ja: "CPPI正規課程エッセンシャル" }), L({ ko: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다.", en: "Every course is built on functional anatomy and medical evidence.", zh: "所有课程均基于功能解剖学与医学循证设计。", ja: "全課程が機能解剖学と医学的根拠に基づき設計。" }))}
     <img src="img/curriculum_banner.jpg" alt="" style="border-radius:14px;margin-bottom:12px">
+    <div class="curriculum-list">
     ${CURRICULUM.map((c, i) => `<div class="card" style="margin-bottom:10px">
       <div style="display:flex;gap:12px">
         <img src="covers/${c.slug}.jpg" alt="" style="width:76px;min-width:76px;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:8px;border:1px solid var(--line)">
@@ -580,6 +583,7 @@ routes.curriculum = () => `
         ${c.slug !== "analysis" ? `<button class="btn ghost small" onclick="openViewer(${BOOKS.findIndex(b => b.slug === c.slug)})">${L(UI.btn.preview)}</button>` : ""}
         <a class="btn ghost small" href="#prep">${L(UI.menu.learn)}</a>
       </div></div>`).join("")}
+    </div>
     <a class="btn pri" href="#apply">${L(UI.btn.consult)}</a>
   </section>`;
 

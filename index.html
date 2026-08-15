@@ -339,6 +339,20 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .note{font-size:13.5px; padding:16px 18px}
   .grid3{gap:12px}
   .cohort-grid{grid-template-columns:repeat(8,1fr); gap:10px}
+
+  /* 커리큘럼 8과목 - 1열 나열 대신 2열 그리드로 */
+  .curriculum-list{display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start}
+  .curriculum-list .card{margin-bottom:0 !important}
+
+  /* 글로벌 3개국 카드 - 세로 나열 대신 3열 */
+  .global-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px}
+  .global-grid .card{margin-bottom:0 !important; height:100%}
+
+  /* 후기 이미지 - 2열은 너무 크게 늘어지므로 4열로 */
+  .reviews-grid{grid-template-columns:repeat(4,1fr); gap:14px}
+
+  /* 온라인강의 페이지 - object-fit:contain 카드가 좌우 여백만 남기던 문제 보정 */
+  .imgcard.fit img{ object-fit:cover; aspect-ratio:21/9; background:none }
 }
 .viewer .vbot{display:flex; align-items:center; justify-content:space-between; padding:13px 18px calc(14px + var(--safe-b)); color:#fff}
 .viewer .vbot button{background:rgba(255,255,255,.16); border-radius:11px; padding:10px 18px; color:#fff; font-size:14.5px; font-weight:700}
