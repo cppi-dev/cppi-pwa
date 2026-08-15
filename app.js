@@ -455,8 +455,18 @@ routes.stories = () => `
 
 routes.about = () => `
   <section>
-    ${secHead("ABOUT CPPI", L({ ko: "감각이 아니라 근거로 가르칩니다", en: "We teach with evidence, not intuition", zh: "以循证教学，而非凭感觉", ja: "感覚ではなく根拠で教えます" }), "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor")}
-    <img src="img/medical_banner.jpg" alt="" style="border-radius:14px;margin-bottom:12px">
+    <div class="dsplit dreveal">
+      <img src="img/founder_studio.jpg" alt="CPPI 교육 현장">
+      <div class="dtxt">
+        <div class="eyebrow">ABOUT CPPI</div>
+        <h1>${L({ ko: "감각이 아니라,<br>근거로 가르칩니다", en: "We teach with<br>evidence, not intuition", zh: "以循证教学，<br>而非凭感觉", ja: "感覚ではなく、<br>根拠で教えます" })}</h1>
+        <p class="dlead">${L({ ko: "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor. EST. 2016 · 한국-캐나다-일본 글로벌 운영.", en: "Korea Pilates Education Association (CPPI Korea) · Certified Professional Pilates Instructor. EST. 2016 · Korea-Canada-Japan.", zh: "韩国普拉提教育协会 (CPPI Korea)。2016年创立 · 韩加日全球运营。", ja: "韓国ピラティス教育協会 (CPPI Korea)。2016年設立 · 韓国-カナダ-日本で運営。" })}</p>
+      </div>
+    </div>
+    <div class="monly">
+      ${secHead("ABOUT CPPI", L({ ko: "감각이 아니라 근거로 가르칩니다", en: "We teach with evidence, not intuition", zh: "以循证教学，而非凭感觉", ja: "感覚ではなく根拠で教えます" }), "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor")}
+      <img src="img/medical_banner.jpg" alt="" style="border-radius:14px;margin-bottom:12px">
+    </div>
     <div class="card" style="margin-bottom:10px"><b>${L({ ko: "협회 개요", en: "Overview", zh: "协会概要", ja: "協会概要" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "EST. 2016 · 2년 집중개발로 교과정 완성 · 한국-캐나다-일본 글로벌 운영. 8개 정규 과정, 총 1,300여 페이지의 출판교재(9권+부교재)로 교육합니다.", en: "EST. 2016 · Curriculum built over 2 years · Korea-Canada-Japan. 8 core courses taught with 1,300+ pages of published textbooks." }))}</p></div>
     <div class="card" style="margin-bottom:10px"><b>${L({ ko: "동작 매뉴얼", en: "Movement Manual", zh: "动作手册", ja: "動作マニュアル" })}</b>
@@ -483,8 +493,18 @@ const FOUNDER_CERTS = ["STOTT PILATES : IMP / IR / ICCB / AMP / AR / RMR1", "ISP
 
 routes.founder = () => `
   <section>
-    ${secHead("FOUNDER", L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", ja: "パク・ウンジュ教授" }), L({ ko: "최상위 교육자 - 의료·대학이 검증한, 타협 없는 프로필을 요약 없이 공개합니다.", en: "The full, uncompromised profile - clinically and academically verified.", zh: "顶级教育者 - 医疗与大学验证的完整履历。", ja: "医療·大学が検証した妥協なきプロフィールを全公開。" }))}
-    <img src="img/founder_photo.jpg" alt="박은주 교수" style="border-radius:14px;margin-bottom:12px">
+    <div class="dsplit dreveal">
+      <img src="img/founder_photo.jpg" alt="박은주 교수">
+      <div class="dtxt">
+        <div class="eyebrow">FOUNDER</div>
+        <h1>${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", ja: "パク・ウンジュ教授" })}</h1>
+        <p class="dlead">${L({ ko: "최상위 교육자 - 의료·대학이 검증한, 타협 없는 프로필을 요약 없이 공개합니다.", en: "The full, uncompromised profile - clinically and academically verified.", zh: "顶级教育者 - 医疗与大学验证的完整履历。", ja: "医療·大学が検証した妥協なきプロフィールを全公開。" })}</p>
+      </div>
+    </div>
+    <div class="monly">
+      ${secHead("FOUNDER", L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", ja: "パク・ウンジュ教授" }), L({ ko: "최상위 교육자 - 의료·대학이 검증한, 타협 없는 프로필을 요약 없이 공개합니다.", en: "The full, uncompromised profile - clinically and academically verified.", zh: "顶级教育者 - 医疗与大学验证的完整履历。", ja: "医療·大学が検証した妥協なきプロフィールを全公開。" }))}
+      <img src="img/founder_photo.jpg" alt="박은주 교수" style="border-radius:14px;margin-bottom:12px">
+    </div>
     <div class="card" style="margin-bottom:10px;background:var(--tint)">
       <b>${L({ ko: "왜 '진짜'는 흉내 낼 수 없는가", en: "Why the real thing can't be imitated", zh: "为何'真材实料'无法模仿", ja: "なぜ「本物」は真似できないのか" })}</b>
       <p style="font-size:13.5px;margin-top:6px">${br(L({ ko: "필라테스 분야에서 서울대병원 임상경험과 전문연수를 함께 보유한 이력은 국내에서 찾기 어렵습니다. 척추·관절센터 임상과 대학 강단을 모두 거친 창립자가 직접 가르칩니다.", en: "Few in Korean Pilates hold both Seoul National University Hospital (SNUH) clinical experience and professional training. The founder teaches directly." }))}</p>
