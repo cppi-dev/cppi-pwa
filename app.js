@@ -463,11 +463,18 @@ function desktopHome() {
         <div class="ed-eyebrow">TEXTBOOKS &amp; LECTURES</div>
         <h2 class="ed-h2">${L({ ko: "1,300 페이지로<br>증명합니다", en: "Proven across<br>1,300 pages", zh: "以1,300页<br>加以证明", ja: "1,300ページで<br>証明します" })}</h2>
         <p class="ed-lead">${L({ ko: "매트 53 · 리포머 79 · 캐딜락 62 · 체어 28 · 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39 동작. 배리에이션과 모디피케이션까지 출판교재 9권에 담았습니다.", en: "Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39 movements - with variations and modifications, across 9 published volumes.", zh: "垫上53·核心床79·凯迪拉克62·椅28·梯桶27·弧形桶29·脊柱矫正器39个动作，含变式与调整，收录于9册出版教材。", ja: "マット53·リフォーマー79·キャデラック62·チェア28·ラダーバレル27·アークバレル29·スパインコレクター39動作。バリエーションと修正法まで出版教材9冊に収録。" })}</p>
-        <div class="ed-inline-links">
-          <a href="#store">${L({ ko: "교재 미리보기 · 스토어", en: "Preview & Store", zh: "教材预览·商店", ja: "教材プレビュー·ストア" })}</a>
-          <a href="#learn">${L({ ko: "온라인 강의", en: "Online lectures", zh: "在线课程", ja: "オンライン講義" })}</a>
-        </div>
       </div>
+    </section>
+
+    <section class="ed-duo">
+      <a class="ed-tile sreveal" href="#learn">
+        <img src="frame1.jpg" alt="">
+        <div class="ov"><div class="ed-eyebrow light">ONLINE LECTURES</div><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div>
+      </a>
+      <a class="ed-tile sreveal" href="#store">
+        <img src="img/covers_fan.jpg" alt="" style="object-fit:contain;background:#fff">
+        <div class="ov"><div class="ed-eyebrow light">STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
+      </a>
     </section>
 
     ${chapterBand("03", L({ ko: "워크숍과 멤버스", en: "WORKSHOP & MEMBERS" }), L({ ko: "심화 실습 · 수료강사 56기+", en: "INTENSIVE PRACTICE · 56+ CLASSES" }))}
