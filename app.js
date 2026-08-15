@@ -16,7 +16,7 @@ const PG = { naver: "", kakao: "" }; // 간편결제 링크 - 연동 후 입력,
 const ADMIN_PASS = "cppi-4292";
 const NAVER_TALK = "https://talk.naver.com/profile/c/cppi"; // 네이버 톡톡 상담
 /* 히어로 영상: 접속 시마다 랜덤 재생 */
-const HEROS = ["hero1.mp4", "hero2.mp4", "hero3.mp4", "hero4.mp4"];
+const HEROS = ["hero1.mp4", "hero2.mp4", "hero3.mp4"];
 const heroSrc = () => HEROS[Math.floor(Math.random() * HEROS.length)];
 /* 브랜드 지침: "Redeem your Body" 문구 사용 금지 · 이모티콘 사용 금지 · '—' 대신 '-' */
 
@@ -575,7 +575,7 @@ function showCohort(i) {
 routes.home = () => `
   <div class="xhero">
     <div class="xhero-stage">
-      <img class="xhero-bg" src="img/curriculum_banner.jpg" alt="">
+      <img class="xhero-bg" src="img/hero_bg.jpg" alt="CPPI 교육 현장 - 박은주 교수 지도 장면">
       <div class="xhero-box">
         <video id="xheroVid" src="${HEROS[0]}" poster="hero-poster.jpg" autoplay muted playsinline preload="auto"></video>
         <div class="xhero-veil"></div>

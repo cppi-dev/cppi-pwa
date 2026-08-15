@@ -1,18 +1,18 @@
 /* CPPI PWA Service Worker v4 — 전체 오프라인 캐싱 */
-const CACHE = "cppi-v7";
+const CACHE = "cppi-v8";
 
 /* 교재 미리보기 전체 (9권 × 13p) */
 const BOOK_SLUGS = ["anatomy", "principle", "mat", "reformer", "cadillac", "chair", "lbarrel", "abarrel", "scorrector"];
 const BOOK_IMGS = BOOK_SLUGS.flatMap(s => Array.from({ length: 13 }, (_, i) => `./books/${s}/p${String(i + 1).padStart(2, "0")}.jpg`));
 const COVERS = ["anatomy","principle","analysis","mat","reformer","cadillac","chair","lbarrel","spine"].map(s => `./covers/${s}.jpg`);
-const HOMEIMG = ["covers_fan","logo3d","curriculum_banner","medical_banner","courses_banner","workshop_banner","global_map","cert_real","founder_photo","founder_face","members","convention","ic_instagram","ic_youtube","ic_liinks"].map(n => `./img/${n}.jpg`).map(p => p.startsWith("./img/ic_") ? p.replace(".jpg", ".png") : p);
+const HOMEIMG = ["hero_bg","covers_fan","logo3d","curriculum_banner","medical_banner","courses_banner","workshop_banner","global_map","cert_real","founder_photo","founder_face","members","convention","ic_instagram","ic_youtube","ic_liinks"].map(n => `./img/${n}.jpg`).map(p => p.startsWith("./img/ic_") ? p.replace(".jpg", ".png") : p);
 const REVIEWS = Array.from({ length: 11 }, (_, i) => `./reviews/r${i + 1}.jpg`);
 const PROPS = ["foam_cover","circle_cover","bosu_cover","foam1","foam2","circle1","circle2","bosu1","bosu2"].map(n => `./props/${n}.jpg`);
 
 const CORE = [
   "./", "./index.html", "./app.js", "./manifest.webmanifest",
   "./logo.png", "./logo_header.png", "./logo_light.png",
-  "./hero1.mp4", "./hero2.mp4", "./hero3.mp4", "./hero4.mp4", "./hero-poster.jpg", "./frame1.jpg", "./frame2.jpg",
+  "./hero1.mp4", "./hero-poster.jpg", "./frame1.jpg", "./frame2.jpg",
   "./icons/icon-192.png", "./icons/icon-512.png",
   "./masters/minseo.jpg", "./masters/cheongah.jpg", "./masters/heejung.jpg", "./masters/hwyhyang.jpg",
   ...BOOK_IMGS, ...COVERS, ...HOMEIMG, ...PROPS, ...REVIEWS,
