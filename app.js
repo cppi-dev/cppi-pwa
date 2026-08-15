@@ -327,22 +327,74 @@ function render() {
   initDesktopFX();
 }
 
-/* ---------- Renewal v1: 데스크톱 스크롤 연출 (1024px+, GSAP 없으면 조용히 무시) ---------- */
-let _dfxTriggers = [];
+/* ---------- Renewal v2: 데스크톱 스크롤 연출 (1024px+, GSAP 없으면 조용히 무시) ----------
+   1) .dreveal  - 진입 즉시 페이드업 (히어로/인트로용)
+   2) .sreveal  - 스크롤로 뷰포트에 들어올 때 페이드업
+   3) .cband    - 챕터 전환 배너: 스크롤 진행에 따라 텍스트가 가로로 흐름
+   4) 히어로 영상 - 스크롤에 따라 미세한 시차(패럴랙스)
+   접근성: prefers-reduced-motion 사용자는 애니메이션 없이 즉시 표시                        */
 function initDesktopFX() {
-  if (typeof gsap === "undefined" || !window.matchMedia("(min-width:1024px)").matches) return;
+  const desktop = window.matchMedia("(min-width:1024px)").matches;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (typeof gsap === "undefined" || !desktop || reduced) {
+    document.querySelectorAll(".dreveal,.sreveal").forEach(el => { el.style.opacity = "1"; el.style.transform = "none"; });
+    return;
+  }
   gsap.registerPlugin(ScrollTrigger);
-  _dfxTriggers.forEach(t => t.kill());
-  _dfxTriggers = [];
-  const els = document.querySelectorAll(".dreveal");
-  if (!els.length) return;
-  gsap.set(els, { opacity: 0, y: 30 });
-  gsap.to(els, {
-    opacity: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.12, delay: 0.15
+  ScrollTrigger.getAll().forEach(t => t.kill());
+
+  // 1) 인트로 즉시 리빌
+  const intro = document.querySelectorAll(".dreveal");
+  if (intro.length) {
+    gsap.set(intro, { opacity: 0, y: 30 });
+    gsap.to(intro, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.12, delay: 0.15 });
+  }
+
+  // 2) 스크롤 리빌
+  document.querySelectorAll(".sreveal").forEach(el => {
+    gsap.set(el, { opacity: 0, y: 44 });
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: 1, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" },
+    });
   });
+
+  // 3) 챕터 밴드 - 스크롤 진행에 비례해 텍스트가 흐름
+  document.querySelectorAll(".cband").forEach(band => {
+    const track = band.querySelector(".cband-track span");
+    if (!track) return;
+    gsap.fromTo(track, { xPercent: 4 }, {
+      xPercent: -36, ease: "none",
+      scrollTrigger: { trigger: band, start: "top bottom", end: "bottom top", scrub: 0.6 },
+    });
+    const no = band.querySelector(".cband-no");
+    if (no) {
+      gsap.fromTo(no, { opacity: 0, y: 20 }, {
+        opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+        scrollTrigger: { trigger: band, start: "top 85%", toggleActions: "play none none reverse" },
+      });
+    }
+  });
+
+  // 4) 히어로 영상 패럴랙스
+  const heroVid = document.querySelector(".dhero video");
+  if (heroVid) {
+    gsap.to(heroVid, {
+      yPercent: 12, ease: "none",
+      scrollTrigger: { trigger: ".dhero", start: "top top", end: "bottom top", scrub: true },
+    });
+  }
+
+  ScrollTrigger.refresh();
 }
 
 /* ---------- 8) 공통 조각 ---------- */
+/* 챕터 밴드 - 데스크톱에서만 보이는 섹션 전환 배너 (스크롤에 따라 텍스트가 가로로 흐름) */
+const chapterBand = (no, title, sub) => `
+  <div class="cband" data-ch="${esc(no)}">
+    <div class="cband-track"><span>${Array(3).fill(`${esc(title)} <em>/</em> ${esc(sub)} <em>/</em> `).join("")}</span></div>
+    <div class="cband-no">${esc(no)}</div>
+  </div>`;
 const secHead = (eye, h, lead) => `<div class="eyebrow">${eye}</div><h2 class="sec">${h}</h2>${lead ? `<p class="lead">${lead}</p>` : ""}`;
 const tierBadge = (t) => `<span class="badge ${t === "free" ? "free" : t === "l2" ? "l2" : "l3"}">${L(UI.badge[t === "free" ? "free" : t])}</span>`;
 const bookCard = (b, i) => `<div class="bookcard">
@@ -416,8 +468,10 @@ routes.home = () => `
       </button>
     </div>
 
+    ${chapterBand("01", L({ ko: "정규 자격과정", en: "CERTIFICATION" }), L({ ko: "기능해부학 · 8대 커리큘럼", en: "FUNCTIONAL ANATOMY · 8 COURSES" }))}
+
     <!-- Row 3 : 에센셜 커리큘럼 대형 박스 (오렌지-옐로우) + 8칩 -->
-    <div class="curbox">
+    <div class="curbox sreveal">
       <div class="curtop">
         <b>${L({ ko: "CPPI 정규과정 에센셜 커리큘럼", en: "CPPI Essential Curriculum", zh: "CPPI核心课程", ja: "CPPIエッセンシャルカリキュラム" })}</b>
         <a href="#curriculum">${L({ ko: "안내 보기", en: "View", zh: "查看", ja: "見る" })} →</a>
@@ -427,27 +481,33 @@ routes.home = () => `
       </div>
     </div>
 
+    ${chapterBand("02", L({ ko: "강의와 교재", en: "LECTURES & BOOKS" }), L({ ko: "출판교재 9권 · 온라인 복습", en: "9 PUBLISHED BOOKS · ONLINE REVIEW" }))}
+
     <!-- Row 4 : 온라인 강의 + 스토어 -->
-    <div class="grid2" style="margin-top:12px">
+    <div class="grid2 sreveal" style="margin-top:12px">
       <a class="card imgcard" href="#learn"><img src="frame1.jpg" alt=""><div class="cap"><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div></a>
       <a class="card imgcard" href="#store"><img src="img/covers_fan.jpg" alt="" style="object-fit:contain;background:#fff"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
     </div>
 
+    ${chapterBand("03", L({ ko: "워크숍과 멤버스", en: "WORKSHOP & MEMBERS" }), L({ ko: "심화 실습 · 수료강사 56기+", en: "INTENSIVE PRACTICE · 56+ CLASSES" }))}
+
     <!-- Row 5 : 전문 강사 워크숍 + 멤버스 -->
-    <div class="grid2" style="margin-top:12px">
+    <div class="grid2 sreveal" style="margin-top:12px">
       <a class="card imgcard" href="#workshop"><img src="img/workshop_banner.jpg" alt="" style="object-position:50% 24%"><div class="cap"><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div></a>
       <a class="card imgcard" href="#members"><img src="img/members.jpg" alt="" style="object-position:50% 18%"><div class="cap"><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", ja: "修了56期+名簿" })}</span></div></a>
     </div>
 
+    ${chapterBand("04", L({ ko: "수료강사의 이야기", en: "GRADUATE STORIES" }), L({ ko: "현장에서 증명된 교육", en: "PROVEN IN THE FIELD" }))}
+
     <!-- Row 5.5 : 수료강사 후기 (CPPI 자체 후기 카드) -->
-    <div style="margin-top:18px"><div class="eyebrow">REVIEWS</div><h2 class="sec">${L(UI.menu.stories)}</h2></div>
-    <div class="rev-strip">
+    <div class="sreveal" style="margin-top:18px"><div class="eyebrow">REVIEWS</div><h2 class="sec">${L(UI.menu.stories)}</h2></div>
+    <div class="rev-strip sreveal">
       ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="" loading="lazy"></a>`).join("")}
     </div>
     <a class="btn ghost" href="#stories" style="margin-top:10px">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", ja: "口コミをすべて見る" })}</a>
 
     <!-- Row 6 : 무료 상담 배너 -->
-    <div class="card" style="background:linear-gradient(135deg,var(--acc),var(--sun));text-align:center;margin-top:16px;border:none">
+    <div class="card sreveal" style="background:linear-gradient(135deg,var(--acc),var(--sun));text-align:center;margin-top:16px;border:none">
       <div class="eyebrow" style="color:#7A4A12">FREE SESSION</div>
       <h2 class="sec" style="color:#5A3410">${L(UI.btn.consult)}</h2>
       <p style="font-size:13.5px;color:#6E521A;margin-bottom:14px">${L({ ko: "커리큘럼 · 수료 후 활동 · 비용을 1:1로 안내드립니다.", en: "1:1 guidance on curriculum, career paths and cost.", zh: "1对1介绍课程、结业去向与费用。", ja: "カリキュラム・修了後・費用を1:1でご案内。" })}</p>

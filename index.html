@@ -354,6 +354,31 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   /* 온라인강의 페이지 - object-fit:contain 카드가 좌우 여백만 남기던 문제 보정 */
   .imgcard.fit img{ object-fit:cover; aspect-ratio:21/9; background:none }
 }
+
+/* ---------- 챕터 전환 밴드 (데스크톱 전용) ---------- */
+.cband{display:none}
+@media(min-width:1024px){
+  .cband{
+    display:block; position:relative; margin:96px calc(50% - 50vw) 56px; width:100vw;
+    padding:34px 0 30px; overflow:hidden;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#FFF8F1 0%,var(--bg) 100%);
+  }
+  .cband-track{white-space:nowrap; will-change:transform}
+  .cband-track span{
+    display:inline-block; font-family:'Noto Serif KR',serif; font-weight:600;
+    font-size:clamp(30px,3.4vw,50px); letter-spacing:.02em; color:var(--ink);
+    opacity:.15;
+  }
+  .cband-track em{font-style:normal; color:var(--pri); opacity:.8; padding:0 6px}
+  .cband-no{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    max-width:1180px; width:100%; padding:0 48px;
+    font-family:'Noto Serif KR',serif; font-size:13px; letter-spacing:.34em;
+    font-weight:600; color:var(--pri);
+  }
+  .cband-no::before{content:"CHAPTER "}
+}
 .viewer .vbot{display:flex; align-items:center; justify-content:space-between; padding:13px 18px calc(14px + var(--safe-b)); color:#fff}
 .viewer .vbot button{background:rgba(255,255,255,.16); border-radius:11px; padding:10px 18px; color:#fff; font-size:14.5px; font-weight:700}
 .viewer .vbot .cnt{font-size:13px; color:var(--sun)}
