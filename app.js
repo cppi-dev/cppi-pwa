@@ -471,8 +471,8 @@ function desktopHome() {
         <img src="frame1.jpg" alt="">
         <div class="ov"><div class="ed-eyebrow light">ONLINE LECTURES</div><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div>
       </a>
-      <a class="ed-tile sreveal" href="#store">
-        <img src="img/covers_fan.jpg" alt="" style="object-fit:contain;background:#fff">
+      <a class="ed-tile fit sreveal" href="#store">
+        <img src="img/covers_fan.jpg" alt="">
         <div class="ov"><div class="ed-eyebrow light">STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
       </a>
     </section>
