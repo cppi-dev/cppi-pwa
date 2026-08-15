@@ -282,6 +282,35 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .dhero .dscroll .ln{width:1px; height:40px; background:rgba(255,255,255,.5); animation:dscroll 1.9s ease-in-out infinite}
   @keyframes dscroll{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.01%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
   .dreveal{opacity:0; transform:translateY(30px)}
+
+  /* 새 시네마틱 히어로가 대체하므로, 기존 모바일용 소형 히어로 카드(같은 영상 중복 재생)는 데스크톱에서 숨김 */
+  .lay-hero{display:none}
+
+  /* 데스크톱 타이포 스케일업 - 넓은 화면에서 글자가 작아 보이는 문제 보정 */
+  body{font-size:16.5px}
+  .eyebrow{font-size:12.5px; letter-spacing:.18em}
+  h2.sec{font-size:30px; margin-bottom:12px}
+  p.lead{font-size:16px; margin-bottom:20px}
+  .card{padding:22px}
+
+  /* 퀵칩 4개 - 1180px에 꽉 채워 늘어나던 것을 카드형으로 축소 + 중앙 정렬 */
+  .lay-quick{grid-template-columns:repeat(4,minmax(0,190px)) 1fr; justify-content:start; gap:14px; align-items:stretch}
+  .qchip{aspect-ratio:auto; height:96px; font-size:14.5px; border-radius:16px}
+  .qapp{grid-column:auto; height:96px}
+
+  /* 커리큘럼 8칩 - 여백/글자 확대 */
+  .curbox{padding:26px 26px 28px}
+  .curgrid{gap:12px}
+  .curgrid a{min-height:68px; font-size:14.5px; padding:14px 18px}
+
+  /* 상품/워크숍 카드 캡션 확대 */
+  .imgcard .cap{padding:16px 18px; min-height:auto}
+  .imgcard .cap b{font-size:17px}
+  .imgcard .cap span{font-size:13px}
+
+  /* 후기 스트립 - 가로 스크롤 대신 5칸 그리드로 폭에 맞게 균등 배치 */
+  .rev-strip{display:grid; grid-template-columns:repeat(5,1fr); overflow:visible; gap:14px}
+  .rev-strip img{width:100%; height:auto; aspect-ratio:4/5}
 }
 .viewer .vbot{display:flex; align-items:center; justify-content:space-between; padding:13px 18px calc(14px + var(--safe-b)); color:#fff}
 .viewer .vbot button{background:rgba(255,255,255,.16); border-radius:11px; padding:10px 18px; color:#fff; font-size:14.5px; font-weight:700}
