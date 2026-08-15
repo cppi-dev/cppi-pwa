@@ -325,6 +325,7 @@ function render() {
   });
   if (_lenis) _lenis.scrollTo(0, { immediate: true }); else window.scrollTo({ top: 0 });
   closeSheet();
+  initHeroReel();
   if (SERVER && r === "my" && me()) loadMyOrders();
   initDesktopFX();
 }
@@ -335,6 +336,24 @@ function render() {
    3) .cband    - 챕터 전환 배너: 스크롤 진행에 따라 텍스트가 가로로 흐름
    4) 히어로 영상 - 스크롤에 따라 미세한 시차(패럴랙스)
    접근성: prefers-reduced-motion 사용자는 애니메이션 없이 즉시 표시                        */
+/* 히어로 영상 릴 - hero1~4를 순서대로 이어 재생 (끝나면 처음으로 순환).
+   기존에는 접속 시 4개 중 1개만 무작위 재생되어 나머지가 노출되지 않았음. */
+function initHeroReel() {
+  const v = document.getElementById("xheroVid");
+  if (!v || v.dataset.reel === "on") return;
+  v.dataset.reel = "on";
+  let i = 0;
+  const next = () => {
+    i = (i + 1) % HEROS.length;
+    v.src = HEROS[i];
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});
+  };
+  v.addEventListener("ended", next);
+  // 파일이 없거나 재생 실패 시 다음 영상으로 넘어가 멈추지 않게 함
+  v.addEventListener("error", next);
+}
+
 /* Lenis 관성 스크롤 - 데스크톱에서만, 1회만 초기화. 실패해도 기본 스크롤로 동작 */
 let _lenis = null;
 function initSmoothScroll() {
@@ -558,7 +577,7 @@ routes.home = () => `
     <div class="xhero-stage">
       <img class="xhero-bg" src="img/curriculum_banner.jpg" alt="">
       <div class="xhero-box">
-        <video src="${heroSrc()}" poster="hero-poster.jpg" autoplay muted loop playsinline></video>
+        <video id="xheroVid" src="${HEROS[0]}" poster="hero-poster.jpg" autoplay muted playsinline preload="auto"></video>
         <div class="xhero-veil"></div>
       </div>
       <div class="xhero-title">
