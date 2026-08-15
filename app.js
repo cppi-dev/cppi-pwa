@@ -323,7 +323,7 @@ function render() {
     a.textContent = L(UI.tabs[a.dataset.tab]);
     a.classList.toggle("on", a.dataset.tab === (tabMap[r] || ""));
   });
-  window.scrollTo({ top: 0 });
+  if (_lenis) _lenis.scrollTo(0, { immediate: true }); else window.scrollTo({ top: 0 });
   closeSheet();
   if (SERVER && r === "my" && me()) loadMyOrders();
   initDesktopFX();
@@ -335,6 +335,20 @@ function render() {
    3) .cband    - 챕터 전환 배너: 스크롤 진행에 따라 텍스트가 가로로 흐름
    4) 히어로 영상 - 스크롤에 따라 미세한 시차(패럴랙스)
    접근성: prefers-reduced-motion 사용자는 애니메이션 없이 즉시 표시                        */
+/* Lenis 관성 스크롤 - 데스크톱에서만, 1회만 초기화. 실패해도 기본 스크롤로 동작 */
+let _lenis = null;
+function initSmoothScroll() {
+  if (_lenis || typeof Lenis === "undefined") return;
+  if (!window.matchMedia("(min-width:1024px)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  try {
+    _lenis = new Lenis({ duration: 1.05, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.6 });
+    _lenis.on("scroll", () => { if (typeof ScrollTrigger !== "undefined") ScrollTrigger.update(); });
+    const raf = (t) => { _lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  } catch (e) { _lenis = null; }
+}
+
 function initDesktopFX() {
   const desktop = window.matchMedia("(min-width:1024px)").matches;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -344,13 +358,14 @@ function initDesktopFX() {
   }
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.getAll().forEach(t => t.kill());
+  initSmoothScroll();
 
   // 1) 인트로 즉시 리빌 (데스크톱 히어로 전용)
   const intro = document.querySelectorAll(".dreveal");
   if (intro.length) {
     if (desktop) {
       gsap.set(intro, { opacity: 0, y: 30 });
-      gsap.to(intro, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.12, delay: 0.15 });
+      gsap.to(intro, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out", stagger: 0.1, delay: 0.15 });
     } else {
       gsap.set(intro, { opacity: 1, y: 0 });
     }
@@ -361,7 +376,7 @@ function initDesktopFX() {
     const d = parseFloat(getComputedStyle(el).getPropertyValue("--d")) || 0;
     gsap.set(el, { opacity: 0, y: desktop ? 44 : 26 });
     gsap.to(el, {
-      opacity: 1, y: 0, duration: desktop ? 1 : 0.75, ease: "power3.out", delay: d / 1000,
+      opacity: 1, y: 0, duration: desktop ? 1 : 0.75, ease: "expo.out", delay: d / 1000,
       scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none reverse" },
     });
   });
@@ -377,7 +392,7 @@ function initDesktopFX() {
     const no = band.querySelector(".cband-no");
     if (no) {
       gsap.fromTo(no, { opacity: 0, y: 20 }, {
-        opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+        opacity: 1, y: 0, duration: 0.9, ease: "expo.out",
         scrollTrigger: { trigger: band, start: "top 85%", toggleActions: "play none none reverse" },
       });
     }
@@ -725,23 +740,25 @@ routes.why = () => `
     </div>
 
     ${WHY_PILLARS.map((p, i) => `
-      <section class="why-pillar${i % 2 ? " alt" : ""}">
-        <div class="why-pillar-head sreveal">
-          <div class="why-no">${p.no}</div>
-          <div>
-            <div class="why-tag">${p.tag}</div>
-            <h2>${L(p.name)}</h2>
+      <section class="why-pillar ${i % 2 ? "dark" : "light"}">
+        <div class="why-pillar-in">
+          <div class="why-pillar-head sreveal">
+            <div class="why-no">${p.no}</div>
+            <div>
+              <div class="why-tag">${p.tag}</div>
+              <h2>${L(p.name)}</h2>
+            </div>
+          </div>
+          <div class="why-grid">
+            <p class="why-lede sreveal">${esc(L(p.lede))}</p>
+            <figure class="why-fig sreveal"><img src="${p.img}" alt="" loading="lazy"></figure>
+          </div>
+          <div class="why-items${p.items.length === 3 ? " three" : ""}">
+            ${p.items.map((it, k) => `<div class="why-item sreveal" style="--d:${k * 70}ms"><i>${String(k + 1).padStart(2, "0")}</i><b>${esc(L(it.h))}</b><span>${esc(L(it.p))}</span></div>`).join("")}
           </div>
         </div>
-        <div class="why-grid">
-          <p class="why-lede sreveal">${esc(L(p.lede))}</p>
-          <figure class="why-fig sreveal"><img src="${p.img}" alt="" loading="lazy"></figure>
-        </div>
-        <div class="why-items">
-          ${p.items.map((it, k) => `<div class="why-item sreveal" style="--d:${k * 60}ms"><i>${String(k + 1).padStart(2, "0")}</i><b>${esc(L(it.h))}</b><span>${esc(L(it.p))}</span></div>`).join("")}
-        </div>
       </section>
-      ${WHY_BRIDGE[i] ? `<div class="why-bridge sreveal">${esc(L(WHY_BRIDGE[i]))}</div>` : ""}
+      ${WHY_BRIDGE[i] ? `<div class="why-bridge"><span class="sreveal">${esc(L(WHY_BRIDGE[i]))}</span></div>` : ""}
     `).join("")}
 
     <section class="why-cta sreveal">
