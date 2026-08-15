@@ -381,6 +381,66 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 }
 
 /* ============================================================
+   WHY CPPI - 서사형 설득 페이지 (Phive Fitness Hub 구조 응용)
+   옐로우 계열 CPPI 브랜드 컬러(--sun) 기반, 모바일/데스크톱 모두 대응
+============================================================ */
+.why{--wy:#FFD24C; --wy-d:#F3B81F; margin:0 calc(50% - 50vw); width:100vw; overflow:hidden}
+.why-hero{background:var(--wy); padding:64px 22px 58px; text-align:center}
+.why-eyebrow{font-size:11px; letter-spacing:.32em; font-weight:800; color:#7A4A12; margin-bottom:16px}
+.why-hero h1{font-family:'Noto Serif KR',serif; font-weight:700; font-size:clamp(30px,6.4vw,74px); line-height:1.22; color:#3A2405; letter-spacing:-.02em}
+.why-hero p{margin:18px auto 0; max-width:620px; font-size:15px; line-height:1.85; color:#6B4A10}
+.why-stats{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; max-width:900px; margin:40px auto 0; border-top:1px solid rgba(58,36,5,.18); padding-top:22px}
+.why-stats b{display:block; font-family:'Noto Serif KR',serif; font-size:clamp(18px,3.4vw,32px); color:#3A2405; line-height:1.2}
+.why-stats span{display:block; font-size:9.5px; letter-spacing:.14em; color:#7A4A12; margin-top:5px; font-weight:700}
+
+.why-pillar{max-width:1180px; margin:0 auto; padding:70px 22px 10px}
+.why-pillar-head{display:flex; align-items:flex-start; gap:18px; margin-bottom:26px}
+.why-no{font-family:'Noto Serif KR',serif; font-size:clamp(30px,5vw,58px); line-height:1; color:var(--wy-d); font-weight:700}
+.why-tag{font-size:10.5px; letter-spacing:.3em; font-weight:800; color:var(--pri); margin-bottom:8px}
+.why-pillar h2{font-family:'Noto Serif KR',serif; font-weight:600; font-size:clamp(22px,3.6vw,42px); line-height:1.32; color:var(--ink)}
+.why-grid{display:grid; gap:26px}
+.why-lede{font-size:15px; line-height:1.95; color:var(--ink2)}
+.why-fig{margin:0; overflow:hidden; border-radius:3px}
+.why-fig img{width:100%; height:240px; object-fit:cover; display:block; transition:transform 1.2s cubic-bezier(.2,.7,.3,1)}
+.why-fig:hover img{transform:scale(1.05)}
+.why-items{display:grid; gap:1px; background:var(--line); border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:34px}
+.why-item{background:var(--bg); padding:22px 4px 24px; transition:background .35s ease}
+.why-item:hover{background:#FFF8EA}
+.why-item i{display:block; font-style:normal; font-family:'Noto Serif KR',serif; font-size:11.5px; letter-spacing:.16em; color:var(--wy-d); margin-bottom:9px}
+.why-item b{display:block; font-size:16px; font-weight:700; color:var(--ink); margin-bottom:7px; line-height:1.4}
+.why-item span{display:block; font-size:13.5px; line-height:1.8; color:var(--ink2)}
+
+.why-bridge{max-width:1180px; margin:56px auto; padding:0 22px; font-family:'Noto Serif KR',serif;
+  font-size:clamp(19px,3.2vw,36px); line-height:1.5; color:var(--wy-d); font-weight:600; text-align:center}
+
+.why-cta{background:var(--ink); color:#fff; padding:80px 22px 88px; text-align:center; margin-top:60px}
+.why-cta h2{font-family:'Noto Serif KR',serif; font-weight:600; font-size:clamp(24px,4vw,44px); line-height:1.35; margin-bottom:18px}
+.why-cta p{max-width:600px; margin:0 auto; font-size:15px; line-height:1.9; color:rgba(255,255,255,.72)}
+.why-cta-btns{margin-top:34px; display:flex; gap:11px; justify-content:center; flex-wrap:wrap}
+.why-cta-btns .wb{padding:14px 26px; border-radius:100px; font-size:14px; font-weight:700; text-decoration:none; transition:opacity .2s}
+.why-cta-btns .wb:hover{opacity:.82}
+.why-cta-btns .wb.pri{background:var(--wy); color:#3A2405}
+.why-cta-btns .wb.gh{border:1.5px solid rgba(255,255,255,.42); color:#fff}
+
+@media(min-width:1024px){
+  .why-hero{padding:132px 48px 108px}
+  .why-hero p{font-size:17px; margin-top:26px}
+  .why-stats{margin-top:64px; padding-top:34px; gap:20px}
+  .why-stats span{font-size:10.5px}
+  .why-pillar{padding:118px 48px 10px}
+  .why-pillar.alt{background:#FFFDF8}
+  .why-pillar-head{gap:30px; margin-bottom:44px}
+  .why-grid{grid-template-columns:1fr 1fr; gap:70px; align-items:center}
+  .why-lede{font-size:17px; line-height:2.05}
+  .why-fig img{height:400px}
+  .why-items{grid-template-columns:repeat(4,1fr); gap:1px; margin-top:64px}
+  .why-pillar:nth-child(4) .why-items{grid-template-columns:repeat(3,1fr)}
+  .why-item{padding:34px 26px 38px}
+  .why-bridge{margin:100px auto; padding:0 48px}
+  .why-cta{padding:150px 48px 158px; margin-top:110px}
+}
+
+/* ============================================================
    데스크톱 에디토리얼 홈 (1024px+ 전용) - 모바일 카드 홈은 그대로 유지
 ============================================================ */
 .dhome{display:none}

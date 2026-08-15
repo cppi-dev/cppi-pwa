@@ -42,6 +42,7 @@ const UI = {
     hAssoc: { ko: "협회", en: "Association", zh: "协会", ja: "協会" },
     hEdu: { ko: "교육", en: "Education", zh: "教育", ja: "教育" },
     hUse: { ko: "이용", en: "Service", zh: "服务", ja: "利用" },
+    why: { ko: "왜 CPPI인가", en: "Why CPPI", zh: "为何选择CPPI", ja: "なぜCPPIか" },
     about: { ko: "협회 소개", en: "About CPPI", zh: "协会介绍", ja: "協会紹介" },
     founder: { ko: "파운더 - 박은주 교수", en: "Founder - Prof. Eun-Ju Park", zh: "创始人 - 朴恩珠教授", ja: "創立者 - パク・ウンジュ教授" },
     master: { ko: "마스터 인스트럭터", en: "Master Instructors", zh: "大师级导师", ja: "マスターインストラクター" },
@@ -288,6 +289,7 @@ function currentRoute() { return (location.hash || "#home").replace("#", "").spl
 function subRoute() { return (location.hash || "").split("/")[1] || ""; }
 /* ---------- Renewal v1: 라우트별 SEO 메타 (GEO/SEO 보강, 해시라우팅 한계 내 최선) ---------- */
 const ROUTE_META = {
+  why: { t: { ko: "왜 CPPI인가", en: "Why CPPI" }, d: { ko: "임상에서 출발한 커리큘럼, 기능해부학 기반 동작 이해, 티칭 실습 중심 훈련, 수료 이후의 연결 - CPPI가 근거를 먼저 보여드립니다.", en: "A curriculum born in the clinic, movement understood through functional anatomy, teaching-first training, and life after graduation - CPPI shows the evidence first." } },
   about: { t: { ko: "협회 소개", en: "About CPPI" }, d: { ko: "감각이 아니라 근거로 가르치는 CPPI 한국 필라테스 교육협회 - EST.2016, 한국·캐나다·일본 글로벌 운영, 분당서울대병원 임상 기반 커리큘럼.", en: "About CPPI Korea - evidence-based Pilates education since 2016, operating in Korea, Canada and Japan, built on SNUH Bundang clinical experience." } },
   founder: { t: { ko: "박은주 교수 - 파운더", en: "Prof. Eun-Ju Park - Founder" }, d: { ko: "분당서울대병원 척추·관절센터 임상 경험과 나사렛대 강단 경력을 지닌 CPPI 창립자 박은주 교수의 전체 프로필.", en: "Founder profile - clinical and academic credentials of Prof. Eun-Ju Park, founder of CPPI Korea." } },
   curriculum: { t: { ko: "정규과정 에센셜 커리큘럼", en: "CPPI Essential Curriculum" }, d: { ko: "기능해부학과 의학적 근거 위에 설계된 CPPI 정규과정 8대 커리큘럼 - 매트·리포머·캐딜락·체어·바렐 시리즈 상세 안내.", en: "8 core courses of the CPPI certification, built on functional anatomy and medical evidence." } },
@@ -316,7 +318,7 @@ function render() {
   const r = currentRoute();
   $("#view").innerHTML = (routes[r] || routes.home)();
   updateMeta(r);
-  const tabMap = { home: "home", learn: "learn", lecture: "learn", prep: "learn", courses: "courses", curriculum: "courses", workshop: "courses", master: "courses", store: "store", books: "store", ebooks: "store", guide: "store", checkout: "store", bank: "store", my: "my", login: "my", signup: "my" };
+  const tabMap = { home: "home", why: "courses", learn: "learn", lecture: "learn", prep: "learn", courses: "courses", curriculum: "courses", workshop: "courses", master: "courses", store: "store", books: "store", ebooks: "store", guide: "store", checkout: "store", bank: "store", my: "my", login: "my", signup: "my" };
   document.querySelectorAll(".tabbar a").forEach(a => {
     a.textContent = L(UI.tabs[a.dataset.tab]);
     a.classList.toggle("on", a.dataset.tab === (tabMap[r] || ""));
@@ -336,26 +338,31 @@ function render() {
 function initDesktopFX() {
   const desktop = window.matchMedia("(min-width:1024px)").matches;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (typeof gsap === "undefined" || !desktop || reduced) {
+  if (typeof gsap === "undefined" || reduced) {
     document.querySelectorAll(".dreveal,.sreveal").forEach(el => { el.style.opacity = "1"; el.style.transform = "none"; });
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.getAll().forEach(t => t.kill());
 
-  // 1) 인트로 즉시 리빌
+  // 1) 인트로 즉시 리빌 (데스크톱 히어로 전용)
   const intro = document.querySelectorAll(".dreveal");
   if (intro.length) {
-    gsap.set(intro, { opacity: 0, y: 30 });
-    gsap.to(intro, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.12, delay: 0.15 });
+    if (desktop) {
+      gsap.set(intro, { opacity: 0, y: 30 });
+      gsap.to(intro, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out", stagger: 0.12, delay: 0.15 });
+    } else {
+      gsap.set(intro, { opacity: 1, y: 0 });
+    }
   }
 
-  // 2) 스크롤 리빌
+  // 2) 스크롤 리빌 (모바일 포함 - 서사형 페이지에서도 동작)
   document.querySelectorAll(".sreveal").forEach(el => {
-    gsap.set(el, { opacity: 0, y: 44 });
+    const d = parseFloat(getComputedStyle(el).getPropertyValue("--d")) || 0;
+    gsap.set(el, { opacity: 0, y: desktop ? 44 : 26 });
     gsap.to(el, {
-      opacity: 1, y: 0, duration: 1, ease: "power3.out",
-      scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none reverse" },
+      opacity: 1, y: 0, duration: desktop ? 1 : 0.75, ease: "power3.out", delay: d / 1000,
+      scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none reverse" },
     });
   });
 
@@ -520,8 +527,8 @@ routes.home = () => `
       <h1 class="dreveal">${L({ ko: "감각이 아니라,<br>근거로 가르칩니다", en: "We teach with<br>evidence, not intuition", zh: "以循证教学，<br>而非凭感觉", ja: "感覚ではなく、<br>根拠で教えます" })}</h1>
       <p class="dsub dreveal">${L({ ko: "분당서울대병원 척추·관절센터 임상 경험을 기반으로 설계된 국제 필라테스 강사 자격과정. 8대 커리큘럼, 1,300여 페이지의 출판교재로 증명합니다.", en: "An international Pilates instructor certification built on clinical experience from SNUH Bundang Spine & Joint Center. 8 core courses, 1,300+ pages of published textbooks.", zh: "以分堂首尔大学医院脊柱关节中心临床经验为基础设计的国际普拉提教练资格课程。8大课程体系，1300余页出版教材佐证。", ja: "盆唐ソウル大学病院脊椎·関節センターの臨床経験を基に設計された国際ピラティス指導者資格課程。8大カリキュラム、1,300ページ超の出版教材で証明します。" })}</p>
       <div class="dcta dreveal">
-        <a class="dpri" href="#curriculum">${L({ ko: "정규과정 알아보기", en: "Explore the Curriculum", zh: "了解正规课程", ja: "正規課程を見る" })}</a>
-        <a class="dgh" href="#founder">${L({ ko: "박은주 교수 소개", en: "Meet the Founder", zh: "创始人介绍", ja: "創立者紹介" })}</a>
+        <a class="dpri" href="#why">${L({ ko: "왜 CPPI인가", en: "Why CPPI", zh: "为何选择CPPI", ja: "なぜCPPIか" })}</a>
+        <a class="dgh" href="#curriculum">${L({ ko: "정규과정 알아보기", en: "Explore the Curriculum", zh: "了解正规课程", ja: "正規課程を見る" })}</a>
       </div>
     </div>
     <div class="dscroll"><span>SCROLL</span><span class="ln"></span></div>
@@ -626,6 +633,127 @@ routes.stories = () => `
     ${secHead("MEMBERS", L(UI.menu.members))}
     ${rosterHTML()}
   </section>`;
+
+/* ============================================================
+   WHY CPPI - 서사형 설득 페이지 (Phive Fitness Hub 구조 응용)
+   4개 기둥 각각: 선언문 + 근거 카드 3~4개, 사이에 전환 문장
+   모든 수치·이력은 협회 공개 자료 기준이며 새로 만든 주장 없음
+============================================================ */
+const WHY_PILLARS = [
+  {
+    no: "01",
+    tag: "CLINICAL",
+    img: "img/medical_banner.jpg",
+    name: { ko: "임상에서 왔습니다", en: "It came from the clinic", zh: "源自临床", ja: "臨床から来ました" },
+    lede: {
+      ko: "필라테스 교육의 대부분은 동작 체계에서 출발합니다. CPPI는 병원에서 출발했습니다. 창립자는 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추&관절센터에서 통증과 수술 후 회복을 직접 다뤘고, 그 경험이 커리큘럼의 뼈대가 되었습니다.",
+      en: "Most Pilates education starts from a movement repertoire. CPPI started in a hospital. Our founder worked in anesthesiology and pain medicine at SNUH Bundang and at the Spine & Joint Center of the Korea Veterans Health Service - that experience became the backbone of the curriculum.",
+    },
+    items: [
+      { h: { ko: "병원 임상", en: "Hospital practice" }, p: { ko: "분당서울대병원 마취통증의학과 · 보훈복지공단 척추&관절센터 근무 이력.", en: "Anesthesiology & Pain Medicine, SNUH Bundang; Spine & Joint Center, Korea Veterans Health Service." } },
+      { h: { ko: "전문 연수", en: "Clinical training" }, p: { ko: "서울대병원 중환자 전문간호, 정형외과 수술후 재활, 당뇨·고혈압·골다공증 관리, 노인간호 및 재활 연수.", en: "SNUH training in critical care nursing, post-op orthopedic rehabilitation, chronic disease care, and geriatric rehabilitation." } },
+      { h: { ko: "대학 강단", en: "University faculty" }, p: { ko: "나사렛대학교 스포츠재활학과 겸임교수, 서경대학교 예술교육원 필라테스과정 원장 역임.", en: "Former adjunct professor of sports rehabilitation, Korea Nazarene University; former director of the Pilates program, Seokyeong University." } },
+      { h: { ko: "학회 활동", en: "Academic bodies" }, p: { ko: "대한비만학회 정회원, 대한간호정우회·간호 Q&A협회 정회원.", en: "Member of the Korean Society for the Study of Obesity and Korean nursing associations." } },
+    ],
+  },
+  {
+    no: "02",
+    tag: "ANATOMY",
+    img: "img/curriculum_banner.jpg",
+    name: { ko: "동작을 외우지 않습니다", en: "We do not memorize movements", zh: "不靠死记动作", ja: "動作を暗記しません" },
+    lede: {
+      ko: "같은 동작도 대상이 달라지면 다른 운동이 됩니다. 임신 중인 수강생, 수술 후 6주차 회원, 어깨 가동범위가 제한된 시니어에게 같은 큐잉을 줄 수는 없습니다. CPPI는 기능해부학에서 시작해 배리에이션과 모디피케이션까지 가르칩니다.",
+      en: "The same exercise becomes a different exercise when the person changes. You cannot give identical cues to a pregnant client, someone six weeks post-op, and a senior with limited shoulder range. CPPI teaches from functional anatomy through variation and modification.",
+    },
+    items: [
+      { h: { ko: "매트 53 · 리포머 79", en: "Mat 53 · Reformer 79" }, p: { ko: "기구별 동작을 원리 단위로 분해해 배웁니다.", en: "Movements broken down by principle, apparatus by apparatus." } },
+      { h: { ko: "캐딜락 62 · 체어 28", en: "Cadillac 62 · Chair 28" }, p: { ko: "스프링 저항과 지지면 변화가 부하에 어떻게 작용하는지 다룹니다.", en: "How spring resistance and base of support alter loading." } },
+      { h: { ko: "바렐 시리즈 95", en: "Barrel series 95" }, p: { ko: "래더바렐 27 · 아크바렐 29 · 스파인코렉터 39 동작.", en: "Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39." } },
+      { h: { ko: "체형·자세 평가", en: "Postural assessment" }, p: { ko: "단축근과 약화근을 판별해 체형별 프로그램을 구성하는 5시간 과정.", en: "A 5-hour course on identifying shortened and weakened muscles to build type-specific programs." } },
+    ],
+  },
+  {
+    no: "03",
+    tag: "TEACHING",
+    img: "img/courses_banner.jpg",
+    name: { ko: "가르치는 법을 배웁니다", en: "You learn how to teach", zh: "学习如何教学", ja: "教え方を学びます" },
+    lede: {
+      ko: "동작을 할 줄 아는 것과 가르칠 줄 아는 것은 다른 능력입니다. CPPI 정규과정은 이론 강의 후 반드시 교육생 상호 인스트럭팅을 반복합니다. 수료 시점에 이미 레슨을 해본 사람이 되어 나갑니다.",
+      en: "Performing a movement and teaching it are different skills. Every CPPI module pairs theory with repeated peer instructing, so graduates leave having already taught real sessions.",
+    },
+    items: [
+      { h: { ko: "티칭 실습 반복", en: "Repeated peer teaching" }, p: { ko: "이론 → 실기 체득 → 상호 인스트럭팅 순으로 과목마다 반복합니다.", en: "Theory, then embodiment, then peer instructing - repeated in every module." } },
+      { h: { ko: "설명할 수 있는 강사", en: "Instructors who can explain" }, p: { ko: "왜 이 동작을 이 순서로 주는지 스스로 설명할 수 있게 훈련합니다.", en: "Trained to explain why a movement is given, and why in that order." } },
+      { h: { ko: "마스터 심화 과정", en: "Master track" }, p: { ko: "심화교육과 프레젠터 스피치 과정을 거친 마스터 인스트럭터가 실제 강의를 담당합니다.", en: "Master instructors complete advanced and presenter-speech training before teaching." } },
+    ],
+  },
+  {
+    no: "04",
+    tag: "AFTER",
+    img: "img/convention.jpg",
+    name: { ko: "수료 이후가 있습니다", en: "There is life after graduation", zh: "结业之后仍有路", ja: "修了後があります" },
+    lede: {
+      ko: "자격증 발급으로 끝나는 과정이 많습니다. CPPI는 수료강사 명단에 등재되고, 워크숍으로 재교육을 이어가며, 일부는 타 아카데미에서 교육강사로 활동합니다. 한국·캐나다·일본에서 운영되는 국제 자격입니다.",
+      en: "Many programs end at certification. CPPI graduates are listed in the directory, continue through workshops, and some go on to teach as masters at other academies. The certification operates across Korea, Canada and Japan.",
+    },
+    items: [
+      { h: { ko: "56기+ 수료강사", en: "56+ graduating classes" }, p: { ko: "기수별 명단이 공개되어 있습니다.", en: "The directory is published by class." } },
+      { h: { ko: "국제 자격 발급", en: "International certification" }, p: { ko: "한국 · 캐나다 · 일본에서 교육을 운영합니다.", en: "Programs run in Korea, Canada and Japan." } },
+      { h: { ko: "지속 재교육", en: "Continuing education" }, p: { ko: "리커버링 재활, 임산부, 소도구 워크숍으로 이어집니다.", en: "Recovering rehab, prenatal and small-props workshops." } },
+    ],
+  },
+];
+const WHY_BRIDGE = [
+  { ko: "그래서 동작이 아니라 사람을 봅니다.", en: "So we look at the person, not the movement." },
+  { ko: "그래서 큐잉에는 이유가 있어야 합니다.", en: "So every cue must have a reason." },
+  { ko: "그래서 수료증은 시작점입니다.", en: "So the certificate is a starting point." },
+];
+
+routes.why = () => `
+  <div class="why">
+    <div class="why-hero">
+      <div class="why-eyebrow">WHY CPPI</div>
+      <h1>${L({ ko: "왜 근거인가", en: "Why evidence", zh: "为何强调循证", ja: "なぜ根拠なのか" })}</h1>
+      <p>${L({ ko: "필라테스 강사 자격과정은 많습니다. 우리가 다르다고 말하려면, 그 근거를 먼저 보여야 한다고 생각했습니다.", en: "There are many Pilates certifications. If we claim to be different, we should show the evidence first.", zh: "普拉提教练课程很多。若要说我们不同，就该先拿出依据。", ja: "ピラティス指導者資格は数多くあります。違うと言うなら、まず根拠を示すべきだと考えました。" })}</p>
+      <div class="why-stats">
+        <div><b>2016</b><span>EST.</span></div>
+        <div><b>8</b><span>${L({ ko: "정규 과목", en: "COURSES", zh: "科目", ja: "科目" })}</span></div>
+        <div><b>1,300+</b><span>${L({ ko: "교재 페이지", en: "TEXTBOOK PAGES", zh: "教材页数", ja: "教材ページ" })}</span></div>
+        <div><b>56+</b><span>${L({ ko: "수료 기수", en: "CLASSES", zh: "结业期数", ja: "修了期" })}</span></div>
+        <div><b>3</b><span>${L({ ko: "운영 국가", en: "COUNTRIES", zh: "运营国家", ja: "運営国" })}</span></div>
+      </div>
+    </div>
+
+    ${WHY_PILLARS.map((p, i) => `
+      <section class="why-pillar${i % 2 ? " alt" : ""}">
+        <div class="why-pillar-head sreveal">
+          <div class="why-no">${p.no}</div>
+          <div>
+            <div class="why-tag">${p.tag}</div>
+            <h2>${L(p.name)}</h2>
+          </div>
+        </div>
+        <div class="why-grid">
+          <p class="why-lede sreveal">${esc(L(p.lede))}</p>
+          <figure class="why-fig sreveal"><img src="${p.img}" alt="" loading="lazy"></figure>
+        </div>
+        <div class="why-items">
+          ${p.items.map((it, k) => `<div class="why-item sreveal" style="--d:${k * 60}ms"><i>${String(k + 1).padStart(2, "0")}</i><b>${esc(L(it.h))}</b><span>${esc(L(it.p))}</span></div>`).join("")}
+        </div>
+      </section>
+      ${WHY_BRIDGE[i] ? `<div class="why-bridge sreveal">${esc(L(WHY_BRIDGE[i]))}</div>` : ""}
+    `).join("")}
+
+    <section class="why-cta sreveal">
+      <h2>${L({ ko: "근거는 확인하는 것입니다", en: "Evidence is meant to be checked", zh: "依据是用来核实的", ja: "根拠は確かめるものです" })}</h2>
+      <p>${L({ ko: "커리큘럼 · 수료 후 활동 · 비용을 1:1로 안내드립니다. 교재는 목차와 본문 10페이지를 먼저 보실 수 있습니다.", en: "We guide you 1:1 through curriculum, career paths and cost. You can preview the table of contents and 10 pages of any textbook first.", zh: "1对1介绍课程、结业去向与费用。教材可先查看目录与正文10页。", ja: "カリキュラム・修了後・費用を1:1でご案内。教材は目次と本文10ページを先にご覧いただけます。" })}</p>
+      <div class="why-cta-btns">
+        <a class="wb pri" href="#apply">${L({ ko: "무료 상담 신청", en: "Free consultation", zh: "免费咨询", ja: "無料相談" })}</a>
+        <a class="wb gh" href="#curriculum">${L({ ko: "커리큘럼 보기", en: "See the curriculum", zh: "查看课程", ja: "カリキュラムを見る" })}</a>
+        <a class="wb gh" href="#store">${L({ ko: "교재 미리보기", en: "Preview textbooks", zh: "教材预览", ja: "教材プレビュー" })}</a>
+      </div>
+    </section>
+  </div>`;
 
 routes.about = () => `
   <section>
@@ -1326,6 +1454,7 @@ function renderSheet() {
   $("#sheetPanel").innerHTML = `
     <button class="close" onclick="closeSheet()">✕</button>
     <h3>${L(UI.menu.hAssoc)}</h3>
+    <a href="#why" onclick="closeSheet()">${L(UI.menu.why)}</a>
     <a href="#about" onclick="closeSheet()">${L(UI.menu.about)}</a>
     <a href="#founder" onclick="closeSheet()">${L(UI.menu.founder)}</a>
     <a href="#master" onclick="closeSheet()">${L(UI.menu.master)}</a>
