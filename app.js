@@ -453,37 +453,83 @@ const secHead = (eye, h, lead) => `<div class="eyebrow">${eye}</div><h2 class="s
 /* ---------- 데스크톱 전용 에디토리얼 홈 (1024px+) ----------
    모바일 카드 대시보드(.mhome)는 그대로 두고, 넓은 화면에서만 이 레이아웃으로 대체.
    콘텐츠·링크는 모바일판과 동일하며 표현 방식만 다르다.                              */
+/* 커리큘럼 폴더 스택 - 8과목을 색상 폴더 탭으로 쌓고, 클릭하면 옆에 내용이 펼쳐진다.
+   색상은 CPPI 팔레트(오렌지·옐로우·핑크 계열)에서만 사용. */
+const FOLDER_SKIN = [
+  { bg: "#F15A22", fg: "#FFFFFF", x: 0 },
+  { bg: "#FF8A3D", fg: "#3A2405", x: 86 },
+  { bg: "#FFA24B", fg: "#3A2405", x: 172 },
+  { bg: "#FFC078", fg: "#3A2405", x: 34 },
+  { bg: "#FFD24C", fg: "#3A2405", x: 120 },
+  { bg: "#F47F92", fg: "#FFFFFF", x: 206 },
+  { bg: "#D9491A", fg: "#FFFFFF", x: 68 },
+  { bg: "#241C18", fg: "#FFD24C", x: 154 },
+];
+function curriculumFolders() {
+  const HR = L({ ko: "시간", en: "h", zh: "小时", ja: "時間" });
+  return `<div class="fstack" id="fstack">${CURRICULUM.map((c, i) => {
+    const sk = FOLDER_SKIN[i % FOLDER_SKIN.length];
+    const short = LANG === "ko" ? c.n.ko.split(" 10가지")[0].split(",")[0] : c.n.en.split(" - ")[0];
+    return `
+    <div class="ffolder${i === 0 ? " is-open" : ""}" style="--fbg:${sk.bg};--ffg:${sk.fg};--fx:${sk.x}px;--fz:${i + 1}">
+      <div class="ffolder-tabrow">
+        <button class="ffolder-tab" type="button" onclick="toggleFolder(${i})" aria-expanded="${i === 0}">
+          <i>${String(i + 1).padStart(2, "0")}</i><b>${esc(short)}</b>
+        </button>
+      </div>
+      <div class="ffolder-panel">
+        <div class="ffolder-inner">
+          <div class="ffolder-side">
+            <div class="ffolder-hrs">${esc(c.hrs)}<em>${HR}</em></div>
+            <div class="ffolder-en">${esc(c.n.en)}</div>
+          </div>
+          <div class="ffolder-main">
+            <p>${esc(L(c.d))}</p>
+            <div class="ffolder-cta">
+              ${c.slug !== "analysis" ? `<button type="button" onclick="openViewer(${BOOKS.findIndex(b => b.slug === c.slug)})">${L(UI.btn.preview)}</button>` : ""}
+              <a href="#curriculum">${L({ ko: "과정 상세", en: "Course detail", zh: "课程详情", ja: "課程詳細" })}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join("")}</div>`;
+}
+function toggleFolder(i) {
+  const wrap = document.getElementById("fstack");
+  if (!wrap) return;
+  const items = wrap.querySelectorAll(".ffolder");
+  const target = items[i];
+  if (!target) return;
+  const willOpen = !target.classList.contains("is-open");
+  items.forEach(el => {
+    el.classList.remove("is-open");
+    const b = el.querySelector(".ffolder-tab");
+    if (b) b.setAttribute("aria-expanded", "false");
+  });
+  if (willOpen) {
+    target.classList.add("is-open");
+    const b = target.querySelector(".ffolder-tab");
+    if (b) b.setAttribute("aria-expanded", "true");
+  }
+  if (typeof ScrollTrigger !== "undefined") setTimeout(() => ScrollTrigger.refresh(), 700);
+}
+
 function desktopHome() {
-  const curList = CURRICULUM.map((c, i) => {
-    const name = LANG === "ko" ? c.n.ko.split(" 10가지")[0].split(",")[0] : c.n.en.split(" - ")[0];
-    return `<a class="ed-cur-row" href="#curriculum">
-      <span class="n">${String(i + 1).padStart(2, "0")}</span>
-      <span class="t">${esc(name)}</span>
-      <span class="h">${esc(c.hrs)}${L({ ko: "시간", en: "h", zh: "小时", ja: "時間" })}</span>
-    </a>`;
-  }).join("");
 
   return `
   <div class="dhome">
 
     ${chapterBand("01", L({ ko: "정규 자격과정", en: "CERTIFICATION" }), L({ ko: "기능해부학 · 8대 커리큘럼", en: "FUNCTIONAL ANATOMY · 8 COURSES" }))}
 
-    <section class="ed-split">
-      <div class="ed-media sreveal"><img src="img/curriculum_banner.jpg" alt="${esc(L({ ko: "CPPI 정규과정", en: "CPPI Certification" }))}"></div>
-      <div class="ed-body sreveal">
+    <section class="ed-cur">
+      <div class="ed-cur-head sreveal">
         <div class="ed-eyebrow">ESSENTIAL CURRICULUM</div>
         <h2 class="ed-h2">${L({ ko: "여덟 개의 과정,<br>하나의 기준", en: "Eight courses,<br>one standard", zh: "八门课程，<br>一个标准", ja: "八つの課程、<br>ひとつの基準" })}</h2>
         <p class="ed-lead">${L({ ko: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다. 동작을 외우는 것이 아니라, 왜 그렇게 움직이는지 설명할 수 있는 강사를 길러냅니다.", en: "Every course is built on functional anatomy and medical evidence. We train instructors who can explain why the body moves - not merely memorize sequences.", zh: "所有课程均基于功能解剖学与医学循证设计。我们培养能解释身体为何如此运动的教练，而非死记动作。", ja: "全課程が機能解剖学と医学的根拠に基づき設計。動作を暗記するのではなく、なぜそう動くかを説明できる指導者を育てます。" })}</p>
-        <div class="ed-cur-list">${curList}</div>
-        <a class="ed-link" href="#curriculum">${L({ ko: "커리큘럼 자세히 보기", en: "View full curriculum", zh: "查看完整课程", ja: "カリキュラム詳細" })}</a>
       </div>
-    </section>
-
-    <section class="ed-quad sreveal">
-      <a class="ed-quad-i" href="#about"><b>${L({ ko: "협회 소개", en: "About CPPI", zh: "协会介绍", ja: "協会紹介" })}</b><span>EST. 2016</span></a>
-      <a class="ed-quad-i" href="#members"><b>${L({ ko: "멤버스 · 수료강사", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>56+ CLASSES</span></a>
-      <a class="ed-quad-i" href="#support"><b>${L({ ko: "FAQ · 후기", en: "FAQ & Reviews", zh: "FAQ·评价", ja: "FAQ·口コミ" })}</b><span>SUPPORT</span></a>
-      <a class="ed-quad-i" href="#apply"><b>${L({ ko: "무료 상담 신청", en: "Free Consultation", zh: "免费咨询", ja: "無料相談" })}</b><span>1:1 SESSION</span></a>
+      <div class="sreveal">${curriculumFolders()}</div>
+      <a class="ed-link" href="#curriculum">${L({ ko: "커리큘럼 자세히 보기", en: "View full curriculum", zh: "查看完整课程", ja: "カリキュラム詳細" })}</a>
     </section>
 
     ${chapterBand("02", L({ ko: "강의와 교재", en: "LECTURES & BOOKS" }), L({ ko: "출판교재 9권 · 온라인 복습", en: "9 PUBLISHED BOOKS · ONLINE REVIEW" }))}
@@ -506,6 +552,13 @@ function desktopHome() {
         <img src="img/covers_fan.jpg" alt="">
         <div class="ov"><div class="ed-eyebrow light">STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
       </a>
+    </section>
+
+    <section class="ed-quad">
+      <a class="ed-quad-i sreveal" style="--d:0ms" href="#about"><span class="qk">EST. 2016</span><b>${L({ ko: "협회 소개", en: "About CPPI", zh: "协会介绍", ja: "協会紹介" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:70ms" href="#members"><span class="qk">56+ CLASSES</span><b>${L({ ko: "멤버스 · 수료강사", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:140ms" href="#support"><span class="qk">SUPPORT</span><b>${L({ ko: "FAQ · 후기", en: "FAQ & Reviews", zh: "FAQ·评价", ja: "FAQ·口コミ" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:210ms" href="#apply"><span class="qk">1:1 SESSION</span><b>${L({ ko: "무료 상담 신청", en: "Free Consultation", zh: "免费咨询", ja: "無料相談" })}</b><i>→</i></a>
     </section>
 
     ${chapterBand("03", L({ ko: "워크숍과 멤버스", en: "WORKSHOP & MEMBERS" }), L({ ko: "심화 실습 · 수료강사 56기+", en: "INTENSIVE PRACTICE · 56+ CLASSES" }))}

@@ -278,14 +278,14 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 ============================================================ */
 .xhero{display:none}
 @media(min-width:1024px){
-  .xhero{display:block; position:relative; height:260vh; margin:0 calc(50% - 50vw) 40px; width:100vw}
+  .xhero{display:block; position:relative; height:300vh; margin:0 calc(50% - 50vw) 40px; width:100vw}
   .xhero-stage{position:relative; height:100vh; width:100%; overflow:hidden; background:var(--ink)}
   .xhero-bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; will-change:opacity}
   .xhero-stage::before{content:""; position:absolute; inset:0; background:rgba(26,19,16,.32); z-index:1}
 
   .xhero-box{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2;
-    width:340px; height:462px; border-radius:20px; overflow:hidden; will-change:width,height;
-    box-shadow:0 30px 90px rgba(0,0,0,.42)}
+    width:196px; height:268px; border-radius:16px; overflow:hidden; will-change:width,height;
+    box-shadow:0 26px 80px rgba(0,0,0,.46)}
   .xhero-box video{width:100%; height:100%; object-fit:cover; display:block}
   .xhero-veil{position:absolute; inset:0; background:rgba(20,14,10,.34)}
 
@@ -442,7 +442,7 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 }
 /* 히어로 - 옐로우 */
 .why-hero{background:var(--wy); padding:76px 22px 62px; text-align:center}
-.why-eyebrow{font-size:10.5px; letter-spacing:.32em; font-weight:700; color:#7A4A12; margin-bottom:20px}
+.why-eyebrow{font-size:32px; letter-spacing:.02em; font-weight:800; color:#7A4A12; margin-bottom:24px; line-height:1.1}
 .why-hero h1{
   font-weight:800; font-size:clamp(46px,15vw,190px); line-height:.88; color:var(--wd);
   letter-spacing:-.035em; word-break:keep-all;
@@ -460,7 +460,7 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 .why-pillar-head{display:flex; align-items:flex-start; gap:16px; margin-bottom:30px}
 .why-no{font-weight:800; font-size:clamp(34px,9vw,86px); line-height:.85; letter-spacing:-.04em; color:var(--wy-sub)}
 .why-pillar.dark .why-no{color:var(--wy)}
-.why-tag{font-size:10px; letter-spacing:.3em; font-weight:700; color:var(--pri); margin-bottom:10px}
+.why-tag{font-size:30px; letter-spacing:.02em; font-weight:800; color:var(--pri); margin-bottom:14px; line-height:1.1}
 .why-pillar.dark .why-tag{color:var(--wy-warm)}
 .why-pillar h2{font-weight:800; font-size:clamp(26px,7.2vw,62px); line-height:1.02; letter-spacing:-.032em; color:var(--ink)}
 .why-pillar.dark h2{color:#fff}
@@ -518,6 +518,54 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 }
 
 /* ============================================================
+   커리큘럼 폴더 스택 - 색상 폴더 탭을 쌓고, 클릭하면 옆으로 내용이 펼쳐짐
+   (참고 구조: 폴더 탭 + 계단식 오프셋 + 0.65s cubic-bezier(.33,1,.68,1))
+============================================================ */
+.fstack{--ftab-h:52px; margin-top:34px}
+.ffolder{position:relative; z-index:var(--fz)}
+.ffolder-tabrow{position:relative; height:var(--ftab-h)}
+.ffolder-tab{position:absolute; left:var(--fx); bottom:0; display:flex; align-items:center; gap:12px;
+  height:var(--ftab-h); padding:0 24px; border-radius:12px 12px 0 0;
+  background:var(--fbg); color:var(--ffg); text-align:left; max-width:calc(100% - var(--fx));
+  transition:transform .3s var(--ease-std), filter .3s var(--ease-std)}
+.ffolder-tab:hover{transform:translateY(-3px); filter:brightness(1.06)}
+.ffolder-tab i{font-style:normal; font-size:12px; font-weight:700; letter-spacing:.1em; opacity:.75}
+.ffolder-tab b{font-size:15.5px; font-weight:800; letter-spacing:-.015em; white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis}
+.ffolder-panel{background:var(--fbg); color:var(--ffg); border-radius:0 12px 0 0;
+  display:grid; grid-template-rows:0fr; transition:grid-template-rows .65s cubic-bezier(.33,1,.68,1)}
+.ffolder.is-open .ffolder-panel{grid-template-rows:1fr}
+.ffolder-inner{overflow:hidden; min-height:0}
+.ffolder-side{padding:22px 24px 0}
+.ffolder-hrs{font-size:30px; font-weight:800; letter-spacing:-.03em; line-height:1}
+.ffolder-hrs em{font-style:normal; font-size:14px; font-weight:700; margin-left:4px; opacity:.75}
+.ffolder-en{margin-top:8px; font-size:11.5px; letter-spacing:.14em; font-weight:700; opacity:.72; text-transform:uppercase}
+.ffolder-main{padding:16px 24px 26px}
+.ffolder-main p{font-size:13.5px; line-height:1.95; opacity:.9; font-weight:500}
+.ffolder-cta{margin-top:18px; display:flex; gap:9px; flex-wrap:wrap}
+.ffolder-cta button,.ffolder-cta a{display:inline-block; padding:10px 18px; border-radius:100px;
+  font-size:12.5px; font-weight:700; text-decoration:none; color:inherit;
+  border:1.4px solid currentColor; background:transparent; opacity:.9;
+  transition:background .25s var(--ease-std), opacity .25s var(--ease-std)}
+.ffolder-cta button:hover,.ffolder-cta a:hover{background:rgba(255,255,255,.16); opacity:1}
+/* 닫힌 폴더는 얇은 띠만 남겨 서랍처럼 쌓인 느낌 */
+.ffolder:not(.is-open) .ffolder-panel{min-height:16px}
+
+@media(min-width:1024px){
+  .fstack{--ftab-h:60px; margin-top:52px}
+  .ffolder-tab{padding:0 34px; gap:16px}
+  .ffolder-tab b{font-size:19px}
+  .ffolder-tab i{font-size:13px}
+  /* 열린 폴더: 왼쪽 시수/영문명, 오른쪽 설명 - 내용이 '옆에' 표시됨 */
+  .ffolder-inner{display:grid; grid-template-columns:260px 1fr}
+  .ffolder-side{padding:34px 0 38px 34px}
+  .ffolder-hrs{font-size:46px}
+  .ffolder-main{padding:34px 40px 40px 44px}
+  .ffolder-main p{font-size:14.5px; line-height:2.05; max-width:720px}
+  .ffolder:not(.is-open) .ffolder-panel{min-height:20px}
+}
+
+/* ============================================================
    데스크톱 에디토리얼 홈 (1024px+ 전용) - 모바일 카드 홈은 그대로 유지
 ============================================================ */
 .dhome{display:none}
@@ -525,8 +573,11 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .dhome{display:block}
   .mhome{display:none}
 
-  .ed-eyebrow{font-size:11.5px; letter-spacing:.26em; font-weight:700; color:var(--pri); text-transform:uppercase; margin-bottom:18px}
-  .ed-eyebrow.light{color:rgba(255,255,255,.72)}
+  /* 섹션 라벨 - 기존 대비 3배 확대 (ESSENTIAL CURRICULUM 등) */
+  .ed-eyebrow{font-size:34px; letter-spacing:.02em; font-weight:800; color:var(--pri);
+    text-transform:uppercase; margin-bottom:22px; line-height:1.1}
+  /* 타일 위 오버레이 라벨은 과확대되면 넘치므로 별도 축소 */
+  .ed-eyebrow.light{font-size:17px; letter-spacing:.16em; font-weight:700; color:rgba(255,255,255,.8); margin-bottom:12px}
   .ed-h2{font-weight:800; font-size:clamp(40px,5.4vw,86px); line-height:1.02; letter-spacing:-.035em; color:var(--ink); margin-bottom:26px}
   .ed-h2.light{color:#fff}
   .ed-lead{font-size:14px; line-height:2.1; color:var(--ink2); max-width:480px; font-weight:500}
@@ -534,28 +585,28 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .ed-link{display:inline-block; margin-top:30px; font-size:14.5px; font-weight:700; color:var(--pri); text-decoration:none; border-bottom:1.5px solid var(--pri); padding-bottom:4px}
   .ed-link.center{display:block; width:max-content; margin:44px auto 0}
 
+  /* 커리큘럼 섹션 (이미지 없이 헤드 + 폴더 스택) */
+  .ed-cur{margin:0 0 110px}
+  .ed-cur-head{max-width:760px; margin-bottom:8px}
+
   /* 2단 에디토리얼 (좌 이미지 / 우 텍스트, .rev 로 좌우 반전) */
   .ed-split{display:grid; grid-template-columns:1fr 1fr; gap:78px; align-items:center; margin:0 0 110px}
   .ed-split.rev .ed-media{order:2}
   .ed-media img{width:100%; height:680px; object-fit:cover; border-radius:2px}
   .ed-body{padding:20px 0}
 
-  /* 커리큘럼 - 카드 대신 얇은 구분선 리스트 */
-  .ed-cur-list{margin-top:36px; border-top:1px solid var(--line)}
-  .ed-cur-row{display:grid; grid-template-columns:52px 1fr auto; align-items:baseline; gap:16px;
-    padding:15px 4px; border-bottom:1px solid var(--line); text-decoration:none; transition:padding-left .3s var(--ease-std), background .3s var(--ease-std)}
-  .ed-cur-row:hover{padding-left:14px; background:#FFF6EF}
-  .ed-cur-row .n{font-family:'Noto Serif KR',serif; font-size:14px; color:var(--pri); letter-spacing:.06em}
-  .ed-cur-row .t{font-size:16.5px; font-weight:600; color:var(--ink)}
-  .ed-cur-row .h{font-size:13px; color:var(--ink2); letter-spacing:.04em}
-
-  /* 4분할 미니 내비 */
-  .ed-quad{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin:0 0 110px}
-  .ed-quad-i{display:block; padding:42px 26px; text-decoration:none; border-right:1px solid var(--line); transition:background .3s var(--ease-std)}
-  .ed-quad-i:last-child{border-right:none}
-  .ed-quad-i:hover{background:#FFF6EF}
-  .ed-quad-i b{display:block; font-size:18px; font-weight:600; color:var(--ink); margin-bottom:8px}
-  .ed-quad-i span{font-size:11px; letter-spacing:.22em; color:var(--pri); font-weight:700}
+  /* 4분할 - 카드 블럭형 */
+  .ed-quad{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:0 0 110px}
+  .ed-quad-i{position:relative; display:flex; flex-direction:column; justify-content:space-between;
+    min-height:190px; padding:26px 24px 24px; text-decoration:none; border-radius:18px;
+    background:var(--card); border:1px solid var(--line); box-shadow:0 2px 10px rgba(120,60,20,.05);
+    transition:transform .38s var(--ease-out), box-shadow .38s var(--ease-out), background .38s var(--ease-std)}
+  .ed-quad-i:hover{transform:translateY(-6px); box-shadow:0 16px 34px rgba(120,60,20,.14); background:#FFF8F2}
+  .ed-quad-i .qk{font-size:11px; letter-spacing:.22em; color:var(--pri); font-weight:700}
+  .ed-quad-i b{display:block; font-size:21px; font-weight:800; letter-spacing:-.02em; color:var(--ink); margin-top:auto}
+  .ed-quad-i i{position:absolute; right:22px; bottom:22px; font-style:normal; font-size:19px; color:var(--pri);
+    transition:transform .38s var(--ease-out)}
+  .ed-quad-i:hover i{transform:translateX(5px)}
 
   /* 2분할 대형 타일 */
   .ed-duo{display:grid; grid-template-columns:1fr 1fr; gap:26px; margin:0 0 110px}
