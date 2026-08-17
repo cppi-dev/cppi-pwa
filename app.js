@@ -1163,13 +1163,14 @@ routes.courses = () => `
       <p style="font-size:13px;color:var(--ink2);margin-top:4px">${L({ ko: "현직 강사 · 재활 종사자를 위한 단기 심화 실습 →", en: "Short intensive practice for active instructors →", zh: "面向在职教练的短期深化实操 →", ja: "現役講師向けの短期深化実習 →" })}</p>
     </a>
 
-    <div class="card" style="margin-bottom:9px"><b>${L({ ko: "교육 방식", en: "How we teach", zh: "教学方式", ja: "教育方式" })}</b><p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${br(L({ ko: "이론 강의 + 실기 체득 + 교육생 상호 인스트럭팅(티칭 실습) 반복 - 레슨 실무 중심.", en: "Theory + hands-on practice + repeated peer instructing - lesson-ready training." }))}</p></div>
-    <div class="card" style="margin-bottom:9px"><b>${L({ ko: "수료 혜택 · 국제자격증", en: "Certification Benefits", zh: "结业福利·国际证书", ja: "修了特典·国際資格証" })}</b>
-      <p style="font-size:13.5px;color:var(--ink2);margin:5px 0 10px">${br(L({ ko: "국제자격증 발급 · L3 정회원 승급 · 수료강사 명단 등재 · 활동 연계 지원. 아래는 실제 자격증입니다.", en: "International certificate · L3 upgrade · graduates listing · career support. Actual certificate below." }))}</p>
-      <img src="img/cert_real.jpg" alt="CPPI Certificate" style="border-radius:10px;border:1px solid var(--line)" loading="lazy">
+    <img src="img/cert_real.jpg" alt="CPPI Certificate" class="cert-shot" loading="lazy">
+
+    <div class="edu-quad">
+      <div class="card"><b>${L({ ko: "교육 방식", en: "How we teach", zh: "教学方式", ja: "教育方式" })}</b><p>${br(L({ ko: "이론 강의 + 실기 체득 + 교육생 상호 인스트럭팅(티칭 실습) 반복 - 레슨 실무 중심.", en: "Theory + hands-on practice + repeated peer instructing - lesson-ready training." }))}</p></div>
+      <div class="card"><b>${L({ ko: "수료 혜택 · 국제자격증", en: "Certification Benefits", zh: "结业福利·国际证书", ja: "修了特典·国際資格証" })}</b><p>${br(L({ ko: "국제자격증 발급 · L3 정회원 승급 · 수료강사 명단 등재 · 활동 연계 지원.", en: "International certificate · L3 upgrade · graduates listing · career support." }))}</p></div>
+      <div class="card"><b>${L({ ko: "모집 · 수강료", en: "Enrollment & Tuition", zh: "招生·学费", ja: "募集·受講料" })}</b><p>${br(L({ ko: "기수별 모집 - 일정은 공지 및 상담 시 자세한 안내드립니다.", en: "Enrollment by class - schedules are announced and detailed in consultation.", zh: "按期招生 - 日程通过公告与咨询详细告知。", ja: "期別募集 - 日程は告知および相談時に詳しくご案内します。" }))}</p></div>
+      <div class="card accent"><b>${L({ ko: "졸업생 성과", en: "Graduate Outcomes", zh: "毕业生成果", ja: "卒業生の成果" })}</b><p>${br(L({ ko: "타 아카데미에서 마스터(교육강사)로 활동하는 수료생 다수 배출 - 56기+ 명단은 수료강사 명단에서.", en: "Many graduates now teach as masters at other academies - see the graduates page." }))}</p></div>
     </div>
-    <div class="card" style="margin-bottom:9px"><b>${L({ ko: "모집 · 수강료", en: "Enrollment & Tuition", zh: "招生·学费", ja: "募集·受講料" })}</b><p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${br(L({ ko: "기수별 모집 - 일정과 수강료는 상담 시 안내드립니다. 사업 대행: ", en: "Enrollment by class - schedule and tuition guided in consultation. Business agency: " }))}${SELLER}</p></div>
-    <div class="card" style="margin-bottom:12px;background:var(--tint2)"><b>${L({ ko: "졸업생 성과", en: "Graduate Outcomes", zh: "毕业生成果", ja: "卒業生の成果" })}</b><p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${br(L({ ko: "타 아카데미에서 마스터(교육강사)로 활동하는 수료생 다수 배출 - 56기+ 명단은 수료강사 명단에서.", en: "Many graduates now teach as masters at other academies - see the graduates page." }))}</p></div>
     <a class="btn pri" href="#apply">${L(UI.btn.consult)}</a>
   </section>`;
 

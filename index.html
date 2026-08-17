@@ -521,6 +521,24 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .why-cta{padding:170px 48px 178px}
 }
 
+/* ---------- 교육안내: 수료증 이미지 + 4개 카드 ---------- */
+.cert-shot{width:100%; border-radius:14px; border:1px solid var(--line); margin:4px 0 14px}
+.edu-quad{display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:14px}
+.edu-quad .card{display:flex; flex-direction:column}
+.edu-quad .card b{font-size:15px; margin-bottom:7px}
+.edu-quad .card p{font-size:13.5px; line-height:1.85; color:var(--ink2)}
+.edu-quad .card.accent{background:var(--tint2)}
+@media(min-width:640px){
+  .edu-quad{grid-template-columns:1fr 1fr; gap:12px}
+}
+@media(min-width:1024px){
+  .cert-shot{margin:10px 0 26px}
+  .edu-quad{grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px}
+  .edu-quad .card{padding:24px 22px}
+  .edu-quad .card b{font-size:17px; margin-bottom:10px}
+  .edu-quad .card p{font-size:14px; line-height:1.95}
+}
+
 /* ============================================================
    마스터 강사 가로 스트립 - 한 줄로 흐르고, 선택하면 이름·직함 표시
 ============================================================ */
