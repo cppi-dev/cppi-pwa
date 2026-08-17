@@ -1499,7 +1499,17 @@ routes.admin = () => {
 };
 
 /* ---------- 10) 동작 ---------- */
-function socialStub(name) { toast(name + " " + L({ ko: "로그인은 준비중입니다. 이메일 가입을 이용해 주세요.", en: "login is coming soon. Please use email sign-up.", zh: "登录即将开通，请使用邮箱注册。", ja: "ログインは準備中です。メール登録をご利用ください。" })); }
+/* 서버(회원 API)가 연결되지 않은 환경 안내.
+   소셜 로그인은 각 플랫폼에 등록된 정식 도메인(cppipilates.com)에서만 동작한다.
+   미리보기 배포는 주소가 매번 바뀌어 콜백 등록이 불가능하므로 여기서 차단된다. */
+function socialStub(name) {
+  toast(L({
+    ko: "이 미리보기 주소에서는 소셜 로그인을 사용할 수 없습니다. cppipilates.com 에서 이용해 주세요.",
+    en: "Social login is unavailable on this preview URL. Please use cppipilates.com.",
+    zh: "此预览地址无法使用社交登录，请访问 cppipilates.com。",
+    ja: "このプレビューURLではソーシャルログインをご利用いただけません。cppipilates.com をご利用ください。",
+  }));
+}
 /* 소셜 로그인 - 서버(functions)로 이동. 서버 미설정 시 안내 */
 function socialLogin(provider) {
   if (!SERVER) { socialStub(provider === "kakao" ? "카카오" : provider); return; }
