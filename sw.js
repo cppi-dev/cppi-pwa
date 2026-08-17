@@ -1,5 +1,5 @@
 /* CPPI PWA Service Worker v4 — 전체 오프라인 캐싱 */
-const CACHE = "cppi-v9";
+const CACHE = "cppi-v10";
 
 /* 교재 미리보기 전체 (9권 × 13p) */
 const BOOK_SLUGS = ["anatomy", "principle", "mat", "reformer", "cadillac", "chair", "lbarrel", "abarrel", "scorrector"];
@@ -9,13 +9,14 @@ const HOMEIMG = ["hero_bg","covers_fan","logo3d","curriculum_banner","medical_ba
 const REVIEWS = Array.from({ length: 11 }, (_, i) => `./reviews/r${i + 1}.jpg`);
 const PROPS = ["foam_cover","circle_cover","bosu_cover","foam1","foam2","circle1","circle2","bosu1","bosu2"].map(n => `./props/${n}.jpg`);
 
+const BOOKS3D = ["anatomy","principle","mat","reformer","cadillac","chair","lbarrel","analysis"].map(n => `./img/books3d/b_${n}.webp`);
 const CORE = [
   "./", "./index.html", "./app.js", "./manifest.webmanifest",
   "./logo.png", "./logo_header.png", "./logo_light.png",
   "./hero1.mp4", "./hero-poster.jpg", "./frame1.jpg", "./frame2.jpg",
   "./icons/icon-192.png", "./icons/icon-512.png",
   "./masters/minseo.jpg", "./masters/cheongah.jpg", "./masters/heejung.jpg", "./masters/hwyhyang.jpg",
-  ...BOOK_IMGS, ...COVERS, ...HOMEIMG, ...PROPS, ...REVIEWS,
+  ...BOOK_IMGS, ...COVERS, ...HOMEIMG, ...PROPS, ...REVIEWS, ...BOOKS3D,
 ];
 
 self.addEventListener("install", e => {

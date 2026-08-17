@@ -518,6 +518,32 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 }
 
 /* ============================================================
+   3D 교재 흩뿌리기 씬 - 개별 표지를 각도·크기·깊이를 달리해 배치
+   스크롤 시 서로 다른 속도로 떠오르고(패럴랙스), 마우스에 미세 반응
+============================================================ */
+.bscatter{position:relative; width:100%; aspect-ratio:1/1; perspective:1400px}
+.bs-item{position:absolute; left:var(--bx); top:var(--by); margin:0; width:34%;
+  transform:rotate(var(--br)) scale(var(--bs)); transform-origin:center;
+  z-index:var(--bz); will-change:transform;
+  filter:drop-shadow(0 22px 34px rgba(90,45,20,.22))}
+.bs-item img{width:100%; height:auto; display:block;
+  transition:transform .55s var(--ease-out), filter .55s var(--ease-out)}
+.bs-item figcaption{position:absolute; left:50%; bottom:-26px; transform:translateX(-50%);
+  white-space:nowrap; font-size:11px; letter-spacing:.06em; font-weight:700; color:var(--pri);
+  background:rgba(255,251,247,.92); padding:5px 12px; border-radius:100px;
+  opacity:0; pointer-events:none; transition:opacity .35s var(--ease-std), transform .35s var(--ease-out)}
+.bs-item:hover{z-index:20}
+.bs-item:hover img{transform:translateY(-14px) scale(1.06)}
+.bs-item:hover figcaption{opacity:1; transform:translateX(-50%) translateY(-4px)}
+@media(min-width:1024px){
+  .bs-item{width:31%}
+  .bs-item figcaption{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .bs-item img{transition:none}
+}
+
+/* ============================================================
    커리큘럼 폴더 스택 - 색상 폴더 탭을 쌓고, 클릭하면 옆으로 내용이 펼쳐짐
    (참고 구조: 폴더 탭 + 계단식 오프셋 + 0.65s cubic-bezier(.33,1,.68,1))
 ============================================================ */
@@ -615,8 +641,9 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .ed-tile img{width:100%; height:100%; object-fit:cover; transition:transform 1.1s var(--ease-soft)}
   .ed-tile:hover img{transform:scale(1.05)}
   /* 비율이 다른 이미지(교재 펼침 등)는 잘리지 않게 여백 안에 맞춤 - 타일 크기는 동일 유지 */
-  .ed-tile.fit{background:#0B0B0B}
-  .ed-tile.fit img{object-fit:contain; padding:28px 28px 96px}
+  .ed-tile.fit{background:linear-gradient(160deg,#FFF3E6 0%,#FFE6D2 100%)}
+  .ed-tile.fit img{object-fit:contain; padding:34px 34px 104px; filter:drop-shadow(0 20px 32px rgba(90,45,20,.24))}
+  .ed-tile.fit .ov{background:linear-gradient(180deg,rgba(36,28,24,0),rgba(36,28,24,.78))}
   .ed-tile.fit:hover img{transform:scale(1.03)}
   .ed-tile .ov{position:absolute; left:0; right:0; bottom:0; padding:60px 36px 34px;
     background:linear-gradient(180deg,rgba(36,28,24,0),rgba(36,28,24,.86))}

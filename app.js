@@ -438,7 +438,58 @@ function initDesktopFX() {
       .fromTo(".xhero-end", { opacity: 0, y: 26 }, { opacity: 1, y: 0, ease: "power2.out" }, 0.72);
   }
 
+  // 5) 3D 교재 씬 - 카드마다 다른 속도로 떠오르고(스크롤), 마우스에 미세 반응
+  initBookScene(desktop);
+
   ScrollTrigger.refresh();
+}
+
+function initBookScene(desktop) {
+  const scene = document.getElementById("bscatter");
+  if (!scene || typeof gsap === "undefined") return;
+  const items = scene.querySelectorAll(".bs-item");
+  if (!items.length) return;
+
+  // 등장: 아래에서 하나씩 떠오르며 회전이 제자리를 찾아감
+  items.forEach((el, i) => {
+    const rot = parseFloat(getComputedStyle(el).getPropertyValue("--br")) || 0;
+    gsap.fromTo(el,
+      { opacity: 0, y: 70, rotate: rot * 2.4, scale: 0.9 },
+      {
+        opacity: 1, y: 0, rotate: rot, scale: 1, duration: 1.05, ease: "expo.out", delay: i * 0.07,
+        scrollTrigger: { trigger: scene, start: "top 82%", toggleActions: "play none none reverse" },
+      });
+  });
+
+  if (!desktop) return;
+
+  // 스크롤 패럴랙스: --bd(깊이)가 클수록 더 많이 움직여 층이 갈린다
+  items.forEach(el => {
+    const depth = parseFloat(getComputedStyle(el).getPropertyValue("--bd")) || 1;
+    gsap.to(el, {
+      yPercent: -16 * depth, ease: "none",
+      scrollTrigger: { trigger: scene, start: "top bottom", end: "bottom top", scrub: 0.8 },
+    });
+  });
+
+  // 마우스 반응 (미세하게, 깊이별로 다르게)
+  if (scene.dataset.mouse === "on") return;
+  scene.dataset.mouse = "on";
+  const setters = [...items].map(el => ({
+    el,
+    depth: parseFloat(getComputedStyle(el).getPropertyValue("--bd")) || 1,
+    qx: gsap.quickTo(el, "x", { duration: 0.9, ease: "power3.out" }),
+    qy: gsap.quickTo(el, "y", { duration: 0.9, ease: "power3.out" }),
+  }));
+  scene.addEventListener("pointermove", (e) => {
+    const r = scene.getBoundingClientRect();
+    const nx = (e.clientX - r.left) / r.width - 0.5;
+    const ny = (e.clientY - r.top) / r.height - 0.5;
+    setters.forEach(s => { s.qx(nx * 26 * s.depth); s.qy(ny * 18 * s.depth); });
+  });
+  scene.addEventListener("pointerleave", () => {
+    setters.forEach(s => { s.qx(0); s.qy(0); });
+  });
 }
 
 /* ---------- 8) 공통 조각 ---------- */
@@ -515,6 +566,26 @@ function toggleFolder(i) {
   if (typeof ScrollTrigger !== "undefined") setTimeout(() => ScrollTrigger.refresh(), 700);
 }
 
+/* 3D 교재 흩뿌리기 - 정적 이미지 대신 개별 표지를 각도·깊이를 달리해 배치.
+   스크롤에 따라 서로 다른 속도로 떠오르고, 마우스 위치에 미세하게 반응한다. */
+const BOOK_SCATTER = [
+  { f: "anatomy",   t: { ko: "움직임 해부학", en: "Anatomy of Movement" },  x: 4,  y: 6,  r: -9,  s: 1.00, d: 1.00, z: 6 },
+  { f: "principle", t: { ko: "기본원리", en: "Basic Principle" },           x: 40, y: 0,  r: 7,   s: 0.90, d: 0.62, z: 5 },
+  { f: "mat",       t: { ko: "매트", en: "Mat" },                           x: 70, y: 14, r: -5,  s: 0.84, d: 1.32, z: 4 },
+  { f: "reformer",  t: { ko: "리포머", en: "Reformer" },                    x: 20, y: 34, r: 12,  s: 0.88, d: 0.44, z: 7 },
+  { f: "cadillac",  t: { ko: "캐딜락", en: "Cadillac" },                    x: 54, y: 44, r: -14, s: 0.80, d: 1.05, z: 3 },
+  { f: "chair",     t: { ko: "스태빌리티 체어", en: "Stability Chair" },     x: 0,  y: 52, r: 5,   s: 0.72, d: 0.80, z: 2 },
+  { f: "lbarrel",   t: { ko: "래더바렐", en: "Ladder Barrel" },             x: 76, y: 56, r: 10,  s: 0.68, d: 1.50, z: 1 },
+  { f: "analysis",  t: { ko: "움직임 분석", en: "Movement Analysis" },       x: 34, y: 66, r: -6,  s: 0.66, d: 0.30, z: 8 },
+];
+function bookScatter() {
+  return `<div class="bscatter" id="bscatter">${BOOK_SCATTER.map((b, i) => `
+    <figure class="bs-item" style="--bx:${b.x}%;--by:${b.y}%;--br:${b.r}deg;--bs:${b.s};--bd:${b.d};--bz:${b.z};--bi:${i}">
+      <img src="img/books3d/b_${b.f}.webp" alt="${esc(L(b.t))} ${esc(L({ ko: "교재", en: "textbook" }))}" loading="lazy" decoding="async">
+      <figcaption>${esc(L(b.t))}</figcaption>
+    </figure>`).join("")}</div>`;
+}
+
 function desktopHome() {
 
   return `
@@ -534,8 +605,8 @@ function desktopHome() {
 
     ${chapterBand("02", L({ ko: "강의와 교재", en: "LECTURES & BOOKS" }), L({ ko: "출판교재 9권 · 온라인 복습", en: "9 PUBLISHED BOOKS · ONLINE REVIEW" }))}
 
-    <section class="ed-split rev">
-      <div class="ed-media sreveal"><img src="img/covers_fan.jpg" alt="${esc(L({ ko: "CPPI 출판교재", en: "CPPI textbooks" }))}" style="object-fit:contain;background:#fff"></div>
+    <section class="ed-split rev bookscene-sec">
+      <div class="ed-media bookscene">${bookScatter()}</div>
       <div class="ed-body sreveal">
         <div class="ed-eyebrow">TEXTBOOKS &amp; LECTURES</div>
         <h2 class="ed-h2">${L({ ko: "1,300 페이지로<br>증명합니다", en: "Proven across<br>1,300 pages", zh: "以1,300页<br>加以证明", ja: "1,300ページで<br>証明します" })}</h2>
@@ -549,7 +620,7 @@ function desktopHome() {
         <div class="ov"><div class="ed-eyebrow light">ONLINE LECTURES</div><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div>
       </a>
       <a class="ed-tile fit sreveal" href="#store">
-        <img src="img/covers_fan.jpg" alt="">
+        <img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 출판교재", en: "CPPI textbooks" }))}">
         <div class="ov"><div class="ed-eyebrow light">STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
       </a>
     </section>
@@ -699,7 +770,7 @@ routes.home = () => `
     <!-- Row 4 : 온라인 강의 + 스토어 -->
     <div class="grid2 sreveal" style="margin-top:12px">
       <a class="card imgcard" href="#learn"><img src="frame1.jpg" alt=""><div class="cap"><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div></a>
-      <a class="card imgcard" href="#store"><img src="img/covers_fan.jpg" alt="" style="object-fit:contain;background:#fff"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
+      <a class="card imgcard" href="#store"><img src="img/books3d/b_anatomy.webp" alt="" style="object-fit:contain;background:linear-gradient(160deg,#FFF3E6,#FFE6D2);padding:10px"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
     </div>
 
     <!-- Row 5 : 전문 강사 워크숍 + 멤버스 -->
