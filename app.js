@@ -108,7 +108,7 @@ const CURRICULUM = [
     d: { ko: "필라테스 강사가 필수적으로 알아야 할 인체에 대한 해부학적 이해와 지식을 공부합니다. 골격과 관절, 근육에 대한 기본 원리, 어깨 복합체, 척추의 구조, 고관절을 비롯한 정렬의 구조와 기능 그리고, 움직임의 원리를 이해해 가는 과정입니다.", en: "Essential anatomical understanding for Pilates instructors: skeleton, joints and muscles, the shoulder complex, spinal structure, alignment including the hip, and the principles of movement." } },
   { slug: "principle", hrs: "10", n: { ko: "베이직 프린서플 10가지 / 5가지 움직임 원칙", en: "Basic Principle - 10 Principles / 5 Movement Rules" },
     d: { ko: "창안자 요제프 필라테스의 철학이 담긴 필라테스 원리와 리움필라테스의 움직임 철학이 담긴 호흡, 집중, 조절, 중심화, 정확성, 흐름과 효율성, 이완, 축성신장, 전신 움직임, 근육의 균형적 발달까지 필라테스의 기본 원리를 공부합니다. 또한, 호흡, 요추-골반 안정화, 흉곽-복부 연결성, 견갑 안정화와 움직임, 머리-경추 안정화의 5가지 움직임 원칙으로 필라테스 무브먼트 기본원칙을 이론과 실습을 통하여 배워나가는 과정입니다.", en: "The 10 Pilates principles from breath to balanced muscle development, plus the 5 movement rules: breathing, lumbo-pelvic stability, ribcage-abdominal connection, scapular stability, and head-cervical stability." } },
-  { slug: "analysis", hrs: "5", n: { ko: "체형,자세 및 움직임 평가", en: "Body type, Posture & Movement Analysis" },
+  { slug: "analysis", hrs: "5", n: { ko: "체형 분석 및 움직임 평가", en: "Body type, Posture & Movement Analysis" },
     d: { ko: "사람의 각 체형과 올바른 자세와 비정상적 자세를 분석하고 그 체형의 특징과 단축 된 근육군 및 약화된 근육을 파악하여 체형별 운동프로그램 구성법을 이론과 실습을 통해 배워 나가는 과정입니다.", en: "Analyze body types and postures, identify shortened and weakened muscle groups, and learn to build type-specific exercise programs." } },
   { slug: "mat", hrs: "25", n: { ko: "필라테스 매트", en: "Pilates Mat" },
     d: { ko: "필라테스의 기본 34가지 동작을 포함한 총 53가지의 매트 필라테스의 동작을 웜업, 수파인, 시팅프론, 사이드 라잉, 사이드 닐링, 스탠딩, 포포인츠 닐링 등 각 자세에서 시작자세, 동작순서, 운동목적, 활성화 근육, 운동 포커스와 큐잉, 수정동작과 변형동작, 주의사항까지 매뉴얼화 되어 움직임 실습과 티칭 실습을 통해 효율적으로 배워 나가는 과정입니다.", en: "53 mat exercises including the classical 34, fully manualized from start position to cueing, modifications and precautions." } },
@@ -530,7 +530,7 @@ function curriculumFolders() {
   const HR = L({ ko: "시간", en: "h", zh: "小时", ja: "時間" });
   return `<div class="fstack" id="fstack">${CURRICULUM.map((c, i) => {
     const sk = FOLDER_SKIN[i % FOLDER_SKIN.length];
-    const short = LANG === "ko" ? c.n.ko.split(" 10가지")[0].split(",")[0] : c.n.en.split(" - ")[0];
+    const short = LANG === "ko" ? c.n.ko.split(" 10가지")[0] : c.n.en.split(" - ")[0];
     return `
     <div class="ffolder${i === 0 ? " is-open" : ""}" style="--fbg:${sk.bg};--ffg:${sk.fg};--fx:${sk.x}px;--fz:${i + 1}">
       <div class="ffolder-tabrow">
@@ -774,7 +774,7 @@ routes.home = () => `
         <a href="#curriculum">${L({ ko: "안내 보기", en: "View", zh: "查看", ja: "見る" })} →</a>
       </div>
       <div class="curgrid">
-        ${CURRICULUM.map((c, i) => `<a href="#curriculum">${i + 1}. ${esc(LANG === "ko" ? c.n.ko.split(" 10가지")[0].split(",")[0] : c.n.en.split(" - ")[0])}</a>`).join("")}
+        ${CURRICULUM.map((c, i) => `<a href="#curriculum">${i + 1}. ${esc(LANG === "ko" ? c.n.ko.split(" 10가지")[0] : c.n.en.split(" - ")[0])}</a>`).join("")}
       </div>
     </div>
 
