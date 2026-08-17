@@ -521,6 +521,96 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .why-cta{padding:170px 48px 178px}
 }
 
+/* ============================================================
+   마스터 강사 가로 스트립 - 한 줄로 흐르고, 선택하면 이름·직함 표시
+============================================================ */
+.msrip{position:relative; margin:4px 0 6px; overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.msrip-track{display:flex; gap:12px; width:max-content; animation:msflow 34s linear infinite}
+.msrip:hover .msrip-track{animation-play-state:paused}
+@keyframes msflow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ms-card{flex:0 0 auto; width:170px; padding:0; background:none; border:0; cursor:pointer; text-align:center}
+/* 세로형 카드 - 전원 동일 규격, 인물이 잘리지 않도록 이미지를 통째로 담는다 */
+.ms-photo{display:block; width:100%; aspect-ratio:3/4; border-radius:16px; overflow:hidden;
+  background:#E7DCC8; transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out)}
+.ms-photo img{width:100%; height:100%; object-fit:cover; display:block}
+.ms-card:hover .ms-photo, .ms-card:focus-visible .ms-photo{transform:translateY(-6px); box-shadow:0 16px 28px rgba(90,45,20,.2)}
+.ms-card:focus-visible{outline:none}
+.ms-name{display:block; margin-top:9px; font-size:13px; font-weight:700; color:var(--ink)}
+.msrip-detail{margin-top:16px; padding:18px 20px; border:1px solid var(--line); border-radius:16px;
+  background:var(--card); text-align:center}
+.msrip-detail.pop{animation:msdpop .5s var(--ease-out)}
+@keyframes msdpop{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+.msd-name{font-size:21px; font-weight:800; letter-spacing:-.02em; color:var(--ink)}
+.msd-role{margin-top:7px; font-size:11px; letter-spacing:.22em; font-weight:700; color:var(--pri)}
+.msd-link{display:inline-block; margin-top:12px; font-size:13px; font-weight:700; color:var(--pri); text-decoration:none}
+@media(min-width:1024px){
+  .ms-card{width:250px}
+  .ms-name{font-size:15.5px; margin-top:12px}
+  .msrip-detail{margin-top:22px; padding:26px 24px}
+  .msd-name{font-size:28px}
+  .msd-role{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .msrip-track{animation:none}
+}
+
+/* ============================================================
+   커리큘럼 3D 카드 팬 - 표지가 원근 속으로 비스듬히 늘어선다
+   (참고 사이트는 WebGL이지만 여기서는 가벼운 CSS 3D로 같은 인상을 만든다)
+============================================================ */
+.cfan{position:relative; margin:6px 0 22px; padding:8px 0 44px; overflow:hidden}
+.cfan-stage{position:relative; height:340px; perspective:1500px; perspective-origin:62% 50%;
+  transform-style:preserve-3d}
+.cfan-card{position:absolute; left:50%; top:50%; width:190px; padding:0; background:none; border:0;
+  transform-style:preserve-3d; cursor:pointer;
+  /* 카드마다 X는 오른쪽으로, Z는 뒤로 물러나며 Y축 회전으로 비스듬히 세운다 */
+  transform:
+    translate3d(calc(-50% + var(--i) * 74px - 210px), calc(-50% + var(--i) * -16px + 44px), calc(var(--i) * -108px))
+    rotateY(-26deg) rotateZ(-1.5deg);
+  transition:transform .7s var(--ease-out), filter .5s var(--ease-std);
+  filter:drop-shadow(0 24px 34px rgba(90,45,20,.24));
+  z-index:calc(20 - var(--i));
+}
+.cfan-card img{width:100%; height:auto; display:block; border-radius:3px}
+.cfan-card .cfan-label{position:absolute; left:0; right:0; bottom:-30px; display:flex; align-items:baseline;
+  justify-content:center; gap:8px; font-size:12px; font-weight:700; color:var(--ink);
+  opacity:0; transform:translateY(6px); transition:opacity .4s var(--ease-std), transform .4s var(--ease-out);
+  white-space:nowrap; pointer-events:none}
+.cfan-card .cfan-label i{font-style:normal; color:var(--pri); font-size:10.5px; letter-spacing:.12em}
+.cfan-card:hover, .cfan-card:focus-visible{
+  transform:
+    translate3d(calc(-50% + var(--i) * 74px - 210px), calc(-50% + var(--i) * -16px + 24px), calc(var(--i) * -108px + 90px))
+    rotateY(-14deg) rotateZ(0deg);
+  filter:drop-shadow(0 34px 46px rgba(90,45,20,.34)); z-index:30; outline:none}
+.cfan-card:hover .cfan-label, .cfan-card:focus-visible .cfan-label{opacity:1; transform:translateY(0)}
+.cfan-hint{margin-top:6px; text-align:center; font-size:11.5px; letter-spacing:.06em; color:var(--ink2)}
+/* 선택한 과목 카드로 이동했을 때 잠깐 강조 */
+.curriculum-list .card.is-hit{box-shadow:0 0 0 2px var(--pri), var(--sh); transition:box-shadow .4s var(--ease-std)}
+@media(max-width:1023px){
+  .cfan-stage{height:250px; perspective:1000px; perspective-origin:60% 50%}
+  .cfan-card{width:132px;
+    transform:translate3d(calc(-50% + var(--i) * 46px - 132px), calc(-50% + var(--i) * -9px + 26px), calc(var(--i) * -72px))
+      rotateY(-24deg) rotateZ(-1.5deg)}
+  .cfan-card:hover{transform:translate3d(calc(-50% + var(--i) * 46px - 132px), calc(-50% + var(--i) * -9px + 12px), calc(var(--i) * -72px + 60px)) rotateY(-14deg)}
+}
+@media(min-width:1024px){
+  .cfan{padding:20px 0 60px}
+  .cfan-stage{height:470px; perspective:1900px}
+  .cfan-card{width:250px;
+    transform:translate3d(calc(-50% + var(--i) * 104px - 300px), calc(-50% + var(--i) * -22px + 62px), calc(var(--i) * -140px))
+      rotateY(-26deg) rotateZ(-1.5deg)}
+  .cfan-card:hover, .cfan-card:focus-visible{
+    transform:translate3d(calc(-50% + var(--i) * 104px - 300px), calc(-50% + var(--i) * -22px + 34px), calc(var(--i) * -140px + 120px))
+      rotateY(-13deg) rotateZ(0deg)}
+  .cfan-card .cfan-label{font-size:13.5px; bottom:-34px}
+  .cfan-hint{font-size:12.5px}
+}
+@media(prefers-reduced-motion:reduce){
+  .cfan-card{transition:none}
+}
+
 /* ---------- 강의 플레이어 (인앱 재생) ---------- */
 .player{position:fixed; inset:0; z-index:130; background:rgba(14,10,8,.96); display:none;
   flex-direction:column; padding:0 0 env(safe-area-inset-bottom,0px)}

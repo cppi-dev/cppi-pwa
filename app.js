@@ -842,7 +842,7 @@ const WHY_PILLARS = [
   {
     no: "01",
     tag: "CLINICAL",
-    img: "img/medical_banner.jpg",
+    img: "img/founder_studio.jpg",
     name: { ko: "임상에서 왔습니다", en: "It came from the clinic", zh: "源自临床", ja: "臨床から来ました" },
     lede: {
       ko: "필라테스 교육의 대부분은 동작 체계에서 출발합니다. CPPI는 병원에서 출발했습니다. 창립자는 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추&관절센터에서 통증과 수술 후 회복을 직접 다뤘고, 그 경험이 커리큘럼의 뼈대가 되었습니다.",
@@ -968,7 +968,6 @@ routes.about = () => `
     </div>
     <div class="monly">
       ${secHead("ABOUT CPPI", L({ ko: "감각이 아니라 근거로 가르칩니다", en: "We teach with evidence, not intuition", zh: "以循证教学，而非凭感觉", ja: "感覚ではなく根拠で教えます" }), "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor")}
-      <img src="img/medical_banner.jpg" alt="" style="border-radius:14px;margin-bottom:12px">
     </div>
     <div class="card" style="margin-bottom:10px"><b>${L({ ko: "협회 개요", en: "Overview", zh: "协会概要", ja: "協会概要" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "EST. 2016 · 2년 집중개발로 교과정 완성 · 한국-캐나다-일본 글로벌 운영. 8개 정규 과정, 총 1,300여 페이지의 출판교재(9권+부교재)로 교육합니다.", en: "EST. 2016 · Curriculum built over 2 years · Korea-Canada-Japan. 8 core courses taught with 1,300+ pages of published textbooks." }))}</p></div>
@@ -1012,7 +1011,6 @@ routes.founder = () => `
       <b>${L({ ko: "왜 '진짜'는 흉내 낼 수 없는가", en: "Why the real thing can't be imitated", zh: "为何'真材实料'无法模仿", ja: "なぜ「本物」は真似できないのか" })}</b>
       <p style="font-size:13.5px;margin-top:6px">${br(L({ ko: "필라테스 분야에서 서울대병원 임상경험과 전문연수를 함께 보유한 이력은 국내에서 찾기 어렵습니다. 척추·관절센터 임상과 대학 강단을 모두 거친 창립자가 직접 가르칩니다.", en: "Few in Korean Pilates hold both Seoul National University Hospital (SNUH) clinical experience and professional training. The founder teaches directly." }))}</p>
     </div>
-    <img src="img/medical_banner.jpg" alt="" style="border-radius:14px;margin-bottom:12px">
     <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주요경력", en: "Career", zh: "主要经历", ja: "主要経歴" })}</b>
       <ul style="font-size:13.5px;color:var(--ink2);margin:8px 0 0 18px;line-height:1.95">${(FOUNDER_CAREER[LANG] || FOUNDER_CAREER.en).map(c => `<li>${esc(c)}</li>`).join("")}</ul></div>
     <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주요연수 - 서울대병원", en: "Professional Training - SNUH", zh: "主要研修 - 首尔大医院", ja: "主要研修 - ソウル大病院" })}</b>
@@ -1033,6 +1031,45 @@ const masterGrid = () => `<div class="master-grid">${MASTERS.map(m => `<div clas
   <img src="${m.img}" alt="${esc(m.n.ko)}" loading="lazy">
   <div class="in"><b>${esc(LANG === "ko" ? m.n.ko : m.n.en)}</b><div class="m">${LANG === "ko" ? esc(m.n.en) + " · " : ""}Master</div></div></div>`).join("")}</div>`;
 
+/* 마스터 강사 가로 스트립 - 한 줄로 천천히 흐르고, 선택하면 이름과 직함이 펼쳐진다.
+   파운더(박은주 교수)는 기존대로 프로필 페이지로 이동. */
+const MASTER_STRIP = [
+  { img: "img/masters_v/founder.webp",  n: { ko: "박은주", en: "Eun-Ju PARK" },      href: "#founder" },
+  { img: "img/masters_v/minseo.webp",   n: { ko: "김민서", en: "Min-seo KIM" },      href: "" },
+  { img: "img/masters_v/cheongah.webp", n: { ko: "이청아", en: "Cheong-ah LEE" },    href: "" },
+  { img: "img/masters_v/heejung.webp",  n: { ko: "손희정", en: "Hee-jung SOHN" },    href: "" },
+  { img: "img/masters_v/hwyhyang.webp", n: { ko: "김휘향", en: "Hwy-hyang KIM" },    href: "" },
+];
+function masterStrip() {
+  const card = (m, i) => `
+    <button type="button" class="ms-card" data-i="${i}" onclick="pickMaster(${i})" aria-label="${esc(L(m.n))}">
+      <span class="ms-photo"><img src="${m.img}" alt="${esc(L(m.n))}" loading="lazy"></span>
+      <span class="ms-name">${esc(L(m.n))}</span>
+    </button>`;
+  const row = MASTER_STRIP.map(card).join("");
+  return `
+  <div class="msrip" id="msrip">
+    <div class="msrip-track">${row}${row}</div>
+    <div class="msrip-detail" id="msDetail" hidden>
+      <div class="msd-name"></div>
+      <div class="msd-role">CPPI MASTER INSTRUCTOR</div>
+      <a class="msd-link" href="#founder" hidden>${L({ ko: "프로필 전체 보기 →", en: "View full profile →", zh: "查看完整履历 →", ja: "全プロフィールを見る →" })}</a>
+    </div>
+  </div>`;
+}
+function pickMaster(i) {
+  const m = MASTER_STRIP[i % MASTER_STRIP.length];
+  if (!m) return;
+  if (m.href) { go(m.href.replace("#", "")); return; }   // 파운더는 프로필 페이지로
+  const d = document.getElementById("msDetail");
+  if (!d) return;
+  d.querySelector(".msd-name").textContent = L(m.n);
+  d.querySelector(".msd-role").textContent = "CPPI MASTER INSTRUCTOR";
+  d.querySelector(".msd-link").hidden = true;
+  d.hidden = false;
+  d.classList.remove("pop"); void d.offsetWidth; d.classList.add("pop");
+}
+
 routes.master = () => `
   <section>
     ${secHead("MASTER INSTRUCTORS", L(UI.menu.master), L({ ko: "엄격한 기준의 심화교육과 프레젠터 스피치 과정을 거친 CPPI 교육강사입니다.", en: "Trained through rigorous advanced education and presenter speech courses.", zh: "经过严格深化教育与演讲课程的CPPI教育导师。", ja: "厳格な深化教育とスピーチ課程を経たCPPI教育講師。" }))}
@@ -1040,14 +1077,42 @@ routes.master = () => `
     <div class="note">${L({ ko: "마스터 인스트럭터는 심화교육 · 스피치 교육 · 심화과정을 수료하고 실제 강의에서 교육을 담당합니다.", en: "Master instructors complete advanced courses and teach in actual classes.", zh: "大师级导师完成深化课程后担任实际教学。", ja: "マスターは深化課程を修了し実際の講義を担当します。" })}</div>
   </section>`;
 
+/* 커리큘럼 3D 카드 팬 - 표지가 원근 속으로 비스듬히 늘어서고,
+   스크롤·마우스에 따라 깊이가 살아난다. 클릭하면 해당 과목 카드로 이동. */
+const CUR3D = ["anatomy", "principle", "analysis", "mat", "reformer", "cadillac", "chair", "lbarrel"];
+function curriculumFan() {
+  return `
+  <div class="cfan" id="cfan">
+    <div class="cfan-stage">
+      ${CUR3D.map((slug, i) => {
+        const c = CURRICULUM.find(x => x.slug === slug) || CURRICULUM[i];
+        return `<button type="button" class="cfan-card" data-i="${i}" style="--i:${i}"
+          onclick="goCurriculumItem(${i})" aria-label="${esc(L(c.n))}">
+          <img src="img/books3d/b_${slug}.webp" alt="${esc(L(c.n))}" loading="lazy" decoding="async">
+          <span class="cfan-label"><i>${String(i + 1).padStart(2, "0")}</i>${esc(L(c.n))}</span>
+        </button>`;
+      }).join("")}
+    </div>
+    <div class="cfan-hint">${L({ ko: "표지를 선택하면 과목 상세로 이동합니다", en: "Select a cover to jump to the course", zh: "点击封面查看课程详情", ja: "表紙を選ぶと科目詳細へ移動します" })}</div>
+  </div>`;
+}
+function goCurriculumItem(i) {
+  const el = document.getElementById("cur-" + i);
+  if (!el) return;
+  const y = el.getBoundingClientRect().top + window.scrollY - 80;
+  if (_lenis) _lenis.scrollTo(y, { duration: 1.1 }); else window.scrollTo({ top: y, behavior: "smooth" });
+  el.classList.add("is-hit");
+  setTimeout(() => el.classList.remove("is-hit"), 1400);
+}
+
 routes.curriculum = () => `
   <section>
     ${secHead("CURRICULUM", L({ ko: "CPPI 정규과정 에센셜 커리큘럼", en: "CPPI Essential Curriculum", zh: "CPPI正规课程核心课程", ja: "CPPI正規課程エッセンシャル" }), L({ ko: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다.", en: "Every course is built on functional anatomy and medical evidence.", zh: "所有课程均基于功能解剖学与医学循证设计。", ja: "全課程が機能解剖学と医学的根拠に基づき設計。" }))}
-    <img src="img/curriculum_banner.jpg" alt="" style="border-radius:14px;margin-bottom:12px">
+    ${curriculumFan()}
     <div class="curriculum-list">
-    ${CURRICULUM.map((c, i) => `<div class="card" style="margin-bottom:10px">
+    ${CURRICULUM.map((c, i) => `<div class="card" id="cur-${i}" style="margin-bottom:10px">
       <div style="display:flex;gap:12px">
-        <img src="covers/${c.slug}.jpg" alt="" style="width:76px;min-width:76px;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:8px;border:1px solid var(--line)">
+        <img src="img/books3d/b_${c.slug}.webp" alt="" style="width:82px;min-width:82px;height:auto;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(90,45,20,.22))">
         <div style="min-width:0"><b style="font-size:15px">${i + 1}. ${esc(L(c.n))}</b>
           <div style="font-size:13px;color:var(--pri);font-weight:700;margin-top:3px">${L({ ko: "강의 시간", en: "Hours", zh: "课时", ja: "講義時間" })}: ${c.hrs}${L({ ko: "시간", en: "h", zh: "小时", ja: "時間" })}</div>
         </div>
@@ -1086,7 +1151,7 @@ routes.courses = () => `
 
     <div class="eyebrow" style="margin-top:6px">MASTER INSTRUCTORS</div>
     <h2 class="sec" style="font-size:18px;margin-bottom:10px">${L({ ko: "마스터 강사", en: "Master Instructors", zh: "大师级导师", ja: "マスター講師" })}</h2>
-    ${masterGrid()}
+    ${masterStrip()}
     <div style="height:14px"></div>
 
     <a class="card" href="#curriculum" style="display:block;text-decoration:none;margin-bottom:10px;background:var(--tint)">
@@ -1138,7 +1203,7 @@ routes.learn = () => `
     ${secHead("ONLINE LECTURES", L(UI.menu.learn), L({ ko: "과정을 선택하면 강의 목록이 표시됩니다.", en: "Choose a program to see its lectures.", zh: "选择课程查看列表。", ja: "課程を選ぶと講義一覧が表示されます。" }))}
     <a class="card imgcard fit" href="#lecture/reg" style="display:block;margin-bottom:10px"><img src="img/curriculum_banner.jpg" alt=""><div class="cap"><b>${L({ ko: "정규과정 온라인 강의", en: "Certification Course Lectures", zh: "正规课程在线课程", ja: "正規課程オンライン講義" })}</b><span>${L({ ko: "8개 과목 · 등록자/수료자 전용 · 비회원 5분 하이라이트", en: "8 subjects · enrolled/graduates only · 5-min highlights for guests", zh: "8门科目 · 学员专享 · 访客5分钟精华", ja: "8科目 · 受講者限定 · 5分ハイライト" })}</span></div></a>
     <a class="card imgcard" href="#lecture/spine" style="display:block;margin-bottom:10px"><img src="covers/spine.jpg" alt="" style="object-position:top"><div class="cap"><b>${L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine", zh: "脊柱普拉提方法", ja: "脊柱ピラティスアプローチ" })}</b><span>${L({ ko: "이론 1강 + 실기 2강 · 결제 후 시청", en: "1 theory + 2 practice · watch after purchase", zh: "理论1讲+实操2讲 · 购买后观看", ja: "理論1+実技2 · 購入後視聴" })}</span></div></a>
-    <a class="card imgcard fit" href="#lecture/mt" style="display:block;margin-bottom:10px"><img src="img/medical_banner.jpg" alt=""><div class="cap"><b>${L({ ko: "CPPI 필라테스 무브먼트 테라피", en: "CPPI Pilates Movement Therapy", zh: "CPPI运动治疗", ja: "CPPIムーブメントセラピー" })}</b><span>${L({ ko: "경추 · 견관절 · 척추 · 골반 - 결제 후 시청 · 수료증 온라인 발급", en: "Cervical · Shoulder · Spine · Pelvis - e-certificate issued", zh: "颈椎·肩·脊柱·骨盆 - 在线颁发证书", ja: "頸椎·肩·脊柱·骨盤 - 修了証発行" })}</span></div></a>
+    <a class="card imgcard" href="#lecture/mt" style="display:block;margin-bottom:10px"><img src="frame2.jpg" alt=""><div class="cap"><b>${L({ ko: "CPPI 필라테스 무브먼트 테라피", en: "CPPI Pilates Movement Therapy", zh: "CPPI运动治疗", ja: "CPPIムーブメントセラピー" })}</b><span>${L({ ko: "경추 · 견관절 · 척추 · 골반 - 결제 후 시청 · 수료증 온라인 발급", en: "Cervical · Shoulder · Spine · Pelvis - e-certificate issued", zh: "颈椎·肩·脊柱·骨盆 - 在线颁发证书", ja: "頸椎·肩·脊柱·骨盤 - 修了証発行" })}</span></div></a>
     <a class="btn ghost" target="_blank" rel="noopener" href="${OFFICIAL_CHANNEL_URL}">${L(UI.btn.channel)}</a>
   </section>`;
 
