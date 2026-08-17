@@ -328,7 +328,7 @@ function render() {
   initHeroReel();
   if (SERVER && r === "my" && me()) loadMyOrders();
   if (SERVER && me() && (r === "learn" || r === "lecture")) loadEntitlements().then(() => { if (currentRoute() === r) $("#view").innerHTML = (routes[r] || routes.home)(); });
-  initDesktopFX();
+  requestAnimationFrame(() => requestAnimationFrame(initDesktopFX));
 }
 
 /* ---------- Renewal v2: 데스크톱 스크롤 연출 (1024px+, GSAP 없으면 조용히 무시) ----------
@@ -377,7 +377,9 @@ function initDesktopFX() {
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.getAll().forEach(t => t.kill());
+  /* kill()만 하면 pin 처리 때 삽입된 자리확보 여백(pin-spacer)이 남아
+     화면 상단에 빈 공간이 생긴다. revert=true 로 원상복구까지 시킨다. */
+  ScrollTrigger.getAll().forEach(t => t.kill(true));
   initSmoothScroll();
 
   // 1) 인트로 즉시 리빌 (데스크톱 히어로 전용)
@@ -424,7 +426,7 @@ function initDesktopFX() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: xh, start: "top top", end: "bottom bottom",
-        scrub: 0.5, pin: ".xhero-stage", anticipatePin: 1, invalidateOnRefresh: true,
+        scrub: 0.5, pin: ".xhero-stage", pinSpacing: true, invalidateOnRefresh: true,
       },
     });
     tl.to(".xhero-bg", { opacity: 0, ease: "none" }, 0)
@@ -443,6 +445,13 @@ function initDesktopFX() {
   initBookScene(desktop);
 
   ScrollTrigger.refresh();
+
+  /* 히어로 영상·배경 이미지가 늦게 로드되면 측정값이 어긋나므로 로드 후 다시 계산 */
+  const hv = document.getElementById("xheroVid");
+  const hb = document.querySelector(".xhero-bg");
+  const again = () => ScrollTrigger.refresh();
+  if (hv) hv.addEventListener("loadedmetadata", again, { once: true });
+  if (hb && !hb.complete) hb.addEventListener("load", again, { once: true });
 }
 
 function initBookScene(desktop) {
