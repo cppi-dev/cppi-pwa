@@ -1,5 +1,5 @@
 /* CPPI PWA Service Worker v4 — 전체 오프라인 캐싱 */
-const CACHE = "cppi-v10";
+const CACHE = "cppi-v11";
 
 /* 교재 미리보기 전체 (9권 × 13p) */
 const BOOK_SLUGS = ["anatomy", "principle", "mat", "reformer", "cadillac", "chair", "lbarrel", "abarrel", "scorrector"];

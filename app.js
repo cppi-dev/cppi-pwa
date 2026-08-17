@@ -35,7 +35,7 @@ const UI = {
     home: { ko: "홈", en: "Home", zh: "首页", ja: "ホーム" },
     courses: { ko: "교육", en: "Education", zh: "教育", ja: "教育" },
     learn: { ko: "강의", en: "Lectures", zh: "课程", ja: "講義" },
-    store: { ko: "스토어", en: "Store", zh: "商店", ja: "ストア" },
+    store: { ko: "교재샵", en: "Book Shop", zh: "教材店", ja: "教材ショップ" },
     my: { ko: "마이", en: "My", zh: "我的", ja: "マイ" },
   },
   menu: {
@@ -53,7 +53,7 @@ const UI = {
     courses: { ko: "CPPI 필라테스 교육안내", en: "CPPI Pilates Education", zh: "CPPI教育指南", ja: "CPPI教育のご案内" },
     workshop: { ko: "전문 강사 워크숍", en: "Pro Instructor Workshop", zh: "专业教练工作坊", ja: "専門講師ワークショップ" },
     learn: { ko: "온라인 강의", en: "Online Lectures", zh: "在线课程", ja: "オンライン講義" },
-    store: { ko: "스토어 · 교재 미리보기", en: "Store · Book Preview", zh: "商店 · 教材预览", ja: "ストア · 教材プレビュー" },
+    store: { ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", ja: "電子書籍·教材ストア" },
     guide: { ko: "필라테스 전문 지침서", en: "Pilates Pro Guidebooks", zh: "普拉提专业指南", ja: "ピラティス専門指針書" },
     apply: { ko: "상담 · 신청", en: "Consultation", zh: "咨询 · 申请", ja: "相談 · 申込" },
     support: { ko: "FAQ · 후기 · 앱 설치", en: "FAQ · Reviews · Install", zh: "FAQ · 评价 · 安装", ja: "FAQ · 口コミ · インストール" },
@@ -299,7 +299,7 @@ const ROUTE_META = {
   stories: { t: { ko: "수료강사 후기", en: "Graduate Stories" }, d: { ko: "CPPI와 함께 성장한 수료강사들의 생생한 후기와 56기 이상의 수료강사 명단.", en: "Real stories and the graduates directory from CPPI alumni." } },
   global: { t: { ko: "글로벌 운영 - 한국·캐나다·일본", en: "Global - Korea, Canada, Japan" }, d: { ko: "CPPI는 한국-캐나다-일본에서 교육을 운영합니다. 지역별 교육센터와 운영 현황 안내.", en: "CPPI operates education programs in Korea, Canada and Japan." } },
   learn: { t: { ko: "온라인 강의", en: "Online Lectures" }, d: { ko: "정규과정 온라인 강의, 척추 필라테스 어프로치, 무브먼트 테라피 등 CPPI 복습 영상 안내.", en: "CPPI's online lecture library - certification review, spine approach and movement therapy." } },
-  store: { t: { ko: "스토어 - 교재·수강권", en: "Store - Textbooks & Passes" }, d: { ko: "CPPI 출판교재 9권, 전자책, 수강권을 미리보기와 함께 만나보세요.", en: "CPPI's published textbooks, e-books and course passes with previews." } },
+  store: { t: { ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store" }, d: { ko: "CPPI 출판교재 9권, 전자책, 수강권을 미리보기와 함께 만나보세요.", en: "CPPI's published textbooks, e-books and course passes with previews." } },
 };
 const _DEFAULT_TITLE = document.title;
 const _DEFAULT_DESC = document.querySelector('meta[name="description"]')?.content || "";
@@ -327,6 +327,7 @@ function render() {
   closeSheet();
   initHeroReel();
   if (SERVER && r === "my" && me()) loadMyOrders();
+  if (SERVER && me() && (r === "learn" || r === "lecture")) loadEntitlements().then(() => { if (currentRoute() === r) $("#view").innerHTML = (routes[r] || routes.home)(); });
   initDesktopFX();
 }
 
@@ -569,18 +570,18 @@ function toggleFolder(i) {
 /* 3D 교재 흩뿌리기 - 정적 이미지 대신 개별 표지를 각도·깊이를 달리해 배치.
    스크롤에 따라 서로 다른 속도로 떠오르고, 마우스 위치에 미세하게 반응한다. */
 const BOOK_SCATTER = [
-  { f: "anatomy",   t: { ko: "움직임 해부학", en: "Anatomy of Movement" },  x: 4,  y: 6,  r: -9,  s: 1.00, d: 1.00, z: 6 },
-  { f: "principle", t: { ko: "기본원리", en: "Basic Principle" },           x: 40, y: 0,  r: 7,   s: 0.90, d: 0.62, z: 5 },
-  { f: "mat",       t: { ko: "매트", en: "Mat" },                           x: 70, y: 14, r: -5,  s: 0.84, d: 1.32, z: 4 },
-  { f: "reformer",  t: { ko: "리포머", en: "Reformer" },                    x: 20, y: 34, r: 12,  s: 0.88, d: 0.44, z: 7 },
-  { f: "cadillac",  t: { ko: "캐딜락", en: "Cadillac" },                    x: 54, y: 44, r: -14, s: 0.80, d: 1.05, z: 3 },
-  { f: "chair",     t: { ko: "스태빌리티 체어", en: "Stability Chair" },     x: 0,  y: 52, r: 5,   s: 0.72, d: 0.80, z: 2 },
-  { f: "lbarrel",   t: { ko: "래더바렐", en: "Ladder Barrel" },             x: 76, y: 56, r: 10,  s: 0.68, d: 1.50, z: 1 },
-  { f: "analysis",  t: { ko: "움직임 분석", en: "Movement Analysis" },       x: 34, y: 66, r: -6,  s: 0.66, d: 0.30, z: 8 },
+  { f: "anatomy",   t: { ko: "움직임 해부학", en: "Anatomy of Movement" },  x: 2,  y: 2,  w: 30, r: -8,  d: 1.00, z: 6 },
+  { f: "principle", t: { ko: "기본원리", en: "Basic Principle" },           x: 36, y: 0,  w: 28, r: 6,   d: 0.62, z: 5 },
+  { f: "mat",       t: { ko: "매트", en: "Mat" },                           x: 68, y: 6,  w: 27, r: -5,  d: 1.32, z: 4 },
+  { f: "reformer",  t: { ko: "리포머", en: "Reformer" },                    x: 6,  y: 33, w: 29, r: 10,  d: 0.44, z: 7 },
+  { f: "cadillac",  t: { ko: "캐딜락", en: "Cadillac" },                    x: 39, y: 31, w: 26, r: -12, d: 1.05, z: 3 },
+  { f: "chair",     t: { ko: "스태빌리티 체어", en: "Stability Chair" },     x: 69, y: 36, w: 25, r: 5,   d: 0.80, z: 2 },
+  { f: "lbarrel",   t: { ko: "래더바렐", en: "Ladder Barrel" },             x: 12, y: 63, w: 26, r: 9,   d: 1.50, z: 1 },
+  { f: "analysis",  t: { ko: "움직임 분석", en: "Movement Analysis" },       x: 48, y: 62, w: 27, r: -6,  d: 0.30, z: 8 },
 ];
 function bookScatter() {
   return `<div class="bscatter" id="bscatter">${BOOK_SCATTER.map((b, i) => `
-    <figure class="bs-item" style="--bx:${b.x}%;--by:${b.y}%;--br:${b.r}deg;--bs:${b.s};--bd:${b.d};--bz:${b.z};--bi:${i}">
+    <figure class="bs-item" style="--bx:${b.x}%;--by:${b.y}%;--bw:${b.w}%;--br:${b.r}deg;--bs:1;--bd:${b.d};--bz:${b.z};--bi:${i}">
       <img src="img/books3d/b_${b.f}.webp" alt="${esc(L(b.t))} ${esc(L({ ko: "교재", en: "textbook" }))}" loading="lazy" decoding="async">
       <figcaption>${esc(L(b.t))}</figcaption>
     </figure>`).join("")}</div>`;
@@ -590,6 +591,13 @@ function desktopHome() {
 
   return `
   <div class="dhome">
+
+    <section class="ed-quad">
+      <a class="ed-quad-i sreveal" style="--d:0ms" href="#about"><span class="qk">EST. 2016</span><b>${L({ ko: "협회 소개", en: "About CPPI", zh: "协会介绍", ja: "協会紹介" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:70ms" href="#members"><span class="qk">56+ CLASSES</span><b>${L({ ko: "멤버스 · 수료강사", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:140ms" href="#support"><span class="qk">SUPPORT</span><b>${L({ ko: "FAQ · 후기", en: "FAQ & Reviews", zh: "FAQ·评价", ja: "FAQ·口コミ" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:210ms" href="#apply"><span class="qk">1:1 SESSION</span><b>${L({ ko: "무료 상담 신청", en: "Free Consultation", zh: "免费咨询", ja: "無料相談" })}</b><i>→</i></a>
+    </section>
 
     ${chapterBand("01", L({ ko: "정규 자격과정", en: "CERTIFICATION" }), L({ ko: "기능해부학 · 8대 커리큘럼", en: "FUNCTIONAL ANATOMY · 8 COURSES" }))}
 
@@ -614,27 +622,20 @@ function desktopHome() {
       </div>
     </section>
 
-    <section class="ed-duo">
+
+
+    ${chapterBand("03", L({ ko: "강의 · 스토어 · 워크숍 · 멤버스", en: "LECTURES · STORE · WORKSHOP · MEMBERS" }), L({ ko: "배우고, 갖추고, 이어집니다", en: "LEARN · EQUIP · CONNECT" }))}
+
+    <section class="ed-quadtile">
       <a class="ed-tile sreveal" href="#learn">
         <img src="frame1.jpg" alt="">
         <div class="ov"><div class="ed-eyebrow light">ONLINE LECTURES</div><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div>
       </a>
       <a class="ed-tile fit sreveal" href="#store">
         <img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 출판교재", en: "CPPI textbooks" }))}">
-        <div class="ov"><div class="ed-eyebrow light">STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
+        <div class="ov"><div class="ed-eyebrow light">E-BOOK STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
       </a>
-    </section>
-
-    <section class="ed-quad">
-      <a class="ed-quad-i sreveal" style="--d:0ms" href="#about"><span class="qk">EST. 2016</span><b>${L({ ko: "협회 소개", en: "About CPPI", zh: "协会介绍", ja: "協会紹介" })}</b><i>→</i></a>
-      <a class="ed-quad-i sreveal" style="--d:70ms" href="#members"><span class="qk">56+ CLASSES</span><b>${L({ ko: "멤버스 · 수료강사", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><i>→</i></a>
-      <a class="ed-quad-i sreveal" style="--d:140ms" href="#support"><span class="qk">SUPPORT</span><b>${L({ ko: "FAQ · 후기", en: "FAQ & Reviews", zh: "FAQ·评价", ja: "FAQ·口コミ" })}</b><i>→</i></a>
-      <a class="ed-quad-i sreveal" style="--d:210ms" href="#apply"><span class="qk">1:1 SESSION</span><b>${L({ ko: "무료 상담 신청", en: "Free Consultation", zh: "免费咨询", ja: "無料相談" })}</b><i>→</i></a>
-    </section>
-
-    ${chapterBand("03", L({ ko: "워크숍과 멤버스", en: "WORKSHOP & MEMBERS" }), L({ ko: "심화 실습 · 수료강사 56기+", en: "INTENSIVE PRACTICE · 56+ CLASSES" }))}
-
-    <section class="ed-duo">
+    
       <a class="ed-tile sreveal" href="#workshop">
         <img src="img/workshop_banner.jpg" alt="" style="object-position:50% 24%">
         <div class="ov"><div class="ed-eyebrow light">WORKSHOP</div><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div>
@@ -643,6 +644,7 @@ function desktopHome() {
         <img src="img/members.jpg" alt="" style="object-position:50% 18%">
         <div class="ov"><div class="ed-eyebrow light">MEMBERS</div><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", ja: "修了56期+名簿" })}</span></div>
       </a>
+    
     </section>
 
     ${chapterBand("04", L({ ko: "수료강사의 이야기", en: "GRADUATE STORIES" }), L({ ko: "현장에서 증명된 교육", en: "PROVEN IN THE FIELD" }))}
@@ -1138,21 +1140,21 @@ routes.lecture = () => {
   <section>${back}
     ${secHead("SPINE APPROACH", L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine" }), L({ ko: "척추질환별 금지 동작과 추천 동작을 의학적 근거로 배우는 과정입니다.", en: "Contraindicated and recommended movements by spinal condition, on medical evidence." }))}
     <img src="covers/spine.jpg" alt="" style="border-radius:14px;margin-bottom:12px;max-height:300px;object-fit:cover;object-position:top;width:100%">
-    ${LECT_SPINE.map((v, i) => `<div class="vrow" onclick="buyItem('lecture-spine',0)" style="cursor:pointer">
-      <div class="th" style="font-weight:800;font-size:15px">${i + 1}</div>
-      <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${L({ ko: "온라인 결제 후 시청", en: "Watch after purchase", zh: "购买后观看", ja: "購入後視聴" })}</div></div>
-      <span class="badge l2">${L({ ko: "유료", en: "PAID", zh: "付费", ja: "有料" })}</span></div>`).join("")}
+    ${LECT_SPINE.map((v, i) => { const ok = hasAccess("lecture-spine", 0); return `<div class="vrow" onclick="openLecture('lecture-spine',0,${JSON.stringify(esc(L(v.t)))})" style="cursor:pointer">
+      <div class="th" style="font-weight:800;font-size:15px">${ok ? "▶" : i + 1}</div>
+      <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${ok ? L({ ko: "지금 시청하기", en: "Watch now", zh: "立即观看", ja: "今すぐ視聴" }) : L({ ko: "구매 후 시청", en: "Watch after purchase", zh: "购买后观看", ja: "購入後視聴" })}</div></div>
+      <span class="badge ${ok ? "free" : "l2"}">${ok ? L({ ko: "시청 가능", en: "UNLOCKED", zh: "可观看", ja: "視聴可" }) : L({ ko: "유료", en: "PAID", zh: "付费", ja: "有料" })}</span></div>`; }).join("")}
     <div class="note">${L({ ko: "결제 확인 후 시청 링크가 제공되며, 과정 수료 시 수료증이 온라인 발급됩니다.", en: "A viewing link is provided after payment; an e-certificate is issued upon completion.", zh: "确认付款后提供观看链接，结业后在线颁发证书。", ja: "決済確認後に視聴リンクを提供、修了時に修了証を発行します。" })}</div>
     <div style="height:10px"></div>
-    <button class="btn pri" onclick="buyItem('lecture-spine',0)">${L({ ko: "수강권 구매", en: "Buy Access", zh: "购买课程", ja: "受講券を購入" })}</button>
+    <button class="btn pri" onclick="openLecture('lecture-spine',0,${JSON.stringify(esc(L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine" })))})">${hasAccess("lecture-spine", 0) ? L({ ko: "지금 시청하기", en: "Watch now", zh: "立即观看", ja: "今すぐ視聴" }) : L({ ko: "수강권 구매", en: "Buy Access", zh: "购买课程", ja: "受講券を購入" })}</button>
   </section>`;
   if (sub === "mt") return `
   <section>${back}
     ${secHead("MOVEMENT THERAPY", L({ ko: "CPPI 필라테스 무브먼트 테라피", en: "CPPI Pilates Movement Therapy" }), L({ ko: "부위별 통증·기능 개선 특화 과정 - 결제 후 시청, 과정별 수료증 온라인 발급.", en: "Region-specific therapy courses - e-certificate per course." }))}
-    ${LECT_MT.map((v, i) => `<div class="vrow" onclick="buyItem('lecture-mt',${i})" style="cursor:pointer">
-      <div class="th" style="font-weight:800;font-size:15px">${["C", "S", "V", "P"][i]}</div>
-      <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${L({ ko: "온라인 결제 후 시청 · 수료증 발급", en: "Watch after purchase · certificate", zh: "购买后观看·颁发证书", ja: "購入後視聴·修了証" })}</div></div>
-      <span class="badge l2">${L({ ko: "유료", en: "PAID", zh: "付费", ja: "有料" })}</span></div>`).join("")}
+    ${LECT_MT.map((v, i) => { const ok = hasAccess("lecture-mt", i); return `<div class="vrow" onclick="openLecture('lecture-mt',${i},${JSON.stringify(esc(L(v.t)))})" style="cursor:pointer">
+      <div class="th" style="font-weight:800;font-size:15px">${ok ? "▶" : ["C", "S", "V", "P"][i]}</div>
+      <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${ok ? L({ ko: "지금 시청하기 · 수료증 발급", en: "Watch now · certificate", zh: "立即观看·颁发证书", ja: "今すぐ視聴·修了証" }) : L({ ko: "구매 후 시청 · 수료증 발급", en: "Watch after purchase · certificate", zh: "购买后观看·颁发证书", ja: "購入後視聴·修了証" })}</div></div>
+      <span class="badge ${ok ? "free" : "l2"}">${ok ? L({ ko: "시청 가능", en: "UNLOCKED", zh: "可观看", ja: "視聴可" }) : L({ ko: "유료", en: "PAID", zh: "付费", ja: "有料" })}</span></div>`; }).join("")}
     <div class="note">${L({ ko: "전자책(필라테스 전문 지침서)과 함께 구매 시 워크숍 50% 할인 혜택이 제공됩니다.", en: "Buy with the Pro Guidebook e-book for a 50% workshop discount.", zh: "与电子书同购可享工作坊50%折扣。", ja: "電子書籍と同時購入でワークショップ50%割引。" })}</div>
   </section>`;
   const g = grade();
@@ -1167,18 +1169,79 @@ routes.lecture = () => {
       ${v.yt ? tierBadge("l2") : `<span class="badge coming">${L(UI.badge.coming)}</span>`}</div>`).join("")}
   </section>`;
 };
+/* ============================================================
+   강의 시청 권한 (Entitlement)
+   - 결제가 '완료' 처리된 항목만 시청 가능 (서버 orders 기준)
+   - 정규과정 강의는 등급 L2 이상(등록자·수료자)에게 열림
+   - 외부 채널로 내보내지 않고 앱 안에서 재생한다
+   - 영상 파일이 아직 등록되지 않은 항목은 '준비중'으로 정직하게 안내
+============================================================ */
+const LECTURE_VIDEO = {
+  /* 예: "lecture-spine#0": "media/spine-01.mp4"  (파일 등록 후 채움) */
+};
+let ENT = [];           // 서버에서 받은 보유 권한 목록
+function entKey(type, idx) { return `${type}#${idx}`; }
+async function loadEntitlements() {
+  if (!SERVER || !me()) { ENT = []; return; }
+  try { const r = await apiGet("entitlements"); ENT = (r && r.items) || []; }
+  catch (e) { ENT = []; }
+}
+function hasAccess(type, idx) {
+  const k = entKey(type, idx);
+  return ENT.some(t => t === k || t === type);   // 구버전 주문(인덱스 없음)도 인정
+}
+/* 유료 강의 열기 - 권한 있으면 인앱 재생, 없으면 구매로 안내 */
+function openLecture(type, idx, title) {
+  if (!hasAccess(type, idx)) {
+    toast(L({ ko: "구매 후 시청하실 수 있습니다.", en: "Available after purchase.", zh: "购买后可观看。", ja: "購入後に視聴できます。" }));
+    buyItem(type, idx);
+    return;
+  }
+  const src = LECTURE_VIDEO[entKey(type, idx)];
+  if (!src) {
+    openPlayer(title, null);
+    return;
+  }
+  openPlayer(title, src);
+}
+/* 정규과정 강의 - 등급 기반 */
 function openRegLecture(i) {
   const v = LECT_REG[i];
+  const title = LANG === "ko" ? v.t.ko : v.t.en;
   if (!v.yt) { go("prep"); return; }
-  if (grade() >= 2) { window.open("https://www.youtube.com/watch?v=" + v.yt, "_blank"); return; }
-  toast(L({ ko: "정규과정 등록자·수료자 전용 - 5분 하이라이트로 안내합니다.", en: "Enrolled/graduates only - opening the 5-min highlight.", zh: "学员专享 - 打开5分钟精华。", ja: "受講者限定 - 5分ハイライトへ。" }));
-  window.open(OFFICIAL_CHANNEL_URL, "_blank");
+  if (grade() >= 2) { openPlayer(title, LECTURE_VIDEO[`lecture-reg#${i}`] || null); return; }
+  toast(L({ ko: "정규과정 등록자·수료자 전용입니다. 상담을 통해 등록하실 수 있습니다.", en: "For enrolled students and graduates only. Contact us to enroll.", zh: "仅限学员与结业生。可通过咨询报名。", ja: "受講者·修了者限定です。ご相談から登録できます。" }));
+  go("apply"); render();
+}
+/* 인앱 플레이어 모달 */
+function openPlayer(title, src) {
+  const el = $("#player");
+  if (!el) return;
+  el.querySelector(".ptitle").textContent = title || "";
+  const stage = el.querySelector(".pstage");
+  stage.innerHTML = src
+    ? `<video src="${esc(src)}" controls autoplay playsinline controlsList="nodownload" oncontextmenu="return false"></video>`
+    : `<div class="pempty">
+         <b>${L({ ko: "영상 준비중입니다", en: "Video coming soon", zh: "视频准备中", ja: "動画準備中" })}</b>
+         <p>${L({ ko: "수강 권한은 확인되었습니다. 영상이 등록되면 이 화면에서 바로 시청하실 수 있습니다.", en: "Your access is confirmed. The video will play here once it is uploaded.", zh: "已确认观看权限。视频上线后可在此直接观看。", ja: "受講権限は確認済みです。動画公開後、この画面で視聴できます。" })}</p>
+       </div>`;
+  el.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closePlayer() {
+  const el = $("#player");
+  if (!el) return;
+  const v = el.querySelector("video");
+  if (v) { try { v.pause(); } catch (e) {} }
+  el.querySelector(".pstage").innerHTML = "";
+  el.classList.remove("open");
+  document.body.style.overflow = "";
 }
 
 /* ---------- 스토어 ---------- */
 routes.store = () => `
   <section>
-    ${secHead("STORE", L({ ko: "스토어", en: "Store", zh: "商店", ja: "ストア" }), L({ ko: "모든 교재는 목차와 본문 10페이지를 미리 볼 수 있습니다.", en: "Every book offers a contents + 10-page preview.", zh: "所有教材可预览目录与10页正文。", ja: "全教材で目次と本文10ページをプレビュー可能。" }))}
+    ${secHead("E-BOOK &amp; TEXTBOOK STORE", L({ ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", ja: "電子書籍·教材ストア" }), L({ ko: "모든 교재는 목차와 본문 10페이지를 미리 볼 수 있습니다.", en: "Every book offers a contents + 10-page preview.", zh: "所有教材可预览目录与10页正文。", ja: "全教材で目次と本文10ページをプレビュー可能。" }))}
     <a class="card" href="#books" style="display:block;text-decoration:none;margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
         <div><b>${L({ ko: "정규과정 교재", en: "Textbooks", zh: "正规课程教材", ja: "正規課程教材" })}</b>
@@ -1549,7 +1612,7 @@ function buyItem(type, idx) {
   else if (type === "ebook") name = L(GUIDEBOOKS[idx].t) + " - " + L({ ko: "전자책 PDF (워크숍 50% 할인 혜택)", en: "E-book PDF (50% workshop discount)", zh: "电子书PDF(工作坊5折)", ja: "電子書籍PDF(WS50%割引)" });
   else if (type === "lecture-mt") name = L(LECT_MT[idx].t) + " - " + L({ ko: "온라인 강의 수강권", en: "Online lecture access", zh: "在线课程券", ja: "オンライン受講券" });
   else name = L({ ko: "척추 필라테스 어프로치 - 온라인 강의 수강권 (3강)", en: "Spine Approach - lecture access (3 lessons)", zh: "脊柱方法 - 课程券(3讲)", ja: "脊柱アプローチ - 受講券(3講)" });
-  store.set("cppi_cart", { type, idx, name });
+  store.set("cppi_cart", { type, idx, name, key: `${type}#${idx}` });
   go("checkout"); render();
 }
 function doCheckout() {
@@ -1568,9 +1631,10 @@ function doCheckout() {
     window.open(PG[method], "_blank");
   }
   const methodKo = method === "bank" ? "계좌이체" : method === "naver" ? "네이버페이" : "카카오페이";
-  const rec = { id: "CP" + Date.now().toString().slice(-8), email, buyer, item: item.name, type: item.type, method: methodKo, status: "입금 확인중", payer: "", at: new Date().toISOString().slice(0, 16).replace("T", " ") };
+  const orderType = item.key || item.type;
+  const rec = { id: "CP" + Date.now().toString().slice(-8), email, buyer, item: item.name, type: orderType, method: methodKo, status: "입금 확인중", payer: "", at: new Date().toISOString().slice(0, 16).replace("T", " ") };
   const orders = APP.orders; orders.push(rec); APP.orders = orders; // 로컬 캐시(즉시 표시)
-  if (SERVER) { apiPost("order", { item: item.name, type: item.type, method: methodKo, buyer, email }).catch(() => {}); }
+  if (SERVER) { apiPost("order", { item: item.name, type: orderType, method: methodKo, buyer, email }).catch(() => {}); }
   store.set("cppi_cart", null);
   if (method === "bank") go("bank"); else { toast("OK"); go(u ? "my" : "home"); }
 }
@@ -1687,3 +1751,5 @@ if ("serviceWorker" in navigator) {
 /* ---------- 시작 ---------- */
 setLang(LANG);
 bootServer(); // 서버(D1) 연결 확인 → 있으면 서버 세션/데이터 사용, 없으면 로컬
+
+document.addEventListener("keydown", e => { if (e.key === "Escape") closePlayer(); });

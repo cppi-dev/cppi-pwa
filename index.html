@@ -269,7 +269,10 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 @media(min-width:1024px){
   .wrap{max-width:1180px}
   .hbar{max-width:1180px}
-  .tabbar .in{max-width:1180px}
+  /* [6] PC 탭바 1.5배 */
+  .tabbar .in{max-width:1180px; padding:12px 10px}
+  .tabbar a{margin:0 5px; padding:17px 4px; font-size:20px; border-radius:19px}
+  body{padding-bottom:calc(99px + var(--safe-b))}
 }
 /* ============================================================
    스크롤 확장 히어로 (Scroll-Expansion Hero)
@@ -417,15 +420,15 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .cband-track{white-space:nowrap; will-change:transform}
   .cband-track span{
     display:inline-block; font-weight:800;
-    font-size:clamp(46px,5.6vw,92px); letter-spacing:-.03em; color:var(--ink);
+    font-size:clamp(23px,2.8vw,46px); letter-spacing:-.03em; color:var(--ink);
     opacity:.13;
   }
   .cband-track em{font-style:normal; color:var(--pri); opacity:.8; padding:0 6px}
   .cband-no{
-    position:absolute; left:0; right:0; top:12px;
+    position:absolute; left:0; right:0; top:10px;
     max-width:1180px; margin:0 auto; padding:0 48px;
-    font-family:'Noto Serif KR',serif; font-size:11.5px; letter-spacing:.34em;
-    font-weight:600; color:var(--pri);
+    font-family:'Noto Serif KR',serif; font-size:23px; letter-spacing:.24em;
+    font-weight:700; color:var(--pri);
   }
   .cband-no::before{content:"CHAPTER "}
 }
@@ -517,16 +520,36 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .why-cta{padding:170px 48px 178px}
 }
 
+/* ---------- 강의 플레이어 (인앱 재생) ---------- */
+.player{position:fixed; inset:0; z-index:130; background:rgba(14,10,8,.96); display:none;
+  flex-direction:column; padding:0 0 env(safe-area-inset-bottom,0px)}
+.player.open{display:flex}
+.player .ptop{display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:16px 18px; color:#fff}
+.player .ptitle{font-size:15.5px; font-weight:700; line-height:1.35}
+.player .ptop button{color:#fff; font-size:22px; padding:4px 8px}
+.player .pstage{flex:1; display:flex; align-items:center; justify-content:center; padding:0 14px 22px}
+.player .pstage video{width:100%; max-width:1180px; max-height:100%; border-radius:12px; background:#000}
+.player .pempty{max-width:520px; text-align:center; color:#fff; padding:30px 18px}
+.player .pempty b{display:block; font-size:20px; font-weight:800; margin-bottom:12px}
+.player .pempty p{font-size:14px; line-height:1.9; color:rgba(255,255,255,.66)}
+@media(min-width:1024px){
+  .player .ptop{padding:24px 34px}
+  .player .ptitle{font-size:19px}
+  .player .pstage{padding:0 34px 34px}
+}
+
 /* ============================================================
    3D 교재 흩뿌리기 씬 - 개별 표지를 각도·크기·깊이를 달리해 배치
    스크롤 시 서로 다른 속도로 떠오르고(패럴랙스), 마우스에 미세 반응
 ============================================================ */
-.bscatter{position:relative; width:100%; aspect-ratio:1/1; perspective:1400px}
-.bs-item{position:absolute; left:var(--bx); top:var(--by); margin:0; width:34%;
+.bscatter{position:relative; width:100%; aspect-ratio:3/4; overflow:visible; padding:2% 3% 6%}
+.bs-item{position:absolute; left:var(--bx); top:var(--by); margin:0; width:var(--bw,30%);
   transform:rotate(var(--br)) scale(var(--bs)); transform-origin:center;
-  z-index:var(--bz); will-change:transform;
-  filter:drop-shadow(0 22px 34px rgba(90,45,20,.22))}
-.bs-item img{width:100%; height:auto; display:block;
+  z-index:var(--bz); will-change:transform}
+/* 그림자는 이미지에 직접 걸어 책 실루엣을 따라가게 한다 (컨테이너 잘림 없음) */
+.bs-item img{width:100%; height:auto !important; display:block; object-fit:contain !important;
+  filter:drop-shadow(0 18px 26px rgba(90,45,20,.26)) drop-shadow(0 3px 6px rgba(90,45,20,.18));
   transition:transform .55s var(--ease-out), filter .55s var(--ease-out)}
 .bs-item figcaption{position:absolute; left:50%; bottom:-26px; transform:translateX(-50%);
   white-space:nowrap; font-size:11px; letter-spacing:.06em; font-weight:700; color:var(--pri);
@@ -536,7 +559,6 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 .bs-item:hover img{transform:translateY(-14px) scale(1.06)}
 .bs-item:hover figcaption{opacity:1; transform:translateX(-50%) translateY(-4px)}
 @media(min-width:1024px){
-  .bs-item{width:31%}
   .bs-item figcaption{font-size:12px}
 }
 @media(prefers-reduced-motion:reduce){
@@ -616,26 +638,33 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   .ed-cur-head{max-width:760px; margin-bottom:8px}
 
   /* 2단 에디토리얼 (좌 이미지 / 우 텍스트, .rev 로 좌우 반전) */
-  .ed-split{display:grid; grid-template-columns:1fr 1fr; gap:78px; align-items:center; margin:0 0 110px}
+  .ed-split{display:grid; overflow:visible; grid-template-columns:1fr 1fr; gap:78px; align-items:center; margin:0 0 110px}
   .ed-split.rev .ed-media{order:2}
-  .ed-media img{width:100%; height:680px; object-fit:cover; border-radius:2px}
+  .ed-media:not(.bookscene) img{width:100%; height:680px; object-fit:cover; border-radius:2px}
   .ed-body{padding:20px 0}
 
   /* 4분할 - 카드 블럭형 */
-  .ed-quad{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:0 0 110px}
+  .ed-quad{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:24px 0 20px}
   .ed-quad-i{position:relative; display:flex; flex-direction:column; justify-content:space-between;
-    min-height:190px; padding:26px 24px 24px; text-decoration:none; border-radius:18px;
+    min-height:250px; padding:30px 28px 28px; text-decoration:none; border-radius:20px;
     background:var(--card); border:1px solid var(--line); box-shadow:0 2px 10px rgba(120,60,20,.05);
     transition:transform .38s var(--ease-out), box-shadow .38s var(--ease-out), background .38s var(--ease-std)}
   .ed-quad-i:hover{transform:translateY(-6px); box-shadow:0 16px 34px rgba(120,60,20,.14); background:#FFF8F2}
-  .ed-quad-i .qk{font-size:11px; letter-spacing:.22em; color:var(--pri); font-weight:700}
-  .ed-quad-i b{display:block; font-size:21px; font-weight:800; letter-spacing:-.02em; color:var(--ink); margin-top:auto}
-  .ed-quad-i i{position:absolute; right:22px; bottom:22px; font-style:normal; font-size:19px; color:var(--pri);
+  .ed-quad-i .qk{font-size:17px; letter-spacing:.16em; color:var(--pri); font-weight:700}
+  .ed-quad-i b{display:block; font-size:34px; font-weight:800; letter-spacing:-.03em; color:var(--ink); margin-top:auto; line-height:1.2}
+  .ed-quad-i i{position:absolute; right:26px; bottom:26px; font-style:normal; font-size:30px; color:var(--pri);
     transition:transform .38s var(--ease-out)}
   .ed-quad-i:hover i{transform:translateX(5px)}
 
   /* 2분할 대형 타일 */
   .ed-duo{display:grid; grid-template-columns:1fr 1fr; gap:26px; margin:0 0 110px}
+  /* 강의·스토어·워크숍·멤버스 4종을 한 섹션에 */
+  .ed-quadtile{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin:0 0 110px}
+  .ed-quadtile .ed-tile{height:440px}
+  .ed-quadtile .ed-tile .ov{padding:52px 24px 26px}
+  .ed-quadtile .ed-tile .ov b{font-size:24px}
+  .ed-quadtile .ed-tile .ov span{font-size:12.5px}
+  .ed-quadtile .ed-tile.fit img{padding:26px 22px 92px}
   .ed-tile{position:relative; display:block; overflow:hidden; border-radius:2px; text-decoration:none;
     height:520px; background:var(--ink)}
   .ed-tile img{width:100%; height:100%; object-fit:cover; transition:transform 1.1s var(--ease-soft)}
@@ -750,6 +779,12 @@ footer .sns a img{width:22px; height:22px; object-fit:contain}
     <span class="cnt" id="vwCnt">1 / 13</span>
     <button onclick="vwMove(1)">다음 →</button>
   </div>
+</div>
+
+<!-- 강의 플레이어 (앱 내 재생 · 외부 채널로 내보내지 않음) -->
+<div class="player" id="player">
+  <div class="ptop"><h4 class="ptitle"></h4><button onclick="closePlayer()" aria-label="닫기">✕</button></div>
+  <div class="pstage"></div>
 </div>
 
 <!-- 전 페이지 네이버 톡톡 상담 버튼 -->

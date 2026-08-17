@@ -68,6 +68,12 @@ export async function onRequest(context) {
         .bind(id, em, body.buyer || meRow?.nameKo || "", body.item || "", body.type || "", body.method || "", "입금 확인중", "", new Date().toISOString().slice(0, 16).replace("T", " ")).run();
       return json({ id });
     }
+    /* ---- 수강 권한 (결제 완료된 항목만) ---- */
+    if (path === "entitlements") {
+      if (!meRow) return json({ items: [] });
+      const r = await DB.prepare("SELECT DISTINCT type FROM orders WHERE email=? AND status='완료'").bind(meRow.email).all();
+      return json({ items: r.results.map(o => o.type).filter(Boolean) });
+    }
     if (path === "orders") {
       if (!meRow) return json({ orders: [] });
       const r = await DB.prepare("SELECT * FROM orders WHERE email=? ORDER BY id DESC").bind(meRow.email).all();
