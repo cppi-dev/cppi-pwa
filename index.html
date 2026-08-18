@@ -576,54 +576,44 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 
 /* ============================================================
    커리큘럼 3D 카드 팬 - 표지가 원근 속으로 비스듬히 늘어선다
-   (참고 사이트는 WebGL이지만 여기서는 가벼운 CSS 3D로 같은 인상을 만든다)
+   겹치기는 음수 마진으로 처리해, 각 카드의 드러난 부분이 정확히
+   그 카드의 클릭 영역이 되도록 한다 (절대배치 시 앞 카드가 뒤 카드의
+   클릭을 가로채던 문제 해결).
 ============================================================ */
-.cfan{position:relative; margin:6px 0 22px; padding:8px 0 44px; overflow:hidden}
-.cfan-stage{position:relative; height:340px; perspective:1500px; perspective-origin:62% 50%;
-  transform-style:preserve-3d}
-.cfan-card{position:absolute; left:50%; top:50%; width:190px; padding:0; background:none; border:0;
-  transform-style:preserve-3d; cursor:pointer;
-  /* 카드마다 X는 오른쪽으로, Z는 뒤로 물러나며 Y축 회전으로 비스듬히 세운다 */
-  transform:
-    translate3d(calc(-50% + var(--i) * 74px - 210px), calc(-50% + var(--i) * -16px + 44px), calc(var(--i) * -108px))
-    rotateY(-26deg) rotateZ(-1.5deg);
-  transition:transform .7s var(--ease-out), filter .5s var(--ease-std);
-  filter:drop-shadow(0 24px 34px rgba(90,45,20,.24));
-  z-index:calc(20 - var(--i));
+.cfan{position:relative; margin:6px 0 22px; padding:10px 0 48px}
+.cfan-stage{display:flex; justify-content:center; align-items:flex-end;
+  perspective:1500px; padding:26px 10px 10px; overflow-x:auto; overflow-y:hidden;
+  scrollbar-width:none; -ms-overflow-style:none}
+.cfan-stage::-webkit-scrollbar{display:none}
+.cfan-card{flex:0 0 auto; width:150px; margin-left:-62px; padding:0; background:none; border:0;
+  cursor:pointer; position:relative; transform-origin:bottom center;
+  transform:rotateY(-24deg) translateY(calc(var(--i) * -6px));
+  transition:transform .55s var(--ease-out), filter .45s var(--ease-std);
+  filter:drop-shadow(0 18px 26px rgba(90,45,20,.26));
+  z-index:var(--i);
 }
-.cfan-card img{width:100%; height:auto; display:block; border-radius:3px}
-.cfan-card .cfan-label{position:absolute; left:0; right:0; bottom:-30px; display:flex; align-items:baseline;
-  justify-content:center; gap:8px; font-size:12px; font-weight:700; color:var(--ink);
-  opacity:0; transform:translateY(6px); transition:opacity .4s var(--ease-std), transform .4s var(--ease-out);
-  white-space:nowrap; pointer-events:none}
+.cfan-card:first-child{margin-left:0}
+.cfan-card img{width:100%; height:auto; display:block}
+.cfan-card .cfan-label{position:absolute; left:50%; transform:translateX(-50%) translateY(6px);
+  bottom:-30px; display:flex; align-items:baseline; gap:7px; white-space:nowrap;
+  font-size:12px; font-weight:700; color:var(--ink); opacity:0; pointer-events:none;
+  transition:opacity .35s var(--ease-std), transform .35s var(--ease-out)}
 .cfan-card .cfan-label i{font-style:normal; color:var(--pri); font-size:10.5px; letter-spacing:.12em}
 .cfan-card:hover, .cfan-card:focus-visible{
-  transform:
-    translate3d(calc(-50% + var(--i) * 74px - 210px), calc(-50% + var(--i) * -16px + 24px), calc(var(--i) * -108px + 90px))
-    rotateY(-14deg) rotateZ(0deg);
-  filter:drop-shadow(0 34px 46px rgba(90,45,20,.34)); z-index:30; outline:none}
-.cfan-card:hover .cfan-label, .cfan-card:focus-visible .cfan-label{opacity:1; transform:translateY(0)}
-.cfan-hint{margin-top:6px; text-align:center; font-size:11.5px; letter-spacing:.06em; color:var(--ink2)}
+  transform:rotateY(-8deg) translateY(calc(var(--i) * -6px - 16px)) scale(1.06);
+  filter:drop-shadow(0 30px 42px rgba(90,45,20,.36)); z-index:40; outline:none}
+.cfan-card:hover .cfan-label, .cfan-card:focus-visible .cfan-label{opacity:1; transform:translateX(-50%) translateY(0)}
+.cfan-hint{margin-top:10px; text-align:center; font-size:11.5px; letter-spacing:.06em; color:var(--ink2)}
 /* 선택한 과목 카드로 이동했을 때 잠깐 강조 */
 .curriculum-list .card.is-hit{box-shadow:0 0 0 2px var(--pri), var(--sh); transition:box-shadow .4s var(--ease-std)}
-@media(max-width:1023px){
-  .cfan-stage{height:250px; perspective:1000px; perspective-origin:60% 50%}
-  .cfan-card{width:132px;
-    transform:translate3d(calc(-50% + var(--i) * 46px - 132px), calc(-50% + var(--i) * -9px + 26px), calc(var(--i) * -72px))
-      rotateY(-24deg) rotateZ(-1.5deg)}
-  .cfan-card:hover{transform:translate3d(calc(-50% + var(--i) * 46px - 132px), calc(-50% + var(--i) * -9px + 12px), calc(var(--i) * -72px + 60px)) rotateY(-14deg)}
-}
 @media(min-width:1024px){
-  .cfan{padding:20px 0 60px}
-  .cfan-stage{height:470px; perspective:1900px}
-  .cfan-card{width:250px;
-    transform:translate3d(calc(-50% + var(--i) * 104px - 300px), calc(-50% + var(--i) * -22px + 62px), calc(var(--i) * -140px))
-      rotateY(-26deg) rotateZ(-1.5deg)}
+  .cfan{padding:22px 0 62px}
+  .cfan-stage{perspective:2000px; padding:34px 20px 14px}
+  .cfan-card{width:214px; margin-left:-86px; transform:rotateY(-24deg) translateY(calc(var(--i) * -9px))}
   .cfan-card:hover, .cfan-card:focus-visible{
-    transform:translate3d(calc(-50% + var(--i) * 104px - 300px), calc(-50% + var(--i) * -22px + 34px), calc(var(--i) * -140px + 120px))
-      rotateY(-13deg) rotateZ(0deg)}
+    transform:rotateY(-8deg) translateY(calc(var(--i) * -9px - 22px)) scale(1.07)}
   .cfan-card .cfan-label{font-size:13.5px; bottom:-34px}
-  .cfan-hint{font-size:12.5px}
+  .cfan-hint{font-size:12.5px; margin-top:14px}
 }
 @media(prefers-reduced-motion:reduce){
   .cfan-card{transition:none}

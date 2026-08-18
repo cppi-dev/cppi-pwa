@@ -1099,10 +1099,14 @@ function curriculumFan() {
 function goCurriculumItem(i) {
   const el = document.getElementById("cur-" + i);
   if (!el) return;
-  const y = el.getBoundingClientRect().top + window.scrollY - 80;
-  if (_lenis) _lenis.scrollTo(y, { duration: 1.1 }); else window.scrollTo({ top: y, behavior: "smooth" });
+  const header = document.querySelector("header");
+  const offset = (header ? header.offsetHeight : 56) + 24;
+  const y = Math.max(0, el.getBoundingClientRect().top + window.scrollY - offset);
+  if (_lenis && typeof _lenis.scrollTo === "function") _lenis.scrollTo(y, { duration: 1.0 });
+  else window.scrollTo({ top: y, behavior: "smooth" });
+  document.querySelectorAll(".curriculum-list .card.is-hit").forEach(n => n.classList.remove("is-hit"));
   el.classList.add("is-hit");
-  setTimeout(() => el.classList.remove("is-hit"), 1400);
+  setTimeout(() => el.classList.remove("is-hit"), 1600);
 }
 
 routes.curriculum = () => `
