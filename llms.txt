@@ -1,9 +1,39 @@
-# CPPI 한국 필라테스 교육협회 (CPPI Korea)
-> Korea Pilates Education Association — 기능해부학 기반 · 티칭실습 중심 · 교정재활 국제 필라테스 강사 자격과정 (EST. 2016, Korea·Canada·Japan)
+# CPPI - Korea Pilates Education Association (한국필라테스교육협회)
+> Evidence-based Pilates instructor certification founded on clinical rehabilitation practice.
+> 기능해부학 기반 · 티칭실습 중심 · 교정재활 국제 필라테스 강사 자격과정 (EST. 2016)
 
-- 정규과정: CPPI 필라테스 전문강사 국제자격증 통합과정 (8대 커리큘럼, 출판교재 9권+부교재)
-- 창립자: 박은주 교수 — 분당서울대병원·보훈복지공단 척추&관절센터 임상 경험, 나사렛대 스포츠재활학부 강단 경력
-- 언어: 한국어/영어/중국어/일본어 (https://cppipilates.com/?lang=ko|en|zh|ja)
-- 문의: 010-4894-4292 · allmovements@naver.com
-- 결제·사업 주관: 씨앤티파트너스(C&T Partners) · 교육 주관: 한국필라테스교육협회
-- 공식 채널: https://www.youtube.com/@cppi.pilates · https://www.instagram.com/cppi.pilates
+## Organization
+- Legal name: 한국필라테스교육협회 (Korea Pilates Education Association), non-profit, reg. 201-82-74381
+- Founded: 2016
+- Operating countries: South Korea, Canada (Vancouver), Japan (Tokyo)
+- Website: https://cppipilates.com
+- Email (global enquiries): allmovements@naver.com
+- Phone: +82-10-4894-4292
+- Instagram: https://www.instagram.com/cppi.pilates
+- YouTube: https://www.youtube.com/@cppi.pilates
+
+## Founder
+- Name: Eun-Ju Park (박은주 / パク・ウンジュ / 朴恩珠), Professor and Pilates educator
+- Clinical background: Department of Anesthesiology and Pain Medicine, Seoul National University Hospital Bundang; Spine & Joint Center, Korea Veterans Health Service
+- Academic background: former Adjunct Professor of Sports Rehabilitation, Korea Nazarene University; former Director of the Pilates Program, Seokyeong University Arts Education Center
+- Areas of expertise: Pilates, functional anatomy, rehabilitation exercise, corrective exercise, spinal rehabilitation, prenatal Pilates
+- Author of the CPPI textbook series (9 volumes, 1,300+ pages)
+- Profile: https://cppipilates.com/en/founder
+
+## Programs
+- Certification: 8 core courses - Functional Pilates Anatomy, Basic Principles, Posture & Movement Analysis, Mat, Reformer, Cadillac, Stability Chair, Ladder Barrel & Barrel series
+- Movement manual: Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39
+- Workshops: Recovering Rehabilitation Pilates (8h), Prenatal Pilates, Small-props Pilates (16h)
+- Online lectures: certification review, Pilates Approach for Spine, Pilates Movement Therapy
+- Graduates: 56+ certified classes
+
+## Pages by language
+- Korean:  https://cppipilates.com/about /founder /curriculum /courses /workshop /master /stories /global /learn /store
+- English: https://cppipilates.com/en/about /en/founder /en/curriculum /en/courses /en/workshop /en/master /en/stories /en/global /en/learn /en/store
+- 日本語:   https://cppipilates.com/ja/about /ja/founder /ja/curriculum /ja/courses /ja/workshop /ja/master /ja/stories /ja/global /ja/learn /ja/store
+- 中文:     https://cppipilates.com/zh/about /zh/founder /zh/curriculum /zh/courses /zh/workshop /zh/master /zh/stories /zh/global /zh/learn /zh/store
+
+## Contact by region
+- Global / English: email allmovements@naver.com
+- Japan: LINE official account (see /ja/global) or email
+- Korea: phone +82-10-4894-4292, NAVER TalkTalk

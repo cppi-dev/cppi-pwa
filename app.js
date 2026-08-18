@@ -637,20 +637,20 @@ function desktopHome() {
 
     <section class="ed-quadtile">
       <a class="ed-tile sreveal" href="#learn">
-        <img src="frame1.jpg" alt="">
+        <img src="frame1.jpg" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}">
         <div class="ov"><div class="ed-eyebrow light">ONLINE LECTURES</div><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div>
       </a>
       <a class="ed-tile fit sreveal" href="#store">
-        <img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 출판교재", en: "CPPI textbooks" }))}">
+        <img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 출판교재 - 박은주(Eun-Ju Park) 저 필라테스 기능해부학 교재", en: "CPPI published textbook - Functional Pilates Anatomy by Eun-Ju Park", zh: "CPPI出版教材 - 朴恩珠(Eun-Ju Park)著《普拉提功能解剖学》", ja: "CPPI出版教材 - パク・ウンジュ(Eun-Ju Park)著『機能解剖学ピラティス』" }))}">
         <div class="ov"><div class="ed-eyebrow light">E-BOOK STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
       </a>
     
       <a class="ed-tile sreveal" href="#workshop">
-        <img src="img/workshop_banner.jpg" alt="" style="object-position:50% 24%">
+        <img src="img/workshop_banner.jpg" alt="${esc(L({ ko: "CPPI 전문 강사 워크숍 현장 - 리커버링 재활·임산부·소도구 필라테스 실습", en: "CPPI professional instructor workshop - recovering rehab, prenatal and small-props Pilates practicum", zh: "CPPI专业教练工作坊现场 - 康复·孕产·小工具普拉提实操", ja: "CPPI専門講師ワークショップ - リカバリング·マタニティ·小道具ピラティス実習" }))}" style="object-position:50% 24%">
         <div class="ov"><div class="ed-eyebrow light">WORKSHOP</div><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div>
       </a>
       <a class="ed-tile sreveal" href="#members">
-        <img src="img/members.jpg" alt="" style="object-position:50% 18%">
+        <img src="img/members.jpg" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 18%">
         <div class="ov"><div class="ed-eyebrow light">MEMBERS</div><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", ja: "修了56期+名簿" })}</span></div>
       </a>
     
@@ -664,7 +664,7 @@ function desktopHome() {
         <h2 class="ed-h2">${L({ ko: "교육의 증거는<br>현장에 있습니다", en: "The proof of teaching<br>lives in the field", zh: "教育的证据<br>在现场", ja: "教育の証拠は<br>現場にあります" })}</h2>
       </div>
       <div class="ed-story-strip sreveal">
-        ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="" loading="lazy"></a>`).join("")}
+        ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="${esc(L({ ko: "CPPI 필라테스 수료강사 후기", en: "CPPI Pilates graduate review", zh: "CPPI普拉提结业教练评价", ja: "CPPIピラティス修了講師の口コミ" }))} ${i}" loading="lazy"></a>`).join("")}
       </div>
       <a class="ed-link center sreveal" href="#stories">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", ja: "口コミをすべて見る" })}</a>
     </section>
@@ -710,7 +710,7 @@ function showCohort(i) {
 routes.home = () => `
   <div class="xhero">
     <div class="xhero-stage">
-      <img class="xhero-bg" src="img/hero_bg.jpg" alt="CPPI 교육 현장 - 박은주 교수 지도 장면">
+      <img class="xhero-bg" src="img/hero_bg.jpg" alt="${esc(L({ ko: "박은주(Eun-Ju Park) 교수가 CPPI 필라테스 강사 양성과정 실습을 지도하는 교육 현장", en: "Prof. Eun-Ju Park teaching a CPPI Pilates instructor certification practicum", zh: "朴恩珠(Eun-Ju Park)教授指导CPPI普拉提教练资格课程实操现场", ja: "パク・ウンジュ(Eun-Ju Park)教授がCPPIピラティス指導者養成課程の実技を指導する現場" }))}">
       <div class="xhero-box">
         <video id="xheroVid" src="${HEROS[0]}" poster="hero-poster.jpg" autoplay muted playsinline preload="auto"></video>
         <div class="xhero-veil"></div>
@@ -762,7 +762,7 @@ routes.home = () => `
       <a class="qchip t3" href="#support">${L({ ko: "FAQ<br>후기", en: "FAQ<br>Reviews", zh: "FAQ<br>评价", ja: "FAQ<br>口コミ" })}</a>
       <a class="qchip t4" href="#apply">${L({ ko: "상담<br>신청", en: "Free<br>Consult", zh: "咨询<br>申请", ja: "相談<br>申込" })}</a>
       <button class="qapp" onclick="installApp()">
-        <img src="img/logo3d.jpg" alt="">
+        <img src="img/logo3d.jpg" alt="CPPI 앱 아이콘">
         <div><b>${L({ ko: "CPPI 앱 설치", en: "Install App", zh: "安装应用", ja: "アプリ追加" })}</b><span>${L({ ko: "홈 화면에 추가", en: "Add to Home", zh: "添加到主屏", ja: "ホームに追加" })}</span></div>
       </button>
     </div>
@@ -780,20 +780,20 @@ routes.home = () => `
 
     <!-- Row 4 : 온라인 강의 + 스토어 -->
     <div class="grid2 sreveal" style="margin-top:12px">
-      <a class="card imgcard" href="#learn"><img src="frame1.jpg" alt=""><div class="cap"><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div></a>
-      <a class="card imgcard" href="#store"><img src="img/books3d/b_anatomy.webp" alt="" style="object-fit:contain;background:linear-gradient(160deg,#FFF3E6,#FFE6D2);padding:10px"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
+      <a class="card imgcard" href="#learn"><img src="frame1.jpg" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}"><div class="cap"><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div></a>
+      <a class="card imgcard" href="#store"><img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 필라테스 교재 - 박은주(Eun-Ju Park) 저 출판교재 9권 시리즈", en: "CPPI Pilates textbooks - 9-volume series authored by Eun-Ju Park", zh: "CPPI普拉提教材 - 朴恩珠(Eun-Ju Park)著9册系列", ja: "CPPIピラティス教材 - パク・ウンジュ(Eun-Ju Park)著 全9巻シリーズ" }))}" style="object-fit:contain;background:linear-gradient(160deg,#FFF3E6,#FFE6D2);padding:10px"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
     </div>
 
     <!-- Row 5 : 전문 강사 워크숍 + 멤버스 -->
     <div class="grid2 sreveal" style="margin-top:12px">
-      <a class="card imgcard" href="#workshop"><img src="img/workshop_banner.jpg" alt="" style="object-position:50% 24%"><div class="cap"><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div></a>
-      <a class="card imgcard" href="#members"><img src="img/members.jpg" alt="" style="object-position:50% 18%"><div class="cap"><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", ja: "修了56期+名簿" })}</span></div></a>
+      <a class="card imgcard" href="#workshop"><img src="img/workshop_banner.jpg" alt="${esc(L({ ko: "CPPI 전문 강사 워크숍 현장 - 리커버링 재활·임산부·소도구 필라테스 실습", en: "CPPI professional instructor workshop - recovering rehab, prenatal and small-props Pilates practicum", zh: "CPPI专业教练工作坊现场 - 康复·孕产·小工具普拉提实操", ja: "CPPI専門講師ワークショップ - リカバリング·マタニティ·小道具ピラティス実習" }))}" style="object-position:50% 24%"><div class="cap"><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div></a>
+      <a class="card imgcard" href="#members"><img src="img/members.jpg" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 18%"><div class="cap"><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", ja: "修了56期+名簿" })}</span></div></a>
     </div>
 
     <!-- Row 5.5 : 수료강사 후기 (CPPI 자체 후기 카드) -->
     <div class="sreveal" style="margin-top:18px"><div class="eyebrow">REVIEWS</div><h2 class="sec">${L(UI.menu.stories)}</h2></div>
     <div class="rev-strip sreveal">
-      ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="" loading="lazy"></a>`).join("")}
+      ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="${esc(L({ ko: "CPPI 필라테스 수료강사 후기", en: "CPPI Pilates graduate review", zh: "CPPI普拉提结业教练评价", ja: "CPPIピラティス修了講師の口コミ" }))} ${i}" loading="lazy"></a>`).join("")}
     </div>
     <a class="btn ghost" href="#stories" style="margin-top:10px">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", ja: "口コミをすべて見る" })}</a>
 
@@ -935,7 +935,7 @@ routes.why = () => `
           </div>
           <div class="why-grid">
             <p class="why-lede sreveal">${esc(L(p.lede))}</p>
-            <figure class="why-fig sreveal"><img src="${p.img}" alt="" loading="lazy"></figure>
+            <figure class="why-fig sreveal"><img src="${p.img}" alt="${esc(L(p.name))} - ${esc(L({ ko: "CPPI 근거 기반 필라테스 교육 (박은주 Eun-Ju Park)", en: "CPPI evidence-based Pilates education, founded by Eun-Ju Park", zh: "CPPI循证普拉提教育(创始人 朴恩珠 Eun-Ju Park)", ja: "CPPI根拠に基づくピラティス教育(創立者 パク・ウンジュ Eun-Ju Park)" }))}" loading="lazy"></figure>
           </div>
           <div class="why-items${p.items.length === 3 ? " three" : ""}">
             ${p.items.map((it, k) => `<div class="why-item sreveal" style="--d:${k * 70}ms"><i>${String(k + 1).padStart(2, "0")}</i><b>${esc(L(it.h))}</b><span>${esc(L(it.p))}</span></div>`).join("")}
@@ -1115,7 +1115,7 @@ routes.curriculum = () => `
     <div class="curriculum-list">
     ${CURRICULUM.map((c, i) => `<div class="card" id="cur-${i}" style="margin-bottom:10px">
       <div style="display:flex;gap:12px">
-        <img src="img/books3d/b_${c.slug}.webp" alt="" style="width:82px;min-width:82px;height:auto;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(90,45,20,.22))">
+        <img src="img/books3d/b_${c.slug}.webp" alt="${esc(L(c.n))} - ${esc(L({ ko: "CPPI 필라테스 교재 (저자 박은주 Eun-Ju Park)", en: "CPPI Pilates textbook by Eun-Ju Park", zh: "CPPI普拉提教材(著者 朴恩珠 Eun-Ju Park)", ja: "CPPIピラティス教材(著者 パク・ウンジュ Eun-Ju Park)" }))}" style="width:82px;min-width:82px;height:auto;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(90,45,20,.22))">
         <div style="min-width:0"><b style="font-size:15px">${i + 1}. ${esc(L(c.n))}</b>
           <div style="font-size:13px;color:var(--pri);font-weight:700;margin-top:3px">${L({ ko: "강의 시간", en: "Hours", zh: "课时", ja: "講義時間" })}: ${c.hrs}${L({ ko: "시간", en: "h", zh: "小时", ja: "時間" })}</div>
         </div>
@@ -1131,7 +1131,7 @@ routes.curriculum = () => `
 
 routes.prep = () => `
   <section style="text-align:center;padding-top:60px">
-    <img src="img/logo3d.jpg" alt="" style="width:110px;height:110px;border-radius:50%;object-fit:cover;margin:0 auto 18px">
+    <img src="img/logo3d.jpg" alt="CPPI 한국 필라테스 교육협회 (Korea Pilates Education Association)" style="width:110px;height:110px;border-radius:50%;object-fit:cover;margin:0 auto 18px">
     <h2 class="sec">${L({ ko: "준비중입니다", en: "Coming Soon", zh: "准备中", ja: "準備中です" })}</h2>
     <p class="lead" style="margin-bottom:22px">${L({ ko: "해당 온라인 강의는 공식 유튜브 채널 영상으로 준비되는 대로 오픈됩니다.", en: "This online lecture opens as soon as it is ready on our official channel.", zh: "该在线课程准备就绪后即将上线。", ja: "公式チャンネルで準備でき次第公開されます。" })}</p>
     <a class="btn pri" target="_blank" rel="noopener" href="${OFFICIAL_CHANNEL_URL}">${L(UI.btn.channel)}</a>
@@ -1207,21 +1207,21 @@ routes.learn = () => `
     ${secHead("ONLINE LECTURES", L(UI.menu.learn), L({ ko: "과정을 선택하면 강의 목록이 표시됩니다.", en: "Choose a program to see its lectures.", zh: "选择课程查看列表。", ja: "課程を選ぶと講義一覧が表示されます。" }))}
     <div class="lect-grid">
       <a class="lect-card" href="#lecture/reg">
-        <span class="lect-media"><img src="img/lect_reg.webp" alt="" loading="lazy"></span>
+        <span class="lect-media"><img src="img/lect_reg.webp" alt="${esc(L({ ko: "CPPI 정규과정 온라인 강의 - 박은주(Eun-Ju Park) 교수 직강 필라테스 8대 커리큘럼", en: "CPPI certification online lectures - 8 core Pilates courses taught by Prof. Eun-Ju Park", zh: "CPPI正规课程在线课程 - 朴恩珠(Eun-Ju Park)教授主讲普拉提八大课程", ja: "CPPI正規課程オンライン講義 - パク・ウンジュ(Eun-Ju Park)教授によるピラティス8大カリキュラム" }))}" loading="lazy"></span>
         <span class="lect-body">
           <b>${L({ ko: "정규과정 온라인 강의", en: "Certification Course Lectures", zh: "正规课程在线课程", ja: "正規課程オンライン講義" })}</b>
           <span>${L({ ko: "8개 과목 · 등록자/수료자 전용 · 비회원 5분 하이라이트", en: "8 subjects · enrolled/graduates only · 5-min highlights for guests", zh: "8门科目 · 学员专享 · 访客5分钟精华", ja: "8科目 · 受講者限定 · 5分ハイライト" })}</span>
         </span>
       </a>
       <a class="lect-card" href="#lecture/spine">
-        <span class="lect-media"><img src="img/lect_spine.webp" alt="" loading="lazy"></span>
+        <span class="lect-media"><img src="img/lect_spine.webp" alt="${esc(L({ ko: "척추 필라테스 어프로치 온라인 강의 - 박은주(Eun-Ju Park) 교수의 척추질환별 재활 필라테스", en: "Pilates Approach for Spine online course - spinal rehabilitation Pilates by Prof. Eun-Ju Park", zh: "脊柱普拉提方法在线课程 - 朴恩珠(Eun-Ju Park)教授的脊柱康复普拉提", ja: "脊柱ピラティスアプローチ オンライン講義 - パク・ウンジュ(Eun-Ju Park)教授の脊椎リハビリピラティス" }))}" loading="lazy"></span>
         <span class="lect-body">
           <b>${L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine", zh: "脊柱普拉提方法", ja: "脊柱ピラティスアプローチ" })}</b>
           <span>${L({ ko: "이론 1강 + 실기 2강 · 결제 후 시청", en: "1 theory + 2 practice · watch after purchase", zh: "理论1讲+实操2讲 · 购买后观看", ja: "理論1+実技2 · 購入後視聴" })}</span>
         </span>
       </a>
       <a class="lect-card" href="#lecture/mt">
-        <span class="lect-media"><img src="img/lect_mt.webp" alt="" loading="lazy"></span>
+        <span class="lect-media"><img src="img/lect_mt.webp" alt="${esc(L({ ko: "CPPI 필라테스 무브먼트 테라피 - 경추·견관절·척추·골반 부위별 교정운동 온라인 강의", en: "CPPI Pilates Movement Therapy - online course on cervical, shoulder, spine and pelvic corrective exercise", zh: "CPPI普拉提运动治疗 - 颈椎·肩·脊柱·骨盆矫正运动在线课程", ja: "CPPIピラティス・ムーブメントセラピー - 頸椎·肩·脊柱·骨盤の矯正運動オンライン講義" }))}" loading="lazy"></span>
         <span class="lect-body">
           <b>${L({ ko: "CPPI 필라테스 무브먼트 테라피", en: "CPPI Pilates Movement Therapy", zh: "CPPI运动治疗", ja: "CPPIムーブメントセラピー" })}</b>
           <span>${L({ ko: "경추 · 견관절 · 척추 · 골반 - 결제 후 시청 · 수료증 온라인 발급", en: "Cervical · Shoulder · Spine · Pelvis - e-certificate issued", zh: "颈椎·肩·脊柱·骨盆 - 在线颁发证书", ja: "頸椎·肩·脊柱·骨盤 - 修了証発行" })}</span>
@@ -1238,7 +1238,7 @@ routes.lecture = () => {
   if (sub === "spine") return `
   <section>${back}
     ${secHead("SPINE APPROACH", L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine" }), L({ ko: "척추질환별 금지 동작과 추천 동작을 의학적 근거로 배우는 과정입니다.", en: "Contraindicated and recommended movements by spinal condition, on medical evidence." }))}
-    <img src="img/lect_spine.webp" alt="" style="border-radius:14px;margin-bottom:12px;aspect-ratio:16/9;object-fit:cover;width:100%">
+    <img src="img/lect_spine.webp" alt="${esc(L({ ko: "척추 필라테스 어프로치 - 척추질환별 금지·추천 동작을 다루는 CPPI 재활 필라테스 과정", en: "Pilates Approach for Spine - CPPI rehabilitation course on contraindicated and recommended movements by spinal condition", zh: "脊柱普拉提方法 - CPPI按脊柱疾病分类的禁忌与推荐动作康复课程", ja: "脊柱ピラティスアプローチ - 脊椎疾患別の禁忌·推奨動作を扱うCPPIリハビリ課程" }))}" style="border-radius:14px;margin-bottom:12px;aspect-ratio:16/9;object-fit:cover;width:100%">
     ${LECT_SPINE.map((v, i) => { const ok = hasAccess("lecture-spine", 0); return `<div class="vrow" onclick="openLecture('lecture-spine',0,${JSON.stringify(esc(L(v.t)))})" style="cursor:pointer">
       <div class="th" style="font-weight:800;font-size:15px">${ok ? "▶" : i + 1}</div>
       <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${ok ? L({ ko: "지금 시청하기", en: "Watch now", zh: "立即观看", ja: "今すぐ視聴" }) : L({ ko: "구매 후 시청", en: "Watch after purchase", zh: "购买后观看", ja: "購入後視聴" })}</div></div>
@@ -1263,7 +1263,7 @@ routes.lecture = () => {
     <div class="chip">${L({ ko: "내 등급", en: "My grade", zh: "我的等级", ja: "マイ等級" })}: ${L(UI.grade[g])}</div>
     <div style="height:8px"></div>
     ${LECT_REG.map((v, i) => `<div class="vrow" onclick="openRegLecture(${i})" style="cursor:pointer">
-      <div class="th"><img src="covers/${v.slug}.jpg" alt="" loading="lazy" style="object-position:top"></div>
+      <div class="th"><img src="covers/${v.slug}.jpg" alt="${esc(LANG === "ko" ? v.t.ko : v.t.en)} - CPPI Pilates" loading="lazy" style="object-position:top"></div>
       <div class="tx"><h4>${i + 1}. ${esc(LANG === "ko" ? v.t.ko : v.t.en)}</h4><div class="m">${v.yt ? "" : L(UI.badge.coming)}</div></div>
       ${v.yt ? tierBadge("l2") : `<span class="badge coming">${L(UI.badge.coming)}</span>`}</div>`).join("")}
   </section>`;
@@ -1368,7 +1368,7 @@ routes.books = () => `
   <section>
     ${secHead("TEXTBOOKS", L({ ko: "정규과정 교재 - 과목별 구매", en: "Printed Textbooks by Subject", zh: "正规课程教材 - 按科目购买", ja: "正規課程教材 - 科目別購入" }), L({ ko: "실물 교재 · 배송. 미리보기로 목차를 확인한 뒤 주문하세요.", en: "Physical books, shipped. Preview the contents before ordering.", zh: "实体教材·配送。请先预览再订购。", ja: "実物教材·配送。目次を確認してご注文ください。" }))}
     ${BOOKS.map((b, i) => `<div class="shoprow">
-      <img src="${COVER(b.slug)}" alt="" loading="lazy" onclick="openViewer(${i})">
+      <img src="${COVER(b.slug)}" alt="${esc(L(b.t))} - ${esc(L({ ko: "CPPI 필라테스 교재 표지 (저자 박은주 Eun-Ju Park)", en: "CPPI Pilates textbook cover by Eun-Ju Park", zh: "CPPI普拉提教材封面(著者 朴恩珠 Eun-Ju Park)", ja: "CPPIピラティス教材表紙(著者 パク・ウンジュ Eun-Ju Park)" }))}" loading="lazy" onclick="openViewer(${i})">
       <div class="tx"><h4>${esc(L(b.t))}</h4><div class="m">${b.pages}p · ${L({ ko: "가격 문의", en: "Price on request", zh: "价格咨询", ja: "価格お問い合わせ" })}</div></div>
       <div class="ops">
         <button class="btn ghost small" onclick="openViewer(${i})">${L(UI.btn.preview)}</button>
