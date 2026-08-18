@@ -1,5 +1,5 @@
 /* CPPI PWA Service Worker v4 — 전체 오프라인 캐싱 */
-const CACHE = "cppi-v16";
+const CACHE = "cppi-v17";
 
 /* 교재 미리보기 전체 (9권 × 13p) */
 const BOOK_SLUGS = ["anatomy", "principle", "mat", "reformer", "cadillac", "chair", "lbarrel", "abarrel", "scorrector"];
@@ -65,7 +65,7 @@ self.addEventListener("fetch", e => {
         const cp = res.clone();
         caches.open(CACHE).then(c => c.put(e.request, cp));
         return res;
-      }).catch(() => caches.match(e.request).then(hit => hit || caches.match("./index.html")))
+      }).catch(() => caches.match(e.request).then(hit => hit || caches.match("/index.html")))
     );
     return;
   }
@@ -77,6 +77,6 @@ self.addEventListener("fetch", e => {
         const cp = res.clone(); caches.open(CACHE).then(c => c.put(e.request, cp)); return res;
       }).catch(() => hit);
       return hit || net;
-    }).then(res => res || caches.match("./index.html"))
+    }).then(res => res || caches.match("/index.html"))
   );
 });

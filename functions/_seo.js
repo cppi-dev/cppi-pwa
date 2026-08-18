@@ -791,37 +791,13 @@ function faqHTML(lang, route) {
     `</section>`;
 }
 
-export function pageHTML(lang, route) {
+/* 페이지 JSON-LD - pageHTML 과 앱 셸(respondApp) 양쪽에서 함께 쓴다 */
+export function jsonLD(lang, route) {
   const entry = CONTENT[route];
-  const c = entry[lang] || entry.en || entry.ko;
+  const c = entry[lang] || entry.en;
   const url = ORIGIN + pathFor(lang, route);
-  const nav = NAV[lang] || NAV.en;
-  const navHTML = nav.map(([label, r]) =>
-    `<a href="${pathFor(lang, r)}"${r === route ? ' aria-current="page"' : ""}>${esc(label)}</a>`).join("");
-  const langHTML = LANGS.map(l =>
-    `<a href="${pathFor(l, route)}" hreflang="${HTML_LANG[l]}"${l === lang ? ' aria-current="true"' : ""}>${esc(LANG_LABEL[l])}</a>`).join("");
-
-  /* hreflang - 로케일마다 여러 지역 코드를 내보낸다 (en-SG, zh-Hant-TW, zh-Hant-HK 등) */
-  const alts = LANGS.flatMap(l =>
-    HREFLANG[l].map(code => `<link rel="alternate" hreflang="${code}" href="${ORIGIN + pathFor(l, route)}">`)
-  ).join("\n");
-
-  /* 페이지 대표 이미지 - og:image 도 페이지별로 분리한다 */
   const hero = HERO[route];
   const heroSrc = hero ? ORIGIN + hero.src : OG_IMG;
-  const heroAlt = hero ? (hero.alt[lang] || hero.alt.en) : SITE_NAME[lang];
-  const heroHTML = hero
-    ? `<figure class="hero"><img src="${hero.src}" alt="${esc(heroAlt)}" width="1200" height="630" loading="eager" decoding="async"><figcaption>${esc(heroAlt)}</figcaption></figure>`
-    : "";
-
-  const contacts = [`<a class="cta" href="mailto:${CONTACT.email}">${esc(UI.emailUs[lang])}</a>`];
-  if (lang === "ja" && CONTACT.LINE_URL) contacts.unshift(`<a class="cta" href="${CONTACT.LINE_URL}">${esc(UI.lineUs[lang])}</a>`);
-  contacts.push(`<a class="cta ghost" href="/#apply">${esc(UI.consult[lang])}</a>`);
-
-  /* 앱(해시 라우팅) 으로 가는 동선 - 방문자가 검색으로 들어와도 앱 본체로 넘어갈 수 있게 한다 */
-  const appHref = route === "home" ? "/" : `/#${route}`;
-  const appHTML = `<a class="applink" href="${appHref}">${esc(UI.inApp[lang])} <span aria-hidden="true">&rarr;</span></a>`;
-
   const JOB_TITLE = {
     ko: "파운더 · 필라테스 교육자",
     en: "Founder, Pilates educator",
@@ -917,7 +893,42 @@ export function pageHTML(lang, route) {
     });
   }
 
-  const jsonld = { "@context": "https://schema.org", "@graph": graph };
+  return { "@context": "https://schema.org", "@graph": graph };
+}
+
+export function pageHTML(lang, route) {
+  const entry = CONTENT[route];
+  const c = entry[lang] || entry.en || entry.ko;
+  const url = ORIGIN + pathFor(lang, route);
+  const nav = NAV[lang] || NAV.en;
+  const navHTML = nav.map(([label, r]) =>
+    `<a href="${pathFor(lang, r)}"${r === route ? ' aria-current="page"' : ""}>${esc(label)}</a>`).join("");
+  const langHTML = LANGS.map(l =>
+    `<a href="${pathFor(l, route)}" hreflang="${HTML_LANG[l]}"${l === lang ? ' aria-current="true"' : ""}>${esc(LANG_LABEL[l])}</a>`).join("");
+
+  /* hreflang - 로케일마다 여러 지역 코드를 내보낸다 (en-SG, zh-Hant-TW, zh-Hant-HK 등) */
+  const alts = LANGS.flatMap(l =>
+    HREFLANG[l].map(code => `<link rel="alternate" hreflang="${code}" href="${ORIGIN + pathFor(l, route)}">`)
+  ).join("\n");
+
+  /* 페이지 대표 이미지 - og:image 도 페이지별로 분리한다 */
+  const hero = HERO[route];
+  const heroSrc = hero ? ORIGIN + hero.src : OG_IMG;
+  const heroAlt = hero ? (hero.alt[lang] || hero.alt.en) : SITE_NAME[lang];
+  const heroHTML = hero
+    ? `<figure class="hero"><img src="${hero.src}" alt="${esc(heroAlt)}" width="1200" height="630" loading="eager" decoding="async"><figcaption>${esc(heroAlt)}</figcaption></figure>`
+    : "";
+
+  const contacts = [`<a class="cta" href="mailto:${CONTACT.email}">${esc(UI.emailUs[lang])}</a>`];
+  if (lang === "ja" && CONTACT.LINE_URL) contacts.unshift(`<a class="cta" href="${CONTACT.LINE_URL}">${esc(UI.lineUs[lang])}</a>`);
+  contacts.push(`<a class="cta ghost" href="/#apply">${esc(UI.consult[lang])}</a>`);
+
+  /* 앱(해시 라우팅) 으로 가는 동선 - 방문자가 검색으로 들어와도 앱 본체로 넘어갈 수 있게 한다 */
+  const appHref = route === "home" ? "/" : `/#${route}`;
+  const appHTML = `<a class="applink" href="${appHref}">${esc(UI.inApp[lang])} <span aria-hidden="true">&rarr;</span></a>`;
+
+  const jsonld = jsonLD(lang, route);
+
 
   return `<!DOCTYPE html>
 <html lang="${HTML_LANG[lang]}">
@@ -1037,5 +1048,138 @@ export function respond(lang, route) {
   if (!CONTENT[route]) return null;
   return new Response(pageHTML(lang, route), {
     headers: { "content-type": "text/html; charset=UTF-8", "cache-control": "public, max-age=300" },
+  });
+}
+
+/* ==================================================================
+   앱 직접 진입 (SSR + 하이드레이션)
+
+   해시 라우팅에서는 /#curriculum 이 서버에 전달되지 않아 검색엔진이
+   개별 페이지로 수집할 수 없었다. 그렇다고 앱을 그냥 경로 방식 SPA 로
+   바꾸면 이번엔 AI 크롤러(GPTBot·ClaudeBot·PerplexityBot)가 자바스크립트를
+   실행하지 않기 때문에 빈 페이지를 보게 되어 GEO 가 무너진다.
+
+   그래서 같은 URL 에서
+     1) 서버가 본문이 들어 있는 HTML 을 먼저 내려주고 (크롤러가 읽는다)
+     2) 그 위에서 앱이 부팅해 인터랙티브 화면으로 교체한다 (사람이 쓴다)
+   사람과 로봇이 같은 내용을 받으므로 클로킹이 아니다.
+================================================================== */
+
+/* 앱 UI 가 지원하는 언어 (번체 포함 - app.js 에 zh-Hant 문구가 들어가 있다) */
+export const APP_LANGS = ["ko", "en", "ja", "zh", "zh-Hant"];
+
+/* 앱이 가진 전체 라우트. SEO 콘텐츠가 없는 화면(/my, /checkout 등)도
+   새로고침·직접접속에서 404 가 나지 않도록 앱 셸을 돌려주기 위해 필요하다. */
+export const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","master",
+  "stories","global","learn","store","why","lecture","prep","books","ebooks","guide","checkout",
+  "bank","apply","support","members","my","login","signup","admin"];
+
+/* index.html 의 <!--SEO:START--> ~ <!--SEO:END--> 구간을 대체할 헤드 태그 */
+export function seoHead(lang, route) {
+  const entry = CONTENT[route];
+  const c = entry[lang] || entry.en;
+  const url = ORIGIN + pathFor(lang, route);
+  const hero = HERO[route];
+  const heroSrc = hero ? ORIGIN + hero.src : OG_IMG;
+  const heroAlt = hero ? (hero.alt[lang] || hero.alt.en) : SITE_NAME[lang];
+  const alts = LANGS.flatMap(l =>
+    HREFLANG[l].map(code => `<link rel="alternate" hreflang="${code}" href="${ORIGIN + pathFor(l, route)}">`)
+  ).join("\n");
+  return `<link rel="canonical" href="${url}">
+${alts}
+<link rel="alternate" hreflang="x-default" href="${ORIGIN + pathFor("en", route)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${esc(SITE_NAME[lang])}">
+<meta property="og:locale" content="${OG_LOCALE[lang]}">
+${LANGS.filter(l => l !== lang).map(l => `<meta property="og:locale:alternate" content="${OG_LOCALE[l]}">`).join("\n")}
+<meta property="og:title" content="${esc(c.title)}">
+<meta property="og:description" content="${esc(c.desc)}">
+<meta property="og:url" content="${url}">
+<meta property="og:image" content="${heroSrc}">
+<meta property="og:image:alt" content="${esc(heroAlt)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${heroSrc}">
+<script type="application/ld+json">${JSON.stringify(jsonLD(lang, route))}</script>`;
+}
+
+/* #view 안에 먼저 들어갈 본문. 앱이 부팅하면 같은 자리를 인터랙티브 화면이 대체한다.
+   앱의 기존 클래스(.eyebrow/.card/.note)를 그대로 써서 첫 화면이 이질적이지 않게 한다. */
+export function ssrBody(lang, route) {
+  const entry = CONTENT[route];
+  const c = entry[lang] || entry.en;
+  const hero = HERO[route];
+  const heroAlt = hero ? (hero.alt[lang] || hero.alt.en) : SITE_NAME[lang];
+  const blocks = (c.blocks || []).map(b => {
+    let out = `<div class="card" style="margin-bottom:10px">`;
+    if (b.h) out += `<b>${esc(b.h)}</b>`;
+    if (b.p) out += `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(b.p)}</p>`;
+    if (b.list) out += `<ul style="font-size:13.5px;color:var(--ink2);margin:6px 0 0;padding-left:18px;line-height:1.9">`
+      + b.list.map(li => `<li>${esc(li)}</li>`).join("") + `</ul>`;
+    return out + `</div>`;
+  }).join("");
+  const faqItems = (FAQ[route] || {})[lang] || [];
+  const faq = faqItems.length
+    ? `<div class="eyebrow" style="margin-top:18px">${esc(UI.faq[lang])}</div>`
+      + faqItems.map(([q, a]) => `<div class="card" style="margin-bottom:8px"><b>${esc(q)}</b>`
+        + `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(a)}</p></div>`).join("")
+    : "";
+  return `<section data-ssr="1">
+  <div class="eyebrow">${esc(c.eyebrow)}</div>
+  <h1 style="font-size:26px;line-height:1.3;margin:6px 0 10px">${esc(c.h1)}</h1>
+  ${c.lead ? `<p style="color:var(--ink2);font-size:14px;margin-bottom:16px">${esc(c.lead)}</p>` : ""}
+  ${hero ? `<img src="${hero.src}" alt="${esc(heroAlt)}" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">` : ""}
+  ${blocks}
+  ${faq}
+  ${c.note ? `<div class="note">${esc(c.note)}</div>` : ""}
+</section>`;
+}
+
+const RE_TITLE = /<title>[\s\S]*?<\/title>/;
+const RE_DESC = /<meta name="description" content="[^"]*">/;
+const RE_VIEW = /<main id="view" class="wrap"><\/main>/;
+
+/* index.html(앱 셸)을 가져와 헤드와 본문만 갈아 끼운다.
+   셸을 _seo.js 안에 복제하지 않으므로 앱 디자인이 바뀌어도 자동으로 따라온다. */
+export async function respondApp(context, lang, route) {
+  const entry = CONTENT[route];
+  if (!entry || !APP_LANGS.includes(lang)) return null;
+  const c = entry[lang] || entry.en;
+
+  const shellRes = await context.env.ASSETS.fetch(new URL("/index.html", context.request.url));
+  if (!shellRes || !shellRes.ok) return null;
+  let html = await shellRes.text();
+
+  const i = html.indexOf("<!--SEO:START-->");
+  const j = html.indexOf("<!--SEO:END-->");
+  if (i === -1 || j === -1) return null;
+
+  html = html.slice(0, i) + seoHead(lang, route) + "\n" + html.slice(j + "<!--SEO:END-->".length);
+  html = html.replace('<html lang="ko">', `<html lang="${HTML_LANG[lang]}">`);
+  html = html.replace(RE_TITLE, `<title>${esc(c.title)}</title>`);
+  html = html.replace(RE_DESC, `<meta name="description" content="${esc(c.desc)}">`);
+  html = html.replace(RE_VIEW, `<main id="view" class="wrap">${ssrBody(lang, route)}</main>`);
+
+  return new Response(html, {
+    headers: { "content-type": "text/html; charset=UTF-8", "cache-control": "public, max-age=300" },
+  });
+}
+
+/* SEO 콘텐츠가 없는 앱 전용 경로(/my, /checkout 등)는 앱 셸만 그대로 돌려준다.
+   새로고침이나 직접 접속에서 404 가 나지 않게 하기 위한 SPA 폴백이다. */
+export async function respondShell(context) {
+  const res = await context.env.ASSETS.fetch(new URL("/index.html", context.request.url));
+  if (!res || !res.ok) return null;
+  let html = await res.text();
+  /* /my, /checkout, /lecture/spine 같은 화면은 검색 대상이 아니다.
+     셸을 그대로 주면 홈과 같은 canonical 을 가진 중복 페이지가 되므로 색인에서 제외한다. */
+  const i = html.indexOf("<!--SEO:START-->");
+  const j = html.indexOf("<!--SEO:END-->");
+  if (i !== -1 && j !== -1) {
+    html = html.slice(0, i)
+      + '<meta name="robots" content="noindex,follow">\n'
+      + html.slice(j + "<!--SEO:END-->".length);
+  }
+  return new Response(html, {
+    headers: { "content-type": "text/html; charset=UTF-8", "cache-control": "public, max-age=60" },
   });
 }

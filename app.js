@@ -20,86 +20,121 @@ const HEROS = ["hero1.mp4", "hero2.mp4", "hero3.mp4"];
 const heroSrc = () => HEROS[Math.floor(Math.random() * HEROS.length)];
 /* 브랜드 지침: "Redeem your Body" 문구 사용 금지 · 이모티콘 사용 금지 · '—' 대신 '-' */
 
+/* ---------- 0) 경로 라우팅 ----------
+   앱이 /curriculum, /en/curriculum 같은 실제 경로에서 직접 뜬다.
+   해시(#)는 서버로 전송되지 않아 검색엔진이 개별 페이지로 수집할 수 없었기 때문에,
+   서버가 본문을 먼저 렌더한 뒤 그 위에서 앱이 부팅하는 구조로 바꾼다.
+   기존에 뿌린 #주소로 들어와도 같은 화면을 보여 주고 경로 주소로 정규화한다.
+   번체(/zh-hant/)는 앱 UI가 아직 번체를 갖고 있지 않아 정적 페이지로만 서빙한다. */
+const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","master","stories",
+  "global","learn","store","why","lecture","prep","books","ebooks","guide","checkout","bank",
+  "apply","support","members","my","login","signup","admin"];
+const PATH_LANG = { en: "en", ja: "ja", zh: "zh", "zh-hant": "zh-Hant" };
+/* 언어 코드 -> URL 세그먼트 (번체는 소문자 경로 /zh-hant/ 를 쓴다) */
+const LANG_SEG = { ko: "", en: "en", ja: "ja", zh: "zh", "zh-Hant": "zh-hant" };
+const APP_LANG_LIST = ["ko", "en", "zh", "zh-Hant", "ja"];
+
+function parseLoc() {
+  const segs = location.pathname.split("/").filter(Boolean);
+  let lang = null;
+  if (segs.length && PATH_LANG[segs[0]]) { lang = PATH_LANG[segs[0]]; segs.shift(); }
+  let route = "", sub = "";
+  if (segs.length) { route = segs[0]; sub = segs[1] || ""; }
+  else if (location.hash) { const h = location.hash.replace("#", "").split("/"); route = h[0]; sub = h[1] || ""; }
+  if (!APP_ROUTES.includes(route)) route = "home";
+  return { lang, route, sub };
+}
+function pathOf(route, sub) {
+  const seg = LANG_SEG[LANG] ?? "";
+  const p = seg ? "/" + seg : "";
+  if (!route || route === "home") return p + "/";
+  return p + "/" + route + (sub ? "/" + sub : "");
+}
+
 /* ---------- 1) 언어 ---------- */
 const _qlang = new URLSearchParams(location.search).get("lang");
-let LANG = (["ko", "en", "zh", "ja"].includes(_qlang) ? _qlang : null) || localStorage.getItem("cppi_lang") || "ko";
-const L = (o) => (o && (o[LANG] ?? o.en ?? o.ko)) ?? "";
+const _slang = localStorage.getItem("cppi_lang");
+let LANG = parseLoc().lang
+  || (APP_LANG_LIST.includes(_qlang) ? _qlang : null)
+  || (APP_LANG_LIST.includes(_slang) ? _slang : null) || "ko";
+/* 번체 문구가 없는 항목은 영문이 아니라 간체로 폴백한다 */
+const L = (o) => (o && (o[LANG] ?? (LANG === "zh-Hant" ? o.zh : undefined) ?? o.en ?? o.ko)) ?? "";
 /* 마침표 뒤 줄바꿈(가독성 규칙) */
 const br = (s) => String(s).replace(/\.\s+/g, ".<br>");
 
-const SLOGAN = { ko: "움직임의 가치를 전하는 사람으로", en: "Becoming one who delivers the value of movement", zh: "成为传递运动价值的人", ja: "動きの価値を伝える人へ" };
+const SLOGAN = { ko: "움직임의 가치를 전하는 사람으로", en: "Becoming one who delivers the value of movement", zh: "成为传递运动价值的人", "zh-Hant": "成為傳遞運動價值的人", ja: "動きの価値を伝える人へ" };
 const SLOGAN_SUB = "To Begin a New Life";
 
 const UI = {
   tabs: {
-    home: { ko: "홈", en: "Home", zh: "首页", ja: "ホーム" },
-    courses: { ko: "교육", en: "Education", zh: "教育", ja: "教育" },
-    learn: { ko: "강의", en: "Lectures", zh: "课程", ja: "講義" },
-    store: { ko: "교재샵", en: "Book Shop", zh: "教材店", ja: "教材ショップ" },
-    my: { ko: "마이", en: "My", zh: "我的", ja: "マイ" },
+    home: { ko: "홈", en: "Home", zh: "首页", "zh-Hant": "首頁", ja: "ホーム" },
+    courses: { ko: "교육", en: "Education", zh: "教育", "zh-Hant": "教育", ja: "教育" },
+    learn: { ko: "강의", en: "Lectures", zh: "课程", "zh-Hant": "課程", ja: "講義" },
+    store: { ko: "교재샵", en: "Book Shop", zh: "教材店", "zh-Hant": "教材店", ja: "教材ショップ" },
+    my: { ko: "마이", en: "My", zh: "我的", "zh-Hant": "我的", ja: "マイ" },
   },
   menu: {
-    hAssoc: { ko: "협회", en: "Association", zh: "协会", ja: "協会" },
-    hEdu: { ko: "교육", en: "Education", zh: "教育", ja: "教育" },
-    hUse: { ko: "이용", en: "Service", zh: "服务", ja: "利用" },
-    why: { ko: "왜 CPPI인가", en: "Why CPPI", zh: "为何选择CPPI", ja: "なぜCPPIか" },
-    about: { ko: "협회 소개", en: "About CPPI", zh: "协会介绍", ja: "協会紹介" },
-    founder: { ko: "파운더 - 박은주 교수", en: "Founder - Prof. Eun-Ju Park", zh: "创始人 - 朴恩珠教授", ja: "創立者 - パク・ウンジュ教授" },
-    master: { ko: "마스터 인스트럭터", en: "Master Instructors", zh: "大师级导师", ja: "マスターインストラクター" },
-    members: { ko: "수료강사 명단", en: "Graduates", zh: "结业教练名单", ja: "修了講師名簿" },
-    stories: { ko: "수료강사들의 이야기", en: "Graduate Stories", zh: "结业教练的故事", ja: "修了講師のストーリー" },
-    global: { ko: "글로벌 운영", en: "Global Centers", zh: "全球运营", ja: "グローバル拠点" },
-    curriculum: { ko: "에센셜 커리큘럼", en: "Essential Curriculum", zh: "核心课程", ja: "エッセンシャルカリキュラム" },
-    courses: { ko: "CPPI 필라테스 교육안내", en: "CPPI Pilates Education", zh: "CPPI教育指南", ja: "CPPI教育のご案内" },
-    workshop: { ko: "전문 강사 워크숍", en: "Pro Instructor Workshop", zh: "专业教练工作坊", ja: "専門講師ワークショップ" },
-    learn: { ko: "온라인 강의", en: "Online Lectures", zh: "在线课程", ja: "オンライン講義" },
-    store: { ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", ja: "電子書籍·教材ストア" },
-    guide: { ko: "필라테스 전문 지침서", en: "Pilates Pro Guidebooks", zh: "普拉提专业指南", ja: "ピラティス専門指針書" },
-    apply: { ko: "상담 · 신청", en: "Consultation", zh: "咨询 · 申请", ja: "相談 · 申込" },
-    support: { ko: "FAQ · 후기 · 앱 설치", en: "FAQ · Reviews · Install", zh: "FAQ · 评价 · 安装", ja: "FAQ · 口コミ · インストール" },
-    my: { ko: "마이페이지", en: "My Page", zh: "我的页面", ja: "マイページ" },
+    hAssoc: { ko: "협회", en: "Association", zh: "协会", "zh-Hant": "協會", ja: "協会" },
+    hEdu: { ko: "교육", en: "Education", zh: "教育", "zh-Hant": "教育", ja: "教育" },
+    hUse: { ko: "이용", en: "Service", zh: "服务", "zh-Hant": "服務", ja: "利用" },
+    why: { ko: "왜 CPPI인가", en: "Why CPPI", zh: "为何选择CPPI", "zh-Hant": "為何選擇CPPI", ja: "なぜCPPIか" },
+    about: { ko: "협회 소개", en: "About CPPI", zh: "协会介绍", "zh-Hant": "協會介紹", ja: "協会紹介" },
+    founder: { ko: "파운더 - 박은주 교수", en: "Founder - Prof. Eun-Ju Park", zh: "创始人 - 朴恩珠教授", "zh-Hant": "創始人 - 朴恩珠教授", ja: "創立者 - パク・ウンジュ教授" },
+    master: { ko: "마스터 인스트럭터", en: "Master Instructors", zh: "大师级导师", "zh-Hant": "大師級導師", ja: "マスターインストラクター" },
+    members: { ko: "수료강사 명단", en: "Graduates", zh: "结业教练名单", "zh-Hant": "結業教練名單", ja: "修了講師名簿" },
+    stories: { ko: "수료강사들의 이야기", en: "Graduate Stories", zh: "结业教练的故事", "zh-Hant": "結業教練的故事", ja: "修了講師のストーリー" },
+    global: { ko: "글로벌 운영", en: "Global Centers", zh: "全球运营", "zh-Hant": "全球運營", ja: "グローバル拠点" },
+    curriculum: { ko: "에센셜 커리큘럼", en: "Essential Curriculum", zh: "核心课程", "zh-Hant": "核心課程", ja: "エッセンシャルカリキュラム" },
+    courses: { ko: "CPPI 필라테스 교육안내", en: "CPPI Pilates Education", zh: "CPPI教育指南", "zh-Hant": "CPPI教育指南", ja: "CPPI教育のご案内" },
+    workshop: { ko: "전문 강사 워크숍", en: "Pro Instructor Workshop", zh: "专业教练工作坊", "zh-Hant": "專業教練工作坊", ja: "専門講師ワークショップ" },
+    learn: { ko: "온라인 강의", en: "Online Lectures", zh: "在线课程", "zh-Hant": "線上課程", ja: "オンライン講義" },
+    store: { ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", "zh-Hant": "電子書·教材商店", ja: "電子書籍·教材ストア" },
+    guide: { ko: "필라테스 전문 지침서", en: "Pilates Pro Guidebooks", zh: "普拉提专业指南", "zh-Hant": "皮拉提斯專業指南", ja: "ピラティス専門指針書" },
+    apply: { ko: "상담 · 신청", en: "Consultation", zh: "咨询 · 申请", "zh-Hant": "諮詢 · 申請", ja: "相談 · 申込" },
+    support: { ko: "FAQ · 후기 · 앱 설치", en: "FAQ · Reviews · Install", zh: "FAQ · 评价 · 安装", "zh-Hant": "FAQ · 評價 · 安裝", ja: "FAQ · 口コミ · インストール" },
+    my: { ko: "마이페이지", en: "My Page", zh: "我的页面", "zh-Hant": "我的頁面", ja: "マイページ" },
   },
   btn: {
-    consult: { ko: "무료 온라인 상담", en: "Free Online Consultation", zh: "免费在线咨询", ja: "無料オンライン相談" },
-    watch: { ko: "온라인 강의 보기", en: "View Online Lectures", zh: "查看在线课程", ja: "オンライン講義を見る" },
-    preview: { ko: "목차 · 미리보기", en: "Preview", zh: "目录·预览", ja: "目次·プレビュー" },
-    buy: { ko: "구매하기", en: "Buy", zh: "购买", ja: "購入する" },
-    buyInq: { ko: "구매 신청", en: "Order", zh: "订购", ja: "注文する" },
-    login: { ko: "로그인", en: "Log in", zh: "登录", ja: "ログイン" },
-    signup: { ko: "회원가입", en: "Sign up", zh: "注册会员", ja: "会員登録" },
-    logout: { ko: "로그아웃", en: "Log out", zh: "退出登录", ja: "ログアウト" },
-    submit: { ko: "신청 제출", en: "Submit", zh: "提交", ja: "送信する" },
-    install: { ko: "홈 화면에 추가", en: "Add to Home Screen", zh: "添加到主屏幕", ja: "ホーム画面に追加" },
-    channel: { ko: "공식 유튜브 채널 바로가기", en: "Official YouTube Channel", zh: "官方YouTube频道", ja: "公式YouTubeチャンネル" },
-    toCourses: { ko: "커리큘럼 보기", en: "View Curriculum", zh: "查看课程", ja: "カリキュラムを見る" },
-    pay: { ko: "결제 진행", en: "Proceed to Payment", zh: "进行支付", ja: "決済へ進む" },
+    consult: { ko: "무료 온라인 상담", en: "Free Online Consultation", zh: "免费在线咨询", "zh-Hant": "免費線上諮詢", ja: "無料オンライン相談" },
+    watch: { ko: "온라인 강의 보기", en: "View Online Lectures", zh: "查看在线课程", "zh-Hant": "檢視線上課程", ja: "オンライン講義を見る" },
+    preview: { ko: "목차 · 미리보기", en: "Preview", zh: "目录·预览", "zh-Hant": "目錄·預覽", ja: "目次·プレビュー" },
+    buy: { ko: "구매하기", en: "Buy", zh: "购买", "zh-Hant": "購買", ja: "購入する" },
+    buyInq: { ko: "구매 신청", en: "Order", zh: "订购", "zh-Hant": "訂購", ja: "注文する" },
+    login: { ko: "로그인", en: "Log in", zh: "登录", "zh-Hant": "登入", ja: "ログイン" },
+    signup: { ko: "회원가입", en: "Sign up", zh: "注册会员", "zh-Hant": "註冊會員", ja: "会員登録" },
+    logout: { ko: "로그아웃", en: "Log out", zh: "退出登录", "zh-Hant": "退出登入", ja: "ログアウト" },
+    submit: { ko: "신청 제출", en: "Submit", zh: "提交", "zh-Hant": "提交", ja: "送信する" },
+    install: { ko: "홈 화면에 추가", en: "Add to Home Screen", zh: "添加到主屏幕", "zh-Hant": "新增到主螢幕", ja: "ホーム画面に追加" },
+    channel: { ko: "공식 유튜브 채널 바로가기", en: "Official YouTube Channel", zh: "官方YouTube频道", "zh-Hant": "官方YouTube頻道", ja: "公式YouTubeチャンネル" },
+    toCourses: { ko: "커리큘럼 보기", en: "View Curriculum", zh: "查看课程", "zh-Hant": "檢視課程", ja: "カリキュラムを見る" },
+    pay: { ko: "결제 진행", en: "Proceed to Payment", zh: "进行支付", "zh-Hant": "進行支付", ja: "決済へ進む" },
   },
   badge: {
-    free: { ko: "무료", en: "FREE", zh: "免费", ja: "無料" },
-    l2: { ko: "L2 이상", en: "L2+", zh: "L2以上", ja: "L2以上" },
-    l3: { ko: "L3 전용", en: "L3 only", zh: "仅限L3", ja: "L3限定" },
-    coming: { ko: "준비중", en: "Coming", zh: "即将上线", ja: "準備中" },
+    free: { ko: "무료", en: "FREE", zh: "免费", "zh-Hant": "免費", ja: "無料" },
+    l2: { ko: "L2 이상", en: "L2+", zh: "L2以上", "zh-Hant": "L2以上", ja: "L2以上" },
+    l3: { ko: "L3 전용", en: "L3 only", zh: "仅限L3", "zh-Hant": "僅限L3", ja: "L3限定" },
+    coming: { ko: "준비중", en: "Coming", zh: "即将上线", "zh-Hant": "即將上線", ja: "準備中" },
   },
   viewer: {
-    cover: { ko: "표지", en: "Cover", zh: "封面", ja: "表紙" },
-    toc: { ko: "목차", en: "Contents", zh: "目录", ja: "目次" },
-    body: { ko: "본문 미리보기", en: "Preview", zh: "正文预览", ja: "本文プレビュー" },
-    end: { ko: "미리보기는 여기까지 - 전체 교재는 스토어에서!", en: "End of preview - get the full book in Store!", zh: "预览到此为止 - 完整教材请到商店!", ja: "プレビューはここまで - 全編はストアで！" },
+    cover: { ko: "표지", en: "Cover", zh: "封面", "zh-Hant": "封面", ja: "表紙" },
+    toc: { ko: "목차", en: "Contents", zh: "目录", "zh-Hant": "目錄", ja: "目次" },
+    body: { ko: "본문 미리보기", en: "Preview", zh: "正文预览", "zh-Hant": "正文預覽", ja: "本文プレビュー" },
+    end: { ko: "미리보기는 여기까지 - 전체 교재는 스토어에서!", en: "End of preview - get the full book in Store!", zh: "预览到此为止 - 完整教材请到商店!", "zh-Hant": "預覽到此為止 - 完整教材請到商店!", ja: "プレビューはここまで - 全編はストアで！" },
   },
   grade: {
-    0: { ko: "비회원", en: "Guest", zh: "非会员", ja: "非会員" },
-    1: { ko: "L1 일반회원", en: "L1 Basic", zh: "L1 普通会员", ja: "L1 一般会員" },
-    2: { ko: "L2 교육회원", en: "L2 Learner", zh: "L2 教育会员", ja: "L2 教育会員" },
-    3: { ko: "L3 정회원(수료강사)", en: "L3 Certified Instructor", zh: "L3 正式会员(结业教练)", ja: "L3 正会員(修了講師)" },
+    0: { ko: "비회원", en: "Guest", zh: "非会员", "zh-Hant": "非會員", ja: "非会員" },
+    1: { ko: "L1 일반회원", en: "L1 Basic", zh: "L1 普通会员", "zh-Hant": "L1 普通會員", ja: "L1 一般会員" },
+    2: { ko: "L2 교육회원", en: "L2 Learner", zh: "L2 教育会员", "zh-Hant": "L2 教育會員", ja: "L2 教育会員" },
+    3: { ko: "L3 정회원(수료강사)", en: "L3 Certified Instructor", zh: "L3 正式会员(结业教练)", "zh-Hant": "L3 正式會員(結業教練)", ja: "L3 正会員(修了講師)" },
   },
 };
 
 const TICKER = [
-  { ko: "리커버링 재활필라테스 자격과정 모집중 - 8월 23일 개강", en: "Recovering Rehab Pilates Certification - Enrolling, starts Aug 23", zh: "康复普拉提资格课程招生中 - 8月23日开课", ja: "リカバリングリハビリピラティス資格課程 募集中 - 8月23日開講" },
-  { ko: "CPPI 정규과정 모집중", en: "CPPI Certification - Now Enrolling", zh: "CPPI 正规课程招生中", ja: "CPPI 正規課程 募集中" },
-  { ko: "무료 온라인 상담 신청", en: "Free Online Consultation", zh: "免费在线咨询", ja: "無料オンライン相談" },
-  { ko: "교재 미리보기 오픈", en: "Textbook Preview Open", zh: "教材预览开放", ja: "教材プレビュー公開" },
-  { ko: "韓 · 加 · 日 글로벌 운영", en: "Korea · Canada · Japan", zh: "韩·加·日全球运营", ja: "韓·加·日グローバル運営" },
+  { ko: "리커버링 재활필라테스 자격과정 모집중 - 8월 23일 개강", en: "Recovering Rehab Pilates Certification - Enrolling, starts Aug 23", zh: "康复普拉提资格课程招生中 - 8月23日开课", "zh-Hant": "康復皮拉提斯資格課程招生中 - 8月23日開課", ja: "リカバリングリハビリピラティス資格課程 募集中 - 8月23日開講" },
+  { ko: "CPPI 정규과정 모집중", en: "CPPI Certification - Now Enrolling", zh: "CPPI 正规课程招生中", "zh-Hant": "CPPI 正規課程招生中", ja: "CPPI 正規課程 募集中" },
+  { ko: "무료 온라인 상담 신청", en: "Free Online Consultation", zh: "免费在线咨询", "zh-Hant": "免費線上諮詢", ja: "無料オンライン相談" },
+  { ko: "교재 미리보기 오픈", en: "Textbook Preview Open", zh: "教材预览开放", "zh-Hant": "教材預覽開放", ja: "教材プレビュー公開" },
+  { ko: "韓 · 加 · 日 글로벌 운영", en: "Korea · Canada · Japan", zh: "韩·加·日全球运营", "zh-Hant": "韓·加·日全球運營", ja: "韓·加·日グローバル運営" },
 ];
 
 /* ---------- 2) 에센셜 커리큘럼 ---------- */
@@ -124,15 +159,15 @@ const CURRICULUM = [
 
 /* ---------- 3) 교재 ---------- */
 const BOOKS = [
-  { slug: "anatomy",    t: { ko: "필라테스 기능해부학", en: "Anatomy of Movement", zh: "功能解剖学", ja: "機能解剖学" }, pages: 238 },
-  { slug: "principle",  t: { ko: "필라테스 기본원리", en: "Basic Principle", zh: "基本原理", ja: "基本原理" }, pages: 80 },
-  { slug: "mat",        t: { ko: "필라테스 더 매트", en: "Pilates Mat", zh: "垫上普拉提", ja: "ピラティス・マット" }, pages: 160 },
-  { slug: "reformer",   t: { ko: "리포머", en: "Reformer", zh: "核心床", ja: "リフォーマー" }, pages: 306 },
-  { slug: "cadillac",   t: { ko: "캐딜락", en: "Cadillac", zh: "凯迪拉克床", ja: "キャデラック" }, pages: 368 },
-  { slug: "chair",      t: { ko: "스태빌리티 체어", en: "Stability Chair", zh: "稳踏椅", ja: "スタビリティチェア" }, pages: 202 },
-  { slug: "lbarrel",    t: { ko: "래더 바렐", en: "Ladder Barrel", zh: "梯桶", ja: "ラダーバレル" }, pages: 76 },
-  { slug: "abarrel",    t: { ko: "아크 바렐", en: "Arc Barrel", zh: "弧形桶", ja: "アークバレル" }, pages: 79 },
-  { slug: "scorrector", t: { ko: "스파인 코렉터", en: "Spine Corrector", zh: "脊柱矫正器", ja: "スパインコレクター" }, pages: 108 },
+  { slug: "anatomy",    t: { ko: "필라테스 기능해부학", en: "Anatomy of Movement", zh: "功能解剖学", "zh-Hant": "功能解剖學", ja: "機能解剖学" }, pages: 238 },
+  { slug: "principle",  t: { ko: "필라테스 기본원리", en: "Basic Principle", zh: "基本原理", "zh-Hant": "基本原理", ja: "基本原理" }, pages: 80 },
+  { slug: "mat",        t: { ko: "필라테스 더 매트", en: "Pilates Mat", zh: "垫上普拉提", "zh-Hant": "墊上皮拉提斯", ja: "ピラティス・マット" }, pages: 160 },
+  { slug: "reformer",   t: { ko: "리포머", en: "Reformer", zh: "核心床", "zh-Hant": "核心床", ja: "リフォーマー" }, pages: 306 },
+  { slug: "cadillac",   t: { ko: "캐딜락", en: "Cadillac", zh: "凯迪拉克床", "zh-Hant": "凱迪拉克床", ja: "キャデラック" }, pages: 368 },
+  { slug: "chair",      t: { ko: "스태빌리티 체어", en: "Stability Chair", zh: "稳踏椅", "zh-Hant": "穩踏椅", ja: "スタビリティチェア" }, pages: 202 },
+  { slug: "lbarrel",    t: { ko: "래더 바렐", en: "Ladder Barrel", zh: "梯桶", "zh-Hant": "梯桶", ja: "ラダーバレル" }, pages: 76 },
+  { slug: "abarrel",    t: { ko: "아크 바렐", en: "Arc Barrel", zh: "弧形桶", "zh-Hant": "弧形桶", ja: "アークバレル" }, pages: 79 },
+  { slug: "scorrector", t: { ko: "스파인 코렉터", en: "Spine Corrector", zh: "脊柱矫正器", "zh-Hant": "脊柱矯正器", ja: "スパインコレクター" }, pages: 108 },
 ];
 const PV_COUNT = 13;
 const COVER = (slug) => (["anatomy", "principle", "mat", "reformer", "cadillac", "chair", "lbarrel"].includes(slug) ? `covers/${slug}.jpg` : `books/${slug}/p01.jpg`);
@@ -163,18 +198,18 @@ const MASTERS = [
 ];
 
 const FAQS = [
-  { q: { ko: "필라테스가 처음인데 정규과정을 들을 수 있나요?", en: "I'm new to Pilates. Can I take the course?", zh: "我是新手，能上正规课程吗？", ja: "初心者でも正規課程を受けられますか？" },
-    a: { ko: "네. 기능해부학 기초부터 단계적으로 설계되어 비전공 입문자도 따라올 수 있습니다.", en: "Yes. It builds step-by-step from anatomy basics.", zh: "可以。课程从解剖学基础循序渐进。", ja: "はい。解剖学の基礎から段階的に学べます。" } },
-  { q: { ko: "온라인 강의만으로 수료가 가능한가요?", en: "Can I graduate with online lectures only?", zh: "只看在线课程能结业吗？", ja: "オンライン講義だけで修了できますか？" },
-    a: { ko: "온라인 강의는 보조 학습이며, 정규 수료에는 오프라인 실기·티칭 평가가 포함됩니다.", en: "Online lectures are supplementary; certification includes offline assessment.", zh: "在线课程为辅助，结业含线下实操评估。", ja: "講義は補助で、修了には実技評価が含まれます。" } },
-  { q: { ko: "수료 후 활동 연계가 되나요?", en: "Is there post-graduation support?", zh: "结业后有活动衔接吗？", ja: "修了後のサポートはありますか？" },
-    a: { ko: "수료증 발급과 함께 활동·네트워크 연계를 지원하며 수료강사 명단에 등재됩니다.", en: "We support networking and list you on the graduates page.", zh: "支持活动衔接并登载于名单。", ja: "活動連携を支援し、名簿に掲載されます。" } },
-  { q: { ko: "결제는 어디서 하나요?", en: "Who handles payments?", zh: "在哪里付款？", ja: "決済はどこで行いますか？" },
-    a: { ko: "모든 결제·환불·고객응대는 교육사업 대행사 씨앤티파트너스(C&T Partners)가 담당합니다.", en: "All payments/refunds are handled by C&T Partners.", zh: "所有付款/退款由C&T Partners负责。", ja: "決済・返金はC&T Partnersが担当します。" } },
-  { q: { ko: "계좌이체 후 강의가 바로 열리나요?", en: "Does access open right after bank transfer?", zh: "转账后立即开通吗？", ja: "振込後すぐ視聴できますか？" },
-    a: { ko: "'입금 확인중'으로 접수되며 관리자가 확인하면 열람 권한이 부여됩니다.", en: "Orders open after the admin confirms your deposit.", zh: "确认到账后开通权限。", ja: "入金確認後に権限が付与されます。" } },
-  { q: { ko: "환불 규정은 어떻게 되나요?", en: "What is the refund policy?", zh: "退款政策？", ja: "返金規定は？" },
-    a: { ko: "디지털 상품(전자책·영상)은 열람 이후 환불이 어렵습니다. 과정·워크숍은 개별 규정에 따릅니다.", en: "Digital items are non-refundable after access.", zh: "数字商品开通后难以退款。", ja: "デジタル商品は閲覧後の返金不可です。" } },
+  { q: { ko: "필라테스가 처음인데 정규과정을 들을 수 있나요?", en: "I'm new to Pilates. Can I take the course?", zh: "我是新手，能上正规课程吗？", "zh-Hant": "我是新手，能上正規課程嗎？", ja: "初心者でも正規課程を受けられますか？" },
+    a: { ko: "네. 기능해부학 기초부터 단계적으로 설계되어 비전공 입문자도 따라올 수 있습니다.", en: "Yes. It builds step-by-step from anatomy basics.", zh: "可以。课程从解剖学基础循序渐进。", "zh-Hant": "可以。課程從解剖學基礎循序漸進。", ja: "はい。解剖学の基礎から段階的に学べます。" } },
+  { q: { ko: "온라인 강의만으로 수료가 가능한가요?", en: "Can I graduate with online lectures only?", zh: "只看在线课程能结业吗？", "zh-Hant": "只看線上課程能結業嗎？", ja: "オンライン講義だけで修了できますか？" },
+    a: { ko: "온라인 강의는 보조 학습이며, 정규 수료에는 오프라인 실기·티칭 평가가 포함됩니다.", en: "Online lectures are supplementary; certification includes offline assessment.", zh: "在线课程为辅助，结业含线下实操评估。", "zh-Hant": "線上課程為輔助，結業含線下實操評估。", ja: "講義は補助で、修了には実技評価が含まれます。" } },
+  { q: { ko: "수료 후 활동 연계가 되나요?", en: "Is there post-graduation support?", zh: "结业后有活动衔接吗？", "zh-Hant": "結業後有活動銜接嗎？", ja: "修了後のサポートはありますか？" },
+    a: { ko: "수료증 발급과 함께 활동·네트워크 연계를 지원하며 수료강사 명단에 등재됩니다.", en: "We support networking and list you on the graduates page.", zh: "支持活动衔接并登载于名单。", "zh-Hant": "支援活動銜接並登載於名單。", ja: "活動連携を支援し、名簿に掲載されます。" } },
+  { q: { ko: "결제는 어디서 하나요?", en: "Who handles payments?", zh: "在哪里付款？", "zh-Hant": "在哪裡付款？", ja: "決済はどこで行いますか？" },
+    a: { ko: "모든 결제·환불·고객응대는 교육사업 대행사 씨앤티파트너스(C&T Partners)가 담당합니다.", en: "All payments/refunds are handled by C&T Partners.", zh: "所有付款/退款由C&T Partners负责。", "zh-Hant": "所有付款/退款由C&T Partners負責。", ja: "決済・返金はC&T Partnersが担当します。" } },
+  { q: { ko: "계좌이체 후 강의가 바로 열리나요?", en: "Does access open right after bank transfer?", zh: "转账后立即开通吗？", "zh-Hant": "轉賬後立即開通嗎？", ja: "振込後すぐ視聴できますか？" },
+    a: { ko: "'입금 확인중'으로 접수되며 관리자가 확인하면 열람 권한이 부여됩니다.", en: "Orders open after the admin confirms your deposit.", zh: "确认到账后开通权限。", "zh-Hant": "確認到賬後開通許可權。", ja: "入金確認後に権限が付与されます。" } },
+  { q: { ko: "환불 규정은 어떻게 되나요?", en: "What is the refund policy?", zh: "退款政策？", "zh-Hant": "退款政策？", ja: "返金規定は？" },
+    a: { ko: "디지털 상품(전자책·영상)은 열람 이후 환불이 어렵습니다. 과정·워크숍은 개별 규정에 따릅니다.", en: "Digital items are non-refundable after access.", zh: "数字商品开通后难以退款。", "zh-Hant": "數字商品開通後難以退款。", ja: "デジタル商品は閲覧後の返金不可です。" } },
 ];
 
 /* 수료강사 전 기수 명단 */
@@ -277,14 +312,37 @@ function toast(msg) {
   const t = $("#toast"); t.textContent = msg; t.style.display = "block";
   clearTimeout(t._tm); t._tm = setTimeout(() => t.style.display = "none", 2600);
 }
-function copyText(txt) { navigator.clipboard?.writeText(txt).then(() => toast(L({ ko: "복사되었습니다: ", en: "Copied: ", zh: "已复制: ", ja: "コピーしました: " }) + txt)).catch(() => toast(txt)); }
+function copyText(txt) { navigator.clipboard?.writeText(txt).then(() => toast(L({ ko: "복사되었습니다: ", en: "Copied: ", zh: "已复制: ", "zh-Hant": "已複製: ", ja: "コピーしました: " }) + txt)).catch(() => toast(txt)); }
 function openSheet() { $("#sheet").classList.add("open"); }
 function closeSheet() { $("#sheet").classList.remove("open"); }
 
 /* ---------- 7) 라우터 ---------- */
 const routes = {};
-function go(h) { location.hash = h; }
-window.addEventListener("hashchange", render);
+function go(h) {
+  const [r, sub] = String(h).replace(/^#/, "").split("/");
+  const url = pathOf(r, sub);
+  if (url !== location.pathname) history.pushState(null, "", url);
+  render();
+}
+window.addEventListener("popstate", render);
+/* 외부에 이미 뿌려진 #주소 호환 - 경로 주소로 바꿔 주고 렌더 */
+window.addEventListener("hashchange", () => {
+  if (location.hash) {
+    const { route, sub } = parseLoc();
+    history.replaceState(null, "", pathOf(route, sub));
+  }
+  render();
+});
+/* 앱 안의 #링크(70여 곳)를 마크업 수정 없이 한 곳에서 경로 이동으로 가로챈다 */
+document.addEventListener("click", e => {
+  if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const h = a.getAttribute("href").slice(1);
+  if (!h) return;
+  e.preventDefault();
+  go(h);
+});
 
 /* 탭 이동 시 이전 스크롤 위치가 복원되어 페이지 중간(수료증 이미지 등)부터 보이던 문제.
    브라우저가 히스토리 항목마다 스크롤 위치를 자동 복원하는데, 그 복원이 render()의
@@ -315,8 +373,8 @@ function scrollToTopHard() {
   [60, 200, 800].forEach(ms => setTimeout(() => { if (alive) top(); }, ms));
   setTimeout(cleanup, 900);
 }
-function currentRoute() { return (location.hash || "#home").replace("#", "").split("/")[0]; }
-function subRoute() { return (location.hash || "").split("/")[1] || ""; }
+function currentRoute() { return parseLoc().route; }
+function subRoute() { return parseLoc().sub; }
 /* ---------- Renewal v1: 라우트별 SEO 메타 (GEO/SEO 보강, 해시라우팅 한계 내 최선) ---------- */
 const ROUTE_META = {
   why: { t: { ko: "왜 CPPI인가", en: "Why CPPI" }, d: { ko: "임상에서 출발한 커리큘럼, 기능해부학 기반 동작 이해, 티칭 실습 중심 훈련, 수료 이후의 연결 - CPPI가 근거를 먼저 보여드립니다.", en: "A curriculum born in the clinic, movement understood through functional anatomy, teaching-first training, and life after graduation - CPPI shows the evidence first." } },
@@ -557,7 +615,7 @@ const FOLDER_SKIN = [
   { bg: "#241C18", fg: "#FFD24C", x: 154 },
 ];
 function curriculumFolders() {
-  const HR = L({ ko: "시간", en: "h", zh: "小时", ja: "時間" });
+  const HR = L({ ko: "시간", en: "h", zh: "小时", "zh-Hant": "小時", ja: "時間" });
   return `<div class="fstack" id="fstack">${CURRICULUM.map((c, i) => {
     const sk = FOLDER_SKIN[i % FOLDER_SKIN.length];
     const short = LANG === "ko" ? c.n.ko.split(" 10가지")[0] : c.n.en.split(" - ")[0];
@@ -578,7 +636,7 @@ function curriculumFolders() {
             <p>${esc(L(c.d))}</p>
             <div class="ffolder-cta">
               ${c.slug !== "analysis" ? `<button type="button" onclick="openViewer(${BOOKS.findIndex(b => b.slug === c.slug)})">${L(UI.btn.preview)}</button>` : ""}
-              <a href="#curriculum">${L({ ko: "과정 상세", en: "Course detail", zh: "课程详情", ja: "課程詳細" })}</a>
+              <a href="#curriculum">${L({ ko: "과정 상세", en: "Course detail", zh: "课程详情", "zh-Hant": "課程詳情", ja: "課程詳細" })}</a>
             </div>
           </div>
         </div>
@@ -632,10 +690,10 @@ function desktopHome() {
   <div class="dhome">
 
     <section class="ed-quad">
-      <a class="ed-quad-i sreveal" style="--d:0ms" href="#about"><span class="qk">EST. 2016</span><b>${L({ ko: "협회 소개", en: "About CPPI", zh: "协会介绍", ja: "協会紹介" })}</b><i>→</i></a>
-      <a class="ed-quad-i sreveal" style="--d:70ms" href="#members"><span class="qk">56+ CLASSES</span><b>${L({ ko: "멤버스 · 수료강사", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><i>→</i></a>
-      <a class="ed-quad-i sreveal" style="--d:140ms" href="#support"><span class="qk">SUPPORT</span><b>${L({ ko: "FAQ · 후기", en: "FAQ & Reviews", zh: "FAQ·评价", ja: "FAQ·口コミ" })}</b><i>→</i></a>
-      <a class="ed-quad-i sreveal" style="--d:210ms" href="#apply"><span class="qk">1:1 SESSION</span><b>${L({ ko: "무료 상담 신청", en: "Free Consultation", zh: "免费咨询", ja: "無料相談" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:0ms" href="#about"><span class="qk">EST. 2016</span><b>${L({ ko: "협회 소개", en: "About CPPI", zh: "协会介绍", "zh-Hant": "協會介紹", ja: "協会紹介" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:70ms" href="#members"><span class="qk">56+ CLASSES</span><b>${L({ ko: "멤버스 · 수료강사", en: "Members", zh: "会员名单", "zh-Hant": "會員名單", ja: "メンバーズ" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:140ms" href="#support"><span class="qk">SUPPORT</span><b>${L({ ko: "FAQ · 후기", en: "FAQ & Reviews", zh: "FAQ·评价", "zh-Hant": "FAQ·評價", ja: "FAQ·口コミ" })}</b><i>→</i></a>
+      <a class="ed-quad-i sreveal" style="--d:210ms" href="#apply"><span class="qk">1:1 SESSION</span><b>${L({ ko: "무료 상담 신청", en: "Free Consultation", zh: "免费咨询", "zh-Hant": "免費諮詢", ja: "無料相談" })}</b><i>→</i></a>
     </section>
 
     ${chapterBand("01", L({ ko: "정규 자격과정", en: "CERTIFICATION" }), L({ ko: "기능해부학 · 8대 커리큘럼", en: "FUNCTIONAL ANATOMY · 8 COURSES" }))}
@@ -643,11 +701,11 @@ function desktopHome() {
     <section class="ed-cur">
       <div class="ed-cur-head sreveal">
         <div class="ed-eyebrow">ESSENTIAL CURRICULUM</div>
-        <h2 class="ed-h2">${L({ ko: "여덟 개의 과정,<br>하나의 기준", en: "Eight courses,<br>one standard", zh: "八门课程，<br>一个标准", ja: "八つの課程、<br>ひとつの基準" })}</h2>
-        <p class="ed-lead">${L({ ko: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다. 동작을 외우는 것이 아니라, 왜 그렇게 움직이는지 설명할 수 있는 강사를 길러냅니다.", en: "Every course is built on functional anatomy and medical evidence. We train instructors who can explain why the body moves - not merely memorize sequences.", zh: "所有课程均基于功能解剖学与医学循证设计。我们培养能解释身体为何如此运动的教练，而非死记动作。", ja: "全課程が機能解剖学と医学的根拠に基づき設計。動作を暗記するのではなく、なぜそう動くかを説明できる指導者を育てます。" })}</p>
+        <h2 class="ed-h2">${L({ ko: "여덟 개의 과정,<br>하나의 기준", en: "Eight courses,<br>one standard", zh: "八门课程，<br>一个标准", "zh-Hant": "八門課程，<br>一個標準", ja: "八つの課程、<br>ひとつの基準" })}</h2>
+        <p class="ed-lead">${L({ ko: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다. 동작을 외우는 것이 아니라, 왜 그렇게 움직이는지 설명할 수 있는 강사를 길러냅니다.", en: "Every course is built on functional anatomy and medical evidence. We train instructors who can explain why the body moves - not merely memorize sequences.", zh: "所有课程均基于功能解剖学与医学循证设计。我们培养能解释身体为何如此运动的教练，而非死记动作。", "zh-Hant": "所有課程均基於功能解剖學與醫學循證設計。我們培養能解釋身體為何如此運動的教練，而非死記動作。", ja: "全課程が機能解剖学と医学的根拠に基づき設計。動作を暗記するのではなく、なぜそう動くかを説明できる指導者を育てます。" })}</p>
       </div>
       <div class="sreveal">${curriculumFolders()}</div>
-      <a class="ed-link" href="#curriculum">${L({ ko: "커리큘럼 자세히 보기", en: "View full curriculum", zh: "查看完整课程", ja: "カリキュラム詳細" })}</a>
+      <a class="ed-link" href="#curriculum">${L({ ko: "커리큘럼 자세히 보기", en: "View full curriculum", zh: "查看完整课程", "zh-Hant": "檢視完整課程", ja: "カリキュラム詳細" })}</a>
     </section>
 
     ${chapterBand("02", L({ ko: "강의와 교재", en: "LECTURES & BOOKS" }), L({ ko: "출판교재 9권 · 온라인 복습", en: "9 PUBLISHED BOOKS · ONLINE REVIEW" }))}
@@ -656,8 +714,8 @@ function desktopHome() {
       <div class="ed-media bookscene">${bookScatter()}</div>
       <div class="ed-body sreveal">
         <div class="ed-eyebrow">TEXTBOOKS &amp; LECTURES</div>
-        <h2 class="ed-h2">${L({ ko: "1,300 페이지로<br>증명합니다", en: "Proven across<br>1,300 pages", zh: "以1,300页<br>加以证明", ja: "1,300ページで<br>証明します" })}</h2>
-        <p class="ed-lead">${L({ ko: "매트 53 · 리포머 79 · 캐딜락 62 · 체어 28 · 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39 동작. 배리에이션과 모디피케이션까지 출판교재 9권에 담았습니다.", en: "Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39 movements - with variations and modifications, across 9 published volumes.", zh: "垫上53·核心床79·凯迪拉克62·椅28·梯桶27·弧形桶29·脊柱矫正器39个动作，含变式与调整，收录于9册出版教材。", ja: "マット53·リフォーマー79·キャデラック62·チェア28·ラダーバレル27·アークバレル29·スパインコレクター39動作。バリエーションと修正法まで出版教材9冊に収録。" })}</p>
+        <h2 class="ed-h2">${L({ ko: "1,300 페이지로<br>증명합니다", en: "Proven across<br>1,300 pages", zh: "以1,300页<br>加以证明", "zh-Hant": "以1,300頁<br>加以證明", ja: "1,300ページで<br>証明します" })}</h2>
+        <p class="ed-lead">${L({ ko: "매트 53 · 리포머 79 · 캐딜락 62 · 체어 28 · 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39 동작. 배리에이션과 모디피케이션까지 출판교재 9권에 담았습니다.", en: "Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39 movements - with variations and modifications, across 9 published volumes.", zh: "垫上53·核心床79·凯迪拉克62·椅28·梯桶27·弧形桶29·脊柱矫正器39个动作，含变式与调整，收录于9册出版教材。", "zh-Hant": "墊上53·核心床79·凱迪拉克62·椅28·梯桶27·弧形桶29·脊柱矯正器39個動作，含變式與調整，收錄於9冊出版教材。", ja: "マット53·リフォーマー79·キャデラック62·チェア28·ラダーバレル27·アークバレル29·スパインコレクター39動作。バリエーションと修正法まで出版教材9冊に収録。" })}</p>
       </div>
     </section>
 
@@ -667,21 +725,21 @@ function desktopHome() {
 
     <section class="ed-quadtile">
       <a class="ed-tile sreveal" href="#learn">
-        <img src="frame1.jpg" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}">
-        <div class="ov"><div class="ed-eyebrow light">ONLINE LECTURES</div><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div>
+        <img src="frame1.jpg" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", "zh-Hant": "CPPI線上皮拉提斯課程 - 正規課程·脊柱·運動治療複習影片", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}">
+        <div class="ov"><div class="ed-eyebrow light">ONLINE LECTURES</div><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", "zh-Hant": "正規·脊柱·治療", ja: "正規·脊柱·セラピー" })}</span></div>
       </a>
       <a class="ed-tile fit sreveal" href="#store">
-        <img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 출판교재 - 박은주(Eun-Ju Park) 저 필라테스 기능해부학 교재", en: "CPPI published textbook - Functional Pilates Anatomy by Eun-Ju Park", zh: "CPPI出版教材 - 朴恩珠(Eun-Ju Park)著《普拉提功能解剖学》", ja: "CPPI出版教材 - パク・ウンジュ(Eun-Ju Park)著『機能解剖学ピラティス』" }))}">
-        <div class="ov"><div class="ed-eyebrow light">E-BOOK STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
+        <img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 출판교재 - 박은주(Eun-Ju Park) 저 필라테스 기능해부학 교재", en: "CPPI published textbook - Functional Pilates Anatomy by Eun-Ju Park", zh: "CPPI出版教材 - 朴恩珠(Eun-Ju Park)著《普拉提功能解剖学》", "zh-Hant": "CPPI出版教材 - 朴恩珠(Eun-Ju Park)著《皮拉提斯功能解剖學》", ja: "CPPI出版教材 - パク・ウンジュ(Eun-Ju Park)著『機能解剖学ピラティス』" }))}">
+        <div class="ov"><div class="ed-eyebrow light">E-BOOK STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", "zh-Hant": "教材·電子書·課程券·預覽", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
       </a>
     
       <a class="ed-tile sreveal" href="#workshop">
-        <img src="img/workshop_banner.jpg" alt="${esc(L({ ko: "CPPI 전문 강사 워크숍 현장 - 리커버링 재활·임산부·소도구 필라테스 실습", en: "CPPI professional instructor workshop - recovering rehab, prenatal and small-props Pilates practicum", zh: "CPPI专业教练工作坊现场 - 康复·孕产·小工具普拉提实操", ja: "CPPI専門講師ワークショップ - リカバリング·マタニティ·小道具ピラティス実習" }))}" style="object-position:50% 24%">
-        <div class="ov"><div class="ed-eyebrow light">WORKSHOP</div><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div>
+        <img src="img/workshop_banner.jpg" alt="${esc(L({ ko: "CPPI 전문 강사 워크숍 현장 - 리커버링 재활·임산부·소도구 필라테스 실습", en: "CPPI professional instructor workshop - recovering rehab, prenatal and small-props Pilates practicum", zh: "CPPI专业教练工作坊现场 - 康复·孕产·小工具普拉提实操", "zh-Hant": "CPPI專業教練工作坊現場 - 康復·孕產·小工具皮拉提斯實操", ja: "CPPI専門講師ワークショップ - リカバリング·マタニティ·小道具ピラティス実習" }))}" style="object-position:50% 24%">
+        <div class="ov"><div class="ed-eyebrow light">WORKSHOP</div><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", "zh-Hant": "康復·孕產·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div>
       </a>
       <a class="ed-tile sreveal" href="#members">
-        <img src="img/members.jpg" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 18%">
-        <div class="ov"><div class="ed-eyebrow light">MEMBERS</div><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", ja: "修了56期+名簿" })}</span></div>
+        <img src="img/members.jpg" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", "zh-Hant": "CPPI結業教練會員 - 已培養56期以上的皮拉提斯指導者網路", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 18%">
+        <div class="ov"><div class="ed-eyebrow light">MEMBERS</div><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", "zh-Hant": "會員名單", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", "zh-Hant": "結業56期+名單", ja: "修了56期+名簿" })}</span></div>
       </a>
     
     </section>
@@ -691,21 +749,21 @@ function desktopHome() {
     <section class="ed-stories">
       <div class="ed-body narrow sreveal">
         <div class="ed-eyebrow">STORIES</div>
-        <h2 class="ed-h2">${L({ ko: "교육의 증거는<br>현장에 있습니다", en: "The proof of teaching<br>lives in the field", zh: "教育的证据<br>在现场", ja: "教育の証拠は<br>現場にあります" })}</h2>
+        <h2 class="ed-h2">${L({ ko: "교육의 증거는<br>현장에 있습니다", en: "The proof of teaching<br>lives in the field", zh: "教育的证据<br>在现场", "zh-Hant": "教育的證據<br>在現場", ja: "教育の証拠は<br>現場にあります" })}</h2>
       </div>
       <div class="ed-story-strip sreveal">
-        ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="${esc(L({ ko: "CPPI 필라테스 수료강사 후기", en: "CPPI Pilates graduate review", zh: "CPPI普拉提结业教练评价", ja: "CPPIピラティス修了講師の口コミ" }))} ${i}" loading="lazy"></a>`).join("")}
+        ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="${esc(L({ ko: "CPPI 필라테스 수료강사 후기", en: "CPPI Pilates graduate review", zh: "CPPI普拉提结业教练评价", "zh-Hant": "CPPI皮拉提斯結業教練評價", ja: "CPPIピラティス修了講師の口コミ" }))} ${i}" loading="lazy"></a>`).join("")}
       </div>
-      <a class="ed-link center sreveal" href="#stories">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", ja: "口コミをすべて見る" })}</a>
+      <a class="ed-link center sreveal" href="#stories">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", "zh-Hant": "檢視全部評價", ja: "口コミをすべて見る" })}</a>
     </section>
 
     <section class="ed-closing sreveal">
       <div class="ed-eyebrow light">FREE SESSION</div>
-      <h2 class="ed-h2 light">${L({ ko: "어떤 과정이 맞을지,<br>먼저 물어보세요", en: "Not sure which course<br>fits you? Just ask.", zh: "不确定哪门课程适合？<br>先来问问吧", ja: "どの課程が合うか、<br>まずご相談ください" })}</h2>
-      <p class="ed-lead light">${L({ ko: "커리큘럼 · 수료 후 활동 · 비용을 1:1로 안내드립니다.", en: "1:1 guidance on curriculum, career paths and cost.", zh: "1对1介绍课程、结业去向与费用。", ja: "カリキュラム・修了後・費用を1:1でご案内。" })}</p>
+      <h2 class="ed-h2 light">${L({ ko: "어떤 과정이 맞을지,<br>먼저 물어보세요", en: "Not sure which course<br>fits you? Just ask.", zh: "不确定哪门课程适合？<br>先来问问吧", "zh-Hant": "不確定哪門課程適合？<br>先來問問吧", ja: "どの課程が合うか、<br>まずご相談ください" })}</h2>
+      <p class="ed-lead light">${L({ ko: "커리큘럼 · 수료 후 활동 · 비용을 1:1로 안내드립니다.", en: "1:1 guidance on curriculum, career paths and cost.", zh: "1对1介绍课程、结业去向与费用。", "zh-Hant": "1對1介紹課程、結業去向與費用。", ja: "カリキュラム・修了後・費用を1:1でご案内。" })}</p>
       <div class="ed-closing-cta">
-        <a class="dpri" href="#apply">${L({ ko: "내게 맞는 과정 물어보기", en: "Find my right course", zh: "咨询适合我的课程", ja: "私に合う課程を相談" })}</a>
-        <a class="dgh" href="${NAVER_TALK}" target="_blank" rel="noopener">${L({ ko: "네이버 톡톡 상담", en: "Chat on NAVER TalkTalk", zh: "NAVER TalkTalk咨询", ja: "NAVERトークトーク相談" })}</a>
+        <a class="dpri" href="#apply">${L({ ko: "내게 맞는 과정 물어보기", en: "Find my right course", zh: "咨询适合我的课程", "zh-Hant": "諮詢適合我的課程", ja: "私に合う課程を相談" })}</a>
+        <a class="dgh" href="${NAVER_TALK}" target="_blank" rel="noopener">${L({ ko: "네이버 톡톡 상담", en: "Chat on NAVER TalkTalk", zh: "NAVER TalkTalk咨询", "zh-Hant": "NAVER TalkTalk諮詢", ja: "NAVERトークトーク相談" })}</a>
       </div>
     </section>
 
@@ -723,14 +781,14 @@ function rosterHTML() {
     ${GRADUATES.map(([gen], i) => `<button class="cohort-btn" onclick="showCohort(${i})">${esc(cohortLabel(gen))}</button>`).join("")}
   </div>
   <div class="card" id="cohortPanel" style="margin-top:12px">
-    <b id="cohortTitle">${L({ ko: "기수를 선택하세요", en: "Select a class", zh: "请选择期数", ja: "期を選択してください" })}</b>
-    <p id="cohortNames" style="font-size:14px;line-height:2;color:var(--ink2);margin-top:6px">${L({ ko: "기수 버튼을 누르면 수료 강사 명단이 표시됩니다.", en: "Tap a class button to see its graduates.", zh: "点击期数按钮显示结业教练名单。", ja: "期のボタンを押すと修了講師名簿が表示されます。" })}</p>
+    <b id="cohortTitle">${L({ ko: "기수를 선택하세요", en: "Select a class", zh: "请选择期数", "zh-Hant": "請選擇期數", ja: "期を選択してください" })}</b>
+    <p id="cohortNames" style="font-size:14px;line-height:2;color:var(--ink2);margin-top:6px">${L({ ko: "기수 버튼을 누르면 수료 강사 명단이 표시됩니다.", en: "Tap a class button to see its graduates.", zh: "点击期数按钮显示结业教练名单。", "zh-Hant": "點選期數按鈕顯示結業教練名單。", ja: "期のボタンを押すと修了講師名簿が表示されます。" })}</p>
   </div>`;
 }
 function showCohort(i) {
   const [gen, names] = GRADUATES[i];
   document.querySelectorAll(".cohort-btn").forEach((b, j) => b.classList.toggle("on", j === i));
-  $("#cohortTitle").textContent = "CPPI " + cohortLabel(gen) + " " + L({ ko: "수료 강사", en: "Graduates", zh: "结业教练", ja: "修了講師" });
+  $("#cohortTitle").textContent = "CPPI " + cohortLabel(gen) + " " + L({ ko: "수료 강사", en: "Graduates", zh: "结业教练", "zh-Hant": "結業教練", ja: "修了講師" });
   $("#cohortNames").innerHTML = names.split("｜").map(n => `<span class="chip">${esc(gradName(n.trim()))}</span>`).join("");
   $("#cohortPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
@@ -740,24 +798,24 @@ function showCohort(i) {
 routes.home = () => `
   <div class="xhero">
     <div class="xhero-stage">
-      <img class="xhero-bg" src="img/hero_bg.jpg" alt="${esc(L({ ko: "박은주(Eun-Ju Park) 교수가 CPPI 필라테스 강사 양성과정 실습을 지도하는 교육 현장", en: "Prof. Eun-Ju Park teaching a CPPI Pilates instructor certification practicum", zh: "朴恩珠(Eun-Ju Park)教授指导CPPI普拉提教练资格课程实操现场", ja: "パク・ウンジュ(Eun-Ju Park)教授がCPPIピラティス指導者養成課程の実技を指導する現場" }))}">
+      <img class="xhero-bg" src="img/hero_bg.jpg" alt="${esc(L({ ko: "박은주(Eun-Ju Park) 교수가 CPPI 필라테스 강사 양성과정 실습을 지도하는 교육 현장", en: "Prof. Eun-Ju Park teaching a CPPI Pilates instructor certification practicum", zh: "朴恩珠(Eun-Ju Park)教授指导CPPI普拉提教练资格课程实操现场", "zh-Hant": "朴恩珠(Eun-Ju Park)教授指導CPPI皮拉提斯教練資格課程實操現場", ja: "パク・ウンジュ(Eun-Ju Park)教授がCPPIピラティス指導者養成課程の実技を指導する現場" }))}">
       <div class="xhero-box">
         <video id="xheroVid" src="${HEROS[0]}" poster="hero-poster.jpg" autoplay muted playsinline preload="auto"></video>
         <div class="xhero-veil"></div>
       </div>
       <div class="xhero-title">
-        <span class="xhero-w1">${L({ ko: "감각이 아니라,", en: "We teach with", zh: "以循证教学，", ja: "感覚ではなく、" })}</span>
-        <span class="xhero-w2">${L({ ko: "근거로 가르칩니다", en: "evidence, not intuition", zh: "而非凭感觉", ja: "根拠で教えます" })}</span>
+        <span class="xhero-w1">${L({ ko: "감각이 아니라,", en: "We teach with", zh: "以循证教学，", "zh-Hant": "以循證教學，", ja: "感覚ではなく、" })}</span>
+        <span class="xhero-w2">${L({ ko: "근거로 가르칩니다", en: "evidence, not intuition", zh: "而非凭感觉", "zh-Hant": "而非憑感覺", ja: "根拠で教えます" })}</span>
       </div>
       <div class="xhero-meta">
         <span class="xhero-eyebrow">CPPI KOREA · EST. 2016</span>
-        <span class="xhero-scroll">${L({ ko: "스크롤하세요", en: "SCROLL TO EXPAND", zh: "向下滚动", ja: "スクロール" })}</span>
+        <span class="xhero-scroll">${L({ ko: "스크롤하세요", en: "SCROLL TO EXPAND", zh: "向下滚动", "zh-Hant": "向下滾動", ja: "スクロール" })}</span>
       </div>
       <div class="xhero-end">
-        <p>${L({ ko: "분당서울대병원 척추·관절센터 임상 경험을 기반으로 설계된 국제 필라테스 강사 자격과정. 8대 커리큘럼, 1,300여 페이지의 출판교재로 증명합니다.", en: "An international Pilates instructor certification built on clinical experience from SNUH Bundang Spine & Joint Center. 8 core courses, 1,300+ pages of published textbooks.", zh: "以分堂首尔大学医院脊柱关节中心临床经验为基础设计的国际普拉提教练资格课程。8大课程体系，1300余页出版教材佐证。", ja: "盆唐ソウル大学病院脊椎·関節センターの臨床経験を基に設計された国際ピラティス指導者資格課程。8大カリキュラム、1,300ページ超の出版教材で証明します。" })}</p>
+        <p>${L({ ko: "분당서울대병원 척추·관절센터 임상 경험을 기반으로 설계된 국제 필라테스 강사 자격과정. 8대 커리큘럼, 1,300여 페이지의 출판교재로 증명합니다.", en: "An international Pilates instructor certification built on clinical experience from SNUH Bundang Spine & Joint Center. 8 core courses, 1,300+ pages of published textbooks.", zh: "以分堂首尔大学医院脊柱关节中心临床经验为基础设计的国际普拉提教练资格课程。8大课程体系，1300余页出版教材佐证。", "zh-Hant": "以分堂首爾大學醫院脊柱關節中心臨床經驗為基礎設計的國際皮拉提斯教練資格課程。8大課程體系，1300餘頁出版教材佐證。", ja: "盆唐ソウル大学病院脊椎·関節センターの臨床経験を基に設計された国際ピラティス指導者資格課程。8大カリキュラム、1,300ページ超の出版教材で証明します。" })}</p>
         <div class="xhero-cta">
-          <a class="dpri" href="#why">${L({ ko: "왜 CPPI인가", en: "Why CPPI", zh: "为何选择CPPI", ja: "なぜCPPIか" })}</a>
-          <a class="dgh" href="#curriculum">${L({ ko: "정규과정 알아보기", en: "Explore the Curriculum", zh: "了解正规课程", ja: "正規課程を見る" })}</a>
+          <a class="dpri" href="#why">${L({ ko: "왜 CPPI인가", en: "Why CPPI", zh: "为何选择CPPI", "zh-Hant": "為何選擇CPPI", ja: "なぜCPPIか" })}</a>
+          <a class="dgh" href="#curriculum">${L({ ko: "정규과정 알아보기", en: "Explore the Curriculum", zh: "了解正规课程", "zh-Hant": "瞭解正規課程", ja: "正規課程を見る" })}</a>
         </div>
       </div>
     </div>
@@ -770,38 +828,38 @@ routes.home = () => `
     <div class="lay-hero">
       <a class="hcard big" href="#courses">
         <video src="${heroSrc()}" poster="hero-poster.jpg" autoplay muted loop playsinline></video>
-        <span class="hbadge">${L({ ko: "모집중", en: "Enrolling", zh: "招生中", ja: "募集中" })}</span>
+        <span class="hbadge">${L({ ko: "모집중", en: "Enrolling", zh: "招生中", "zh-Hant": "招生中", ja: "募集中" })}</span>
         <div class="hov">
-          <b>${L({ ko: "CPPI 정규 자격과정", en: "CPPI Certification", zh: "CPPI正规资格课程", ja: "CPPI正規資格課程" })}</b>
-          <span>${L({ ko: "국제자격증 · 이론+실기+티칭실습", en: "Intl. cert · Theory + Practice + Teaching", zh: "国际证书·理论+实操+教学", ja: "国際資格·理論+実技+指導" })}</span>
+          <b>${L({ ko: "CPPI 정규 자격과정", en: "CPPI Certification", zh: "CPPI正规资格课程", "zh-Hant": "CPPI正規資格課程", ja: "CPPI正規資格課程" })}</b>
+          <span>${L({ ko: "국제자격증 · 이론+실기+티칭실습", en: "Intl. cert · Theory + Practice + Teaching", zh: "国际证书·理论+实操+教学", "zh-Hant": "國際證書·理論+實操+教學", ja: "国際資格·理論+実技+指導" })}</span>
         </div>
       </a>
       <a class="hcard sm" href="#founder">
         <img src="img/founder_face.jpg" alt="박은주 교수" style="object-position:top">
         <div class="hov">
-          <b>${L({ ko: "파운더", en: "Founder", zh: "创始人", ja: "創立者" })}</b>
-          <span>${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", ja: "パク・ウンジュ教授" })}</span>
+          <b>${L({ ko: "파운더", en: "Founder", zh: "创始人", "zh-Hant": "創始人", ja: "創立者" })}</b>
+          <span>${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" })}</span>
         </div>
       </a>
     </div>
 
     <!-- Row 2 : 퀵칩 4 + 앱설치 -->
     <div class="lay-quick">
-      <a class="qchip t1" href="#about">${L({ ko: "협회<br>소개", en: "About<br>CPPI", zh: "协会<br>介绍", ja: "協会<br>紹介" })}</a>
-      <a class="qchip t2" href="#members">${L({ ko: "멤버스<br>수료강사", en: "Members<br>Graduates", zh: "会员<br>名单", ja: "メンバー<br>修了講師" })}</a>
-      <a class="qchip t3" href="#support">${L({ ko: "FAQ<br>후기", en: "FAQ<br>Reviews", zh: "FAQ<br>评价", ja: "FAQ<br>口コミ" })}</a>
-      <a class="qchip t4" href="#apply">${L({ ko: "상담<br>신청", en: "Free<br>Consult", zh: "咨询<br>申请", ja: "相談<br>申込" })}</a>
+      <a class="qchip t1" href="#about">${L({ ko: "협회<br>소개", en: "About<br>CPPI", zh: "协会<br>介绍", "zh-Hant": "協會<br>介紹", ja: "協会<br>紹介" })}</a>
+      <a class="qchip t2" href="#members">${L({ ko: "멤버스<br>수료강사", en: "Members<br>Graduates", zh: "会员<br>名单", "zh-Hant": "會員<br>名單", ja: "メンバー<br>修了講師" })}</a>
+      <a class="qchip t3" href="#support">${L({ ko: "FAQ<br>후기", en: "FAQ<br>Reviews", zh: "FAQ<br>评价", "zh-Hant": "FAQ<br>評價", ja: "FAQ<br>口コミ" })}</a>
+      <a class="qchip t4" href="#apply">${L({ ko: "상담<br>신청", en: "Free<br>Consult", zh: "咨询<br>申请", "zh-Hant": "諮詢<br>申請", ja: "相談<br>申込" })}</a>
       <button class="qapp" onclick="installApp()">
         <img src="img/logo3d.jpg" alt="CPPI 앱 아이콘">
-        <div><b>${L({ ko: "CPPI 앱 설치", en: "Install App", zh: "安装应用", ja: "アプリ追加" })}</b><span>${L({ ko: "홈 화면에 추가", en: "Add to Home", zh: "添加到主屏", ja: "ホームに追加" })}</span></div>
+        <div><b>${L({ ko: "CPPI 앱 설치", en: "Install App", zh: "安装应用", "zh-Hant": "安裝應用", ja: "アプリ追加" })}</b><span>${L({ ko: "홈 화면에 추가", en: "Add to Home", zh: "添加到主屏", "zh-Hant": "新增到主屏", ja: "ホームに追加" })}</span></div>
       </button>
     </div>
 
     <!-- Row 3 : 에센셜 커리큘럼 대형 박스 (오렌지-옐로우) + 8칩 -->
     <div class="curbox sreveal">
       <div class="curtop">
-        <b>${L({ ko: "CPPI 정규과정 에센셜 커리큘럼", en: "CPPI Essential Curriculum", zh: "CPPI核心课程", ja: "CPPIエッセンシャルカリキュラム" })}</b>
-        <a href="#curriculum">${L({ ko: "안내 보기", en: "View", zh: "查看", ja: "見る" })} →</a>
+        <b>${L({ ko: "CPPI 정규과정 에센셜 커리큘럼", en: "CPPI Essential Curriculum", zh: "CPPI核心课程", "zh-Hant": "CPPI核心課程", ja: "CPPIエッセンシャルカリキュラム" })}</b>
+        <a href="#curriculum">${L({ ko: "안내 보기", en: "View", zh: "查看", "zh-Hant": "檢視", ja: "見る" })} →</a>
       </div>
       <div class="curgrid">
         ${CURRICULUM.map((c, i) => `<a href="#curriculum">${i + 1}. ${esc(LANG === "ko" ? c.n.ko.split(" 10가지")[0] : c.n.en.split(" - ")[0])}</a>`).join("")}
@@ -810,43 +868,43 @@ routes.home = () => `
 
     <!-- Row 4 : 온라인 강의 + 스토어 -->
     <div class="grid2 sreveal" style="margin-top:12px">
-      <a class="card imgcard" href="#learn"><img src="frame1.jpg" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}"><div class="cap"><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", ja: "正規·脊柱·セラピー" })}</span></div></a>
-      <a class="card imgcard" href="#store"><img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 필라테스 교재 - 박은주(Eun-Ju Park) 저 출판교재 9권 시리즈", en: "CPPI Pilates textbooks - 9-volume series authored by Eun-Ju Park", zh: "CPPI普拉提教材 - 朴恩珠(Eun-Ju Park)著9册系列", ja: "CPPIピラティス教材 - パク・ウンジュ(Eun-Ju Park)著 全9巻シリーズ" }))}" style="object-fit:contain;background:linear-gradient(160deg,#FFF3E6,#FFE6D2);padding:10px"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
+      <a class="card imgcard" href="#learn"><img src="frame1.jpg" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", "zh-Hant": "CPPI線上皮拉提斯課程 - 正規課程·脊柱·運動治療複習影片", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}"><div class="cap"><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", "zh-Hant": "正規·脊柱·治療", ja: "正規·脊柱·セラピー" })}</span></div></a>
+      <a class="card imgcard" href="#store"><img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 필라테스 교재 - 박은주(Eun-Ju Park) 저 출판교재 9권 시리즈", en: "CPPI Pilates textbooks - 9-volume series authored by Eun-Ju Park", zh: "CPPI普拉提教材 - 朴恩珠(Eun-Ju Park)著9册系列", "zh-Hant": "CPPI皮拉提斯教材 - 朴恩珠(Eun-Ju Park)著9冊系列", ja: "CPPIピラティス教材 - パク・ウンジュ(Eun-Ju Park)著 全9巻シリーズ" }))}" style="object-fit:contain;background:linear-gradient(160deg,#FFF3E6,#FFE6D2);padding:10px"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", "zh-Hant": "教材·電子書·課程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
     </div>
 
     <!-- Row 5 : 전문 강사 워크숍 + 멤버스 -->
     <div class="grid2 sreveal" style="margin-top:12px">
-      <a class="card imgcard" href="#workshop"><img src="img/workshop_banner.jpg" alt="${esc(L({ ko: "CPPI 전문 강사 워크숍 현장 - 리커버링 재활·임산부·소도구 필라테스 실습", en: "CPPI professional instructor workshop - recovering rehab, prenatal and small-props Pilates practicum", zh: "CPPI专业教练工作坊现场 - 康复·孕产·小工具普拉提实操", ja: "CPPI専門講師ワークショップ - リカバリング·マタニティ·小道具ピラティス実習" }))}" style="object-position:50% 24%"><div class="cap"><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div></a>
-      <a class="card imgcard" href="#members"><img src="img/members.jpg" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 18%"><div class="cap"><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", ja: "修了56期+名簿" })}</span></div></a>
+      <a class="card imgcard" href="#workshop"><img src="img/workshop_banner.jpg" alt="${esc(L({ ko: "CPPI 전문 강사 워크숍 현장 - 리커버링 재활·임산부·소도구 필라테스 실습", en: "CPPI professional instructor workshop - recovering rehab, prenatal and small-props Pilates practicum", zh: "CPPI专业教练工作坊现场 - 康复·孕产·小工具普拉提实操", "zh-Hant": "CPPI專業教練工作坊現場 - 康復·孕產·小工具皮拉提斯實操", ja: "CPPI専門講師ワークショップ - リカバリング·マタニティ·小道具ピラティス実習" }))}" style="object-position:50% 24%"><div class="cap"><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", "zh-Hant": "康復·孕產·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div></a>
+      <a class="card imgcard" href="#members"><img src="img/members.jpg" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", "zh-Hant": "CPPI結業教練會員 - 已培養56期以上的皮拉提斯指導者網路", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 18%"><div class="cap"><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", "zh-Hant": "會員名單", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", "zh-Hant": "結業56期+名單", ja: "修了56期+名簿" })}</span></div></a>
     </div>
 
     <!-- Row 5.5 : 수료강사 후기 (CPPI 자체 후기 카드) -->
     <div class="sreveal" style="margin-top:18px"><div class="eyebrow">REVIEWS</div><h2 class="sec">${L(UI.menu.stories)}</h2></div>
     <div class="rev-strip sreveal">
-      ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="${esc(L({ ko: "CPPI 필라테스 수료강사 후기", en: "CPPI Pilates graduate review", zh: "CPPI普拉提结业教练评价", ja: "CPPIピラティス修了講師の口コミ" }))} ${i}" loading="lazy"></a>`).join("")}
+      ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="${esc(L({ ko: "CPPI 필라테스 수료강사 후기", en: "CPPI Pilates graduate review", zh: "CPPI普拉提结业教练评价", "zh-Hant": "CPPI皮拉提斯結業教練評價", ja: "CPPIピラティス修了講師の口コミ" }))} ${i}" loading="lazy"></a>`).join("")}
     </div>
-    <a class="btn ghost" href="#stories" style="margin-top:10px">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", ja: "口コミをすべて見る" })}</a>
+    <a class="btn ghost" href="#stories" style="margin-top:10px">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", "zh-Hant": "檢視全部評價", ja: "口コミをすべて見る" })}</a>
 
     <!-- Row 6 : 무료 상담 배너 -->
     <div class="card sreveal" style="background:linear-gradient(135deg,var(--acc),var(--sun));text-align:center;margin-top:16px;border:none">
       <div class="eyebrow" style="color:#7A4A12">FREE SESSION</div>
       <h2 class="sec" style="color:#5A3410">${L(UI.btn.consult)}</h2>
-      <p style="font-size:13.5px;color:#6E521A;margin-bottom:14px">${L({ ko: "커리큘럼 · 수료 후 활동 · 비용을 1:1로 안내드립니다.", en: "1:1 guidance on curriculum, career paths and cost.", zh: "1对1介绍课程、结业去向与费用。", ja: "カリキュラム・修了後・費用を1:1でご案内。" })}</p>
-      <a class="btn" style="background:#fff;color:var(--pri)" href="#apply">${L({ ko: "내게 맞는 과정 물어보기 →", en: "Find my right course →", zh: "咨询适合我的课程 →", ja: "私に合う課程を相談 →" })}</a>
+      <p style="font-size:13.5px;color:#6E521A;margin-bottom:14px">${L({ ko: "커리큘럼 · 수료 후 활동 · 비용을 1:1로 안내드립니다.", en: "1:1 guidance on curriculum, career paths and cost.", zh: "1对1介绍课程、结业去向与费用。", "zh-Hant": "1對1介紹課程、結業去向與費用。", ja: "カリキュラム・修了後・費用を1:1でご案内。" })}</p>
+      <a class="btn" style="background:#fff;color:var(--pri)" href="#apply">${L({ ko: "내게 맞는 과정 물어보기 →", en: "Find my right course →", zh: "咨询适合我的课程 →", "zh-Hant": "諮詢適合我的課程 →", ja: "私に合う課程を相談 →" })}</a>
     </div>
   </section>`;
 
 routes.global = () => `
   <section>
-    ${secHead("GLOBAL", L(UI.menu.global), L({ ko: "CPPI는 한국 - 캐나다 - 일본에서 교육을 운영합니다.", en: "CPPI operates in Korea, Canada and Japan.", zh: "CPPI在韩国、加拿大和日本开展教育。", ja: "CPPIは韓国・カナダ・日本で教育を運営しています。" }))}
+    ${secHead("GLOBAL", L(UI.menu.global), L({ ko: "CPPI는 한국 - 캐나다 - 일본에서 교육을 운영합니다.", en: "CPPI operates in Korea, Canada and Japan.", zh: "CPPI在韩国、加拿大和日本开展教育。", "zh-Hant": "CPPI在韓國、加拿大和日本開展教育。", ja: "CPPIは韓国・カナダ・日本で教育を運営しています。" }))}
     <img src="img/global_map.jpg" alt="Global" style="border-radius:14px;margin-bottom:12px">
     <div class="global-grid">
-    <div class="card" style="margin-bottom:9px"><b>${L({ ko: "대한민국 KOREA", en: "KOREA", zh: "韩国 KOREA", ja: "韓国 KOREA" })}</b>
-      <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "분당 · 서울 · 김포 교육센터 운영.", en: "Education centers in Bundang, Seoul and Gimpo.", zh: "运营盆唐、首尔、金浦教育中心。", ja: "盆唐・ソウル・金浦の教育センターを運営。" })}<br>${L({ ko: "정규과정 · 워크숍 · 자격검정 진행.", en: "Certification courses, workshops and assessments.", zh: "进行正规课程·工作坊·资格检定。", ja: "正規課程・ワークショップ・検定を実施。" })}</p></div>
-    <div class="card" style="margin-bottom:9px"><b>${L({ ko: "캐나다 CANADA", en: "CANADA", zh: "加拿大 CANADA", ja: "カナダ CANADA" })}</b>
-      <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "밴쿠버 - 팬데믹 기간에도 온라인 병행으로 교육을 지속했습니다.", en: "Vancouver - education continued online through the pandemic.", zh: "温哥华 - 疫情期间线上持续教学。", ja: "バンクーバー - パンデミック期間もオンラインで継続。" })}</p></div>
-    <div class="card" style="margin-bottom:12px"><b>${L({ ko: "일본 JAPAN", en: "JAPAN", zh: "日本 JAPAN", ja: "日本 JAPAN" })}</b>
-      <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "도쿄 - 국제 자격 대응 인스트럭터 양성 과정 운영.", en: "Tokyo - instructor training aligned with international certification.", zh: "东京 - 运营国际资格对应教练课程。", ja: "東京 - 国際資格対応の養成コースを運営。" })}</p></div>
+    <div class="card" style="margin-bottom:9px"><b>${L({ ko: "대한민국 KOREA", en: "KOREA", zh: "韩国 KOREA", "zh-Hant": "韓國 KOREA", ja: "韓国 KOREA" })}</b>
+      <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "분당 · 서울 · 김포 교육센터 운영.", en: "Education centers in Bundang, Seoul and Gimpo.", zh: "运营盆唐、首尔、金浦教育中心。", "zh-Hant": "運營盆唐、首爾、金浦教育中心。", ja: "盆唐・ソウル・金浦の教育センターを運営。" })}<br>${L({ ko: "정규과정 · 워크숍 · 자격검정 진행.", en: "Certification courses, workshops and assessments.", zh: "进行正规课程·工作坊·资格检定。", "zh-Hant": "進行正規課程·工作坊·資格檢定。", ja: "正規課程・ワークショップ・検定を実施。" })}</p></div>
+    <div class="card" style="margin-bottom:9px"><b>${L({ ko: "캐나다 CANADA", en: "CANADA", zh: "加拿大 CANADA", "zh-Hant": "加拿大 CANADA", ja: "カナダ CANADA" })}</b>
+      <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "밴쿠버 - 팬데믹 기간에도 온라인 병행으로 교육을 지속했습니다.", en: "Vancouver - education continued online through the pandemic.", zh: "温哥华 - 疫情期间线上持续教学。", "zh-Hant": "溫哥華 - 疫情期間線上持續教學。", ja: "バンクーバー - パンデミック期間もオンラインで継続。" })}</p></div>
+    <div class="card" style="margin-bottom:12px"><b>${L({ ko: "일본 JAPAN", en: "JAPAN", zh: "日本 JAPAN", "zh-Hant": "日本 JAPAN", ja: "日本 JAPAN" })}</b>
+      <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "도쿄 - 국제 자격 대응 인스트럭터 양성 과정 운영.", en: "Tokyo - instructor training aligned with international certification.", zh: "东京 - 运营国际资格对应教练课程。", "zh-Hant": "東京 - 運營國際資格對應教練課程。", ja: "東京 - 国際資格対応の養成コースを運営。" })}</p></div>
     </div>
     <a class="btn pri" href="#apply">${L(UI.btn.consult)}</a>
   </section>`;
@@ -854,7 +912,7 @@ routes.global = () => `
 const REVIEW_IMGS = 11; // CPPI 자체 후기 카드 (reviews/r1~r11.jpg)
 routes.stories = () => `
   <section>
-    ${secHead("STORIES", L(UI.menu.stories), L({ ko: "CPPI와 함께 성장한 수료강사들의 생생한 이야기입니다.", en: "Real stories from CPPI graduates.", zh: "与CPPI共同成长的结业教练心声。", ja: "CPPIと共に成長した修了講師のリアルな声。" }))}
+    ${secHead("STORIES", L(UI.menu.stories), L({ ko: "CPPI와 함께 성장한 수료강사들의 생생한 이야기입니다.", en: "Real stories from CPPI graduates.", zh: "与CPPI共同成长的结业教练心声。", "zh-Hant": "與CPPI共同成長的結業教練心聲。", ja: "CPPIと共に成長した修了講師のリアルな声。" }))}
     <div class="grid2 reviews-grid">
       ${Array.from({ length: REVIEW_IMGS }, (_, i) => `<img src="reviews/r${i + 1}.jpg" alt="CPPI graduate review ${i + 1}" loading="lazy" style="border-radius:12px;border:1px solid var(--line)">`).join("")}
     </div>
@@ -873,7 +931,7 @@ const WHY_PILLARS = [
     no: "01",
     tag: "CLINICAL",
     img: "img/founder_studio.jpg",
-    name: { ko: "임상에서 왔습니다", en: "It came from the clinic", zh: "源自临床", ja: "臨床から来ました" },
+    name: { ko: "임상에서 왔습니다", en: "It came from the clinic", zh: "源自临床", "zh-Hant": "源自臨床", ja: "臨床から来ました" },
     lede: {
       ko: "필라테스 교육의 대부분은 동작 체계에서 출발합니다. CPPI는 병원에서 출발했습니다. 창립자는 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추&관절센터에서 통증과 수술 후 회복을 직접 다뤘고, 그 경험이 커리큘럼의 뼈대가 되었습니다.",
       en: "Most Pilates education starts from a movement repertoire. CPPI started in a hospital. Our founder worked in anesthesiology and pain medicine at SNUH Bundang and at the Spine & Joint Center of the Korea Veterans Health Service - that experience became the backbone of the curriculum.",
@@ -889,7 +947,7 @@ const WHY_PILLARS = [
     no: "02",
     tag: "ANATOMY",
     img: "img/curriculum_banner.jpg",
-    name: { ko: "동작을 외우지 않습니다", en: "We do not memorize movements", zh: "不靠死记动作", ja: "動作を暗記しません" },
+    name: { ko: "동작을 외우지 않습니다", en: "We do not memorize movements", zh: "不靠死记动作", "zh-Hant": "不靠死記動作", ja: "動作を暗記しません" },
     lede: {
       ko: "같은 동작도 대상이 달라지면 다른 운동이 됩니다. 임신 중인 수강생, 수술 후 6주차 회원, 어깨 가동범위가 제한된 시니어에게 같은 큐잉을 줄 수는 없습니다. CPPI는 기능해부학에서 시작해 배리에이션과 모디피케이션까지 가르칩니다.",
       en: "The same exercise becomes a different exercise when the person changes. You cannot give identical cues to a pregnant client, someone six weeks post-op, and a senior with limited shoulder range. CPPI teaches from functional anatomy through variation and modification.",
@@ -905,7 +963,7 @@ const WHY_PILLARS = [
     no: "03",
     tag: "TEACHING",
     img: "img/courses_banner.jpg",
-    name: { ko: "가르치는 법을 배웁니다", en: "You learn how to teach", zh: "学习如何教学", ja: "教え方を学びます" },
+    name: { ko: "가르치는 법을 배웁니다", en: "You learn how to teach", zh: "学习如何教学", "zh-Hant": "學習如何教學", ja: "教え方を学びます" },
     lede: {
       ko: "동작을 할 줄 아는 것과 가르칠 줄 아는 것은 다른 능력입니다. CPPI 정규과정은 이론 강의 후 반드시 교육생 상호 인스트럭팅을 반복합니다. 수료 시점에 이미 레슨을 해본 사람이 되어 나갑니다.",
       en: "Performing a movement and teaching it are different skills. Every CPPI module pairs theory with repeated peer instructing, so graduates leave having already taught real sessions.",
@@ -920,7 +978,7 @@ const WHY_PILLARS = [
     no: "04",
     tag: "AFTER",
     img: "img/convention.jpg",
-    name: { ko: "수료 이후가 있습니다", en: "There is life after graduation", zh: "结业之后仍有路", ja: "修了後があります" },
+    name: { ko: "수료 이후가 있습니다", en: "There is life after graduation", zh: "结业之后仍有路", "zh-Hant": "結業之後仍有路", ja: "修了後があります" },
     lede: {
       ko: "자격증 발급으로 끝나는 과정이 많습니다. CPPI는 수료강사 명단에 등재되고, 워크숍으로 재교육을 이어가며, 일부는 타 아카데미에서 교육강사로 활동합니다. 한국·캐나다·일본에서 운영되는 국제 자격입니다.",
       en: "Many programs end at certification. CPPI graduates are listed in the directory, continue through workshops, and some go on to teach as masters at other academies. The certification operates across Korea, Canada and Japan.",
@@ -942,14 +1000,14 @@ routes.why = () => `
   <div class="why">
     <div class="why-hero">
       <div class="why-eyebrow">WHY CPPI</div>
-      <h1>${L({ ko: "왜 근거인가", en: "Why evidence", zh: "为何强调循证", ja: "なぜ根拠なのか" })}</h1>
-      <p>${L({ ko: "필라테스 강사 자격과정은 많습니다. 우리가 다르다고 말하려면, 그 근거를 먼저 보여야 한다고 생각했습니다.", en: "There are many Pilates certifications. If we claim to be different, we should show the evidence first.", zh: "普拉提教练课程很多。若要说我们不同，就该先拿出依据。", ja: "ピラティス指導者資格は数多くあります。違うと言うなら、まず根拠を示すべきだと考えました。" })}</p>
+      <h1>${L({ ko: "왜 근거인가", en: "Why evidence", zh: "为何强调循证", "zh-Hant": "為何強調循證", ja: "なぜ根拠なのか" })}</h1>
+      <p>${L({ ko: "필라테스 강사 자격과정은 많습니다. 우리가 다르다고 말하려면, 그 근거를 먼저 보여야 한다고 생각했습니다.", en: "There are many Pilates certifications. If we claim to be different, we should show the evidence first.", zh: "普拉提教练课程很多。若要说我们不同，就该先拿出依据。", "zh-Hant": "皮拉提斯教練課程很多。若要說我們不同，就該先拿出依據。", ja: "ピラティス指導者資格は数多くあります。違うと言うなら、まず根拠を示すべきだと考えました。" })}</p>
       <div class="why-stats">
         <div><b>2016</b><span>EST.</span></div>
-        <div><b>8</b><span>${L({ ko: "정규 과목", en: "COURSES", zh: "科目", ja: "科目" })}</span></div>
-        <div><b>1,300+</b><span>${L({ ko: "교재 페이지", en: "TEXTBOOK PAGES", zh: "教材页数", ja: "教材ページ" })}</span></div>
-        <div><b>56+</b><span>${L({ ko: "수료 기수", en: "CLASSES", zh: "结业期数", ja: "修了期" })}</span></div>
-        <div><b>3</b><span>${L({ ko: "운영 국가", en: "COUNTRIES", zh: "运营国家", ja: "運営国" })}</span></div>
+        <div><b>8</b><span>${L({ ko: "정규 과목", en: "COURSES", zh: "科目", "zh-Hant": "科目", ja: "科目" })}</span></div>
+        <div><b>1,300+</b><span>${L({ ko: "교재 페이지", en: "TEXTBOOK PAGES", zh: "教材页数", "zh-Hant": "教材頁數", ja: "教材ページ" })}</span></div>
+        <div><b>56+</b><span>${L({ ko: "수료 기수", en: "CLASSES", zh: "结业期数", "zh-Hant": "結業期數", ja: "修了期" })}</span></div>
+        <div><b>3</b><span>${L({ ko: "운영 국가", en: "COUNTRIES", zh: "运营国家", "zh-Hant": "運營國家", ja: "運営国" })}</span></div>
       </div>
     </div>
 
@@ -965,7 +1023,7 @@ routes.why = () => `
           </div>
           <div class="why-grid">
             <p class="why-lede sreveal">${esc(L(p.lede))}</p>
-            <figure class="why-fig sreveal"><img src="${p.img}" alt="${esc(L(p.name))} - ${esc(L({ ko: "CPPI 근거 기반 필라테스 교육 (박은주 Eun-Ju Park)", en: "CPPI evidence-based Pilates education, founded by Eun-Ju Park", zh: "CPPI循证普拉提教育(创始人 朴恩珠 Eun-Ju Park)", ja: "CPPI根拠に基づくピラティス教育(創立者 パク・ウンジュ Eun-Ju Park)" }))}" loading="lazy"></figure>
+            <figure class="why-fig sreveal"><img src="${p.img}" alt="${esc(L(p.name))} - ${esc(L({ ko: "CPPI 근거 기반 필라테스 교육 (박은주 Eun-Ju Park)", en: "CPPI evidence-based Pilates education, founded by Eun-Ju Park", zh: "CPPI循证普拉提教育(创始人 朴恩珠 Eun-Ju Park)", "zh-Hant": "CPPI循證皮拉提斯教育(創始人 朴恩珠 Eun-Ju Park)", ja: "CPPI根拠に基づくピラティス教育(創立者 パク・ウンジュ Eun-Ju Park)" }))}" loading="lazy"></figure>
           </div>
           <div class="why-items${p.items.length === 3 ? " three" : ""}">
             ${p.items.map((it, k) => `<div class="why-item sreveal" style="--d:${k * 70}ms"><i>${String(k + 1).padStart(2, "0")}</i><b>${esc(L(it.h))}</b><span>${esc(L(it.p))}</span></div>`).join("")}
@@ -976,12 +1034,12 @@ routes.why = () => `
     `).join("")}
 
     <section class="why-cta sreveal">
-      <h2>${L({ ko: "근거는 확인하는 것입니다", en: "Evidence is meant to be checked", zh: "依据是用来核实的", ja: "根拠は確かめるものです" })}</h2>
-      <p>${L({ ko: "커리큘럼 · 수료 후 활동 · 비용을 1:1로 안내드립니다. 교재는 목차와 본문 10페이지를 먼저 보실 수 있습니다.", en: "We guide you 1:1 through curriculum, career paths and cost. You can preview the table of contents and 10 pages of any textbook first.", zh: "1对1介绍课程、结业去向与费用。教材可先查看目录与正文10页。", ja: "カリキュラム・修了後・費用を1:1でご案内。教材は目次と本文10ページを先にご覧いただけます。" })}</p>
+      <h2>${L({ ko: "근거는 확인하는 것입니다", en: "Evidence is meant to be checked", zh: "依据是用来核实的", "zh-Hant": "依據是用來核實的", ja: "根拠は確かめるものです" })}</h2>
+      <p>${L({ ko: "커리큘럼 · 수료 후 활동 · 비용을 1:1로 안내드립니다. 교재는 목차와 본문 10페이지를 먼저 보실 수 있습니다.", en: "We guide you 1:1 through curriculum, career paths and cost. You can preview the table of contents and 10 pages of any textbook first.", zh: "1对1介绍课程、结业去向与费用。教材可先查看目录与正文10页。", "zh-Hant": "1對1介紹課程、結業去向與費用。教材可先檢視目錄與正文10頁。", ja: "カリキュラム・修了後・費用を1:1でご案内。教材は目次と本文10ページを先にご覧いただけます。" })}</p>
       <div class="why-cta-btns">
-        <a class="wb pri" href="#apply">${L({ ko: "무료 상담 신청", en: "Free consultation", zh: "免费咨询", ja: "無料相談" })}</a>
-        <a class="wb gh" href="#curriculum">${L({ ko: "커리큘럼 보기", en: "See the curriculum", zh: "查看课程", ja: "カリキュラムを見る" })}</a>
-        <a class="wb gh" href="#store">${L({ ko: "교재 미리보기", en: "Preview textbooks", zh: "教材预览", ja: "教材プレビュー" })}</a>
+        <a class="wb pri" href="#apply">${L({ ko: "무료 상담 신청", en: "Free consultation", zh: "免费咨询", "zh-Hant": "免費諮詢", ja: "無料相談" })}</a>
+        <a class="wb gh" href="#curriculum">${L({ ko: "커리큘럼 보기", en: "See the curriculum", zh: "查看课程", "zh-Hant": "檢視課程", ja: "カリキュラムを見る" })}</a>
+        <a class="wb gh" href="#store">${L({ ko: "교재 미리보기", en: "Preview textbooks", zh: "教材预览", "zh-Hant": "教材預覽", ja: "教材プレビュー" })}</a>
       </div>
     </section>
   </div>`;
@@ -992,25 +1050,25 @@ routes.about = () => `
       <img src="img/founder_studio.jpg" alt="CPPI 교육 현장">
       <div class="dtxt">
         <div class="eyebrow">ABOUT CPPI</div>
-        <h1>${L({ ko: "감각이 아니라,<br>근거로 가르칩니다", en: "We teach with<br>evidence, not intuition", zh: "以循证教学，<br>而非凭感觉", ja: "感覚ではなく、<br>根拠で教えます" })}</h1>
-        <p class="dlead">${L({ ko: "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor. EST. 2016 · 한국-캐나다-일본 글로벌 운영.", en: "Korea Pilates Education Association (CPPI Korea) · Certified Professional Pilates Instructor. EST. 2016 · Korea-Canada-Japan.", zh: "韩国普拉提教育协会 (CPPI Korea)。2016年创立 · 韩加日全球运营。", ja: "韓国ピラティス教育協会 (CPPI Korea)。2016年設立 · 韓国-カナダ-日本で運営。" })}</p>
+        <h1>${L({ ko: "감각이 아니라,<br>근거로 가르칩니다", en: "We teach with<br>evidence, not intuition", zh: "以循证教学，<br>而非凭感觉", "zh-Hant": "以循證教學，<br>而非憑感覺", ja: "感覚ではなく、<br>根拠で教えます" })}</h1>
+        <p class="dlead">${L({ ko: "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor. EST. 2016 · 한국-캐나다-일본 글로벌 운영.", en: "Korea Pilates Education Association (CPPI Korea) · Certified Professional Pilates Instructor. EST. 2016 · Korea-Canada-Japan.", zh: "韩国普拉提教育协会 (CPPI Korea)。2016年创立 · 韩加日全球运营。", "zh-Hant": "韓國皮拉提斯教育協會 (CPPI Korea)。2016年創立 · 韓加日全球運營。", ja: "韓国ピラティス教育協会 (CPPI Korea)。2016年設立 · 韓国-カナダ-日本で運営。" })}</p>
       </div>
     </div>
     <div class="monly">
-      ${secHead("ABOUT CPPI", L({ ko: "감각이 아니라 근거로 가르칩니다", en: "We teach with evidence, not intuition", zh: "以循证教学，而非凭感觉", ja: "感覚ではなく根拠で教えます" }), "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor")}
+      ${secHead("ABOUT CPPI", L({ ko: "감각이 아니라 근거로 가르칩니다", en: "We teach with evidence, not intuition", zh: "以循证教学，而非凭感觉", "zh-Hant": "以循證教學，而非憑感覺", ja: "感覚ではなく根拠で教えます" }), "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor")}
     </div>
-    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "협회 개요", en: "Overview", zh: "协会概要", ja: "協会概要" })}</b>
+    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "협회 개요", en: "Overview", zh: "协会概要", "zh-Hant": "協會概要", ja: "協会概要" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "EST. 2016 · 2년 집중개발로 교과정 완성 · 한국-캐나다-일본 글로벌 운영. 8개 정규 과정, 총 1,300여 페이지의 출판교재(9권+부교재)로 교육합니다.", en: "EST. 2016 · Curriculum built over 2 years · Korea-Canada-Japan. 8 core courses taught with 1,300+ pages of published textbooks." }))}</p></div>
-    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "동작 매뉴얼", en: "Movement Manual", zh: "动作手册", ja: "動作マニュアル" })}</b>
+    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "동작 매뉴얼", en: "Movement Manual", zh: "动作手册", "zh-Hant": "動作手冊", ja: "動作マニュアル" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "매트 53 · 리포머 79 · 캐딜락 62 · 체어 28 · 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39 동작 + 배리에이션 · 모디피케이션 · 소도구 티칭.", en: "Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39 + variations and props." }))}</p></div>
-    ${secHead("WHY CPPI", L({ ko: "타 단체와의 차별성", en: "What sets CPPI apart", zh: "与其他机构的差异", ja: "他団体との差別化" }))}
+    ${secHead("WHY CPPI", L({ ko: "타 단체와의 차별성", en: "What sets CPPI apart", zh: "与其他机构的差异", "zh-Hant": "與其他機構的差異", ja: "他団体との差別化" }))}
     <div class="grid2">
-      <div class="card"><b>${L({ ko: "의료 임상 기반", en: "Clinical Foundation", zh: "医疗临床基础", ja: "医療臨床基盤" })}</b><p style="font-size:12.5px;color:var(--ink2);margin-top:4px">${br(L({ ko: "분당서울대병원 · 보훈복지공단 척추&관절센터 임상경험 기반 - 국내 유일성.", en: "Built on SNUH Bundang and VHS Spine/Joint Center clinical experience." }))}</p></div>
-      <div class="card"><b>${L({ ko: "대학 검증", en: "Academic Credentials", zh: "大学验证", ja: "大学検証" })}</b><p style="font-size:12.5px;color:var(--ink2);margin-top:4px">${br(L({ ko: "나사렛대학교 스포츠재활학부 강단 경력의 창립자 직강.", en: "Taught directly by the founder with university faculty experience." }))}</p></div>
-      <div class="card"><b>${L({ ko: "실무형 교육", en: "Practical Training", zh: "实务型教育", ja: "実務型教育" })}</b><p style="font-size:12.5px;color:var(--ink2);margin-top:4px">${br(L({ ko: "동작 암기가 아닌 배리에이션·모디피케이션, 창의적인 지도력과 재활 시퀀스 교육.", en: "Variations, modifications, creative teaching and rehab sequencing." }))}</p></div>
-      <div class="card"><b>${L({ ko: "국제 운영", en: "International", zh: "国际运营", ja: "国際運営" })}</b><p style="font-size:12.5px;color:var(--ink2);margin-top:4px">${br(L({ ko: "한국 · 캐나다 · 일본 교육 운영, 국제 자격 발급.", en: "Programs in Korea, Canada and Japan with international certification." }))}</p></div>
+      <div class="card"><b>${L({ ko: "의료 임상 기반", en: "Clinical Foundation", zh: "医疗临床基础", "zh-Hant": "醫療臨床基礎", ja: "医療臨床基盤" })}</b><p style="font-size:12.5px;color:var(--ink2);margin-top:4px">${br(L({ ko: "분당서울대병원 · 보훈복지공단 척추&관절센터 임상경험 기반 - 국내 유일성.", en: "Built on SNUH Bundang and VHS Spine/Joint Center clinical experience." }))}</p></div>
+      <div class="card"><b>${L({ ko: "대학 검증", en: "Academic Credentials", zh: "大学验证", "zh-Hant": "大學驗證", ja: "大学検証" })}</b><p style="font-size:12.5px;color:var(--ink2);margin-top:4px">${br(L({ ko: "나사렛대학교 스포츠재활학부 강단 경력의 창립자 직강.", en: "Taught directly by the founder with university faculty experience." }))}</p></div>
+      <div class="card"><b>${L({ ko: "실무형 교육", en: "Practical Training", zh: "实务型教育", "zh-Hant": "實務型教育", ja: "実務型教育" })}</b><p style="font-size:12.5px;color:var(--ink2);margin-top:4px">${br(L({ ko: "동작 암기가 아닌 배리에이션·모디피케이션, 창의적인 지도력과 재활 시퀀스 교육.", en: "Variations, modifications, creative teaching and rehab sequencing." }))}</p></div>
+      <div class="card"><b>${L({ ko: "국제 운영", en: "International", zh: "国际运营", "zh-Hant": "國際運營", ja: "国際運営" })}</b><p style="font-size:12.5px;color:var(--ink2);margin-top:4px">${br(L({ ko: "한국 · 캐나다 · 일본 교육 운영, 국제 자격 발급.", en: "Programs in Korea, Canada and Japan with international certification." }))}</p></div>
     </div>
-    <div class="note">${L({ ko: "인증 단체 - 한국필라테스교육협회 (CPPI Korea) · 고유번호 201-82-74381 (비영리). 사업 대행: ", en: "Registered non-profit (No. 201-82-74381). Business agency: ", zh: "注册非营利团体 (201-82-74381)。业务代理：", ja: "登録非営利団体 (201-82-74381)。事業代行：" })}${SELLER}</div>
+    <div class="note">${L({ ko: "인증 단체 - 한국필라테스교육협회 (CPPI Korea) · 고유번호 201-82-74381 (비영리). 사업 대행: ", en: "Registered non-profit (No. 201-82-74381). Business agency: ", zh: "注册非营利团体 (201-82-74381)。业务代理：", "zh-Hant": "註冊非營利團體 (201-82-74381)。業務代理：", ja: "登録非営利団体 (201-82-74381)。事業代行：" })}${SELLER}</div>
   </section>`;
 
 const FOUNDER_CAREER = {
@@ -1029,32 +1087,32 @@ routes.founder = () => `
       <img src="img/founder_photo.jpg" alt="박은주 교수">
       <div class="dtxt">
         <div class="eyebrow">FOUNDER</div>
-        <h1>${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", ja: "パク・ウンジュ教授" })}</h1>
-        <p class="dlead">${L({ ko: "최상위 교육자 - 의료·대학이 검증한, 타협 없는 프로필을 요약 없이 공개합니다.", en: "The full, uncompromised profile - clinically and academically verified.", zh: "顶级教育者 - 医疗与大学验证的完整履历。", ja: "医療·大学が検証した妥協なきプロフィールを全公開。" })}</p>
+        <h1>${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" })}</h1>
+        <p class="dlead">${L({ ko: "최상위 교육자 - 의료·대학이 검증한, 타협 없는 프로필을 요약 없이 공개합니다.", en: "The full, uncompromised profile - clinically and academically verified.", zh: "顶级教育者 - 医疗与大学验证的完整履历。", "zh-Hant": "頂級教育者 - 醫療與大學驗證的完整履歷。", ja: "医療·大学が検証した妥協なきプロフィールを全公開。" })}</p>
       </div>
     </div>
     <div class="monly">
-      ${secHead("FOUNDER", L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", ja: "パク・ウンジュ教授" }), L({ ko: "최상위 교육자 - 의료·대학이 검증한, 타협 없는 프로필을 요약 없이 공개합니다.", en: "The full, uncompromised profile - clinically and academically verified.", zh: "顶级教育者 - 医疗与大学验证的完整履历。", ja: "医療·大学が検証した妥協なきプロフィールを全公開。" }))}
+      ${secHead("FOUNDER", L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" }), L({ ko: "최상위 교육자 - 의료·대학이 검증한, 타협 없는 프로필을 요약 없이 공개합니다.", en: "The full, uncompromised profile - clinically and academically verified.", zh: "顶级教育者 - 医疗与大学验证的完整履历。", "zh-Hant": "頂級教育者 - 醫療與大學驗證的完整履歷。", ja: "医療·大学が検証した妥協なきプロフィールを全公開。" }))}
       <img src="img/founder_photo.jpg" alt="박은주 교수" style="border-radius:14px;margin-bottom:12px">
     </div>
     <div class="card" style="margin-bottom:10px;background:var(--tint)">
-      <b>${L({ ko: "왜 '진짜'는 흉내 낼 수 없는가", en: "Why the real thing can't be imitated", zh: "为何'真材实料'无法模仿", ja: "なぜ「本物」は真似できないのか" })}</b>
+      <b>${L({ ko: "왜 '진짜'는 흉내 낼 수 없는가", en: "Why the real thing can't be imitated", zh: "为何'真材实料'无法模仿", "zh-Hant": "為何'真材實料'無法模仿", ja: "なぜ「本物」は真似できないのか" })}</b>
       <p style="font-size:13.5px;margin-top:6px">${br(L({ ko: "필라테스 분야에서 서울대병원 임상경험과 전문연수를 함께 보유한 이력은 국내에서 찾기 어렵습니다. 척추·관절센터 임상과 대학 강단을 모두 거친 창립자가 직접 가르칩니다.", en: "Few in Korean Pilates hold both Seoul National University Hospital (SNUH) clinical experience and professional training. The founder teaches directly." }))}</p>
     </div>
-    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주요경력", en: "Career", zh: "主要经历", ja: "主要経歴" })}</b>
+    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주요경력", en: "Career", zh: "主要经历", "zh-Hant": "主要經歷", ja: "主要経歴" })}</b>
       <ul style="font-size:13.5px;color:var(--ink2);margin:8px 0 0 18px;line-height:1.95">${(FOUNDER_CAREER[LANG] || FOUNDER_CAREER.en).map(c => `<li>${esc(c)}</li>`).join("")}</ul></div>
-    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주요연수 - 서울대병원", en: "Professional Training - SNUH", zh: "主要研修 - 首尔大医院", ja: "主要研修 - ソウル大病院" })}</b>
+    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주요연수 - 서울대병원", en: "Professional Training - SNUH", zh: "主要研修 - 首尔大医院", "zh-Hant": "主要研修 - 首爾大醫院", ja: "主要研修 - ソウル大病院" })}</b>
       <ul style="font-size:13.5px;color:var(--ink2);margin:8px 0 0 18px;line-height:1.95">${(FOUNDER_TRAINING[LANG] || FOUNDER_TRAINING.en).map(c => `<li>${esc(c)}</li>`).join("")}</ul></div>
-    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주요자격", en: "Certifications", zh: "主要资格", ja: "主要資格" })}</b>
+    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주요자격", en: "Certifications", zh: "主要资格", "zh-Hant": "主要資格", ja: "主要資格" })}</b>
       <ul style="font-size:13.5px;color:var(--ink2);margin:8px 0 0 18px;line-height:1.95">${FOUNDER_CERTS.map(c => `<li>${esc(c)}</li>`).join("")}</ul></div>
-    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "활동", en: "Activities", zh: "活动", ja: "活動" })}</b>
+    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "활동", en: "Activities", zh: "活动", "zh-Hant": "活動", ja: "活動" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "IDEA 컨벤션 · CKLZ 피트니스 컨벤션 초청 프레젠터. K-POP 아티스트(가희·JOO)와 배우 황우슬혜 전담 인스트럭터. 2009년부터 강사 교육에 매진.", en: "Invited presenter at IDEA and CKLZ conventions. Personal instructor to K-pop artists and actress Hwang Woo-seul-hye. Educating instructors since 2009." }))}</p></div>
     <div class="grid2">
       <a class="btn ghost" target="_blank" rel="noopener" href="https://namu.wiki/w/%EB%B0%95%EC%9D%80%EC%A3%BC(%EA%B5%90%EC%88%98)">나무위키</a>
-      <a class="btn ghost" target="_blank" rel="noopener" href="https://search.naver.com/search.naver?where=m&sm=mtb_etc&mra=bjky&pkid=1&os=13979924&qvt=0&query=%EB%B0%95%EC%9D%80%EC%A3%BC">${L({ ko: "네이버 인물정보", en: "Naver Profile", zh: "Naver人物信息", ja: "Naver人物情報" })}</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://search.naver.com/search.naver?where=m&sm=mtb_etc&mra=bjky&pkid=1&os=13979924&qvt=0&query=%EB%B0%95%EC%9D%80%EC%A3%BC">${L({ ko: "네이버 인물정보", en: "Naver Profile", zh: "Naver人物信息", "zh-Hant": "Naver人物資訊", ja: "Naver人物情報" })}</a>
     </div>
     <div style="height:10px"></div>
-    <a class="btn pri" href="#courses">${L({ ko: "박은주 교수 직강 - 교육안내 보기", en: "See the education guide", zh: "查看教育指南", ja: "教育案内を見る" })}</a>
+    <a class="btn pri" href="#courses">${L({ ko: "박은주 교수 직강 - 교육안내 보기", en: "See the education guide", zh: "查看教育指南", "zh-Hant": "檢視教育指南", ja: "教育案内を見る" })}</a>
   </section>`;
 
 const masterGrid = () => `<div class="master-grid">${MASTERS.map(m => `<div class="master-card">
@@ -1083,7 +1141,7 @@ function masterStrip() {
     <div class="msrip-detail" id="msDetail" hidden>
       <div class="msd-name"></div>
       <div class="msd-role">CPPI MASTER INSTRUCTOR</div>
-      <a class="msd-link" href="#founder" hidden>${L({ ko: "프로필 전체 보기 →", en: "View full profile →", zh: "查看完整履历 →", ja: "全プロフィールを見る →" })}</a>
+      <a class="msd-link" href="#founder" hidden>${L({ ko: "프로필 전체 보기 →", en: "View full profile →", zh: "查看完整履历 →", "zh-Hant": "檢視完整履歷 →", ja: "全プロフィールを見る →" })}</a>
     </div>
   </div>`;
 }
@@ -1102,9 +1160,9 @@ function pickMaster(i) {
 
 routes.master = () => `
   <section>
-    ${secHead("MASTER INSTRUCTORS", L(UI.menu.master), L({ ko: "엄격한 기준의 심화교육과 프레젠터 스피치 과정을 거친 CPPI 교육강사입니다.", en: "Trained through rigorous advanced education and presenter speech courses.", zh: "经过严格深化教育与演讲课程的CPPI教育导师。", ja: "厳格な深化教育とスピーチ課程を経たCPPI教育講師。" }))}
+    ${secHead("MASTER INSTRUCTORS", L(UI.menu.master), L({ ko: "엄격한 기준의 심화교육과 프레젠터 스피치 과정을 거친 CPPI 교육강사입니다.", en: "Trained through rigorous advanced education and presenter speech courses.", zh: "经过严格深化教育与演讲课程的CPPI教育导师。", "zh-Hant": "經過嚴格深化教育與演講課程的CPPI教育導師。", ja: "厳格な深化教育とスピーチ課程を経たCPPI教育講師。" }))}
     ${masterGrid()}
-    <div class="note">${L({ ko: "마스터 인스트럭터는 심화교육 · 스피치 교육 · 심화과정을 수료하고 실제 강의에서 교육을 담당합니다.", en: "Master instructors complete advanced courses and teach in actual classes.", zh: "大师级导师完成深化课程后担任实际教学。", ja: "マスターは深化課程を修了し実際の講義を担当します。" })}</div>
+    <div class="note">${L({ ko: "마스터 인스트럭터는 심화교육 · 스피치 교육 · 심화과정을 수료하고 실제 강의에서 교육을 담당합니다.", en: "Master instructors complete advanced courses and teach in actual classes.", zh: "大师级导师完成深化课程后担任实际教学。", "zh-Hant": "大師級導師完成深化課程後擔任實際教學。", ja: "マスターは深化課程を修了し実際の講義を担当します。" })}</div>
   </section>`;
 
 /* 커리큘럼 3D 카드 팬 - 표지가 원근 속으로 비스듬히 늘어서고,
@@ -1140,14 +1198,14 @@ function goCurriculumItem(i) {
 
 routes.curriculum = () => `
   <section>
-    ${secHead("CURRICULUM", L({ ko: "CPPI 정규과정 에센셜 커리큘럼", en: "CPPI Essential Curriculum", zh: "CPPI正规课程核心课程", ja: "CPPI正規課程エッセンシャル" }), L({ ko: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다.", en: "Every course is built on functional anatomy and medical evidence.", zh: "所有课程均基于功能解剖学与医学循证设计。", ja: "全課程が機能解剖学と医学的根拠に基づき設計。" }))}
+    ${secHead("CURRICULUM", L({ ko: "CPPI 정규과정 에센셜 커리큘럼", en: "CPPI Essential Curriculum", zh: "CPPI正规课程核心课程", "zh-Hant": "CPPI正規課程核心課程", ja: "CPPI正規課程エッセンシャル" }), L({ ko: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다.", en: "Every course is built on functional anatomy and medical evidence.", zh: "所有课程均基于功能解剖学与医学循证设计。", "zh-Hant": "所有課程均基於功能解剖學與醫學循證設計。", ja: "全課程が機能解剖学と医学的根拠に基づき設計。" }))}
     ${curriculumFan()}
     <div class="curriculum-list">
     ${CURRICULUM.map((c, i) => `<div class="card" id="cur-${i}" style="margin-bottom:10px">
       <div style="display:flex;gap:12px">
-        <img src="img/books3d/b_${c.slug}.webp" alt="${esc(L(c.n))} - ${esc(L({ ko: "CPPI 필라테스 교재 (저자 박은주 Eun-Ju Park)", en: "CPPI Pilates textbook by Eun-Ju Park", zh: "CPPI普拉提教材(著者 朴恩珠 Eun-Ju Park)", ja: "CPPIピラティス教材(著者 パク・ウンジュ Eun-Ju Park)" }))}" style="width:82px;min-width:82px;height:auto;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(90,45,20,.22))">
+        <img src="img/books3d/b_${c.slug}.webp" alt="${esc(L(c.n))} - ${esc(L({ ko: "CPPI 필라테스 교재 (저자 박은주 Eun-Ju Park)", en: "CPPI Pilates textbook by Eun-Ju Park", zh: "CPPI普拉提教材(著者 朴恩珠 Eun-Ju Park)", "zh-Hant": "CPPI皮拉提斯教材(著者 朴恩珠 Eun-Ju Park)", ja: "CPPIピラティス教材(著者 パク・ウンジュ Eun-Ju Park)" }))}" style="width:82px;min-width:82px;height:auto;object-fit:contain;filter:drop-shadow(0 8px 14px rgba(90,45,20,.22))">
         <div style="min-width:0"><b style="font-size:15px">${i + 1}. ${esc(L(c.n))}</b>
-          <div style="font-size:13px;color:var(--pri);font-weight:700;margin-top:3px">${L({ ko: "강의 시간", en: "Hours", zh: "课时", ja: "講義時間" })}: ${c.hrs}${L({ ko: "시간", en: "h", zh: "小时", ja: "時間" })}</div>
+          <div style="font-size:13px;color:var(--pri);font-weight:700;margin-top:3px">${L({ ko: "강의 시간", en: "Hours", zh: "课时", "zh-Hant": "課時", ja: "講義時間" })}: ${c.hrs}${L({ ko: "시간", en: "h", zh: "小时", "zh-Hant": "小時", ja: "時間" })}</div>
         </div>
       </div>
       <p style="font-size:13px;color:var(--ink2);margin-top:9px;line-height:1.8">${br(esc(L(c.d)))}</p>
@@ -1162,11 +1220,11 @@ routes.curriculum = () => `
 routes.prep = () => `
   <section style="text-align:center;padding-top:60px">
     <img src="img/logo3d.jpg" alt="CPPI 한국 필라테스 교육협회 (Korea Pilates Education Association)" style="width:110px;height:110px;border-radius:50%;object-fit:cover;margin:0 auto 18px">
-    <h2 class="sec">${L({ ko: "준비중입니다", en: "Coming Soon", zh: "准备中", ja: "準備中です" })}</h2>
-    <p class="lead" style="margin-bottom:22px">${L({ ko: "해당 온라인 강의는 공식 유튜브 채널 영상으로 준비되는 대로 오픈됩니다.", en: "This online lecture opens as soon as it is ready on our official channel.", zh: "该在线课程准备就绪后即将上线。", ja: "公式チャンネルで準備でき次第公開されます。" })}</p>
+    <h2 class="sec">${L({ ko: "준비중입니다", en: "Coming Soon", zh: "准备中", "zh-Hant": "準備中", ja: "準備中です" })}</h2>
+    <p class="lead" style="margin-bottom:22px">${L({ ko: "해당 온라인 강의는 공식 유튜브 채널 영상으로 준비되는 대로 오픈됩니다.", en: "This online lecture opens as soon as it is ready on our official channel.", zh: "该在线课程准备就绪后即将上线。", "zh-Hant": "該線上課程準備就緒後即將上線。", ja: "公式チャンネルで準備でき次第公開されます。" })}</p>
     <a class="btn pri" target="_blank" rel="noopener" href="${OFFICIAL_CHANNEL_URL}">${L(UI.btn.channel)}</a>
     <div style="height:8px"></div>
-    <a class="btn ghost" href="#learn">${L({ ko: "온라인 강의 홈으로", en: "Back to Lectures", zh: "返回课程", ja: "講義ホームへ" })}</a>
+    <a class="btn ghost" href="#learn">${L({ ko: "온라인 강의 홈으로", en: "Back to Lectures", zh: "返回课程", "zh-Hant": "返回課程", ja: "講義ホームへ" })}</a>
   </section>`;
 
 /* 교육: CPPI 필라테스 교육안내 */
@@ -1177,39 +1235,39 @@ routes.courses = () => `
 
     <a class="card" href="#founder" style="display:flex;gap:14px;align-items:center;text-decoration:none;margin-bottom:10px">
       <img src="img/founder_face.jpg" alt="박은주 교수" style="width:88px;height:110px;object-fit:cover;object-position:top;border-radius:12px">
-      <div><div class="eyebrow" style="margin-bottom:2px">FOUNDER · ${L({ ko: "대표 마스터", en: "Lead Master", zh: "首席大师", ja: "代表マスター" })}</div>
-      <b style="font-size:15.5px">${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", ja: "パク・ウンジュ教授" })}</b>
-      <div style="font-size:13px;color:var(--ink2);margin-top:3px">${L({ ko: "분당서울대병원 · 척추&관절센터 임상 / 나사렛대 강단 - 프로필 전체 보기 →", en: "Clinical and academic profile - view full →", zh: "临床与大学履历 - 查看全部 →", ja: "臨床·大学経歴 - 全プロフィール →" })}</div></div>
+      <div><div class="eyebrow" style="margin-bottom:2px">FOUNDER · ${L({ ko: "대표 마스터", en: "Lead Master", zh: "首席大师", "zh-Hant": "首席大師", ja: "代表マスター" })}</div>
+      <b style="font-size:15.5px">${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" })}</b>
+      <div style="font-size:13px;color:var(--ink2);margin-top:3px">${L({ ko: "분당서울대병원 · 척추&관절센터 임상 / 나사렛대 강단 - 프로필 전체 보기 →", en: "Clinical and academic profile - view full →", zh: "临床与大学履历 - 查看全部 →", "zh-Hant": "臨床與大學履歷 - 檢視全部 →", ja: "臨床·大学経歴 - 全プロフィール →" })}</div></div>
     </a>
 
     <div class="eyebrow" style="margin-top:6px">MASTER INSTRUCTORS</div>
-    <h2 class="sec" style="font-size:18px;margin-bottom:10px">${L({ ko: "마스터 강사", en: "Master Instructors", zh: "大师级导师", ja: "マスター講師" })}</h2>
+    <h2 class="sec" style="font-size:18px;margin-bottom:10px">${L({ ko: "마스터 강사", en: "Master Instructors", zh: "大师级导师", "zh-Hant": "大師級導師", ja: "マスター講師" })}</h2>
     ${masterStrip()}
     <div style="height:14px"></div>
 
     <a class="card" href="#curriculum" style="display:block;text-decoration:none;margin-bottom:10px;background:var(--tint)">
       <b>${L(UI.btn.toCourses)}</b>
-      <p style="font-size:13px;color:var(--ink2);margin-top:4px">${L({ ko: "CPPI 정규과정 에센셜 커리큘럼 - 과목별 교재 미리보기 포함 →", en: "Essential curriculum with textbook previews →", zh: "核心课程 - 含教材预览 →", ja: "エッセンシャルカリキュラム - 教材プレビュー付き →" })}</p>
+      <p style="font-size:13px;color:var(--ink2);margin-top:4px">${L({ ko: "CPPI 정규과정 에센셜 커리큘럼 - 과목별 교재 미리보기 포함 →", en: "Essential curriculum with textbook previews →", zh: "核心课程 - 含教材预览 →", "zh-Hant": "核心課程 - 含教材預覽 →", ja: "エッセンシャルカリキュラム - 教材プレビュー付き →" })}</p>
     </a>
     <a class="card" href="#workshop" style="display:block;text-decoration:none;margin-bottom:14px;background:var(--tint2)">
       <b>${L(UI.menu.workshop)}</b>
-      <p style="font-size:13px;color:var(--ink2);margin-top:4px">${L({ ko: "현직 강사 · 재활 종사자를 위한 단기 심화 실습 →", en: "Short intensive practice for active instructors →", zh: "面向在职教练的短期深化实操 →", ja: "現役講師向けの短期深化実習 →" })}</p>
+      <p style="font-size:13px;color:var(--ink2);margin-top:4px">${L({ ko: "현직 강사 · 재활 종사자를 위한 단기 심화 실습 →", en: "Short intensive practice for active instructors →", zh: "面向在职教练的短期深化实操 →", "zh-Hant": "面向在職教練的短期深化實操 →", ja: "現役講師向けの短期深化実習 →" })}</p>
     </a>
 
     <img src="img/cert_real.jpg" alt="CPPI Certificate" class="cert-shot" loading="lazy">
 
     <div class="edu-quad">
-      <div class="card"><b>${L({ ko: "교육 방식", en: "How we teach", zh: "教学方式", ja: "教育方式" })}</b><p>${br(L({ ko: "이론 강의 + 실기 체득 + 교육생 상호 인스트럭팅(티칭 실습) 반복 - 레슨 실무 중심.", en: "Theory + hands-on practice + repeated peer instructing - lesson-ready training." }))}</p></div>
-      <div class="card"><b>${L({ ko: "수료 혜택 · 국제자격증", en: "Certification Benefits", zh: "结业福利·国际证书", ja: "修了特典·国際資格証" })}</b><p>${br(L({ ko: "국제자격증 발급 · L3 정회원 승급 · 수료강사 명단 등재 · 활동 연계 지원.", en: "International certificate · L3 upgrade · graduates listing · career support." }))}</p></div>
-      <div class="card"><b>${L({ ko: "모집 · 수강료", en: "Enrollment & Tuition", zh: "招生·学费", ja: "募集·受講料" })}</b><p>${br(L({ ko: "기수별 모집 - 일정은 공지 및 상담 시 자세한 안내드립니다.", en: "Enrollment by class - schedules are announced and detailed in consultation.", zh: "按期招生 - 日程通过公告与咨询详细告知。", ja: "期別募集 - 日程は告知および相談時に詳しくご案内します。" }))}</p></div>
-      <div class="card accent"><b>${L({ ko: "졸업생 성과", en: "Graduate Outcomes", zh: "毕业生成果", ja: "卒業生の成果" })}</b><p>${br(L({ ko: "타 아카데미에서 마스터(교육강사)로 활동하는 수료생 다수 배출 - 56기+ 명단은 수료강사 명단에서.", en: "Many graduates now teach as masters at other academies - see the graduates page." }))}</p></div>
+      <div class="card"><b>${L({ ko: "교육 방식", en: "How we teach", zh: "教学方式", "zh-Hant": "教學方式", ja: "教育方式" })}</b><p>${br(L({ ko: "이론 강의 + 실기 체득 + 교육생 상호 인스트럭팅(티칭 실습) 반복 - 레슨 실무 중심.", en: "Theory + hands-on practice + repeated peer instructing - lesson-ready training." }))}</p></div>
+      <div class="card"><b>${L({ ko: "수료 혜택 · 국제자격증", en: "Certification Benefits", zh: "结业福利·国际证书", "zh-Hant": "結業福利·國際證書", ja: "修了特典·国際資格証" })}</b><p>${br(L({ ko: "국제자격증 발급 · L3 정회원 승급 · 수료강사 명단 등재 · 활동 연계 지원.", en: "International certificate · L3 upgrade · graduates listing · career support." }))}</p></div>
+      <div class="card"><b>${L({ ko: "모집 · 수강료", en: "Enrollment & Tuition", zh: "招生·学费", "zh-Hant": "招生·學費", ja: "募集·受講料" })}</b><p>${br(L({ ko: "기수별 모집 - 일정은 공지 및 상담 시 자세한 안내드립니다.", en: "Enrollment by class - schedules are announced and detailed in consultation.", zh: "按期招生 - 日程通过公告与咨询详细告知。", "zh-Hant": "按期招生 - 日程透過公告與諮詢詳細告知。", ja: "期別募集 - 日程は告知および相談時に詳しくご案内します。" }))}</p></div>
+      <div class="card accent"><b>${L({ ko: "졸업생 성과", en: "Graduate Outcomes", zh: "毕业生成果", "zh-Hant": "畢業生成果", ja: "卒業生の成果" })}</b><p>${br(L({ ko: "타 아카데미에서 마스터(교육강사)로 활동하는 수료생 다수 배출 - 56기+ 명단은 수료강사 명단에서.", en: "Many graduates now teach as masters at other academies - see the graduates page." }))}</p></div>
     </div>
     <a class="btn pri" href="#apply">${L(UI.btn.consult)}</a>
   </section>`;
 
 routes.workshop = () => `
   <section>
-    ${secHead("WORKSHOP", L(UI.menu.workshop), L({ ko: "현직 강사 · 재활 종사자를 위한 단기 심화 실습.", en: "Short intensive practice for active instructors and rehab professionals.", zh: "面向在职教练·康复从业者的短期深化实操。", ja: "現役講師·リハビリ従事者向けの短期深化実習。" }))}
+    ${secHead("WORKSHOP", L(UI.menu.workshop), L({ ko: "현직 강사 · 재활 종사자를 위한 단기 심화 실습.", en: "Short intensive practice for active instructors and rehab professionals.", zh: "面向在职教练·康复从业者的短期深化实操。", "zh-Hant": "面向在職教練·康復從業者的短期深化實操。", ja: "現役講師·リハビリ従事者向けの短期深化実習。" }))}
     <img src="img/workshop_banner.jpg" alt="workshop" style="border-radius:14px;margin-bottom:12px;object-fit:contain;width:100%;background:#fff">
     ${[
       { t: { ko: "'리커버링 재활 필라테스' 원데이 자격과정", en: "'Recovering Rehab Pilates' One-day Certification" }, m: { ko: "8시간(hrs)", en: "8 hrs" } },
@@ -1217,44 +1275,44 @@ routes.workshop = () => `
       { t: { ko: "소도구 필라테스 전문가 과정", en: "Small Props Pilates Specialist Course" }, m: { ko: "16시간 (과목별 4시간) - 폼롤러 / 써클(필라테스 링) / 미니볼 / BOSU", en: "16 hrs (4 hrs each) - Foam Roller / Circle / Mini Ball / BOSU" } },
     ].map(w => `<div class="vrow"><div class="th" style="font-weight:800;color:var(--pri);font-size:13px">WS</div>
       <div class="tx"><h4>${esc(L(w.t))}</h4><div class="m">${esc(L(w.m))}</div></div></div>`).join("")}
-    <div class="card" style="margin:12px 0"><b>${L({ ko: "워크숍 교재 미리보기", en: "Workshop Textbook Preview", zh: "工作坊教材预览", ja: "教材プレビュー" })}</b>
+    <div class="card" style="margin:12px 0"><b>${L({ ko: "워크숍 교재 미리보기", en: "Workshop Textbook Preview", zh: "工作坊教材预览", "zh-Hant": "工作坊教材預覽", ja: "教材プレビュー" })}</b>
       <div style="height:8px"></div>
       <div class="grid3">
-        <button class="btn ghost small" onclick="openProps('foam')">${L({ ko: "폼롤러", en: "Foam Roller", zh: "泡沫轴", ja: "フォームローラー" })}</button>
-        <button class="btn ghost small" onclick="openProps('circle')">${L({ ko: "써클", en: "Circle", zh: "普拉提圈", ja: "サークル" })}</button>
+        <button class="btn ghost small" onclick="openProps('foam')">${L({ ko: "폼롤러", en: "Foam Roller", zh: "泡沫轴", "zh-Hant": "泡沫軸", ja: "フォームローラー" })}</button>
+        <button class="btn ghost small" onclick="openProps('circle')">${L({ ko: "써클", en: "Circle", zh: "普拉提圈", "zh-Hant": "皮拉提斯圈", ja: "サークル" })}</button>
         <button class="btn ghost small" onclick="openProps('bosu')">BOSU</button>
       </div>
     </div>
-    <p style="font-size:12.5px;color:var(--ink2);margin-bottom:12px">${L({ ko: "지난 워크숍 현장 - 더 많은 사진은", en: "Past workshops - more on", zh: "工作坊现场 - 更多请见", ja: "ワークショップの様子 - 詳しくは" })} <a href="${INSTA_URL}" target="_blank" rel="noopener">@cppi.pilates</a></p>
-    <a class="btn pri" target="_blank" rel="noopener" href="${INSTA_URL}">${L({ ko: "워크숍 신청 · 일정 문의 - 인스타그램 DM", en: "Apply / Ask - Instagram DM", zh: "申请·咨询 - Instagram私信", ja: "申込·問い合わせ - Instagram DM" })}</a>
+    <p style="font-size:12.5px;color:var(--ink2);margin-bottom:12px">${L({ ko: "지난 워크숍 현장 - 더 많은 사진은", en: "Past workshops - more on", zh: "工作坊现场 - 更多请见", "zh-Hant": "工作坊現場 - 更多請見", ja: "ワークショップの様子 - 詳しくは" })} <a href="${INSTA_URL}" target="_blank" rel="noopener">@cppi.pilates</a></p>
+    <a class="btn pri" target="_blank" rel="noopener" href="${INSTA_URL}">${L({ ko: "워크숍 신청 · 일정 문의 - 인스타그램 DM", en: "Apply / Ask - Instagram DM", zh: "申请·咨询 - Instagram私信", "zh-Hant": "申請·諮詢 - Instagram私信", ja: "申込·問い合わせ - Instagram DM" })}</a>
     <div style="height:8px"></div>
-    <a class="btn ghost" href="tel:${CONTACT.telIntl}">${L({ ko: "전화 문의", en: "Call", zh: "电话咨询", ja: "電話問い合わせ" })} ${CONTACT.tel}</a>
+    <a class="btn ghost" href="tel:${CONTACT.telIntl}">${L({ ko: "전화 문의", en: "Call", zh: "电话咨询", "zh-Hant": "電話諮詢", ja: "電話問い合わせ" })} ${CONTACT.tel}</a>
   </section>`;
 
 /* 온라인 강의 */
 routes.learn = () => `
   <section>
-    ${secHead("ONLINE LECTURES", L(UI.menu.learn), L({ ko: "과정을 선택하면 강의 목록이 표시됩니다.", en: "Choose a program to see its lectures.", zh: "选择课程查看列表。", ja: "課程を選ぶと講義一覧が表示されます。" }))}
+    ${secHead("ONLINE LECTURES", L(UI.menu.learn), L({ ko: "과정을 선택하면 강의 목록이 표시됩니다.", en: "Choose a program to see its lectures.", zh: "选择课程查看列表。", "zh-Hant": "選擇課程檢視列表。", ja: "課程を選ぶと講義一覧が表示されます。" }))}
     <div class="lect-grid">
       <a class="lect-card" href="#lecture/reg">
-        <span class="lect-media"><img src="img/lect_reg.webp" alt="${esc(L({ ko: "CPPI 정규과정 온라인 강의 - 박은주(Eun-Ju Park) 교수 직강 필라테스 8대 커리큘럼", en: "CPPI certification online lectures - 8 core Pilates courses taught by Prof. Eun-Ju Park", zh: "CPPI正规课程在线课程 - 朴恩珠(Eun-Ju Park)教授主讲普拉提八大课程", ja: "CPPI正規課程オンライン講義 - パク・ウンジュ(Eun-Ju Park)教授によるピラティス8大カリキュラム" }))}" loading="lazy"></span>
+        <span class="lect-media"><img src="img/lect_reg.webp" alt="${esc(L({ ko: "CPPI 정규과정 온라인 강의 - 박은주(Eun-Ju Park) 교수 직강 필라테스 8대 커리큘럼", en: "CPPI certification online lectures - 8 core Pilates courses taught by Prof. Eun-Ju Park", zh: "CPPI正规课程在线课程 - 朴恩珠(Eun-Ju Park)教授主讲普拉提八大课程", "zh-Hant": "CPPI正規課程線上課程 - 朴恩珠(Eun-Ju Park)教授主講皮拉提斯八大課程", ja: "CPPI正規課程オンライン講義 - パク・ウンジュ(Eun-Ju Park)教授によるピラティス8大カリキュラム" }))}" loading="lazy"></span>
         <span class="lect-body">
-          <b>${L({ ko: "정규과정 온라인 강의", en: "Certification Course Lectures", zh: "正规课程在线课程", ja: "正規課程オンライン講義" })}</b>
-          <span>${L({ ko: "8개 과목 · 등록자/수료자 전용 · 비회원 5분 하이라이트", en: "8 subjects · enrolled/graduates only · 5-min highlights for guests", zh: "8门科目 · 学员专享 · 访客5分钟精华", ja: "8科目 · 受講者限定 · 5分ハイライト" })}</span>
+          <b>${L({ ko: "정규과정 온라인 강의", en: "Certification Course Lectures", zh: "正规课程在线课程", "zh-Hant": "正規課程線上課程", ja: "正規課程オンライン講義" })}</b>
+          <span>${L({ ko: "8개 과목 · 등록자/수료자 전용 · 비회원 5분 하이라이트", en: "8 subjects · enrolled/graduates only · 5-min highlights for guests", zh: "8门科目 · 学员专享 · 访客5分钟精华", "zh-Hant": "8門科目 · 學員專享 · 訪客5分鐘精華", ja: "8科目 · 受講者限定 · 5分ハイライト" })}</span>
         </span>
       </a>
       <a class="lect-card" href="#lecture/spine">
-        <span class="lect-media"><img src="img/lect_spine.webp" alt="${esc(L({ ko: "척추 필라테스 어프로치 온라인 강의 - 박은주(Eun-Ju Park) 교수의 척추질환별 재활 필라테스", en: "Pilates Approach for Spine online course - spinal rehabilitation Pilates by Prof. Eun-Ju Park", zh: "脊柱普拉提方法在线课程 - 朴恩珠(Eun-Ju Park)教授的脊柱康复普拉提", ja: "脊柱ピラティスアプローチ オンライン講義 - パク・ウンジュ(Eun-Ju Park)教授の脊椎リハビリピラティス" }))}" loading="lazy"></span>
+        <span class="lect-media"><img src="img/lect_spine.webp" alt="${esc(L({ ko: "척추 필라테스 어프로치 온라인 강의 - 박은주(Eun-Ju Park) 교수의 척추질환별 재활 필라테스", en: "Pilates Approach for Spine online course - spinal rehabilitation Pilates by Prof. Eun-Ju Park", zh: "脊柱普拉提方法在线课程 - 朴恩珠(Eun-Ju Park)教授的脊柱康复普拉提", "zh-Hant": "脊柱皮拉提斯方法線上課程 - 朴恩珠(Eun-Ju Park)教授的脊柱康復皮拉提斯", ja: "脊柱ピラティスアプローチ オンライン講義 - パク・ウンジュ(Eun-Ju Park)教授の脊椎リハビリピラティス" }))}" loading="lazy"></span>
         <span class="lect-body">
-          <b>${L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine", zh: "脊柱普拉提方法", ja: "脊柱ピラティスアプローチ" })}</b>
-          <span>${L({ ko: "이론 1강 + 실기 2강 · 결제 후 시청", en: "1 theory + 2 practice · watch after purchase", zh: "理论1讲+实操2讲 · 购买后观看", ja: "理論1+実技2 · 購入後視聴" })}</span>
+          <b>${L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine", zh: "脊柱普拉提方法", "zh-Hant": "脊柱皮拉提斯方法", ja: "脊柱ピラティスアプローチ" })}</b>
+          <span>${L({ ko: "이론 1강 + 실기 2강 · 결제 후 시청", en: "1 theory + 2 practice · watch after purchase", zh: "理论1讲+实操2讲 · 购买后观看", "zh-Hant": "理論1講+實操2講 · 購買後觀看", ja: "理論1+実技2 · 購入後視聴" })}</span>
         </span>
       </a>
       <a class="lect-card" href="#lecture/mt">
-        <span class="lect-media"><img src="img/lect_mt.webp" alt="${esc(L({ ko: "CPPI 필라테스 무브먼트 테라피 - 경추·견관절·척추·골반 부위별 교정운동 온라인 강의", en: "CPPI Pilates Movement Therapy - online course on cervical, shoulder, spine and pelvic corrective exercise", zh: "CPPI普拉提运动治疗 - 颈椎·肩·脊柱·骨盆矫正运动在线课程", ja: "CPPIピラティス・ムーブメントセラピー - 頸椎·肩·脊柱·骨盤の矯正運動オンライン講義" }))}" loading="lazy"></span>
+        <span class="lect-media"><img src="img/lect_mt.webp" alt="${esc(L({ ko: "CPPI 필라테스 무브먼트 테라피 - 경추·견관절·척추·골반 부위별 교정운동 온라인 강의", en: "CPPI Pilates Movement Therapy - online course on cervical, shoulder, spine and pelvic corrective exercise", zh: "CPPI普拉提运动治疗 - 颈椎·肩·脊柱·骨盆矫正运动在线课程", "zh-Hant": "CPPI皮拉提斯運動治療 - 頸椎·肩·脊柱·骨盆矯正運動線上課程", ja: "CPPIピラティス・ムーブメントセラピー - 頸椎·肩·脊柱·骨盤の矯正運動オンライン講義" }))}" loading="lazy"></span>
         <span class="lect-body">
-          <b>${L({ ko: "CPPI 필라테스 무브먼트 테라피", en: "CPPI Pilates Movement Therapy", zh: "CPPI运动治疗", ja: "CPPIムーブメントセラピー" })}</b>
-          <span>${L({ ko: "경추 · 견관절 · 척추 · 골반 - 결제 후 시청 · 수료증 온라인 발급", en: "Cervical · Shoulder · Spine · Pelvis - e-certificate issued", zh: "颈椎·肩·脊柱·骨盆 - 在线颁发证书", ja: "頸椎·肩·脊柱·骨盤 - 修了証発行" })}</span>
+          <b>${L({ ko: "CPPI 필라테스 무브먼트 테라피", en: "CPPI Pilates Movement Therapy", zh: "CPPI运动治疗", "zh-Hant": "CPPI運動治療", ja: "CPPIムーブメントセラピー" })}</b>
+          <span>${L({ ko: "경추 · 견관절 · 척추 · 골반 - 결제 후 시청 · 수료증 온라인 발급", en: "Cervical · Shoulder · Spine · Pelvis - e-certificate issued", zh: "颈椎·肩·脊柱·骨盆 - 在线颁发证书", "zh-Hant": "頸椎·肩·脊柱·骨盆 - 線上頒發證書", ja: "頸椎·肩·脊柱·骨盤 - 修了証発行" })}</span>
         </span>
       </a>
     </div>
@@ -1264,33 +1322,33 @@ routes.learn = () => `
 
 routes.lecture = () => {
   const sub = subRoute();
-  const back = `<a class="btn ghost small" href="#learn" style="margin-bottom:12px">← ${L({ ko: "온라인 강의 홈", en: "Lectures Home", zh: "课程首页", ja: "講義ホーム" })}</a>`;
+  const back = `<a class="btn ghost small" href="#learn" style="margin-bottom:12px">← ${L({ ko: "온라인 강의 홈", en: "Lectures Home", zh: "课程首页", "zh-Hant": "課程首頁", ja: "講義ホーム" })}</a>`;
   if (sub === "spine") return `
   <section>${back}
     ${secHead("SPINE APPROACH", L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine" }), L({ ko: "척추질환별 금지 동작과 추천 동작을 의학적 근거로 배우는 과정입니다.", en: "Contraindicated and recommended movements by spinal condition, on medical evidence." }))}
-    <img src="img/lect_spine.webp" alt="${esc(L({ ko: "척추 필라테스 어프로치 - 척추질환별 금지·추천 동작을 다루는 CPPI 재활 필라테스 과정", en: "Pilates Approach for Spine - CPPI rehabilitation course on contraindicated and recommended movements by spinal condition", zh: "脊柱普拉提方法 - CPPI按脊柱疾病分类的禁忌与推荐动作康复课程", ja: "脊柱ピラティスアプローチ - 脊椎疾患別の禁忌·推奨動作を扱うCPPIリハビリ課程" }))}" style="border-radius:14px;margin-bottom:12px;aspect-ratio:16/9;object-fit:cover;width:100%">
+    <img src="img/lect_spine.webp" alt="${esc(L({ ko: "척추 필라테스 어프로치 - 척추질환별 금지·추천 동작을 다루는 CPPI 재활 필라테스 과정", en: "Pilates Approach for Spine - CPPI rehabilitation course on contraindicated and recommended movements by spinal condition", zh: "脊柱普拉提方法 - CPPI按脊柱疾病分类的禁忌与推荐动作康复课程", "zh-Hant": "脊柱皮拉提斯方法 - CPPI按脊柱疾病分類的禁忌與推薦動作康復課程", ja: "脊柱ピラティスアプローチ - 脊椎疾患別の禁忌·推奨動作を扱うCPPIリハビリ課程" }))}" style="border-radius:14px;margin-bottom:12px;aspect-ratio:16/9;object-fit:cover;width:100%">
     ${LECT_SPINE.map((v, i) => { const ok = hasAccess("lecture-spine", 0); return `<div class="vrow" onclick="openLecture('lecture-spine',0,${JSON.stringify(esc(L(v.t)))})" style="cursor:pointer">
       <div class="th" style="font-weight:800;font-size:15px">${ok ? "▶" : i + 1}</div>
-      <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${ok ? L({ ko: "지금 시청하기", en: "Watch now", zh: "立即观看", ja: "今すぐ視聴" }) : L({ ko: "구매 후 시청", en: "Watch after purchase", zh: "购买后观看", ja: "購入後視聴" })}</div></div>
-      <span class="badge ${ok ? "free" : "l2"}">${ok ? L({ ko: "시청 가능", en: "UNLOCKED", zh: "可观看", ja: "視聴可" }) : L({ ko: "유료", en: "PAID", zh: "付费", ja: "有料" })}</span></div>`; }).join("")}
-    <div class="note">${L({ ko: "결제 확인 후 시청 링크가 제공되며, 과정 수료 시 수료증이 온라인 발급됩니다.", en: "A viewing link is provided after payment; an e-certificate is issued upon completion.", zh: "确认付款后提供观看链接，结业后在线颁发证书。", ja: "決済確認後に視聴リンクを提供、修了時に修了証を発行します。" })}</div>
+      <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${ok ? L({ ko: "지금 시청하기", en: "Watch now", zh: "立即观看", "zh-Hant": "立即觀看", ja: "今すぐ視聴" }) : L({ ko: "구매 후 시청", en: "Watch after purchase", zh: "购买后观看", "zh-Hant": "購買後觀看", ja: "購入後視聴" })}</div></div>
+      <span class="badge ${ok ? "free" : "l2"}">${ok ? L({ ko: "시청 가능", en: "UNLOCKED", zh: "可观看", "zh-Hant": "可觀看", ja: "視聴可" }) : L({ ko: "유료", en: "PAID", zh: "付费", "zh-Hant": "付費", ja: "有料" })}</span></div>`; }).join("")}
+    <div class="note">${L({ ko: "결제 확인 후 시청 링크가 제공되며, 과정 수료 시 수료증이 온라인 발급됩니다.", en: "A viewing link is provided after payment; an e-certificate is issued upon completion.", zh: "确认付款后提供观看链接，结业后在线颁发证书。", "zh-Hant": "確認付款後提供觀看連結，結業後線上頒發證書。", ja: "決済確認後に視聴リンクを提供、修了時に修了証を発行します。" })}</div>
     <div style="height:10px"></div>
-    <button class="btn pri" onclick="openLecture('lecture-spine',0,${JSON.stringify(esc(L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine" })))})">${hasAccess("lecture-spine", 0) ? L({ ko: "지금 시청하기", en: "Watch now", zh: "立即观看", ja: "今すぐ視聴" }) : L({ ko: "수강권 구매", en: "Buy Access", zh: "购买课程", ja: "受講券を購入" })}</button>
+    <button class="btn pri" onclick="openLecture('lecture-spine',0,${JSON.stringify(esc(L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine" })))})">${hasAccess("lecture-spine", 0) ? L({ ko: "지금 시청하기", en: "Watch now", zh: "立即观看", "zh-Hant": "立即觀看", ja: "今すぐ視聴" }) : L({ ko: "수강권 구매", en: "Buy Access", zh: "购买课程", "zh-Hant": "購買課程", ja: "受講券を購入" })}</button>
   </section>`;
   if (sub === "mt") return `
   <section>${back}
     ${secHead("MOVEMENT THERAPY", L({ ko: "CPPI 필라테스 무브먼트 테라피", en: "CPPI Pilates Movement Therapy" }), L({ ko: "부위별 통증·기능 개선 특화 과정 - 결제 후 시청, 과정별 수료증 온라인 발급.", en: "Region-specific therapy courses - e-certificate per course." }))}
     ${LECT_MT.map((v, i) => { const ok = hasAccess("lecture-mt", i); return `<div class="vrow" onclick="openLecture('lecture-mt',${i},${JSON.stringify(esc(L(v.t)))})" style="cursor:pointer">
       <div class="th" style="font-weight:800;font-size:15px">${ok ? "▶" : ["C", "S", "V", "P"][i]}</div>
-      <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${ok ? L({ ko: "지금 시청하기 · 수료증 발급", en: "Watch now · certificate", zh: "立即观看·颁发证书", ja: "今すぐ視聴·修了証" }) : L({ ko: "구매 후 시청 · 수료증 발급", en: "Watch after purchase · certificate", zh: "购买后观看·颁发证书", ja: "購入後視聴·修了証" })}</div></div>
-      <span class="badge ${ok ? "free" : "l2"}">${ok ? L({ ko: "시청 가능", en: "UNLOCKED", zh: "可观看", ja: "視聴可" }) : L({ ko: "유료", en: "PAID", zh: "付费", ja: "有料" })}</span></div>`; }).join("")}
-    <div class="note">${L({ ko: "전자책(필라테스 전문 지침서)과 함께 구매 시 워크숍 50% 할인 혜택이 제공됩니다.", en: "Buy with the Pro Guidebook e-book for a 50% workshop discount.", zh: "与电子书同购可享工作坊50%折扣。", ja: "電子書籍と同時購入でワークショップ50%割引。" })}</div>
+      <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${ok ? L({ ko: "지금 시청하기 · 수료증 발급", en: "Watch now · certificate", zh: "立即观看·颁发证书", "zh-Hant": "立即觀看·頒發證書", ja: "今すぐ視聴·修了証" }) : L({ ko: "구매 후 시청 · 수료증 발급", en: "Watch after purchase · certificate", zh: "购买后观看·颁发证书", "zh-Hant": "購買後觀看·頒發證書", ja: "購入後視聴·修了証" })}</div></div>
+      <span class="badge ${ok ? "free" : "l2"}">${ok ? L({ ko: "시청 가능", en: "UNLOCKED", zh: "可观看", "zh-Hant": "可觀看", ja: "視聴可" }) : L({ ko: "유료", en: "PAID", zh: "付费", "zh-Hant": "付費", ja: "有料" })}</span></div>`; }).join("")}
+    <div class="note">${L({ ko: "전자책(필라테스 전문 지침서)과 함께 구매 시 워크숍 50% 할인 혜택이 제공됩니다.", en: "Buy with the Pro Guidebook e-book for a 50% workshop discount.", zh: "与电子书同购可享工作坊50%折扣。", "zh-Hant": "與電子書同購可享工作坊50%折扣。", ja: "電子書籍と同時購入でワークショップ50%割引。" })}</div>
   </section>`;
   const g = grade();
   return `
   <section>${back}
     ${secHead("CERTIFICATION LECTURES", L({ ko: "정규과정 온라인 강의", en: "Certification Course Lectures" }), L({ ko: "정규과정 등록자 및 수료자만 전체 강의를 볼 수 있습니다. 방문자 및 그 외 회원은 5분 하이라이트만 시청 가능합니다.", en: "Full lectures are for enrolled students and graduates only. Guests can watch 5-minute highlights." }))}
-    <div class="chip">${L({ ko: "내 등급", en: "My grade", zh: "我的等级", ja: "マイ等級" })}: ${L(UI.grade[g])}</div>
+    <div class="chip">${L({ ko: "내 등급", en: "My grade", zh: "我的等级", "zh-Hant": "我的等級", ja: "マイ等級" })}: ${L(UI.grade[g])}</div>
     <div style="height:8px"></div>
     ${LECT_REG.map((v, i) => `<div class="vrow" onclick="openRegLecture(${i})" style="cursor:pointer">
       <div class="th"><img src="covers/${v.slug}.jpg" alt="${esc(LANG === "ko" ? v.t.ko : v.t.en)} - CPPI Pilates" loading="lazy" style="object-position:top"></div>
@@ -1322,7 +1380,7 @@ function hasAccess(type, idx) {
 /* 유료 강의 열기 - 권한 있으면 인앱 재생, 없으면 구매로 안내 */
 function openLecture(type, idx, title) {
   if (!hasAccess(type, idx)) {
-    toast(L({ ko: "구매 후 시청하실 수 있습니다.", en: "Available after purchase.", zh: "购买后可观看。", ja: "購入後に視聴できます。" }));
+    toast(L({ ko: "구매 후 시청하실 수 있습니다.", en: "Available after purchase.", zh: "购买后可观看。", "zh-Hant": "購買後可觀看。", ja: "購入後に視聴できます。" }));
     buyItem(type, idx);
     return;
   }
@@ -1339,7 +1397,7 @@ function openRegLecture(i) {
   const title = LANG === "ko" ? v.t.ko : v.t.en;
   if (!v.yt) { go("prep"); return; }
   if (grade() >= 2) { openPlayer(title, LECTURE_VIDEO[`lecture-reg#${i}`] || null); return; }
-  toast(L({ ko: "정규과정 등록자·수료자 전용입니다. 상담을 통해 등록하실 수 있습니다.", en: "For enrolled students and graduates only. Contact us to enroll.", zh: "仅限学员与结业生。可通过咨询报名。", ja: "受講者·修了者限定です。ご相談から登録できます。" }));
+  toast(L({ ko: "정규과정 등록자·수료자 전용입니다. 상담을 통해 등록하실 수 있습니다.", en: "For enrolled students and graduates only. Contact us to enroll.", zh: "仅限学员与结业生。可通过咨询报名。", "zh-Hant": "僅限學員與結業生。可透過諮詢報名。", ja: "受講者·修了者限定です。ご相談から登録できます。" }));
   go("apply"); render();
 }
 /* 인앱 플레이어 모달 */
@@ -1351,8 +1409,8 @@ function openPlayer(title, src) {
   stage.innerHTML = src
     ? `<video src="${esc(src)}" controls autoplay playsinline controlsList="nodownload" oncontextmenu="return false"></video>`
     : `<div class="pempty">
-         <b>${L({ ko: "영상 준비중입니다", en: "Video coming soon", zh: "视频准备中", ja: "動画準備中" })}</b>
-         <p>${L({ ko: "수강 권한은 확인되었습니다. 영상이 등록되면 이 화면에서 바로 시청하실 수 있습니다.", en: "Your access is confirmed. The video will play here once it is uploaded.", zh: "已确认观看权限。视频上线后可在此直接观看。", ja: "受講権限は確認済みです。動画公開後、この画面で視聴できます。" })}</p>
+         <b>${L({ ko: "영상 준비중입니다", en: "Video coming soon", zh: "视频准备中", "zh-Hant": "影片準備中", ja: "動画準備中" })}</b>
+         <p>${L({ ko: "수강 권한은 확인되었습니다. 영상이 등록되면 이 화면에서 바로 시청하실 수 있습니다.", en: "Your access is confirmed. The video will play here once it is uploaded.", zh: "已确认观看权限。视频上线后可在此直接观看。", "zh-Hant": "已確認觀看許可權。影片上線後可在此直接觀看。", ja: "受講権限は確認済みです。動画公開後、この画面で視聴できます。" })}</p>
        </div>`;
   el.classList.add("open");
   document.body.style.overflow = "hidden";
@@ -1370,87 +1428,87 @@ function closePlayer() {
 /* ---------- 스토어 ---------- */
 routes.store = () => `
   <section>
-    ${secHead("E-BOOK &amp; TEXTBOOK STORE", L({ ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", ja: "電子書籍·教材ストア" }), L({ ko: "모든 교재는 목차와 본문 10페이지를 미리 볼 수 있습니다.", en: "Every book offers a contents + 10-page preview.", zh: "所有教材可预览目录与10页正文。", ja: "全教材で目次と本文10ページをプレビュー可能。" }))}
+    ${secHead("E-BOOK &amp; TEXTBOOK STORE", L({ ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", "zh-Hant": "電子書·教材商店", ja: "電子書籍·教材ストア" }), L({ ko: "모든 교재는 목차와 본문 10페이지를 미리 볼 수 있습니다.", en: "Every book offers a contents + 10-page preview.", zh: "所有教材可预览目录与10页正文。", "zh-Hant": "所有教材可預覽目錄與10頁正文。", ja: "全教材で目次と本文10ページをプレビュー可能。" }))}
     <a class="card" href="#books" style="display:block;text-decoration:none;margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-        <div><b>${L({ ko: "정규과정 교재", en: "Textbooks", zh: "正规课程教材", ja: "正規課程教材" })}</b>
-        <p style="font-size:13px;color:var(--ink2);margin-top:3px">${L({ ko: "9권 과목별 구매 - 미리보기 후 주문", en: "Buy by subject (9 books)", zh: "按科目购买(9册)", ja: "科目別購入(9冊)" })}</p></div>
-        <span class="btn acc small" style="white-space:nowrap">${L({ ko: "과목별 구매 →", en: "Shop →", zh: "购买 →", ja: "購入 →" })}</span>
+        <div><b>${L({ ko: "정규과정 교재", en: "Textbooks", zh: "正规课程教材", "zh-Hant": "正規課程教材", ja: "正規課程教材" })}</b>
+        <p style="font-size:13px;color:var(--ink2);margin-top:3px">${L({ ko: "9권 과목별 구매 - 미리보기 후 주문", en: "Buy by subject (9 books)", zh: "按科目购买(9册)", "zh-Hant": "按科目購買(9冊)", ja: "科目別購入(9冊)" })}</p></div>
+        <span class="btn acc small" style="white-space:nowrap">${L({ ko: "과목별 구매 →", en: "Shop →", zh: "购买 →", "zh-Hant": "購買 →", ja: "購入 →" })}</span>
       </div></a>
     <a class="card" href="#guide" style="display:block;text-decoration:none;margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-        <div><b>${L({ ko: "전자책 - 필라테스 전문 지침서", en: "E-books - Pilates Pro Guidebooks", zh: "电子书 - 专业指南", ja: "電子書籍 - 専門指針書" })}</b>
-        <p style="font-size:13px;color:var(--ink2);margin-top:3px">${L({ ko: "무브먼트 테라피 4종 · 구입 시 워크숍 50% 할인", en: "4 Movement Therapy titles · 50% workshop discount", zh: "运动治疗4种 · 工作坊5折", ja: "ムーブメントセラピー4種 · WS50%割引" })}</p></div>
-        <span class="btn acc small" style="white-space:nowrap">${L({ ko: "목록 보기 →", en: "Browse →", zh: "查看 →", ja: "一覧 →" })}</span>
+        <div><b>${L({ ko: "전자책 - 필라테스 전문 지침서", en: "E-books - Pilates Pro Guidebooks", zh: "电子书 - 专业指南", "zh-Hant": "電子書 - 專業指南", ja: "電子書籍 - 専門指針書" })}</b>
+        <p style="font-size:13px;color:var(--ink2);margin-top:3px">${L({ ko: "무브먼트 테라피 4종 · 구입 시 워크숍 50% 할인", en: "4 Movement Therapy titles · 50% workshop discount", zh: "运动治疗4种 · 工作坊5折", "zh-Hant": "運動治療4種 · 工作坊5折", ja: "ムーブメントセラピー4種 · WS50%割引" })}</p></div>
+        <span class="btn acc small" style="white-space:nowrap">${L({ ko: "목록 보기 →", en: "Browse →", zh: "查看 →", "zh-Hant": "檢視 →", ja: "一覧 →" })}</span>
       </div></a>
     <div class="card" style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-        <div><b>${L({ ko: "영상 수강권", en: "Video Pass", zh: "课程券", ja: "受講券" })}</b> <span class="badge l2">${L({ ko: "온라인 강의", en: "Lectures", zh: "在线课程", ja: "講義" })}</span>
-        <p style="font-size:13px;color:var(--ink2);margin-top:3px">${L({ ko: "척추 어프로치 · 무브먼트 테라피 - 온라인 강의 목록에서 선택", en: "Spine Approach · Movement Therapy - choose from lectures", zh: "从在线课程中选择", ja: "オンライン講義から選択" })}</p></div>
-        <a class="btn acc small" href="#learn" style="white-space:nowrap">${L({ ko: "강의 보기 →", en: "View →", zh: "查看 →", ja: "見る →" })}</a>
+        <div><b>${L({ ko: "영상 수강권", en: "Video Pass", zh: "课程券", "zh-Hant": "課程券", ja: "受講券" })}</b> <span class="badge l2">${L({ ko: "온라인 강의", en: "Lectures", zh: "在线课程", "zh-Hant": "線上課程", ja: "講義" })}</span>
+        <p style="font-size:13px;color:var(--ink2);margin-top:3px">${L({ ko: "척추 어프로치 · 무브먼트 테라피 - 온라인 강의 목록에서 선택", en: "Spine Approach · Movement Therapy - choose from lectures", zh: "从在线课程中选择", "zh-Hant": "從線上課程中選擇", ja: "オンライン講義から選択" })}</p></div>
+        <a class="btn acc small" href="#learn" style="white-space:nowrap">${L({ ko: "강의 보기 →", en: "View →", zh: "查看 →", "zh-Hant": "檢視 →", ja: "見る →" })}</a>
       </div></div>
-    ${secHead("PREVIEW", L({ ko: "교재 미리보기", en: "Book Previews", zh: "教材预览", ja: "教材プレビュー" }))}
+    ${secHead("PREVIEW", L({ ko: "교재 미리보기", en: "Book Previews", zh: "教材预览", "zh-Hant": "教材預覽", ja: "教材プレビュー" }))}
     <div class="grid3 books">${BOOKS.map((b, i) => bookCard(b, i)).join("")}</div>
-    <div class="note">${L({ ko: "사업 대행: ", en: "Business agency: ", zh: "业务代理：", ja: "事業代行：" })}${SELLER}<br>${L({ ko: "결제수단: 네이버페이 · 카카오페이 · 계좌이체 (", en: "Payment: Naver Pay · Kakao Pay · Bank transfer (", zh: "支付：Naver Pay·Kakao Pay·转账 (", ja: "決済：Naver Pay·Kakao Pay·振込 (" })}${BANK.name} ${BANK.num})</div>
+    <div class="note">${L({ ko: "사업 대행: ", en: "Business agency: ", zh: "业务代理：", "zh-Hant": "業務代理：", ja: "事業代行：" })}${SELLER}<br>${L({ ko: "결제수단: 네이버페이 · 카카오페이 · 계좌이체 (", en: "Payment: Naver Pay · Kakao Pay · Bank transfer (", zh: "支付：Naver Pay·Kakao Pay·转账 (", "zh-Hant": "支付：Naver Pay·Kakao Pay·轉賬 (", ja: "決済：Naver Pay·Kakao Pay·振込 (" })}${BANK.name} ${BANK.num})</div>
   </section>`;
 
 routes.books = () => `
   <section>
-    ${secHead("TEXTBOOKS", L({ ko: "정규과정 교재 - 과목별 구매", en: "Printed Textbooks by Subject", zh: "正规课程教材 - 按科目购买", ja: "正規課程教材 - 科目別購入" }), L({ ko: "실물 교재 · 배송. 미리보기로 목차를 확인한 뒤 주문하세요.", en: "Physical books, shipped. Preview the contents before ordering.", zh: "实体教材·配送。请先预览再订购。", ja: "実物教材·配送。目次を確認してご注文ください。" }))}
+    ${secHead("TEXTBOOKS", L({ ko: "정규과정 교재 - 과목별 구매", en: "Printed Textbooks by Subject", zh: "正规课程教材 - 按科目购买", "zh-Hant": "正規課程教材 - 按科目購買", ja: "正規課程教材 - 科目別購入" }), L({ ko: "실물 교재 · 배송. 미리보기로 목차를 확인한 뒤 주문하세요.", en: "Physical books, shipped. Preview the contents before ordering.", zh: "实体教材·配送。请先预览再订购。", "zh-Hant": "實體教材·配送。請先預覽再訂購。", ja: "実物教材·配送。目次を確認してご注文ください。" }))}
     ${BOOKS.map((b, i) => `<div class="shoprow">
-      <img src="${COVER(b.slug)}" alt="${esc(L(b.t))} - ${esc(L({ ko: "CPPI 필라테스 교재 표지 (저자 박은주 Eun-Ju Park)", en: "CPPI Pilates textbook cover by Eun-Ju Park", zh: "CPPI普拉提教材封面(著者 朴恩珠 Eun-Ju Park)", ja: "CPPIピラティス教材表紙(著者 パク・ウンジュ Eun-Ju Park)" }))}" loading="lazy" onclick="openViewer(${i})">
-      <div class="tx"><h4>${esc(L(b.t))}</h4><div class="m">${b.pages}p · ${L({ ko: "가격 문의", en: "Price on request", zh: "价格咨询", ja: "価格お問い合わせ" })}</div></div>
+      <img src="${COVER(b.slug)}" alt="${esc(L(b.t))} - ${esc(L({ ko: "CPPI 필라테스 교재 표지 (저자 박은주 Eun-Ju Park)", en: "CPPI Pilates textbook cover by Eun-Ju Park", zh: "CPPI普拉提教材封面(著者 朴恩珠 Eun-Ju Park)", "zh-Hant": "CPPI皮拉提斯教材封面(著者 朴恩珠 Eun-Ju Park)", ja: "CPPIピラティス教材表紙(著者 パク・ウンジュ Eun-Ju Park)" }))}" loading="lazy" onclick="openViewer(${i})">
+      <div class="tx"><h4>${esc(L(b.t))}</h4><div class="m">${b.pages}p · ${L({ ko: "가격 문의", en: "Price on request", zh: "价格咨询", "zh-Hant": "價格諮詢", ja: "価格お問い合わせ" })}</div></div>
       <div class="ops">
         <button class="btn ghost small" onclick="openViewer(${i})">${L(UI.btn.preview)}</button>
         <button class="btn acc small" onclick="buyItem('book',${i})">${L(UI.btn.buyInq)}</button>
       </div></div>`).join("")}
-    <div class="note">${L({ ko: "세트 구매 · 해외 배송은 상담으로 안내드립니다.", en: "Set purchase and international shipping via consultation.", zh: "整套购买·海外配送请咨询。", ja: "セット購入·海外配送はご相談ください。" })} ${CONTACT.tel}</div>
+    <div class="note">${L({ ko: "세트 구매 · 해외 배송은 상담으로 안내드립니다.", en: "Set purchase and international shipping via consultation.", zh: "整套购买·海外配送请咨询。", "zh-Hant": "整套購買·海外配送請諮詢。", ja: "セット購入·海外配送はご相談ください。" })} ${CONTACT.tel}</div>
   </section>`;
 
 routes.guide = () => `
   <section>
-    ${secHead("PRO GUIDEBOOKS", L(UI.menu.guide), L({ ko: "CPPI 필라테스 무브먼트 테라피 - 부위별 전문 지침서 (PDF 전자책)", en: "CPPI Pilates Movement Therapy - region-specific guidebooks (PDF)", zh: "CPPI运动治疗 - 部位别专业指南 (PDF)", ja: "CPPIムーブメントセラピー - 部位別指針書 (PDF)" }))}
+    ${secHead("PRO GUIDEBOOKS", L(UI.menu.guide), L({ ko: "CPPI 필라테스 무브먼트 테라피 - 부위별 전문 지침서 (PDF 전자책)", en: "CPPI Pilates Movement Therapy - region-specific guidebooks (PDF)", zh: "CPPI运动治疗 - 部位别专业指南 (PDF)", "zh-Hant": "CPPI運動治療 - 部位別專業指南 (PDF)", ja: "CPPIムーブメントセラピー - 部位別指針書 (PDF)" }))}
     <div class="card" style="margin-bottom:12px;background:var(--sunt);border-color:var(--sun)">
-      <b>${L({ ko: "구입 혜택", en: "Purchase Benefit", zh: "购买福利", ja: "購入特典" })}</b>
-      <p style="font-size:13.5px;margin-top:4px">${L({ ko: "전문 지침서 구입 시 전문 강사 워크숍 50% 할인 혜택을 드립니다.", en: "Buy a guidebook and get 50% off the Pro Instructor Workshop.", zh: "购买指南即享专业工作坊5折优惠。", ja: "指針書購入でワークショップ50%割引。" })}</p>
+      <b>${L({ ko: "구입 혜택", en: "Purchase Benefit", zh: "购买福利", "zh-Hant": "購買福利", ja: "購入特典" })}</b>
+      <p style="font-size:13.5px;margin-top:4px">${L({ ko: "전문 지침서 구입 시 전문 강사 워크숍 50% 할인 혜택을 드립니다.", en: "Buy a guidebook and get 50% off the Pro Instructor Workshop.", zh: "购买指南即享专业工作坊5折优惠。", "zh-Hant": "購買指南即享專業工作坊5折優惠。", ja: "指針書購入でワークショップ50%割引。" })}</p>
     </div>
     ${GUIDEBOOKS.map((e, i) => `<div class="shoprow">
       <div style="width:52px;min-width:52px;aspect-ratio:3/4;border-radius:6px;background:var(--tint);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--pri)">${["C", "S", "V", "P"][i]}</div>
-      <div class="tx"><h4>${esc(L(e.t))}</h4><div class="m">PDF · ${L({ ko: "가격 문의", en: "Price on request", zh: "价格咨询", ja: "価格お問い合わせ" })}</div></div>
+      <div class="tx"><h4>${esc(L(e.t))}</h4><div class="m">PDF · ${L({ ko: "가격 문의", en: "Price on request", zh: "价格咨询", "zh-Hant": "價格諮詢", ja: "価格お問い合わせ" })}</div></div>
       <div class="ops"><button class="btn acc small" onclick="buyItem('ebook',${i})">${L(UI.btn.buy)}</button></div>
     </div>`).join("")}
-    <div class="note">${L({ ko: "전자책에는 구매자 이메일 워터마크가 삽입됩니다. 열람 후 환불 불가.", en: "E-books are watermarked with the buyer's email. Non-refundable after access.", zh: "电子书含购买者水印，开通后不可退款。", ja: "電子書籍には透かしが入ります。閲覧後の返金不可。" })}</div>
+    <div class="note">${L({ ko: "전자책에는 구매자 이메일 워터마크가 삽입됩니다. 열람 후 환불 불가.", en: "E-books are watermarked with the buyer's email. Non-refundable after access.", zh: "电子书含购买者水印，开通后不可退款。", "zh-Hant": "電子書含購買者水印，開通後不可退款。", ja: "電子書籍には透かしが入ります。閲覧後の返金不可。" })}</div>
   </section>`;
 
 routes.ebooks = () => routes.guide();
 
 routes.checkout = () => {
   const item = store.get("cppi_cart", null);
-  if (!item) return `<section>${secHead("CHECKOUT", L({ ko: "결제", en: "Checkout", zh: "结算", ja: "決済" }))}<a class="btn pri" href="#store">${L({ ko: "스토어로 가기", en: "Go to Store", zh: "前往商店", ja: "ストアへ" })}</a></section>`;
+  if (!item) return `<section>${secHead("CHECKOUT", L({ ko: "결제", en: "Checkout", zh: "结算", "zh-Hant": "結算", ja: "決済" }))}<a class="btn pri" href="#store">${L({ ko: "스토어로 가기", en: "Go to Store", zh: "前往商店", "zh-Hant": "前往商店", ja: "ストアへ" })}</a></section>`;
   const u = me();
   return `
   <section>
-    ${secHead("CHECKOUT", L({ ko: "주문 · 결제", en: "Order & Payment", zh: "订单·支付", ja: "注文·決済" }))}
-    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주문 상품", en: "Item", zh: "商品", ja: "商品" })}</b>
+    ${secHead("CHECKOUT", L({ ko: "주문 · 결제", en: "Order & Payment", zh: "订单·支付", "zh-Hant": "訂單·支付", ja: "注文·決済" }))}
+    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주문 상품", en: "Item", zh: "商品", "zh-Hant": "商品", ja: "商品" })}</b>
       <p style="font-size:14px;margin-top:5px">${esc(item.name)}</p>
-      <p style="font-size:12.5px;color:var(--ink2)">${L({ ko: "금액: 상담 후 안내 (가격 확정 전)", en: "Price: guided after consultation", zh: "金额：咨询后告知", ja: "金額：相談後にご案内" })}</p></div>
+      <p style="font-size:12.5px;color:var(--ink2)">${L({ ko: "금액: 상담 후 안내 (가격 확정 전)", en: "Price: guided after consultation", zh: "金额：咨询后告知", "zh-Hant": "金額：諮詢後告知", ja: "金額：相談後にご案内" })}</p></div>
     ${u ? "" : `<div class="form card" style="margin-bottom:10px">
-      <b>${L({ ko: "비회원 주문 정보", en: "Guest Order Info", zh: "非会员订单信息", ja: "非会員注文情報" })}</b>
-      <label>${L({ ko: "이름 *", en: "Name *", zh: "姓名 *", ja: "お名前 *" })}</label><input id="gName" required>
-      <label>${L({ ko: "연락처 *", en: "Phone *", zh: "电话 *", ja: "電話 *" })}</label><input id="gPhone" required>
-      <label>${L({ ko: "이메일 *", en: "Email *", zh: "邮箱 *", ja: "メール *" })}</label><input id="gEmail" type="email" required>
-      <p style="font-size:12px;color:var(--ink2);margin-top:8px">${L({ ko: "이미 회원이신가요?", en: "Already a member?", zh: "已是会员？", ja: "会員の方は" })} <a href="#login">${L(UI.btn.login)}</a></p>
+      <b>${L({ ko: "비회원 주문 정보", en: "Guest Order Info", zh: "非会员订单信息", "zh-Hant": "非會員訂單資訊", ja: "非会員注文情報" })}</b>
+      <label>${L({ ko: "이름 *", en: "Name *", zh: "姓名 *", "zh-Hant": "姓名 *", ja: "お名前 *" })}</label><input id="gName" required>
+      <label>${L({ ko: "연락처 *", en: "Phone *", zh: "电话 *", "zh-Hant": "電話 *", ja: "電話 *" })}</label><input id="gPhone" required>
+      <label>${L({ ko: "이메일 *", en: "Email *", zh: "邮箱 *", "zh-Hant": "郵箱 *", ja: "メール *" })}</label><input id="gEmail" type="email" required>
+      <p style="font-size:12px;color:var(--ink2);margin-top:8px">${L({ ko: "이미 회원이신가요?", en: "Already a member?", zh: "已是会员？", "zh-Hant": "已是會員？", ja: "会員の方は" })} <a href="#login">${L(UI.btn.login)}</a></p>
     </div>`}
     <div class="card" style="margin-bottom:10px">
-      <b>${L({ ko: "결제수단 선택", en: "Payment Method", zh: "支付方式", ja: "決済方法" })}</b>
+      <b>${L({ ko: "결제수단 선택", en: "Payment Method", zh: "支付方式", "zh-Hant": "支付方式", ja: "決済方法" })}</b>
       <label style="display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-top:10px">
-        <input type="radio" name="pay" value="naver" style="width:auto" checked> <span><b style="color:#03C75A">N</b> <b>${L({ ko: "네이버페이", en: "Naver Pay", zh: "Naver Pay", ja: "Naver Pay" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${L({ ko: "카드 · 간편결제", en: "Card / Easy pay", zh: "银行卡·快捷支付", ja: "カード·簡単決済" })}</span></span></label>
+        <input type="radio" name="pay" value="naver" style="width:auto" checked> <span><b style="color:#03C75A">N</b> <b>${L({ ko: "네이버페이", en: "Naver Pay", zh: "Naver Pay", ja: "Naver Pay" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${L({ ko: "카드 · 간편결제", en: "Card / Easy pay", zh: "银行卡·快捷支付", "zh-Hant": "銀行卡·快捷支付", ja: "カード·簡単決済" })}</span></span></label>
       <label style="display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-top:8px">
-        <input type="radio" name="pay" value="kakao" style="width:auto"> <span><b style="color:#B8860B">K</b> <b>${L({ ko: "카카오페이", en: "Kakao Pay", zh: "Kakao Pay", ja: "Kakao Pay" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${L({ ko: "카드 · 간편결제", en: "Card / Easy pay", zh: "银行卡·快捷支付", ja: "カード·簡単決済" })}</span></span></label>
+        <input type="radio" name="pay" value="kakao" style="width:auto"> <span><b style="color:#B8860B">K</b> <b>${L({ ko: "카카오페이", en: "Kakao Pay", zh: "Kakao Pay", ja: "Kakao Pay" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${L({ ko: "카드 · 간편결제", en: "Card / Easy pay", zh: "银行卡·快捷支付", "zh-Hant": "銀行卡·快捷支付", ja: "カード·簡単決済" })}</span></span></label>
       <label style="display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-top:8px">
-        <input type="radio" name="pay" value="bank" style="width:auto"> <span><b>${L({ ko: "계좌이체 (무통장 입금)", en: "Bank Transfer", zh: "银行转账", ja: "銀行振込" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${BANK.name} ${BANK.num} · ${L({ ko: "입금 확인 후 처리", en: "processed on confirmation", zh: "确认后处理", ja: "確認後処理" })}</span></span></label>
+        <input type="radio" name="pay" value="bank" style="width:auto"> <span><b>${L({ ko: "계좌이체 (무통장 입금)", en: "Bank Transfer", zh: "银行转账", "zh-Hant": "銀行轉賬", ja: "銀行振込" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${BANK.name} ${BANK.num} · ${L({ ko: "입금 확인 후 처리", en: "processed on confirmation", zh: "确认后处理", "zh-Hant": "確認後處理", ja: "確認後処理" })}</span></span></label>
     </div>
-    <div class="note">${L({ ko: "사업 대행: ", en: "Business agency: ", zh: "业务代理：", ja: "事業代行：" })}${SELLER}</div>
+    <div class="note">${L({ ko: "사업 대행: ", en: "Business agency: ", zh: "业务代理：", "zh-Hant": "業務代理：", ja: "事業代行：" })}${SELLER}</div>
     <div style="height:10px"></div>
     <button class="btn pri" onclick="doCheckout()">${L(UI.btn.pay)}</button>
   </section>`;
@@ -1461,113 +1519,113 @@ routes.bank = () => {
   const o = APP.orders.filter(x => x.email === em).slice(-1)[0];
   return `
   <section>
-    ${secHead("BANK TRANSFER", L({ ko: "계좌이체 안내", en: "Bank Transfer", zh: "银行转账指南", ja: "銀行振込のご案内" }), L({ ko: "아래 계좌로 입금해 주시면 확인 후 처리해 드립니다.", en: "Deposit to the account below; we'll process on confirmation.", zh: "请向以下账户汇款，确认后处理。", ja: "以下の口座にお振込みください。" }))}
+    ${secHead("BANK TRANSFER", L({ ko: "계좌이체 안내", en: "Bank Transfer", zh: "银行转账指南", "zh-Hant": "銀行轉賬指南", ja: "銀行振込のご案内" }), L({ ko: "아래 계좌로 입금해 주시면 확인 후 처리해 드립니다.", en: "Deposit to the account below; we'll process on confirmation.", zh: "请向以下账户汇款，确认后处理。", "zh-Hant": "請向以下賬戶匯款，確認後處理。", ja: "以下の口座にお振込みください。" }))}
     <div class="card" style="background:var(--tint);margin-bottom:10px;text-align:center">
-      <div style="font-size:12.5px;color:var(--ink2)">${L({ ko: "입금 계좌", en: "Account", zh: "汇款账户", ja: "振込口座" })}</div>
+      <div style="font-size:12.5px;color:var(--ink2)">${L({ ko: "입금 계좌", en: "Account", zh: "汇款账户", "zh-Hant": "匯款賬戶", ja: "振込口座" })}</div>
       <b style="font-size:19px;display:block;margin:6px 0">${BANK.name} ${BANK.num}</b>
-      <div style="font-size:13px;color:var(--ink2)">${L({ ko: "예금주", en: "Holder", zh: "户名", ja: "名義" })}: ${BANK.holder}</div>
+      <div style="font-size:13px;color:var(--ink2)">${L({ ko: "예금주", en: "Holder", zh: "户名", "zh-Hant": "戶名", ja: "名義" })}: ${BANK.holder}</div>
       <div style="height:10px"></div>
-      <button class="btn ghost small" onclick="copyText('${BANK.name} ${BANK.num}')">${L({ ko: "계좌번호 복사", en: "Copy account no.", zh: "复制账号", ja: "口座番号をコピー" })}</button>
+      <button class="btn ghost small" onclick="copyText('${BANK.name} ${BANK.num}')">${L({ ko: "계좌번호 복사", en: "Copy account no.", zh: "复制账号", "zh-Hant": "複製賬號", ja: "口座番号をコピー" })}</button>
     </div>
-    ${o ? `<div class="card" style="margin-bottom:10px"><b>${L({ ko: "주문 정보", en: "Order", zh: "订单", ja: "注文" })}</b><p style="font-size:13.5px;margin-top:5px">${esc(o.item)} · ${o.id}</p><p style="font-size:12.5px;color:var(--rose);font-weight:700">${L({ ko: "상태: 입금 확인중", en: "Status: awaiting deposit", zh: "状态：等待确认", ja: "状態：入金確認中" })}</p></div>` : ""}
+    ${o ? `<div class="card" style="margin-bottom:10px"><b>${L({ ko: "주문 정보", en: "Order", zh: "订单", "zh-Hant": "訂單", ja: "注文" })}</b><p style="font-size:13.5px;margin-top:5px">${esc(o.item)} · ${o.id}</p><p style="font-size:12.5px;color:var(--rose);font-weight:700">${L({ ko: "상태: 입금 확인중", en: "Status: awaiting deposit", zh: "状态：等待确认", "zh-Hant": "狀態：等待確認", ja: "状態：入金確認中" })}</p></div>` : ""}
     <div class="form card" style="margin-bottom:10px">
-      <label>${L({ ko: "입금자명 (주문자와 다르면 입력)", en: "Depositor name (if different)", zh: "汇款人姓名(如不同)", ja: "振込名義(異なる場合)" })}</label>
+      <label>${L({ ko: "입금자명 (주문자와 다르면 입력)", en: "Depositor name (if different)", zh: "汇款人姓名(如不同)", "zh-Hant": "匯款人姓名(如不同)", ja: "振込名義(異なる場合)" })}</label>
       <input id="bankName">
       <div style="height:10px"></div>
-      <button class="btn pri" onclick="saveBankName()">${L({ ko: "입금 예정으로 접수", en: "Register as pending deposit", zh: "登记为待汇款", ja: "入金予定で受付" })}</button>
+      <button class="btn pri" onclick="saveBankName()">${L({ ko: "입금 예정으로 접수", en: "Register as pending deposit", zh: "登记为待汇款", "zh-Hant": "登記為待匯款", ja: "入金予定で受付" })}</button>
     </div>
-    <div class="card"><b>${L({ ko: "안내", en: "Notes", zh: "说明", ja: "ご案内" })}</b>
+    <div class="card"><b>${L({ ko: "안내", en: "Notes", zh: "说明", "zh-Hant": "說明", ja: "ご案内" })}</b>
       <ul style="font-size:13px;color:var(--ink2);margin:6px 0 0 18px;line-height:1.85">
-        <li>${L({ ko: "24시간 내 입금해 주세요. 미입금 시 주문이 취소될 수 있습니다.", en: "Please deposit within 24h or the order may be cancelled.", zh: "请24小时内汇款。", ja: "24時間以内にお振込みください。" })}</li>
-        <li>${L({ ko: "입금 확인 후 열람 권한 부여 · 배송이 시작됩니다.", en: "Access/shipping starts after confirmation.", zh: "确认后开通权限·发货。", ja: "確認後に権限付与·発送します。" })}</li>
-        <li>${L({ ko: "문의", en: "Contact", zh: "咨询", ja: "お問い合わせ" })}: ${CONTACT.tel} · ${CONTACT.mail}</li>
+        <li>${L({ ko: "24시간 내 입금해 주세요. 미입금 시 주문이 취소될 수 있습니다.", en: "Please deposit within 24h or the order may be cancelled.", zh: "请24小时内汇款。", "zh-Hant": "請24小時內匯款。", ja: "24時間以内にお振込みください。" })}</li>
+        <li>${L({ ko: "입금 확인 후 열람 권한 부여 · 배송이 시작됩니다.", en: "Access/shipping starts after confirmation.", zh: "确认后开通权限·发货。", "zh-Hant": "確認後開通許可權·發貨。", ja: "確認後に権限付与·発送します。" })}</li>
+        <li>${L({ ko: "문의", en: "Contact", zh: "咨询", "zh-Hant": "諮詢", ja: "お問い合わせ" })}: ${CONTACT.tel} · ${CONTACT.mail}</li>
       </ul></div>
   </section>`;
 };
 
 routes.members = () => `
   <section>
-    ${secHead("MEMBERS", "CPPI Members - " + L({ ko: "수료 강사", en: "Graduates", zh: "结业教练", ja: "修了講師" }), L({ ko: "기수 버튼을 누르면 해당 기수의 수료 강사 명단이 표시됩니다. (공식 등록 기준 · 2017~)", en: "Tap a class button to see its graduates. (Official registry, since 2017)", zh: "点击期数按钮显示该期结业教练名单。", ja: "期のボタンで修了講師名簿を表示。" }))}
+    ${secHead("MEMBERS", "CPPI Members - " + L({ ko: "수료 강사", en: "Graduates", zh: "结业教练", "zh-Hant": "結業教練", ja: "修了講師" }), L({ ko: "기수 버튼을 누르면 해당 기수의 수료 강사 명단이 표시됩니다. (공식 등록 기준 · 2017~)", en: "Tap a class button to see its graduates. (Official registry, since 2017)", zh: "点击期数按钮显示该期结业教练名单。", "zh-Hant": "點選期數按鈕顯示該期結業教練名單。", ja: "期のボタンで修了講師名簿を表示。" }))}
     ${rosterHTML()}
-    <div class="note">"Patience and persistence are vital qualities in the ultimate successful accomplishment of any worthwhile endeavor." - Joseph Pilates<br>${L({ ko: "명단 등재 · 수정 요청", en: "Listing requests", zh: "名单登载·修改申请", ja: "掲載·修正依頼" })}: ${CONTACT.mail}</div>
+    <div class="note">"Patience and persistence are vital qualities in the ultimate successful accomplishment of any worthwhile endeavor." - Joseph Pilates<br>${L({ ko: "명단 등재 · 수정 요청", en: "Listing requests", zh: "名单登载·修改申请", "zh-Hant": "名單登載·修改申請", ja: "掲載·修正依頼" })}: ${CONTACT.mail}</div>
   </section>`;
 
 routes.apply = () => `
   <section>
-    ${secHead("CONSULTATION", L(UI.btn.consult), L({ ko: "남겨주시면 24시간 내 연락드립니다.", en: "We'll reach out within 24 hours.", zh: "我们将在24小时内联系您。", ja: "24時間以内にご連絡します。" }))}
+    ${secHead("CONSULTATION", L(UI.btn.consult), L({ ko: "남겨주시면 24시간 내 연락드립니다.", en: "We'll reach out within 24 hours.", zh: "我们将在24小时内联系您。", "zh-Hant": "我們將在24小時內聯絡您。", ja: "24時間以内にご連絡します。" }))}
     <form class="form card" onsubmit="return submitLead(event)">
-      <label>${L({ ko: "이름 *", en: "Name *", zh: "姓名 *", ja: "お名前 *" })}</label><input name="name" required>
-      <label>${L({ ko: "이메일 *", en: "Email *", zh: "邮箱 *", ja: "メール *" })}</label><input name="email" type="email" required>
-      <label>${L({ ko: "전화번호 *", en: "Phone *", zh: "电话 *", ja: "電話 *" })}</label><input name="phone" required>
-      <label>${L({ ko: "생년 (연도)", en: "Birth year", zh: "出生年份", ja: "生年" })}</label><input name="birth">
-      <label>${L({ ko: "거주 및 활동지역", en: "Region", zh: "居住/活动地区", ja: "居住·活動地域" })}</label><input name="region">
-      <label>${L({ ko: "관심 과정 *", en: "Interest *", zh: "感兴趣课程 *", ja: "関心課程 *" })}</label>
+      <label>${L({ ko: "이름 *", en: "Name *", zh: "姓名 *", "zh-Hant": "姓名 *", ja: "お名前 *" })}</label><input name="name" required>
+      <label>${L({ ko: "이메일 *", en: "Email *", zh: "邮箱 *", "zh-Hant": "郵箱 *", ja: "メール *" })}</label><input name="email" type="email" required>
+      <label>${L({ ko: "전화번호 *", en: "Phone *", zh: "电话 *", "zh-Hant": "電話 *", ja: "電話 *" })}</label><input name="phone" required>
+      <label>${L({ ko: "생년 (연도)", en: "Birth year", zh: "出生年份", "zh-Hant": "出生年份", ja: "生年" })}</label><input name="birth">
+      <label>${L({ ko: "거주 및 활동지역", en: "Region", zh: "居住/活动地区", "zh-Hant": "居住/活動地區", ja: "居住·活動地域" })}</label><input name="region">
+      <label>${L({ ko: "관심 과정 *", en: "Interest *", zh: "感兴趣课程 *", "zh-Hant": "感興趣課程 *", ja: "関心課程 *" })}</label>
       <select name="interest" required>
-        <option>${L({ ko: "CPPI 정규 자격과정", en: "CPPI Certification Course", zh: "CPPI正规资格课程", ja: "CPPI正規資格課程" })}</option>
+        <option>${L({ ko: "CPPI 정규 자격과정", en: "CPPI Certification Course", zh: "CPPI正规资格课程", "zh-Hant": "CPPI正規資格課程", ja: "CPPI正規資格課程" })}</option>
         <option>${L(UI.menu.workshop)}</option>
         <option>${L(UI.menu.learn)}</option>
         <option>${L(UI.btn.consult)}</option>
-        <option>${L({ ko: "교재 구매", en: "Textbook Purchase", zh: "教材购买", ja: "教材購入" })}</option>
+        <option>${L({ ko: "교재 구매", en: "Textbook Purchase", zh: "教材购买", "zh-Hant": "教材購買", ja: "教材購入" })}</option>
       </select>
-      <label style="display:flex;align-items:center;gap:8px;font-weight:600"><input type="checkbox" name="news" style="width:auto"> ${L({ ko: "뉴스레터 구독에 동의합니다", en: "Subscribe to newsletter", zh: "同意订阅通讯", ja: "ニュースレター購読に同意" })}</label>
+      <label style="display:flex;align-items:center;gap:8px;font-weight:600"><input type="checkbox" name="news" style="width:auto"> ${L({ ko: "뉴스레터 구독에 동의합니다", en: "Subscribe to newsletter", zh: "同意订阅通讯", "zh-Hant": "同意訂閱通訊", ja: "ニュースレター購読に同意" })}</label>
       <div style="height:12px"></div>
       <button class="btn pri" type="submit">${L(UI.btn.submit)}</button>
     </form>
     <div style="height:12px"></div>
     <a class="btn navertalk" href="${NAVER_TALK}" target="_blank" rel="noopener">
-      <span class="ntlogo">talk</span> ${L({ ko: "네이버 톡톡으로 실시간 상담", en: "Live chat via NAVER TalkTalk", zh: "NAVER TalkTalk 实时咨询", ja: "NAVER トークトークで相談" })}</a>
+      <span class="ntlogo">talk</span> ${L({ ko: "네이버 톡톡으로 실시간 상담", en: "Live chat via NAVER TalkTalk", zh: "NAVER TalkTalk 实时咨询", "zh-Hant": "NAVER TalkTalk 實時諮詢", ja: "NAVER トークトークで相談" })}</a>
     <div style="height:8px"></div>
     <div class="grid2">
-      <a class="btn ghost" href="tel:${CONTACT.telIntl}">${L({ ko: "전화 상담", en: "Call", zh: "电话咨询", ja: "電話相談" })}</a>
-      <a class="btn ghost" href="mailto:${CONTACT.mail}">${L({ ko: "이메일 상담", en: "Email", zh: "邮件咨询", ja: "メール相談" })}</a>
+      <a class="btn ghost" href="tel:${CONTACT.telIntl}">${L({ ko: "전화 상담", en: "Call", zh: "电话咨询", "zh-Hant": "電話諮詢", ja: "電話相談" })}</a>
+      <a class="btn ghost" href="mailto:${CONTACT.mail}">${L({ ko: "이메일 상담", en: "Email", zh: "邮件咨询", "zh-Hant": "郵件諮詢", ja: "メール相談" })}</a>
     </div>
   </section>`;
 
 routes.support = () => `
   <section>
-    ${secHead("FAQ", L({ ko: "자주 묻는 질문", en: "FAQ", zh: "常见问题", ja: "よくある質問" }))}
+    ${secHead("FAQ", L({ ko: "자주 묻는 질문", en: "FAQ", zh: "常见问题", "zh-Hant": "常見問題", ja: "よくある質問" }))}
     <div class="faq">${FAQS.map(f => `<div class="q">
       <div class="top" onclick="this.parentElement.classList.toggle('open')"><h4>${esc(L(f.q))}</h4><span style="color:var(--pri)">+</span></div>
       <div class="a">${esc(L(f.a))}</div></div>`).join("")}</div>
     ${secHead("STORIES", L(UI.menu.stories))}
-    <a class="btn ghost" href="#stories">${L({ ko: "수료강사 이야기 · 명단 보기 →", en: "Graduate stories & directory →", zh: "结业教练故事·名单 →", ja: "修了講師の声·名簿 →" })}</a>
+    <a class="btn ghost" href="#stories">${L({ ko: "수료강사 이야기 · 명단 보기 →", en: "Graduate stories & directory →", zh: "结业教练故事·名单 →", "zh-Hant": "結業教練故事·名單 →", ja: "修了講師の声·名簿 →" })}</a>
     <div style="height:16px"></div>
-    <div class="card"><b>${L({ ko: "앱 설치 안내", en: "Install Guide", zh: "安装指南", ja: "インストール案内" })}</b>
-      <p style="font-size:13px;color:var(--ink2);margin:6px 0 10px">iPhone: Safari ${L({ ko: "공유 →", en: "Share →", zh: "分享 →", ja: "共有 →" })} "${L(UI.btn.install)}"</p>
+    <div class="card"><b>${L({ ko: "앱 설치 안내", en: "Install Guide", zh: "安装指南", "zh-Hant": "安裝指南", ja: "インストール案内" })}</b>
+      <p style="font-size:13px;color:var(--ink2);margin:6px 0 10px">iPhone: Safari ${L({ ko: "공유 →", en: "Share →", zh: "分享 →", "zh-Hant": "分享 →", ja: "共有 →" })} "${L(UI.btn.install)}"</p>
       <button class="btn ghost" onclick="installApp()">${L(UI.btn.install)}</button></div>
   </section>`;
 
 routes.login = () => me() ? routes.my() : `
   <section>
-    ${secHead("LOGIN", L({ ko: "로그인 · 간편 가입", en: "Log in / Sign up", zh: "登录·注册", ja: "ログイン·登録" }), L({ ko: "이메일로 가입하거나, 카카오·네이버·구글로 간편하게 시작하세요.", en: "Sign up with email, or start instantly with Kakao, NAVER or Google.", zh: "邮箱注册，或使用Kakao·NAVER·Google一键开始。", ja: "メール登録、またはKakao·NAVER·Googleで簡単に開始。" }))}
+    ${secHead("LOGIN", L({ ko: "로그인 · 간편 가입", en: "Log in / Sign up", zh: "登录·注册", "zh-Hant": "登入·註冊", ja: "ログイン·登録" }), L({ ko: "이메일로 가입하거나, 카카오·네이버·구글로 간편하게 시작하세요.", en: "Sign up with email, or start instantly with Kakao, NAVER or Google.", zh: "邮箱注册，或使用Kakao·NAVER·Google一键开始。", "zh-Hant": "郵箱註冊，或使用Kakao·NAVER·Google一鍵開始。", ja: "メール登録、またはKakao·NAVER·Googleで簡単に開始。" }))}
     <form class="form card" onsubmit="return doLogin(event)">
-      <label>${L({ ko: "이메일", en: "Email", zh: "邮箱", ja: "メール" })}</label><input name="email" type="email" required>
-      <label>${L({ ko: "비밀번호", en: "Password", zh: "密码", ja: "パスワード" })}</label><input name="pw" type="password" required>
+      <label>${L({ ko: "이메일", en: "Email", zh: "邮箱", "zh-Hant": "郵箱", ja: "メール" })}</label><input name="email" type="email" required>
+      <label>${L({ ko: "비밀번호", en: "Password", zh: "密码", "zh-Hant": "密碼", ja: "パスワード" })}</label><input name="pw" type="password" required>
       <div style="height:12px"></div>
       <button class="btn pri" type="submit">${L(UI.btn.login)}</button>
       <div style="height:8px"></div>
       <a class="btn ghost" href="#signup">${L(UI.btn.signup)}</a>
     </form>
-    <div class="orline">${L({ ko: "또는 간편하게", en: "or continue with", zh: "或使用", ja: "または" })}</div>
-    <button class="socialbtn kakao" onclick="socialLogin('kakao')">${L({ ko: "카카오로 계속하기", en: "Continue with Kakao", zh: "使用Kakao继续", ja: "Kakaoで続ける" })}</button>
-    <button class="socialbtn naver" onclick="socialLogin('naver')">${L({ ko: "네이버로 계속하기", en: "Continue with NAVER", zh: "使用NAVER继续", ja: "NAVERで続ける" })}</button>
-    <button class="socialbtn google" onclick="socialLogin('google')">${L({ ko: "구글로 계속하기", en: "Continue with Google", zh: "使用Google继续", ja: "Googleで続ける" })}</button>
+    <div class="orline">${L({ ko: "또는 간편하게", en: "or continue with", zh: "或使用", "zh-Hant": "或使用", ja: "または" })}</div>
+    <button class="socialbtn kakao" onclick="socialLogin('kakao')">${L({ ko: "카카오로 계속하기", en: "Continue with Kakao", zh: "使用Kakao继续", "zh-Hant": "使用Kakao繼續", ja: "Kakaoで続ける" })}</button>
+    <button class="socialbtn naver" onclick="socialLogin('naver')">${L({ ko: "네이버로 계속하기", en: "Continue with NAVER", zh: "使用NAVER继续", "zh-Hant": "使用NAVER繼續", ja: "NAVERで続ける" })}</button>
+    <button class="socialbtn google" onclick="socialLogin('google')">${L({ ko: "구글로 계속하기", en: "Continue with Google", zh: "使用Google继续", "zh-Hant": "使用Google繼續", ja: "Googleで続ける" })}</button>
   </section>`;
 
 routes.signup = () => `
   <section>
-    ${secHead("SIGN UP", L(UI.btn.signup), L({ ko: "가입 즉시 L1 일반회원 - 무료 강의와 스토어를 이용할 수 있습니다.", en: "Instant L1 membership - free lectures and store access.", zh: "注册即为L1会员。", ja: "登録後すぐL1会員。" }))}
+    ${secHead("SIGN UP", L(UI.btn.signup), L({ ko: "가입 즉시 L1 일반회원 - 무료 강의와 스토어를 이용할 수 있습니다.", en: "Instant L1 membership - free lectures and store access.", zh: "注册即为L1会员。", "zh-Hant": "註冊即為L1會員。", ja: "登録後すぐL1会員。" }))}
     <form class="form card" onsubmit="return doSignup(event)">
-      <label>${L({ ko: "성명 (국문) *", en: "Name (Korean/Local) *", zh: "姓名(韩文/本地) *", ja: "氏名(現地語) *" })}</label><input name="nameKo" required>
-      <label>${L({ ko: "성명 (영문 - 자격증 표기용) *", en: "Name (English - for certificate) *", zh: "姓名(英文-证书用) *", ja: "氏名(英字-資格証用) *" })}</label><input name="nameEn" required>
-      <label>${L({ ko: "이메일 *", en: "Email *", zh: "邮箱 *", ja: "メール *" })}</label><input name="email" type="email" required>
-      <label>${L({ ko: "연락처 *", en: "Phone *", zh: "电话 *", ja: "電話 *" })}</label><input name="phone" required>
-      <label>${L({ ko: "비밀번호 *", en: "Password *", zh: "密码 *", ja: "パスワード *" })}</label><input name="pw" type="password" required minlength="6">
-      <label style="display:flex;align-items:center;gap:8px;font-weight:600"><input type="checkbox" required style="width:auto"> ${L({ ko: "(필수) 이용약관 · 개인정보 처리방침 동의", en: "(Required) Agree to Terms & Privacy", zh: "(必选)同意条款与隐私", ja: "(必須)規約·プライバシー同意" })}</label>
+      <label>${L({ ko: "성명 (국문) *", en: "Name (Korean/Local) *", zh: "姓名(韩文/本地) *", "zh-Hant": "姓名(韓文/本地) *", ja: "氏名(現地語) *" })}</label><input name="nameKo" required>
+      <label>${L({ ko: "성명 (영문 - 자격증 표기용) *", en: "Name (English - for certificate) *", zh: "姓名(英文-证书用) *", "zh-Hant": "姓名(英文-證書用) *", ja: "氏名(英字-資格証用) *" })}</label><input name="nameEn" required>
+      <label>${L({ ko: "이메일 *", en: "Email *", zh: "邮箱 *", "zh-Hant": "郵箱 *", ja: "メール *" })}</label><input name="email" type="email" required>
+      <label>${L({ ko: "연락처 *", en: "Phone *", zh: "电话 *", "zh-Hant": "電話 *", ja: "電話 *" })}</label><input name="phone" required>
+      <label>${L({ ko: "비밀번호 *", en: "Password *", zh: "密码 *", "zh-Hant": "密碼 *", ja: "パスワード *" })}</label><input name="pw" type="password" required minlength="6">
+      <label style="display:flex;align-items:center;gap:8px;font-weight:600"><input type="checkbox" required style="width:auto"> ${L({ ko: "(필수) 이용약관 · 개인정보 처리방침 동의", en: "(Required) Agree to Terms & Privacy", zh: "(必选)同意条款与隐私", "zh-Hant": "(必選)同意條款與隱私", ja: "(必須)規約·プライバシー同意" })}</label>
       <div style="height:12px"></div>
-      <button class="btn pri" type="submit">${L({ ko: "가입하기 → L1 일반회원", en: "Sign up → L1 member", zh: "注册 → L1会员", ja: "登録 → L1会員" })}</button>
+      <button class="btn pri" type="submit">${L({ ko: "가입하기 → L1 일반회원", en: "Sign up → L1 member", zh: "注册 → L1会员", "zh-Hant": "註冊 → L1會員", ja: "登録 → L1会員" })}</button>
     </form>
-    <div class="note">${L({ ko: "영문 성명은 국제자격증 · 수료증에 그대로 표기됩니다.", en: "Your English name appears on certificates as entered.", zh: "英文姓名将原样印在证书上。", ja: "英字氏名はそのまま資格証に表記されます。" })}</div>
+    <div class="note">${L({ ko: "영문 성명은 국제자격증 · 수료증에 그대로 표기됩니다.", en: "Your English name appears on certificates as entered.", zh: "英文姓名将原样印在证书上。", "zh-Hant": "英文姓名將原樣印在證書上。", ja: "英字氏名はそのまま資格証に表記されます。" })}</div>
   </section>`;
 
 routes.my = () => {
@@ -1582,14 +1640,14 @@ routes.my = () => {
       <div style="margin-top:6px"><span class="badge ${u.grade === 3 ? "l3" : u.grade === 2 ? "l2" : "free"}">${L(UI.grade[u.grade])}</span></div>
     </div>
     <div class="tiers" style="margin-bottom:12px">
-      <div class="tier t1"><b>${L(UI.grade[1])}</b><span class="m">${L({ ko: "무료 강의 · 스토어 · 워크숍 신청", en: "Free lectures · store · workshops", zh: "免费课程·商店·工作坊", ja: "無料講義·ストア·ワークショップ" })}</span></div>
-      <div class="tier t2"><b>${L(UI.grade[2])}</b><span class="m">${L({ ko: "정규과정 온라인 강의 전체 열람", en: "Full lecture access", zh: "全部在线课程", ja: "講義全視聴" })}</span></div>
-      <div class="tier t3"><b>${L(UI.grade[3])}</b><span class="m">${L({ ko: "심화 · 보수교육 · 수료강사 등재", en: "Advanced CE · graduates listing", zh: "深化·进修·名单登载", ja: "深化·研修·名簿掲載" })}</span></div>
+      <div class="tier t1"><b>${L(UI.grade[1])}</b><span class="m">${L({ ko: "무료 강의 · 스토어 · 워크숍 신청", en: "Free lectures · store · workshops", zh: "免费课程·商店·工作坊", "zh-Hant": "免費課程·商店·工作坊", ja: "無料講義·ストア·ワークショップ" })}</span></div>
+      <div class="tier t2"><b>${L(UI.grade[2])}</b><span class="m">${L({ ko: "정규과정 온라인 강의 전체 열람", en: "Full lecture access", zh: "全部在线课程", "zh-Hant": "全部線上課程", ja: "講義全視聴" })}</span></div>
+      <div class="tier t3"><b>${L(UI.grade[3])}</b><span class="m">${L({ ko: "심화 · 보수교육 · 수료강사 등재", en: "Advanced CE · graduates listing", zh: "深化·进修·名单登载", "zh-Hant": "深化·進修·名單登載", ja: "深化·研修·名簿掲載" })}</span></div>
     </div>
-    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "구매 내역", en: "Orders", zh: "购买记录", ja: "購入履歴" })}</b>
-      ${myOrders.length ? myOrders.map(o => `<p style="font-size:13.5px;margin-top:6px">${esc(o.item)} - <b style="color:${o.status === "완료" ? "var(--pri)" : "var(--rose)"}">${o.status === "완료" ? L({ ko: "완료", en: "Complete", zh: "完成", ja: "完了" }) : L({ ko: "입금 확인중", en: "Pending", zh: "确认中", ja: "確認中" })}</b> <span style="font-size:11.5px;color:var(--ink2)">(${o.id})</span></p>`).join("") : `<p style="font-size:13px;color:var(--ink2);margin-top:5px">${L({ ko: "구매 내역이 없습니다.", en: "No orders yet.", zh: "暂无记录。", ja: "履歴がありません。" })}</p>`}
+    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "구매 내역", en: "Orders", zh: "购买记录", "zh-Hant": "購買記錄", ja: "購入履歴" })}</b>
+      ${myOrders.length ? myOrders.map(o => `<p style="font-size:13.5px;margin-top:6px">${esc(o.item)} - <b style="color:${o.status === "완료" ? "var(--pri)" : "var(--rose)"}">${o.status === "완료" ? L({ ko: "완료", en: "Complete", zh: "完成", "zh-Hant": "完成", ja: "完了" }) : L({ ko: "입금 확인중", en: "Pending", zh: "确认中", "zh-Hant": "確認中", ja: "確認中" })}</b> <span style="font-size:11.5px;color:var(--ink2)">(${o.id})</span></p>`).join("") : `<p style="font-size:13px;color:var(--ink2);margin-top:5px">${L({ ko: "구매 내역이 없습니다.", en: "No orders yet.", zh: "暂无记录。", "zh-Hant": "暫無記錄。", ja: "履歴がありません。" })}</p>`}
     </div>
-    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "고객센터", en: "Support", zh: "客服中心", ja: "サポート" })}</b>
+    <div class="card" style="margin-bottom:10px"><b>${L({ ko: "고객센터", en: "Support", zh: "客服中心", "zh-Hant": "客服中心", ja: "サポート" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${CONTACT.tel} · ${CONTACT.mail}</p></div>
     <button class="btn ghost" onclick="logout()">${L(UI.btn.logout)}</button>
   </section>`;
@@ -1635,7 +1693,7 @@ function socialStub(name) {
   toast(L({
     ko: "이 미리보기 주소에서는 소셜 로그인을 사용할 수 없습니다. cppipilates.com 에서 이용해 주세요.",
     en: "Social login is unavailable on this preview URL. Please use cppipilates.com.",
-    zh: "此预览地址无法使用社交登录，请访问 cppipilates.com。",
+    zh: "此预览地址无法使用社交登录，请访问 cppipilates.com。", "zh-Hant": "此預覽地址無法使用社交登入，請訪問 cppipilates.com。",
     ja: "このプレビューURLではソーシャルログインをご利用いただけません。cppipilates.com をご利用ください。",
   }));
 }
@@ -1645,7 +1703,7 @@ function socialLogin(provider) {
   location.href = "/api/auth/" + provider;
 }
 
-const WELCOME = L({ ko: "가입을 환영합니다! L1 일반회원이 되었습니다.", en: "Welcome! You're now an L1 member.", zh: "欢迎！您已成为L1会员。", ja: "ようこそ！L1会員になりました。" });
+const WELCOME = L({ ko: "가입을 환영합니다! L1 일반회원이 되었습니다.", en: "Welcome! You're now an L1 member.", zh: "欢迎！您已成为L1会员。", "zh-Hant": "歡迎！您已成為L1會員。", ja: "ようこそ！L1会員になりました。" });
 async function doSignup(e) {
   e.preventDefault();
   const f = new FormData(e.target);
@@ -1654,11 +1712,11 @@ async function doSignup(e) {
   const back = store.get("cppi_cart", null);
   if (SERVER) {
     try { const { user } = await apiPost("signup", rec); APP.session = email; cacheUser(user); toast(WELCOME); go(back ? "checkout" : "my"); }
-    catch (err) { toast(err.error === "exists" ? L({ ko: "이미 가입된 이메일입니다.", en: "Email already registered.", zh: "邮箱已注册。", ja: "登録済みのメールです。" }) : L({ ko: "가입 처리 오류. 잠시 후 다시 시도해 주세요.", en: "Signup error. Try again.", zh: "注册出错，请重试。", ja: "登録エラー。再度お試しください。" })); if (err.error === "exists") go("login"); }
+    catch (err) { toast(err.error === "exists" ? L({ ko: "이미 가입된 이메일입니다.", en: "Email already registered.", zh: "邮箱已注册。", "zh-Hant": "郵箱已註冊。", ja: "登録済みのメールです。" }) : L({ ko: "가입 처리 오류. 잠시 후 다시 시도해 주세요.", en: "Signup error. Try again.", zh: "注册出错，请重试。", "zh-Hant": "註冊出錯，請重試。", ja: "登録エラー。再度お試しください。" })); if (err.error === "exists") go("login"); }
     return false;
   }
   const users = APP.users;
-  if (users.some(u => u.email === email)) { toast(L({ ko: "이미 가입된 이메일입니다.", en: "Email already registered.", zh: "邮箱已注册。", ja: "登録済みのメールです。" })); go("login"); return false; }
+  if (users.some(u => u.email === email)) { toast(L({ ko: "이미 가입된 이메일입니다.", en: "Email already registered.", zh: "邮箱已注册。", "zh-Hant": "郵箱已註冊。", ja: "登録済みのメールです。" })); go("login"); return false; }
   users.push({ ...rec, pw: btoa(unescape(encodeURIComponent(rec.pw))), grade: 1, joined: new Date().toISOString().slice(0, 10) });
   APP.users = users; APP.session = email;
   toast(WELCOME); go(back ? "checkout" : "my");
@@ -1670,7 +1728,7 @@ async function doLogin(e) {
   const email = f.get("email").trim().toLowerCase();
   const pw = f.get("pw");
   const back = store.get("cppi_cart", null);
-  const bad = () => toast(L({ ko: "이메일 또는 비밀번호를 확인해 주세요.", en: "Check your email or password.", zh: "请检查邮箱或密码。", ja: "メールまたはパスワードをご確認ください。" }));
+  const bad = () => toast(L({ ko: "이메일 또는 비밀번호를 확인해 주세요.", en: "Check your email or password.", zh: "请检查邮箱或密码。", "zh-Hant": "請檢查郵箱或密碼。", ja: "メールまたはパスワードをご確認ください。" }));
   if (SERVER) {
     try { const { user } = await apiPost("login", { email, pw }); APP.session = email; cacheUser(user); toast(user.nameKo); go(back ? "checkout" : "my"); }
     catch (err) { bad(); }
@@ -1707,7 +1765,7 @@ function closeViewer() { $("#viewer").classList.remove("open"); document.body.st
 function vwShow() {
   if (vwMode === "props") {
     const arr = PROPS[pv.k];
-    $("#vwTitle").textContent = L({ ko: "워크숍 교재 미리보기", en: "Workshop Textbook Preview", zh: "工作坊教材预览", ja: "教材プレビュー" });
+    $("#vwTitle").textContent = L({ ko: "워크숍 교재 미리보기", en: "Workshop Textbook Preview", zh: "工作坊教材预览", "zh-Hant": "工作坊教材預覽", ja: "教材プレビュー" });
     $("#vwImg").src = arr[pv.p];
     $("#vwCnt").textContent = (pv.p + 1) + " / " + arr.length;
     $("#vwTag").textContent = pv.p === 0 ? L(UI.viewer.cover) : L(UI.viewer.body);
@@ -1747,10 +1805,10 @@ function vwMove(d) {
 /* 구매 · 결제 */
 function buyItem(type, idx) {
   let name;
-  if (type === "book") name = L(BOOKS[idx].t) + " - " + L({ ko: "실물 교재", en: "Printed book", zh: "实体教材", ja: "実物教材" });
-  else if (type === "ebook") name = L(GUIDEBOOKS[idx].t) + " - " + L({ ko: "전자책 PDF (워크숍 50% 할인 혜택)", en: "E-book PDF (50% workshop discount)", zh: "电子书PDF(工作坊5折)", ja: "電子書籍PDF(WS50%割引)" });
-  else if (type === "lecture-mt") name = L(LECT_MT[idx].t) + " - " + L({ ko: "온라인 강의 수강권", en: "Online lecture access", zh: "在线课程券", ja: "オンライン受講券" });
-  else name = L({ ko: "척추 필라테스 어프로치 - 온라인 강의 수강권 (3강)", en: "Spine Approach - lecture access (3 lessons)", zh: "脊柱方法 - 课程券(3讲)", ja: "脊柱アプローチ - 受講券(3講)" });
+  if (type === "book") name = L(BOOKS[idx].t) + " - " + L({ ko: "실물 교재", en: "Printed book", zh: "实体教材", "zh-Hant": "實體教材", ja: "実物教材" });
+  else if (type === "ebook") name = L(GUIDEBOOKS[idx].t) + " - " + L({ ko: "전자책 PDF (워크숍 50% 할인 혜택)", en: "E-book PDF (50% workshop discount)", zh: "电子书PDF(工作坊5折)", "zh-Hant": "電子書PDF(工作坊5折)", ja: "電子書籍PDF(WS50%割引)" });
+  else if (type === "lecture-mt") name = L(LECT_MT[idx].t) + " - " + L({ ko: "온라인 강의 수강권", en: "Online lecture access", zh: "在线课程券", "zh-Hant": "線上課程券", ja: "オンライン受講券" });
+  else name = L({ ko: "척추 필라테스 어프로치 - 온라인 강의 수강권 (3강)", en: "Spine Approach - lecture access (3 lessons)", zh: "脊柱方法 - 课程券(3讲)", "zh-Hant": "脊柱方法 - 課程券(3講)", ja: "脊柱アプローチ - 受講券(3講)" });
   store.set("cppi_cart", { type, idx, name, key: `${type}#${idx}` });
   go("checkout"); render();
 }
@@ -1761,12 +1819,12 @@ function doCheckout() {
   let email = u?.email, buyer = u?.nameKo;
   if (!u) {
     const n = $("#gName")?.value.trim(), p = $("#gPhone")?.value.trim(), em = $("#gEmail")?.value.trim();
-    if (!n || !p || !em) { toast(L({ ko: "비회원 주문 정보를 입력해 주세요.", en: "Please fill in guest order info.", zh: "请填写非会员订单信息。", ja: "非会員情報をご入力ください。" })); return; }
+    if (!n || !p || !em) { toast(L({ ko: "비회원 주문 정보를 입력해 주세요.", en: "Please fill in guest order info.", zh: "请填写非会员订单信息。", "zh-Hant": "請填寫非會員訂單資訊。", ja: "非会員情報をご入力ください。" })); return; }
     email = em.toLowerCase(); buyer = n;
     store.set("cppi_guest", { name: n, phone: p, email });
   }
   if (method !== "bank") {
-    if (!PG[method]) { toast(L({ ko: "간편결제는 오픈 준비중입니다. 계좌이체를 이용해 주세요.", en: "Easy pay is coming soon - please use bank transfer.", zh: "快捷支付即将开通，请用银行转账。", ja: "簡単決済は準備中です。振込をご利用ください。" })); return; }
+    if (!PG[method]) { toast(L({ ko: "간편결제는 오픈 준비중입니다. 계좌이체를 이용해 주세요.", en: "Easy pay is coming soon - please use bank transfer.", zh: "快捷支付即将开通，请用银行转账。", "zh-Hant": "快捷支付即將開通，請用銀行轉賬。", ja: "簡単決済は準備中です。振込をご利用ください。" })); return; }
     window.open(PG[method], "_blank");
   }
   const methodKo = method === "bank" ? "계좌이체" : method === "naver" ? "네이버페이" : "카카오페이";
@@ -1784,7 +1842,7 @@ function saveBankName() {
   const o = orders.filter(x => x.email === em).slice(-1)[0];
   if (o) { o.payer = nm; APP.orders = orders; }
   if (SERVER) { apiPost("bankname", { email: em, payer: nm }).catch(() => {}); }
-  toast(L({ ko: "접수되었습니다. 입금 확인 후 알림드릴게요!", en: "Registered! We'll notify you on confirmation.", zh: "已受理！确认后通知您。", ja: "受付けました！確認後にご連絡します。" }));
+  toast(L({ ko: "접수되었습니다. 입금 확인 후 알림드릴게요!", en: "Registered! We'll notify you on confirmation.", zh: "已受理！确认后通知您。", "zh-Hant": "已受理！確認後通知您。", ja: "受付けました！確認後にご連絡します。" }));
   go(me() ? "my" : "home");
 }
 
@@ -1831,7 +1889,7 @@ function submitLead(e) {
   const lead = { name: f.get("name"), email: f.get("email"), phone: f.get("phone"), birth: f.get("birth"), region: f.get("region"), interest: f.get("interest"), news: !!f.get("news"), at: new Date().toISOString().slice(0, 16).replace("T", " ") };
   const leads = APP.leads; leads.push(lead); APP.leads = leads;
   if (SERVER) apiPost("lead", lead).catch(() => {});
-  toast(L({ ko: "신청이 접수되었습니다! 24시간 내 연락드립니다.", en: "Received! We'll reach out within 24h.", zh: "已收到！24小时内联系您。", ja: "受付けました！24時間以内にご連絡します。" }));
+  toast(L({ ko: "신청이 접수되었습니다! 24시간 내 연락드립니다.", en: "Received! We'll reach out within 24h.", zh: "已收到！24小时内联系您。", "zh-Hant": "已收到！24小時內聯絡您。", ja: "受付けました！24時間以内にご連絡します。" }));
   const body = encodeURIComponent(`[CPPI]\n${f.get("name")} / ${f.get("phone")} / ${f.get("email")}\n${f.get("interest")} / ${f.get("region") || "-"}`);
   setTimeout(() => { location.href = `mailto:${CONTACT.mail}?subject=${encodeURIComponent("[CPPI] " + f.get("name"))}&body=${body}`; }, 900);
   e.target.reset();
@@ -1869,6 +1927,10 @@ function renderSheet() {
 function setLang(l) {
   LANG = l; localStorage.setItem("cppi_lang", l);
   document.documentElement.lang = l;
+  /* /curriculum <-> /en/curriculum - 언어에 맞춰 경로 접두어를 갱신 */
+  const { route, sub } = parseLoc();
+  const want = pathOf(route, sub);
+  if (location.pathname !== want) history.replaceState(null, "", want);
   document.querySelectorAll("#lang button").forEach(b => b.classList.toggle("on", b.dataset.l === l));
   renderTicker(); renderSheet(); render();
 }
@@ -1880,7 +1942,7 @@ document.addEventListener("click", e => {
 /* 설치 · SW */
 function installApp() {
   if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt = null; }
-  else toast(L({ ko: 'iPhone: 공유 → "홈 화면에 추가" · Android: 메뉴 → 앱 설치', en: 'iPhone: Share → "Add to Home Screen" · Android: Menu → Install', zh: 'iPhone：分享→添加到主屏幕 · Android：菜单→安装', ja: 'iPhone：共有→ホーム画面に追加 · Android：メニュー→インストール' }));
+  else toast(L({ ko: 'iPhone: 공유 → "홈 화면에 추가" · Android: 메뉴 → 앱 설치', en: 'iPhone: Share → "Add to Home Screen" · Android: Menu → Install', zh: 'iPhone：分享→添加到主屏幕 · Android：菜单→安装', "zh-Hant": 'iPhone：分享→新增到主螢幕 · Android：選單→安裝', ja: 'iPhone：共有→ホーム画面に追加 · Android：メニュー→インストール' }));
 }
 window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredPrompt = e; });
 if ("serviceWorker" in navigator) {
@@ -1888,6 +1950,11 @@ if ("serviceWorker" in navigator) {
 }
 
 /* ---------- 시작 ---------- */
+/* /#curriculum 으로 들어온 방문자를 /curriculum 으로 정규화 (히스토리 추가 없이) */
+if (location.hash) {
+  const _p = parseLoc();
+  history.replaceState(null, "", pathOf(_p.route, _p.sub));
+}
 setLang(LANG);
 bootServer(); // 서버(D1) 연결 확인 → 있으면 서버 세션/데이터 사용, 없으면 로컬
 
