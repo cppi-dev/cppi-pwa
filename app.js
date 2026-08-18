@@ -1093,7 +1093,6 @@ function curriculumFan() {
         </button>`;
       }).join("")}
     </div>
-    <div class="cfan-hint">${L({ ko: "표지를 선택하면 과목 상세로 이동합니다", en: "Select a cover to jump to the course", zh: "点击封面查看课程详情", ja: "表紙を選ぶと科目詳細へ移動します" })}</div>
   </div>`;
 }
 function goCurriculumItem(i) {
@@ -1206,9 +1205,30 @@ routes.workshop = () => `
 routes.learn = () => `
   <section>
     ${secHead("ONLINE LECTURES", L(UI.menu.learn), L({ ko: "과정을 선택하면 강의 목록이 표시됩니다.", en: "Choose a program to see its lectures.", zh: "选择课程查看列表。", ja: "課程を選ぶと講義一覧が表示されます。" }))}
-    <a class="card imgcard fit" href="#lecture/reg" style="display:block;margin-bottom:10px"><img src="img/curriculum_banner.jpg" alt=""><div class="cap"><b>${L({ ko: "정규과정 온라인 강의", en: "Certification Course Lectures", zh: "正规课程在线课程", ja: "正規課程オンライン講義" })}</b><span>${L({ ko: "8개 과목 · 등록자/수료자 전용 · 비회원 5분 하이라이트", en: "8 subjects · enrolled/graduates only · 5-min highlights for guests", zh: "8门科目 · 学员专享 · 访客5分钟精华", ja: "8科目 · 受講者限定 · 5分ハイライト" })}</span></div></a>
-    <a class="card imgcard" href="#lecture/spine" style="display:block;margin-bottom:10px"><img src="covers/spine.jpg" alt="" style="object-position:top"><div class="cap"><b>${L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine", zh: "脊柱普拉提方法", ja: "脊柱ピラティスアプローチ" })}</b><span>${L({ ko: "이론 1강 + 실기 2강 · 결제 후 시청", en: "1 theory + 2 practice · watch after purchase", zh: "理论1讲+实操2讲 · 购买后观看", ja: "理論1+実技2 · 購入後視聴" })}</span></div></a>
-    <a class="card imgcard" href="#lecture/mt" style="display:block;margin-bottom:10px"><img src="frame2.jpg" alt=""><div class="cap"><b>${L({ ko: "CPPI 필라테스 무브먼트 테라피", en: "CPPI Pilates Movement Therapy", zh: "CPPI运动治疗", ja: "CPPIムーブメントセラピー" })}</b><span>${L({ ko: "경추 · 견관절 · 척추 · 골반 - 결제 후 시청 · 수료증 온라인 발급", en: "Cervical · Shoulder · Spine · Pelvis - e-certificate issued", zh: "颈椎·肩·脊柱·骨盆 - 在线颁发证书", ja: "頸椎·肩·脊柱·骨盤 - 修了証発行" })}</span></div></a>
+    <div class="lect-grid">
+      <a class="lect-card" href="#lecture/reg">
+        <span class="lect-media"><img src="img/lect_reg.webp" alt="" loading="lazy"></span>
+        <span class="lect-body">
+          <b>${L({ ko: "정규과정 온라인 강의", en: "Certification Course Lectures", zh: "正规课程在线课程", ja: "正規課程オンライン講義" })}</b>
+          <span>${L({ ko: "8개 과목 · 등록자/수료자 전용 · 비회원 5분 하이라이트", en: "8 subjects · enrolled/graduates only · 5-min highlights for guests", zh: "8门科目 · 学员专享 · 访客5分钟精华", ja: "8科目 · 受講者限定 · 5分ハイライト" })}</span>
+        </span>
+      </a>
+      <a class="lect-card" href="#lecture/spine">
+        <span class="lect-media"><img src="img/lect_spine.webp" alt="" loading="lazy"></span>
+        <span class="lect-body">
+          <b>${L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine", zh: "脊柱普拉提方法", ja: "脊柱ピラティスアプローチ" })}</b>
+          <span>${L({ ko: "이론 1강 + 실기 2강 · 결제 후 시청", en: "1 theory + 2 practice · watch after purchase", zh: "理论1讲+实操2讲 · 购买后观看", ja: "理論1+実技2 · 購入後視聴" })}</span>
+        </span>
+      </a>
+      <a class="lect-card" href="#lecture/mt">
+        <span class="lect-media"><img src="img/lect_mt.webp" alt="" loading="lazy"></span>
+        <span class="lect-body">
+          <b>${L({ ko: "CPPI 필라테스 무브먼트 테라피", en: "CPPI Pilates Movement Therapy", zh: "CPPI运动治疗", ja: "CPPIムーブメントセラピー" })}</b>
+          <span>${L({ ko: "경추 · 견관절 · 척추 · 골반 - 결제 후 시청 · 수료증 온라인 발급", en: "Cervical · Shoulder · Spine · Pelvis - e-certificate issued", zh: "颈椎·肩·脊柱·骨盆 - 在线颁发证书", ja: "頸椎·肩·脊柱·骨盤 - 修了証発行" })}</span>
+        </span>
+      </a>
+    </div>
+    <div style="height:12px"></div>
     <a class="btn ghost" target="_blank" rel="noopener" href="${OFFICIAL_CHANNEL_URL}">${L(UI.btn.channel)}</a>
   </section>`;
 
@@ -1218,7 +1238,7 @@ routes.lecture = () => {
   if (sub === "spine") return `
   <section>${back}
     ${secHead("SPINE APPROACH", L({ ko: "척추 필라테스 어프로치", en: "Pilates Approach for Spine" }), L({ ko: "척추질환별 금지 동작과 추천 동작을 의학적 근거로 배우는 과정입니다.", en: "Contraindicated and recommended movements by spinal condition, on medical evidence." }))}
-    <img src="covers/spine.jpg" alt="" style="border-radius:14px;margin-bottom:12px;max-height:300px;object-fit:cover;object-position:top;width:100%">
+    <img src="img/lect_spine.webp" alt="" style="border-radius:14px;margin-bottom:12px;aspect-ratio:16/9;object-fit:cover;width:100%">
     ${LECT_SPINE.map((v, i) => { const ok = hasAccess("lecture-spine", 0); return `<div class="vrow" onclick="openLecture('lecture-spine',0,${JSON.stringify(esc(L(v.t)))})" style="cursor:pointer">
       <div class="th" style="font-weight:800;font-size:15px">${ok ? "▶" : i + 1}</div>
       <div class="tx"><h4>${esc(L(v.t))}</h4><div class="m">${ok ? L({ ko: "지금 시청하기", en: "Watch now", zh: "立即观看", ja: "今すぐ視聴" }) : L({ ko: "구매 후 시청", en: "Watch after purchase", zh: "购买后观看", ja: "購入後視聴" })}</div></div>

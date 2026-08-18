@@ -580,14 +580,14 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
    그 카드의 클릭 영역이 되도록 한다 (절대배치 시 앞 카드가 뒤 카드의
    클릭을 가로채던 문제 해결).
 ============================================================ */
-.cfan{position:relative; margin:6px 0 22px; padding:10px 0 48px}
-.cfan-stage{display:flex; justify-content:center; align-items:flex-end;
-  perspective:1500px; padding:26px 10px 10px; overflow-x:auto; overflow-y:hidden;
+.cfan{position:relative; margin:6px 0 22px; padding:10px 0 30px}
+.cfan-stage{display:flex; justify-content:center; align-items:flex-end; min-height:330px;
+  perspective:1500px; padding:56px 10px 26px; overflow-x:auto; overflow-y:hidden;
   scrollbar-width:none; -ms-overflow-style:none}
 .cfan-stage::-webkit-scrollbar{display:none}
 .cfan-card{flex:0 0 auto; width:150px; margin-left:-62px; padding:0; background:none; border:0;
   cursor:pointer; position:relative; transform-origin:bottom center;
-  transform:rotateY(-24deg) translateY(calc(var(--i) * -6px));
+  transform:rotateY(-24deg) translateY(calc(var(--i) * -4px));
   transition:transform .55s var(--ease-out), filter .45s var(--ease-std);
   filter:drop-shadow(0 18px 26px rgba(90,45,20,.26));
   z-index:var(--i);
@@ -600,23 +600,57 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
   transition:opacity .35s var(--ease-std), transform .35s var(--ease-out)}
 .cfan-card .cfan-label i{font-style:normal; color:var(--pri); font-size:10.5px; letter-spacing:.12em}
 .cfan-card:hover, .cfan-card:focus-visible{
-  transform:rotateY(-8deg) translateY(calc(var(--i) * -6px - 16px)) scale(1.06);
+  transform:rotateY(-8deg) translateY(calc(var(--i) * -4px - 14px)) scale(1.05);
   filter:drop-shadow(0 30px 42px rgba(90,45,20,.36)); z-index:40; outline:none}
 .cfan-card:hover .cfan-label, .cfan-card:focus-visible .cfan-label{opacity:1; transform:translateX(-50%) translateY(0)}
 .cfan-hint{margin-top:10px; text-align:center; font-size:11.5px; letter-spacing:.06em; color:var(--ink2)}
 /* 선택한 과목 카드로 이동했을 때 잠깐 강조 */
 .curriculum-list .card.is-hit{box-shadow:0 0 0 2px var(--pri), var(--sh); transition:box-shadow .4s var(--ease-std)}
 @media(min-width:1024px){
-  .cfan{padding:22px 0 62px}
-  .cfan-stage{perspective:2000px; padding:34px 20px 14px}
-  .cfan-card{width:214px; margin-left:-86px; transform:rotateY(-24deg) translateY(calc(var(--i) * -9px))}
+  .cfan{padding:26px 0 40px}
+  .cfan-stage{perspective:2000px; padding:96px 24px 40px; min-height:520px}
+  .cfan-card{width:214px; margin-left:-86px; transform:rotateY(-24deg) translateY(calc(var(--i) * -6px))}
   .cfan-card:hover, .cfan-card:focus-visible{
-    transform:rotateY(-8deg) translateY(calc(var(--i) * -9px - 22px)) scale(1.07)}
+    transform:rotateY(-8deg) translateY(calc(var(--i) * -6px - 18px)) scale(1.06)}
   .cfan-card .cfan-label{font-size:13.5px; bottom:-34px}
   .cfan-hint{font-size:12.5px; margin-top:14px}
 }
 @media(prefers-reduced-motion:reduce){
   .cfan-card{transition:none}
+}
+
+/* ---------- 교과목 안내 목록 - 본문 대비 1.3배 ---------- */
+.curriculum-list .card b{font-size:19.5px !important; line-height:1.35}
+.curriculum-list .card > div > div > div{font-size:17px !important}
+.curriculum-list .card p{font-size:17px !important; line-height:1.85}
+.curriculum-list .card .btn.small{font-size:16px; padding:11px 16px}
+@media(min-width:1024px){
+  .curriculum-list .card b{font-size:22px !important}
+  .curriculum-list .card > div > div > div{font-size:18px !important}
+  .curriculum-list .card p{font-size:18px !important}
+}
+
+/* ---------- 온라인 강의 목록 - 3종 카드 동일 비율/높이 ---------- */
+.lect-grid{display:grid; grid-template-columns:1fr; gap:12px}
+.lect-card{display:block; text-decoration:none; background:var(--card); border:1px solid var(--line);
+  border-radius:var(--rad); box-shadow:var(--sh); overflow:hidden;
+  transition:transform .38s var(--ease-out), box-shadow .38s var(--ease-out)}
+.lect-card:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(120,60,20,.14)}
+.lect-media{display:block; width:100%; aspect-ratio:16/9; overflow:hidden; background:#EDE4D8}
+.lect-media img{width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .9s var(--ease-soft)}
+.lect-card:hover .lect-media img{transform:scale(1.04)}
+.lect-body{display:block; padding:14px 16px 16px}
+.lect-body b{display:block; font-size:16px; font-weight:800; letter-spacing:-.02em; color:var(--ink)}
+.lect-body span{display:block; margin-top:5px; font-size:13px; line-height:1.6; color:var(--ink2)}
+@media(min-width:768px){
+  .lect-grid{grid-template-columns:repeat(3,1fr); gap:18px}
+}
+@media(min-width:1024px){
+  .lect-grid{gap:24px}
+  .lect-body{padding:20px 22px 24px}
+  .lect-body b{font-size:19px}
+  .lect-body span{font-size:14px}
 }
 
 /* ---------- 강의 플레이어 (인앱 재생) ---------- */
