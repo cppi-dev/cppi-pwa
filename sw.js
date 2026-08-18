@@ -1,5 +1,5 @@
 /* CPPI PWA Service Worker v4 — 전체 오프라인 캐싱 */
-const CACHE = "cppi-v15";
+const CACHE = "cppi-v16";
 
 /* 교재 미리보기 전체 (9권 × 13p) */
 const BOOK_SLUGS = ["anatomy", "principle", "mat", "reformer", "cadillac", "chair", "lbarrel", "abarrel", "scorrector"];
@@ -52,6 +52,25 @@ self.addEventListener("fetch", e => {
     return;
   }
 
+  /* 화면을 구성하는 파일(HTML·JS·CSS·JSON)은 네트워크 우선.
+     캐시를 먼저 주면 배포 직후 첫 접속에서 예전 화면이 뜨고,
+     새로고침해야 최신이 보이는 문제가 생긴다. 오프라인일 때만 캐시로 대체한다. */
+  const isShell = e.request.mode === "navigate"
+    || /\.(?:js|css|json|webmanifest)$/.test(url.pathname)
+    || url.pathname === "/" || url.pathname.endsWith(".html");
+
+  if (isShell) {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        const cp = res.clone();
+        caches.open(CACHE).then(c => c.put(e.request, cp));
+        return res;
+      }).catch(() => caches.match(e.request).then(hit => hit || caches.match("./index.html")))
+    );
+    return;
+  }
+
+  /* 이미지·영상·폰트 등은 잘 바뀌지 않으므로 캐시 우선(빠른 표시) + 뒤에서 갱신 */
   e.respondWith(
     caches.match(e.request).then(hit => {
       const net = fetch(e.request).then(res => {
