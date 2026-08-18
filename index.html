@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- 경로 라우팅(/en/about 등)에서 상대경로 자산이 /en/app.js, /en/img/... 로 잘못 해석되어
+     스크립트·이미지·영상이 전부 404 나던 문제를 한 번에 해결한다.
+     이 태그가 없으면 한국어 루트(/) 외의 모든 언어에서 화면이 깨진다. -->
+<base href="/">
 <title>CPPI 한국 필라테스 교육협회 | 재활 기반 국제 필라테스 강사 자격과정</title>
 <meta name="description" content="CPPI 한국 필라테스 교육협회 - 기능해부학 기반 · 티칭실습 중심 · 교정재활 국제 필라테스 강사 자격과정. 온라인 강의 · 워크숍 · 정규과정 · 교재 미리보기.">
 <meta name="theme-color" content="#F15A22">
@@ -892,7 +896,7 @@ footer .sns a img{width:22px; height:22px; object-fit:contain}
     <a href="#home" aria-label="CPPI 홈"><img class="logo" src="logo_header.png" alt="CPPI 한국 필라테스 교육협회"></a>
     <div class="hr">
       <div class="langbox" id="lang">
-        <button data-l="ko" class="on">한</button><button data-l="en">EN</button><button data-l="zh">简</button><button data-l="zh-Hant">繁</button><button data-l="ja">日</button>
+        <button data-l="ko" class="on">한</button><button data-l="en">EN</button><button data-l="ja">日</button><button data-l="zh">简</button><button data-l="zh-Hant">繁</button>
       </div>
       <button class="iconbtn" id="btnUser" onclick="go(APP.session?'my':'login')" aria-label="내 계정">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>

@@ -32,7 +32,7 @@ const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","
 const PATH_LANG = { en: "en", ja: "ja", zh: "zh", "zh-hant": "zh-Hant" };
 /* 언어 코드 -> URL 세그먼트 (번체는 소문자 경로 /zh-hant/ 를 쓴다) */
 const LANG_SEG = { ko: "", en: "en", ja: "ja", zh: "zh", "zh-Hant": "zh-hant" };
-const APP_LANG_LIST = ["ko", "en", "zh", "zh-Hant", "ja"];
+const APP_LANG_LIST = ["ko", "en", "ja", "zh", "zh-Hant"];
 
 function parseLoc() {
   const segs = location.pathname.split("/").filter(Boolean);
