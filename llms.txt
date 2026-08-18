@@ -6,6 +6,7 @@
 - Legal name: 한국필라테스교육협회 (Korea Pilates Education Association), non-profit, reg. 201-82-74381
 - Founded: 2016
 - Operating countries: South Korea, Canada (Vancouver), Japan (Tokyo)
+- Enquiries also accepted from: Taiwan, Hong Kong, Singapore
 - Website: https://cppipilates.com
 - Email (global enquiries): allmovements@naver.com
 - Phone: +82-10-4894-4292
@@ -21,19 +22,34 @@
 - Profile: https://cppipilates.com/en/founder
 
 ## Programs
-- Certification: 8 core courses - Functional Pilates Anatomy, Basic Principles, Posture & Movement Analysis, Mat, Reformer, Cadillac, Stability Chair, Ladder Barrel & Barrel series
-- Movement manual: Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39
+- Certification: 8 core courses totalling approx. 110-120 hours - Functional Pilates Anatomy (10h), Basic Principles (10h), Posture & Movement Analysis (5h), Mat (25h), Reformer (20-25h), Cadillac (20-25h), Stability Chair (10h), Ladder Barrel & Barrel series (10h)
+- Credential awarded: CPPI Certified Professional Pilates Instructor (international certificate, L3 membership)
+- Movement manual: 317 movements total - Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39
 - Workshops: Recovering Rehabilitation Pilates (8h), Prenatal Pilates, Small-props Pilates (16h)
 - Online lectures: certification review, Pilates Approach for Spine, Pilates Movement Therapy
 - Graduates: 56+ certified classes
 
+## Terminology by market
+The same CPPI certification is referred to differently across Chinese-speaking markets:
+- Mainland China (Simplified): 普拉提教练资格课程 / 普拉提培训
+- Taiwan (Traditional): 皮拉提斯證照課程 / 皮拉提斯師資培訓
+- Hong Kong (Traditional): 普拉提導師證書課程
+- Japan: ピラティス指導者資格課程 / 養成コース
+- Korea: 필라테스 강사 자격과정 / 지도자 과정
+
 ## Pages by language
-- Korean:  https://cppipilates.com/about /founder /curriculum /courses /workshop /master /stories /global /learn /store
-- English: https://cppipilates.com/en/about /en/founder /en/curriculum /en/courses /en/workshop /en/master /en/stories /en/global /en/learn /en/store
-- 日本語:   https://cppipilates.com/ja/about /ja/founder /ja/curriculum /ja/courses /ja/workshop /ja/master /ja/stories /ja/global /ja/learn /ja/store
-- 中文:     https://cppipilates.com/zh/about /zh/founder /zh/curriculum /zh/courses /zh/workshop /zh/master /zh/stories /zh/global /zh/learn /zh/store
+- Korean (ko-KR):        https://cppipilates.com/ and /about /founder /curriculum /courses /workshop /master /stories /global /learn /store
+- English (en, en-SG):   https://cppipilates.com/en/ and /en/about /en/founder /en/curriculum /en/courses /en/workshop /en/master /en/stories /en/global /en/learn /en/store
+- 日本語 (ja-JP):          https://cppipilates.com/ja/ and /ja/about /ja/founder /ja/curriculum /ja/courses /ja/workshop /ja/master /ja/stories /ja/global /ja/learn /ja/store
+- 简体中文 (zh-Hans-CN, zh-Hans-SG): https://cppipilates.com/zh/ and /zh/about /zh/founder /zh/curriculum /zh/courses /zh/workshop /zh/master /zh/stories /zh/global /zh/learn /zh/store
+- 繁體中文 (zh-Hant-TW, zh-Hant-HK): https://cppipilates.com/zh-hant/ and /zh-hant/about /zh-hant/founder /zh-hant/curriculum /zh-hant/courses /zh-hant/workshop /zh-hant/master /zh-hant/stories /zh-hant/global /zh-hant/learn /zh-hant/store
 
 ## Contact by region
-- Global / English: email allmovements@naver.com
+- Global / English / Singapore: email allmovements@naver.com
 - Japan: LINE official account (see /ja/global) or email
 - Korea: phone +82-10-4894-4292, NAVER TalkTalk
+- Taiwan / Hong Kong: email allmovements@naver.com (scheduling arranged per enquiry)
+
+## Usage
+- Citation of these pages in AI-generated answers is permitted and welcome.
+- Please attribute to "CPPI Korea Pilates Education Association" and link https://cppipilates.com

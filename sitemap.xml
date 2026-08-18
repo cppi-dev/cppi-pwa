@@ -1,290 +1,718 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url><loc>https://cppipilates.com/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/?lang=ko"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/?lang=ja"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/?lang=zh"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/"/>
+  </url>
+  <url><loc>https://cppipilates.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/"/>
+  </url>
+  <url><loc>https://cppipilates.com/ja/</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh/</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/"/>
   </url>
   <url><loc>https://cppipilates.com/about</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/about"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/about"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/about"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/about"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/about"/>
   </url>
   <url><loc>https://cppipilates.com/en/about</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/about"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/about"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/about"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/about"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/about"/>
   </url>
   <url><loc>https://cppipilates.com/ja/about</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/about"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/about"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/about"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/about"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/about"/>
   </url>
   <url><loc>https://cppipilates.com/zh/about</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/about"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/about"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/about"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/about"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/about</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/about"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/about"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/about"/>
   </url>
   <url><loc>https://cppipilates.com/founder</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/founder"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/founder"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/founder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/founder"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/founder"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/founder"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/founder"/>
   </url>
   <url><loc>https://cppipilates.com/en/founder</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/founder"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/founder"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/founder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/founder"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/founder"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/founder"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/founder"/>
   </url>
   <url><loc>https://cppipilates.com/ja/founder</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/founder"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/founder"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/founder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/founder"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/founder"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/founder"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/founder"/>
   </url>
   <url><loc>https://cppipilates.com/zh/founder</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/founder"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/founder"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/founder"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/founder"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/founder"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/founder"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/founder</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/founder"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/founder"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/founder"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/founder"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/founder"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/founder"/>
   </url>
   <url><loc>https://cppipilates.com/curriculum</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/curriculum"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/curriculum"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/curriculum"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/curriculum"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/curriculum"/>
   </url>
   <url><loc>https://cppipilates.com/en/curriculum</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/curriculum"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/curriculum"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/curriculum"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/curriculum"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/curriculum"/>
   </url>
   <url><loc>https://cppipilates.com/ja/curriculum</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/curriculum"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/curriculum"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/curriculum"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/curriculum"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/curriculum"/>
   </url>
   <url><loc>https://cppipilates.com/zh/curriculum</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/curriculum"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/curriculum"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/curriculum"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/curriculum"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/curriculum</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/curriculum"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/curriculum"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/curriculum"/>
   </url>
   <url><loc>https://cppipilates.com/courses</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/courses"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/courses"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/courses"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/courses"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/courses"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/courses"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/courses"/>
   </url>
   <url><loc>https://cppipilates.com/en/courses</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/courses"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/courses"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/courses"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/courses"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/courses"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/courses"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/courses"/>
   </url>
   <url><loc>https://cppipilates.com/ja/courses</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/courses"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/courses"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/courses"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/courses"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/courses"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/courses"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/courses"/>
   </url>
   <url><loc>https://cppipilates.com/zh/courses</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/courses"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/courses"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/courses"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/courses"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/courses"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/courses"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/courses</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/courses"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/courses"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/courses"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/courses"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/courses"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/courses"/>
   </url>
   <url><loc>https://cppipilates.com/workshop</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/workshop"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/workshop"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/workshop"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/workshop"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/workshop"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/workshop"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/workshop"/>
   </url>
   <url><loc>https://cppipilates.com/en/workshop</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/workshop"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/workshop"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/workshop"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/workshop"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/workshop"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/workshop"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/workshop"/>
   </url>
   <url><loc>https://cppipilates.com/ja/workshop</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/workshop"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/workshop"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/workshop"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/workshop"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/workshop"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/workshop"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/workshop"/>
   </url>
   <url><loc>https://cppipilates.com/zh/workshop</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/workshop"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/workshop"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/workshop"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/workshop"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/workshop"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/workshop"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/workshop</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/workshop"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/workshop"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/workshop"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/workshop"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/workshop"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/workshop"/>
   </url>
   <url><loc>https://cppipilates.com/master</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/master"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/master"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/master"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/master"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/master"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/master"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/master"/>
   </url>
   <url><loc>https://cppipilates.com/en/master</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/master"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/master"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/master"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/master"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/master"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/master"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/master"/>
   </url>
   <url><loc>https://cppipilates.com/ja/master</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/master"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/master"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/master"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/master"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/master"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/master"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/master"/>
   </url>
   <url><loc>https://cppipilates.com/zh/master</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/master"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/master"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/master"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/master"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/master"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/master"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/master</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/master"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/master"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/master"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/master"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/master"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/master"/>
   </url>
   <url><loc>https://cppipilates.com/stories</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/stories"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/stories"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/stories"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/stories"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/stories"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/stories"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/stories"/>
   </url>
   <url><loc>https://cppipilates.com/en/stories</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/stories"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/stories"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/stories"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/stories"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/stories"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/stories"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/stories"/>
   </url>
   <url><loc>https://cppipilates.com/ja/stories</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/stories"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/stories"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/stories"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/stories"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/stories"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/stories"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/stories"/>
   </url>
   <url><loc>https://cppipilates.com/zh/stories</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/stories"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/stories"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/stories"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/stories"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/stories"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/stories"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/stories</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/stories"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/stories"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/stories"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/stories"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/stories"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/stories"/>
   </url>
   <url><loc>https://cppipilates.com/global</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/global"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/global"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/global"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/global"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/global"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/global"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/global"/>
   </url>
   <url><loc>https://cppipilates.com/en/global</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/global"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/global"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/global"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/global"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/global"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/global"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/global"/>
   </url>
   <url><loc>https://cppipilates.com/ja/global</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/global"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/global"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/global"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/global"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/global"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/global"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/global"/>
   </url>
   <url><loc>https://cppipilates.com/zh/global</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/global"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/global"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/global"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/global"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/global"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/global"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/global</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/global"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/global"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/global"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/global"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/global"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/global"/>
   </url>
   <url><loc>https://cppipilates.com/learn</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/learn"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/learn"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/learn"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/learn"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/learn"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/learn"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/learn"/>
   </url>
   <url><loc>https://cppipilates.com/en/learn</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/learn"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/learn"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/learn"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/learn"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/learn"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/learn"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/learn"/>
   </url>
   <url><loc>https://cppipilates.com/ja/learn</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/learn"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/learn"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/learn"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/learn"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/learn"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/learn"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/learn"/>
   </url>
   <url><loc>https://cppipilates.com/zh/learn</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/learn"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/learn"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/learn"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/learn"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/learn"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/learn"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/learn</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/learn"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/learn"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/learn"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/learn"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/learn"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/learn"/>
   </url>
   <url><loc>https://cppipilates.com/store</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/store"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/store"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/store"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/store"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/store"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/store"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/store"/>
   </url>
   <url><loc>https://cppipilates.com/en/store</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/store"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/store"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/store"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/store"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/store"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/store"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/store"/>
   </url>
   <url><loc>https://cppipilates.com/ja/store</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/store"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/store"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/store"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/store"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/store"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/store"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/store"/>
   </url>
   <url><loc>https://cppipilates.com/zh/store</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://cppipilates.com/store"/>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/store"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/store"/>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://cppipilates.com/ja/store"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/store"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/store"/>
+  </url>
+  <url><loc>https://cppipilates.com/zh-hant/store</loc>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://cppipilates.com/store"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cppipilates.com/en/store"/>
+    <xhtml:link rel="alternate" hreflang="en-SG" href="https://cppipilates.com/en/store"/>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://cppipilates.com/ja/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-CN" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans-SG" href="https://cppipilates.com/zh/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-TW" href="https://cppipilates.com/zh-hant/store"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant-HK" href="https://cppipilates.com/zh-hant/store"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://cppipilates.com/en/store"/>
   </url>
 </urlset>

@@ -2,6 +2,7 @@
   "version": 1,
   "include": [
     "/api/*",
+    "/sitemap.xml",
     "/about",
     "/founder",
     "/curriculum",
@@ -12,6 +13,7 @@
     "/global",
     "/learn",
     "/store",
+    "/en/",
     "/en/about",
     "/en/founder",
     "/en/curriculum",
@@ -22,6 +24,7 @@
     "/en/global",
     "/en/learn",
     "/en/store",
+    "/ja/",
     "/ja/about",
     "/ja/founder",
     "/ja/curriculum",
@@ -32,6 +35,7 @@
     "/ja/global",
     "/ja/learn",
     "/ja/store",
+    "/zh/",
     "/zh/about",
     "/zh/founder",
     "/zh/curriculum",
@@ -41,7 +45,18 @@
     "/zh/stories",
     "/zh/global",
     "/zh/learn",
-    "/zh/store"
+    "/zh/store",
+    "/zh-hant/",
+    "/zh-hant/about",
+    "/zh-hant/founder",
+    "/zh-hant/curriculum",
+    "/zh-hant/courses",
+    "/zh-hant/workshop",
+    "/zh-hant/master",
+    "/zh-hant/stories",
+    "/zh-hant/global",
+    "/zh-hant/learn",
+    "/zh-hant/store"
   ],
   "exclude": []
 }
