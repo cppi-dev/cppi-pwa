@@ -285,6 +285,36 @@ function closeSheet() { $("#sheet").classList.remove("open"); }
 const routes = {};
 function go(h) { location.hash = h; }
 window.addEventListener("hashchange", render);
+
+/* 탭 이동 시 이전 스크롤 위치가 복원되어 페이지 중간(수료증 이미지 등)부터 보이던 문제.
+   브라우저가 히스토리 항목마다 스크롤 위치를 자동 복원하는데, 그 복원이 render()의
+   scrollTo(0) 이후에 비동기로 일어나 맨 위로 올린 것을 다시 끌어내렸다.
+   1) 자동 복원을 끄고, 2) 레이아웃이 확정되는 시점마다 맨 위를 재확인한다.
+      (ScrollTrigger.refresh 가 700ms 뒤에도 한 번 더 돌기 때문에 그 뒤까지 확인) */
+try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
+
+let _stopTopGuard = null;
+function scrollToTopHard() {
+  const top = () => { if (_lenis) _lenis.scrollTo(0, { immediate: true }); else window.scrollTo(0, 0); };
+  top();
+  if (_stopTopGuard) _stopTopGuard();
+  let alive = true;
+  /* 사용자가 스스로 스크롤하면 즉시 손을 뗀다 */
+  const release = () => { alive = false; cleanup(); };
+  const cleanup = () => {
+    window.removeEventListener("wheel", release);
+    window.removeEventListener("touchstart", release);
+    window.removeEventListener("keydown", release);
+    _stopTopGuard = null;
+  };
+  window.addEventListener("wheel", release, { passive: true, once: true });
+  window.addEventListener("touchstart", release, { passive: true, once: true });
+  window.addEventListener("keydown", release, { once: true });
+  _stopTopGuard = release;
+  requestAnimationFrame(() => { if (alive) top(); });
+  [60, 200, 800].forEach(ms => setTimeout(() => { if (alive) top(); }, ms));
+  setTimeout(cleanup, 900);
+}
 function currentRoute() { return (location.hash || "#home").replace("#", "").split("/")[0]; }
 function subRoute() { return (location.hash || "").split("/")[1] || ""; }
 /* ---------- Renewal v1: 라우트별 SEO 메타 (GEO/SEO 보강, 해시라우팅 한계 내 최선) ---------- */
@@ -323,7 +353,7 @@ function render() {
     a.textContent = L(UI.tabs[a.dataset.tab]);
     a.classList.toggle("on", a.dataset.tab === (tabMap[r] || ""));
   });
-  if (_lenis) _lenis.scrollTo(0, { immediate: true }); else window.scrollTo({ top: 0 });
+  scrollToTopHard();
   closeSheet();
   initHeroReel();
   if (SERVER && r === "my" && me()) loadMyOrders();
