@@ -183,6 +183,29 @@ p.lead{color:var(--ink2); font-size:14.5px; margin-bottom:14px}
 .curtop b{color:#fff; font-size:16.5px; line-height:1.3}
 .curtop a{color:#5A3410; font-size:13px; font-weight:800; text-decoration:none; white-space:nowrap; background:rgba(255,255,255,.6); padding:6px 12px; border-radius:16px}
 .curgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:12px}
+/* ---------- 2단 레이아웃 (상담폼 + 위치카드 / 로그인 + 상담폼) ----------
+   모바일은 세로 1단, 데스크톱(900px+)에서만 2단으로 나눈다. */
+.twocol{display:grid; grid-template-columns:1fr; gap:18px}
+@media(min-width:900px){ .twocol{grid-template-columns:1fr 1fr; gap:26px; align-items:start} }
+
+/* HQ 위치 카드 · 네이버 지도 */
+.hqbox{position:sticky; top:12px}
+.hqmap{width:100%; height:260px; border-radius:12px; margin:14px 0 12px; background:#F3EAE3; border:1px solid var(--line)}
+.hqmap.nokey{display:flex; align-items:center; justify-content:center;
+  background:url("/img/global_map.jpg") center/cover no-repeat; position:relative}
+.hqmap.nokey::after{content:"NAVER PLACE"; position:absolute; inset:0; display:flex; align-items:center;
+  justify-content:center; background:rgba(36,28,24,.45); color:#fff; font-size:12.5px; letter-spacing:.14em; font-weight:800; border-radius:12px}
+.hqinfo{font-size:13.5px; color:var(--ink2); line-height:1.9}
+.hqinfo > div{display:flex; gap:10px}
+.hqinfo span{flex:0 0 42px; color:var(--pri); font-weight:800; font-size:12px}
+.hqinfo a{color:var(--ink2)}
+
+/* 관리자 - 뉴스레터 작성 */
+.nl-editor textarea{width:100%; min-height:240px; font-family:inherit; font-size:14px; line-height:1.8;
+  padding:12px; border:1px solid var(--line); border-radius:12px; background:#fff; resize:vertical}
+.nl-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+.nl-list .admin-row .who span{font-size:12px}
+
 /* About/Founder 인트로 - 기본(모바일)에서는 카드형 .monly 만 노출한다.
    .dsplit 의 display:none 이 데스크톱 미디어쿼리 안에만 있어서 모바일에는 아무 규칙도
    적용되지 않았고, 기본값 block 으로 떠서 제목·사진·문구가 두 번 나왔다.

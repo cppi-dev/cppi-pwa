@@ -26,3 +26,26 @@ CREATE TABLE IF NOT EXISTS leads (
   birth TEXT, region TEXT, interest TEXT,
   news INTEGER, at TEXT
 );
+
+-- 뉴스레터 발행분 (관리자 페이지에서 작성 · 발송)
+CREATE TABLE IF NOT EXISTS newsletters (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  subject TEXT,          -- 제목
+  bodyHtml TEXT,         -- 본문(HTML)
+  status TEXT,           -- draft | sent
+  sentAt TEXT,           -- 발송 시각
+  sentCount INTEGER DEFAULT 0,
+  createdAt TEXT
+);
+
+-- 뉴스레터 수신 동의자 (회원가입 · 상담신청 · 직접 구독을 한 곳에 모은다)
+CREATE TABLE IF NOT EXISTS subscribers (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT UNIQUE,
+  name TEXT,
+  source TEXT,           -- lead | signup | manual
+  unsubToken TEXT,       -- 수신거부 링크용 토큰 (정보통신망법 필수)
+  status TEXT DEFAULT 'active',   -- active | unsub
+  at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_subs_status ON subscribers(status);

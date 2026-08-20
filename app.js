@@ -2,7 +2,7 @@
    CPPI PWA - 앱 로직 v4 (오렌지 아이덴티티 · 한/영/중/일)
    - 문구 수정: L({ko,en,zh,ja}) 사전에서
    - 영상 등록: LECTURES 의 yt 에 공식 채널 영상 ID만
-   - 관리자: 주소 뒤 #admin (비밀번호 ADMIN_PASS)
+   - 관리자: /admin (비밀번호는 Cloudflare 환경변수 ADMIN_PASS 로 서버에서 검증)
    ============================================================ */
 
 /* ---------- 0) 상수 ---------- */
@@ -13,7 +13,10 @@ const CONTACT = { tel: "010-4894-4292", telIntl: "+82-10-4894-4292", mail: "allm
 const BANK = { name: "우리은행", num: "1002-836-066783", holder: "김형석 (씨앤티파트너스 C&T Partners)" };
 const SELLER = "씨앤티파트너스 (C&T Partners) · 842-09-02365";
 const PG = { naver: "", kakao: "" }; // 간편결제 링크 - 연동 후 입력, 비어 있으면 계좌이체 안내
-const ADMIN_PASS = "cppi-4292";
+/* 관리자 비밀번호는 소스에 두지 않는다.
+   서버(Cloudflare 환경변수 ADMIN_PASS)가 검증하고, 입력값은 이 탭의 세션에만 잠시 보관한다.
+   탭을 닫으면 사라지며, 새로고침해도 다시 입력할 필요는 없다. */
+const adminPw = () => sessionStorage.getItem("cppi_adminpw") || "";
 const NAVER_TALK = "https://talk.naver.com/profile/c/cppi"; // 네이버 톡톡 상담
 /* 히어로 영상: 접속 시마다 랜덤 재생 */
 const HEROS = ["hero1.mp4", "hero2.mp4", "hero3.mp4"];
@@ -417,6 +420,8 @@ function render() {
   if (SERVER && r === "my" && me()) loadMyOrders();
   if (SERVER && me() && (r === "learn" || r === "lecture")) loadEntitlements().then(() => { if (currentRoute() === r) $("#view").innerHTML = (routes[r] || routes.home)(); });
   requestAnimationFrame(() => requestAnimationFrame(initDesktopFX));
+  initHqMap();
+  if (r === "admin" && sessionStorage.getItem("cppi_admin") === "1") nlRefresh();
 }
 
 /* ---------- Renewal v2: 데스크톱 스크롤 연출 (1024px+, GSAP 없으면 조용히 무시) ----------
@@ -1549,34 +1554,115 @@ routes.members = () => `
     <div class="note">"Patience and persistence are vital qualities in the ultimate successful accomplishment of any worthwhile endeavor." - Joseph Pilates<br>${L({ ko: "명단 등재 · 수정 요청", en: "Listing requests", zh: "名单登载·修改申请", "zh-Hant": "名單登載·修改申請", ja: "掲載·修正依頼" })}: ${CONTACT.mail}</div>
   </section>`;
 
+/* ============================================================
+   HQ 위치 정보 · 네이버 지도
+   NAVER_MAP_KEY 는 네이버 클라우드 플랫폼에서 발급하는 공개용 클라이언트 키다.
+   (도메인 제한이 걸리므로 소스에 노출되어도 무방하다)
+   키가 비어 있으면 지도는 뜨지 않고 위치 카드와 길찾기 버튼만 표시된다.
+   ※ HQ.lat/lng 는 개략 좌표다. 키 발급 후 실제 위치로 미세 조정할 것.
+   ============================================================ */
+const NAVER_MAP_KEY = "";   // ← 발급 후 여기에 Client ID 입력
+const HQ = {
+  name: { ko: "CPPI 한국 필라테스교육협회 HQ", en: "CPPI Korea HQ", ja: "CPPI 韓国ピラティス教育協会 HQ",
+          zh: "CPPI 韩国普拉提教育协会 HQ", "zh-Hant": "CPPI 韓國皮拉提斯教育協會 HQ" },
+  sub: { ko: "필라티크 운동연구소", en: "Pilatique Movement Lab", ja: "ピラティーク運動研究所",
+         zh: "Pilatique 运动研究所", "zh-Hant": "Pilatique 運動研究所" },
+  addr: "서울 성동구 상원1길 25 4181호",
+  addrEn: "25 Sangwon 1-gil, Seongdong-gu, Seoul, Korea",
+  metro: { ko: "뚝섬역 6번 출구에서 125m", en: "125m from Ttukseom Stn. Exit 6", ja: "トゥクソム駅6番出口から125m",
+           zh: "纛岛站6号出口125m", "zh-Hant": "纛島站6號出口125m" },
+  hours: { ko: "운영 10:00 - 22:00", en: "Open 10:00 - 22:00", ja: "営業 10:00 - 22:00",
+           zh: "营业 10:00 - 22:00", "zh-Hant": "營業 10:00 - 22:00" },
+  tel: "0507-1410-4282",
+  place: "https://naver.me/GvWKyUC2",
+  lat: 37.5449, lng: 127.0559,
+};
+
+function hqMapBlock() {
+  return `
+  <div class="card hqbox">
+    <div class="eyebrow" style="margin-bottom:8px">LOCATION</div>
+    <b style="font-size:16px">${esc(L(HQ.name))}</b>
+    <div style="font-size:13px;color:var(--ink2);margin-top:2px">${esc(L(HQ.sub))}</div>
+    <div id="hqmap" class="hqmap"></div>
+    <div class="hqinfo">
+      <div><span>주소</span>${esc(LANG === "ko" ? HQ.addr : HQ.addrEn)}</div>
+      <div><span>교통</span>${esc(L(HQ.metro))}</div>
+      <div><span>시간</span>${esc(L(HQ.hours))}</div>
+      <div><span>전화</span><a href="tel:${HQ.tel}">${HQ.tel}</a></div>
+    </div>
+    <div class="grid2" style="margin-top:12px">
+      <a class="btn ghost" href="${HQ.place}" target="_blank" rel="noopener">${L({ ko: "네이버지도에서 보기", en: "View on NAVER Map", ja: "NAVERマップで見る", zh: "在NAVER地图查看", "zh-Hant": "在 NAVER 地圖查看" })}</a>
+      <a class="btn ghost" href="${HQ.place}" target="_blank" rel="noopener">${L({ ko: "길찾기", en: "Directions", ja: "経路案内", zh: "路线导航", "zh-Hant": "路線導航" })}</a>
+    </div>
+  </div>`;
+}
+
+/* 지도 렌더 - 키가 있을 때만 네이버 지도 스크립트를 불러온다 */
+function initHqMap() {
+  const el = document.getElementById("hqmap");
+  if (!el) return;
+  if (!NAVER_MAP_KEY) { el.classList.add("nokey"); el.textContent = ""; return; }
+  const draw = () => {
+    if (!window.naver || !naver.maps) return;
+    const pos = new naver.maps.LatLng(HQ.lat, HQ.lng);
+    const map = new naver.maps.Map(el, { center: pos, zoom: 16, scrollWheel: false });
+    new naver.maps.Marker({ position: pos, map, title: L(HQ.name) });
+  };
+  if (window.naver && window.naver.maps) return draw();
+  if (document.getElementById("navermapjs")) return;
+  const sc = document.createElement("script");
+  sc.id = "navermapjs";
+  sc.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_MAP_KEY}`;
+  sc.onload = draw;
+  document.head.appendChild(sc);
+}
+
+/* 상담 신청 폼 - /apply 와 로그인 화면에서 함께 쓴다 */
+function leadFormHTML() {
+  return `
+  <form class="form card" onsubmit="return submitLead(event)">
+    <label>${L({ ko: "이름 *", en: "Name *", zh: "姓名 *", "zh-Hant": "姓名 *", ja: "お名前 *" })}</label><input name="name" required>
+    <label>${L({ ko: "이메일 *", en: "Email *", zh: "邮箱 *", "zh-Hant": "郵箱 *", ja: "メール *" })}</label><input name="email" type="email" required>
+    <label>${L({ ko: "전화번호 *", en: "Phone *", zh: "电话 *", "zh-Hant": "電話 *", ja: "電話 *" })}</label><input name="phone" required>
+    <label>${L({ ko: "생년 (연도)", en: "Birth year", zh: "出生年份", "zh-Hant": "出生年份", ja: "生年" })}</label><input name="birth">
+    <label>${L({ ko: "거주 및 활동지역", en: "Region", zh: "居住/活动地区", "zh-Hant": "居住/活動地區", ja: "居住·活動地域" })}</label><input name="region">
+    <label>${L({ ko: "관심 과정 *", en: "Interest *", zh: "感兴趣课程 *", "zh-Hant": "感興趣課程 *", ja: "関心課程 *" })}</label>
+    <select name="interest" required>
+      <option>${L({ ko: "CPPI 정규 자격과정", en: "CPPI Certification Course", zh: "CPPI正规资格课程", "zh-Hant": "CPPI正規資格課程", ja: "CPPI正規資格課程" })}</option>
+      <option>${L(UI.menu.workshop)}</option>
+      <option>${L(UI.menu.learn)}</option>
+      <option>${L(UI.btn.consult)}</option>
+      <option>${L({ ko: "교재 구매", en: "Textbook Purchase", zh: "教材购买", "zh-Hant": "教材購買", ja: "教材購入" })}</option>
+    </select>
+    <label style="display:flex;align-items:center;gap:8px;font-weight:600"><input type="checkbox" name="news" style="width:auto"> ${L({ ko: "뉴스레터 구독에 동의합니다", en: "Subscribe to the newsletter", zh: "同意订阅通讯", "zh-Hant": "同意訂閱電子報", ja: "ニュースレターの購読に同意します" })}</label>
+    <div style="height:12px"></div>
+    <button class="btn pri" type="submit">${L(UI.btn.submit)}</button>
+  </form>`;
+}
+
+/* 문의 채널 버튼 묶음 */
+function contactBtns() {
+  return `
+  <a class="btn navertalk" href="${NAVER_TALK}" target="_blank" rel="noopener">
+    <span class="ntlogo">talk</span> ${L({ ko: "네이버 톡톡으로 실시간 상담", en: "Live chat via NAVER TalkTalk", zh: "NAVER TalkTalk 实时咨询", "zh-Hant": "NAVER TalkTalk 即時諮詢", ja: "NAVER トークトークで相談" })}</a>
+  <div style="height:8px"></div>
+  <div class="grid2">
+    <a class="btn ghost" href="tel:${CONTACT.telIntl}">${L({ ko: "전화 상담", en: "Call", zh: "电话咨询", "zh-Hant": "電話諮詢", ja: "電話相談" })}</a>
+    <a class="btn ghost" href="${NAVER_TALK}" target="_blank" rel="noopener">${L({ ko: "톡톡 문의", en: "TalkTalk", zh: "TalkTalk 咨询", "zh-Hant": "TalkTalk 諮詢", ja: "トークトーク" })}</a>
+  </div>`;
+}
+
 routes.apply = () => `
   <section>
     ${secHead("CONSULTATION", L(UI.btn.consult), L({ ko: "남겨주시면 24시간 내 연락드립니다.", en: "We'll reach out within 24 hours.", zh: "我们将在24小时内联系您。", "zh-Hant": "我們將在24小時內聯絡您。", ja: "24時間以内にご連絡します。" }))}
-    <form class="form card" onsubmit="return submitLead(event)">
-      <label>${L({ ko: "이름 *", en: "Name *", zh: "姓名 *", "zh-Hant": "姓名 *", ja: "お名前 *" })}</label><input name="name" required>
-      <label>${L({ ko: "이메일 *", en: "Email *", zh: "邮箱 *", "zh-Hant": "郵箱 *", ja: "メール *" })}</label><input name="email" type="email" required>
-      <label>${L({ ko: "전화번호 *", en: "Phone *", zh: "电话 *", "zh-Hant": "電話 *", ja: "電話 *" })}</label><input name="phone" required>
-      <label>${L({ ko: "생년 (연도)", en: "Birth year", zh: "出生年份", "zh-Hant": "出生年份", ja: "生年" })}</label><input name="birth">
-      <label>${L({ ko: "거주 및 활동지역", en: "Region", zh: "居住/活动地区", "zh-Hant": "居住/活動地區", ja: "居住·活動地域" })}</label><input name="region">
-      <label>${L({ ko: "관심 과정 *", en: "Interest *", zh: "感兴趣课程 *", "zh-Hant": "感興趣課程 *", ja: "関心課程 *" })}</label>
-      <select name="interest" required>
-        <option>${L({ ko: "CPPI 정규 자격과정", en: "CPPI Certification Course", zh: "CPPI正规资格课程", "zh-Hant": "CPPI正規資格課程", ja: "CPPI正規資格課程" })}</option>
-        <option>${L(UI.menu.workshop)}</option>
-        <option>${L(UI.menu.learn)}</option>
-        <option>${L(UI.btn.consult)}</option>
-        <option>${L({ ko: "교재 구매", en: "Textbook Purchase", zh: "教材购买", "zh-Hant": "教材購買", ja: "教材購入" })}</option>
-      </select>
-      <label style="display:flex;align-items:center;gap:8px;font-weight:600"><input type="checkbox" name="news" style="width:auto"> ${L({ ko: "뉴스레터 구독에 동의합니다", en: "Subscribe to newsletter", zh: "同意订阅通讯", "zh-Hant": "同意訂閱通訊", ja: "ニュースレター購読に同意" })}</label>
-      <div style="height:12px"></div>
-      <button class="btn pri" type="submit">${L(UI.btn.submit)}</button>
-    </form>
-    <div style="height:12px"></div>
-    <a class="btn navertalk" href="${NAVER_TALK}" target="_blank" rel="noopener">
-      <span class="ntlogo">talk</span> ${L({ ko: "네이버 톡톡으로 실시간 상담", en: "Live chat via NAVER TalkTalk", zh: "NAVER TalkTalk 实时咨询", "zh-Hant": "NAVER TalkTalk 實時諮詢", ja: "NAVER トークトークで相談" })}</a>
-    <div style="height:8px"></div>
-    <div class="grid2">
-      <a class="btn ghost" href="tel:${CONTACT.telIntl}">${L({ ko: "전화 상담", en: "Call", zh: "电话咨询", "zh-Hant": "電話諮詢", ja: "電話相談" })}</a>
-      <a class="btn ghost" href="mailto:${CONTACT.mail}">${L({ ko: "이메일 상담", en: "Email", zh: "邮件咨询", "zh-Hant": "郵件諮詢", ja: "メール相談" })}</a>
+    <div class="twocol">
+      <div>
+        ${leadFormHTML()}
+        <div style="height:12px"></div>
+        ${contactBtns()}
+      </div>
+      <div>${hqMapBlock()}</div>
     </div>
   </section>`;
 
@@ -1597,6 +1683,8 @@ routes.support = () => `
 routes.login = () => me() ? routes.my() : `
   <section>
     ${secHead("LOGIN", L({ ko: "로그인 · 간편 가입", en: "Log in / Sign up", zh: "登录·注册", "zh-Hant": "登入·註冊", ja: "ログイン·登録" }), L({ ko: "이메일로 가입하거나, 카카오·네이버·구글로 간편하게 시작하세요.", en: "Sign up with email, or start instantly with Kakao, NAVER or Google.", zh: "邮箱注册，或使用Kakao·NAVER·Google一键开始。", "zh-Hant": "郵箱註冊，或使用Kakao·NAVER·Google一鍵開始。", ja: "メール登録、またはKakao·NAVER·Googleで簡単に開始。" }))}
+    <div class="twocol">
+      <div>
     <form class="form card" onsubmit="return doLogin(event)">
       <label>${L({ ko: "이메일", en: "Email", zh: "邮箱", "zh-Hant": "郵箱", ja: "メール" })}</label><input name="email" type="email" required>
       <label>${L({ ko: "비밀번호", en: "Password", zh: "密码", "zh-Hant": "密碼", ja: "パスワード" })}</label><input name="pw" type="password" required>
@@ -1609,6 +1697,17 @@ routes.login = () => me() ? routes.my() : `
     <button class="socialbtn kakao" onclick="socialLogin('kakao')">${L({ ko: "카카오로 계속하기", en: "Continue with Kakao", zh: "使用Kakao继续", "zh-Hant": "使用Kakao繼續", ja: "Kakaoで続ける" })}</button>
     <button class="socialbtn naver" onclick="socialLogin('naver')">${L({ ko: "네이버로 계속하기", en: "Continue with NAVER", zh: "使用NAVER继续", "zh-Hant": "使用NAVER繼續", ja: "NAVERで続ける" })}</button>
     <button class="socialbtn google" onclick="socialLogin('google')">${L({ ko: "구글로 계속하기", en: "Continue with Google", zh: "使用Google继续", "zh-Hant": "使用Google繼續", ja: "Googleで続ける" })}</button>
+      </div>
+
+    <div>
+      <div class="eyebrow" style="margin-bottom:6px">CONSULTATION</div>
+      <h3 style="font-size:19px;margin:0 0 4px">${L(UI.btn.consult)}</h3>
+      <p style="font-size:13.5px;color:var(--ink2);margin:0 0 12px">${L({ ko: "가입 없이도 상담을 남기실 수 있습니다. 24시간 내 연락드립니다.", en: "You can request a consultation without signing up. We reply within 24 hours.", zh: "无需注册也可留言咨询，24小时内联系您。", "zh-Hant": "無需註冊也可留言諮詢，24小時內聯絡您。", ja: "登録なしでもご相談いただけます。24時間以内にご連絡します。" })}</p>
+      ${leadFormHTML()}
+      <div style="height:12px"></div>
+      ${contactBtns()}
+    </div>
+    </div>
   </section>`;
 
 routes.signup = () => `
@@ -1678,9 +1777,28 @@ routes.admin = () => {
     </div>`).join("") : `<p class="lead">주문이 없습니다.</p>`}
     <h3 style="font-size:15px;margin:16px 0 8px">상담 리드 (${leads.length})</h3>
     ${leads.length ? leads.map(l => `<div class="admin-row"><div class="who"><b>${esc(l.name)}</b><span>${esc(l.phone)} · ${esc(l.email)} · ${esc(l.interest)} · ${l.at}</span></div></div>`).join("") : `<p class="lead">접수된 리드가 없습니다.</p>`}
+    <h3 style="font-size:15px;margin:16px 0 8px">뉴스레터</h3>
+    <div class="card nl-editor">
+      <label>제목</label>
+      <input id="nlSubject" placeholder="예) 9월 정규과정 개강 안내 · 박은주 교수 칼럼 1화">
+      <label style="margin-top:10px">본문 (HTML 사용 가능 - &lt;b&gt; &lt;p&gt; &lt;a href&gt; &lt;img src&gt; &lt;br&gt;)</label>
+      <textarea id="nlBody" placeholder="<p>안녕하세요, CPPI 한국필라테스교육협회입니다.</p>&#10;<p>9월 정규과정이 개강합니다...</p>"></textarea>
+      <div class="nl-row">
+        <button class="btn ghost small" onclick="nlSave()">임시저장</button>
+        <button class="btn ghost small" onclick="nlTest()">나에게 테스트 발송</button>
+        <button class="btn pri small" onclick="nlSend()">구독자 전체 발송</button>
+        <button class="btn ghost small" onclick="nlNew()">새로 작성</button>
+      </div>
+      <div class="note" style="margin-top:10px">발송에는 Cloudflare 환경변수 <b>RESEND_KEY</b> 가 필요합니다. 모든 메일 하단에는 수신거부 링크가 자동으로 붙습니다(정보통신망법).</div>
+    </div>
+    <div id="nlList" class="nl-list"></div>
+    <h3 style="font-size:15px;margin:16px 0 8px">뉴스레터 구독자</h3>
+    <div id="subList"></div>
+    <div class="nl-row"><button class="btn ghost small" onclick="exportCsv('leads')">상담 리드 CSV</button>
+      <button class="btn ghost small" onclick="exportCsv('subs')">구독자 CSV</button></div>
     <div class="note">등급 변경은 즉시 반영. 계좌이체 주문은 입금 확인 시 '완료' 처리되며, 온라인 강의 수강권은 자동 L2 승급.</div>
     <div style="height:10px"></div>
-    <button class="btn ghost" onclick="sessionStorage.removeItem('cppi_admin');render()">관리자 로그아웃</button>
+    <button class="btn ghost" onclick="sessionStorage.removeItem('cppi_admin');sessionStorage.removeItem('cppi_adminpw');render()">관리자 로그아웃</button>
   </section>`;
 };
 
@@ -1846,17 +1964,28 @@ function saveBankName() {
 }
 
 /* 관리자 */
-function adminLogin(e) {
+async function adminLogin(e) {
   e.preventDefault();
-  if (new FormData(e.target).get("pw") === ADMIN_PASS) { sessionStorage.setItem("cppi_admin", "1"); render(); loadAdmin(); }
-  else toast("비밀번호가 올바르지 않습니다.");
+  const pw = new FormData(e.target).get("pw");
+  try {
+    const r = await fetch("/api/admin/check?pass=" + encodeURIComponent(pw));
+    if (r.ok) {
+      sessionStorage.setItem("cppi_adminpw", pw);
+      sessionStorage.setItem("cppi_admin", "1");
+      render(); loadAdmin();
+    } else if (r.status === 503) {
+      toast("서버에 ADMIN_PASS 가 설정되지 않았습니다.");
+    } else {
+      toast("비밀번호가 올바르지 않습니다.");
+    }
+  } catch (_) { toast("서버에 연결할 수 없습니다."); }
   return false;
 }
-function setGrade(i, g) { const users = APP.users; users[i].grade = Number(g); APP.users = users; if (SERVER && users[i].id) apiPost("admin/grade", { pass: ADMIN_PASS, id: users[i].id, grade: Number(g) }).catch(() => {}); toast(users[i].nameKo + " → L" + g); }
+function setGrade(i, g) { const users = APP.users; users[i].grade = Number(g); APP.users = users; if (SERVER && users[i].id) apiPost("admin/grade", { pass: adminPw(), id: users[i].id, grade: Number(g) }).catch(() => {}); toast(users[i].nameKo + " → L" + g); }
 function confirmPay(i) {
   const orders = APP.orders; const o = orders[i];
   o.status = "완료"; APP.orders = orders;
-  if (SERVER) apiPost("admin/confirm", { pass: ADMIN_PASS, oid: o.id }).then(() => loadAdmin()).catch(() => {});
+  if (SERVER) apiPost("admin/confirm", { pass: adminPw(), oid: o.id }).then(() => loadAdmin()).catch(() => {});
   if (o.type && String(o.type).startsWith("lecture")) {
     const users = APP.users; const u = users.find(x => x.email === o.email);
     if (u && u.grade < 2) { u.grade = 2; APP.users = users; toast("입금 확인 - L2 승급 완료"); }
@@ -1868,7 +1997,7 @@ function confirmPay(i) {
 async function loadAdmin() {
   if (!SERVER) return;
   try {
-    const p = "?pass=" + encodeURIComponent(ADMIN_PASS);
+    const p = "?pass=" + encodeURIComponent(adminPw());
     const a = await apiGet("admin/users" + p), b = await apiGet("admin/orders" + p), c = await apiGet("admin/leads" + p);
     APP.users = a.users;
     APP.orders = b.orders.map(o => ({ id: o.oid, email: o.email, buyer: o.buyer, item: o.item, type: o.type, method: o.method, status: o.status, payer: o.payer, at: o.at }));
@@ -1887,12 +2016,81 @@ function submitLead(e) {
   const f = new FormData(e.target);
   const lead = { name: f.get("name"), email: f.get("email"), phone: f.get("phone"), birth: f.get("birth"), region: f.get("region"), interest: f.get("interest"), news: !!f.get("news"), at: new Date().toISOString().slice(0, 16).replace("T", " ") };
   const leads = APP.leads; leads.push(lead); APP.leads = leads;
+  /* 서버(D1)에 저장 + 관리자 알림 메일 발송은 서버가 처리한다.
+     예전에는 여기서 mailto: 를 열어 메일 앱(아웃룩)을 강제로 띄웠는데,
+     방문자 입장에서 앱이 갑자기 뜨는 것은 이탈 요인이라 제거했다. */
   if (SERVER) apiPost("lead", lead).catch(() => {});
   toast(L({ ko: "신청이 접수되었습니다! 24시간 내 연락드립니다.", en: "Received! We'll reach out within 24h.", zh: "已收到！24小时内联系您。", "zh-Hant": "已收到！24小時內聯絡您。", ja: "受付けました！24時間以内にご連絡します。" }));
-  const body = encodeURIComponent(`[CPPI]\n${f.get("name")} / ${f.get("phone")} / ${f.get("email")}\n${f.get("interest")} / ${f.get("region") || "-"}`);
-  setTimeout(() => { location.href = `mailto:${CONTACT.mail}?subject=${encodeURIComponent("[CPPI] " + f.get("name"))}&body=${body}`; }, 900);
   e.target.reset();
   return false;
+}
+
+/* ---------- 관리자 - 뉴스레터 ---------- */
+let _nlId = null;
+const _adminPass = () => adminPw();
+async function adminApi(path, body) {
+  const opt = body
+    ? { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...body, pass: _adminPass() }) }
+    : {};
+  const url = "/api/" + path + (body ? "" : (path.includes("?") ? "&" : "?") + "pass=" + encodeURIComponent(_adminPass()));
+  const r = await fetch(url, opt);
+  return r.json();
+}
+function nlNew() { _nlId = null; $("#nlSubject").value = ""; $("#nlBody").value = ""; toast("새 뉴스레터"); }
+async function nlSave() {
+  const subject = $("#nlSubject").value.trim(), bodyHtml = $("#nlBody").value.trim();
+  if (!subject) return toast("제목을 입력하세요");
+  const r = await adminApi("admin/news-save", { id: _nlId, subject, bodyHtml });
+  if (r.id) _nlId = r.id;
+  toast("저장되었습니다"); nlRefresh();
+}
+async function nlTest() {
+  const subject = $("#nlSubject").value.trim(), bodyHtml = $("#nlBody").value.trim();
+  if (!subject) return toast("제목을 입력하세요");
+  const to = prompt("테스트 메일을 받을 주소", "allmovements@naver.com");
+  if (!to) return;
+  const r = await adminApi("admin/news-test", { to, subject, bodyHtml });
+  toast(r.ok ? "테스트 발송했습니다" : "발송 실패 - RESEND_KEY 를 확인하세요");
+}
+async function nlSend() {
+  if (!_nlId) return toast("먼저 임시저장을 눌러주세요");
+  if (!confirm("구독자 전체에게 발송합니다. 계속할까요?")) return;
+  const r = await adminApi("admin/news-send", { id: _nlId });
+  toast(r.ok ? `${r.sent}명에게 발송했습니다` : (r.hint || "발송 실패"));
+  nlRefresh();
+}
+async function nlEdit(id) {
+  const r = await adminApi("admin/news-get?id=" + id);
+  if (!r.item) return;
+  _nlId = r.item.id; $("#nlSubject").value = r.item.subject || ""; $("#nlBody").value = r.item.bodyHtml || "";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+async function nlRefresh() {
+  const el = $("#nlList"); if (!el) return;
+  const r = await adminApi("admin/news").catch(() => ({}));
+  const list = r.news || [];
+  el.innerHTML = list.length ? list.map(n => `<div class="admin-row">
+    <div class="who"><b>${esc(n.subject)}</b><span>${n.status === "sent" ? `발송 ${esc(n.sentAt)} · ${n.sentCount}명` : "임시저장 " + esc(n.createdAt)}</span></div>
+    <button class="btn ghost small" onclick="nlEdit(${n.id})">열기</button></div>`).join("")
+    : `<p class="lead">작성된 뉴스레터가 없습니다.</p>`;
+  const s2 = await adminApi("admin/subs").catch(() => ({}));
+  const subs = s2.subs || [];
+  const se = $("#subList"); if (!se) return;
+  const act = subs.filter(x => x.status === "active").length;
+  se.innerHTML = `<p class="lead">구독중 ${act}명 / 전체 ${subs.length}명</p>` + subs.slice(0, 30).map(x =>
+    `<div class="admin-row"><div class="who"><b>${esc(x.email)}</b><span>${esc(x.name || "-")} · ${esc(x.source)} · ${x.status === "active" ? "구독중" : "수신거부"} · ${esc(x.at)}</span></div></div>`).join("");
+  window._subsCache = subs;
+}
+/* CSV 내보내기 - 외부 메일 도구를 쓸 때를 대비한 백업 경로 */
+function exportCsv(kind) {
+  const rows = kind === "subs" ? (window._subsCache || []) : APP.leads;
+  if (!rows.length) return toast("내보낼 데이터가 없습니다");
+  const cols = Object.keys(rows[0]);
+  const csv = "\uFEFF" + [cols.join(",")].concat(rows.map(r => cols.map(c => `"${String(r[c] ?? "").replace(/"/g, '""')}"`).join(","))).join("\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+  a.download = `cppi_${kind}_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
 }
 
 /* ---------- 11) 헤더 · 시트 · 티커 · 언어 ---------- */
