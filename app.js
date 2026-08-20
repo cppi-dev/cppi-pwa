@@ -1088,11 +1088,10 @@ routes.founder = () => `
       <div class="dtxt">
         <div class="eyebrow">FOUNDER</div>
         <h1>${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" })}</h1>
-        <p class="dlead">${L({ ko: "최상위 교육자 - 의료·대학이 검증한, 타협 없는 프로필을 요약 없이 공개합니다.", en: "The full, uncompromised profile - clinically and academically verified.", zh: "顶级教育者 - 医疗与大学验证的完整履历。", "zh-Hant": "頂級教育者 - 醫療與大學驗證的完整履歷。", ja: "医療·大学が検証した妥協なきプロフィールを全公開。" })}</p>
       </div>
     </div>
     <div class="monly">
-      ${secHead("FOUNDER", L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" }), L({ ko: "최상위 교육자 - 의료·대학이 검증한, 타협 없는 프로필을 요약 없이 공개합니다.", en: "The full, uncompromised profile - clinically and academically verified.", zh: "顶级教育者 - 医疗与大学验证的完整履历。", "zh-Hant": "頂級教育者 - 醫療與大學驗證的完整履歷。", ja: "医療·大学が検証した妥協なきプロフィールを全公開。" }))}
+      ${secHead("FOUNDER", L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" }))}
       <img src="img/founder_photo.jpg" alt="박은주 교수" style="border-radius:14px;margin-bottom:12px">
     </div>
     <div class="card" style="margin-bottom:10px;background:var(--tint)">

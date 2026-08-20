@@ -311,7 +311,6 @@ export const CONTENT = {
       title: "박은주 교수 (Eun-Ju Park) - 파운더 | CPPI 한국 필라테스 교육협회",
       desc: "분당서울대병원 척추·관절센터 임상 경험과 나사렛대 강단 경력을 지닌 CPPI 창립자 박은주(Eun-Ju Park) 교수의 전체 프로필.",
       eyebrow: "FOUNDER", h1: "박은주 (Eun-Ju Park) 교수",
-      lead: "의료·대학이 검증한 프로필을 요약 없이 공개합니다.",
       blocks: [
         { h: "한 문단 요약", p: "박은주(Eun-Ju Park)는 CPPI 한국필라테스교육협회의 창립자이자 협회장입니다. 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추&관절센터에서 근무한 의료 임상 경력, 나사렛대학교 스포츠재활학과 겸임교수와 서경대학교 예술교육원 필라테스과정 원장을 지낸 대학 강단 경력, 그리고 STOTT PILATES·PMA·Balanced Body University·RECOVERING으로 이어지는 국제 자격을 모두 갖춘 필라테스 교육자입니다. 9권 1,300여 페이지의 CPPI 교재를 직접 집필했고, 2009년부터 지도자 교육에 전념해 56기 이상의 수료강사를 배출했습니다." },
         { h: "임상에서 출발한 이력", p: "박은주 교수의 출발점은 필라테스 스튜디오가 아니라 병원이었습니다. 간호 임상을 거쳐 분당서울대병원 마취통증의학과에서 통증 환자를 접했고, 한국보훈복지공단 척추&관절센터에서 척추·관절 재활 현장을 경험했습니다. 이 시기에 서울대병원에서 중환자 전문간호연수, 정형외과 수술후 재활과정, 당뇨·고혈압·골다공증 관리, 노인간호 및 재활과정을 이수했습니다. 수술 후 회복 단계의 몸, 만성 통증을 안고 사는 몸, 대사질환과 고령을 함께 가진 몸을 직접 다뤄 본 경험이 이후 CPPI 커리큘럼이 '재활·교정 중심'으로 설계된 직접적인 배경입니다." },
@@ -328,7 +327,6 @@ export const CONTENT = {
       title: "Prof. Eun-Ju Park - Founder | CPPI Korea Pilates Education Association",
       desc: "Full profile of Eun-Ju Park, founder of CPPI Korea: clinical experience at Seoul National University Hospital Bundang Spine & Joint Center and faculty experience at Korea Nazarene University.",
       eyebrow: "FOUNDER", h1: "Prof. Eun-Ju Park",
-      lead: "A clinically and academically verified profile, published in full.",
       blocks: [
         { h: "Career", list: ["President, Korea Pilates Education Association (current)", "Director, Gyeonggi Volleyball Association (current)", "Recovering Rehabilitation Pilates Master (current)", "Member, Korean Society for the Study of Obesity (current)", "Former Adjunct Professor, Sports Rehabilitation, Korea Nazarene University", "Former Director, Pilates Program, Seokyeong University Arts Education Center", "Former, Department of Anesthesiology and Pain Medicine, SNUH Bundang", "Former, Spine & Joint Center, Korea Veterans Health Service"] },
         { h: "Clinical training - Seoul National University Hospital", list: ["Critical care nursing training", "Post-operative orthopedic rehabilitation", "Diabetes, hypertension and osteoporosis care", "Geriatric nursing and rehabilitation"] },
@@ -340,7 +338,6 @@ export const CONTENT = {
       title: "パク・ウンジュ教授 (Eun-Ju Park) - 創立者 | CPPI 韓国ピラティス教育協会",
       desc: "盆唐ソウル大学病院 脊椎・関節センターでの臨床経験と韓国ナザレ大学での教壇経験を持つCPPI創立者パク・ウンジュ(Eun-Ju Park)教授の全プロフィール。",
       eyebrow: "FOUNDER", h1: "パク・ウンジュ (Eun-Ju Park) 教授",
-      lead: "医療・大学が検証したプロフィールを省略せず公開します。",
       blocks: [
         { h: "主要経歴", list: ["(現) 韓国ピラティス教育協会 会長", "(現) 京畿道バレーボール協会 理事", "(現) リカバリング リハビリピラティス マスター", "(現) 大韓肥満学会 正会員", "(元) 韓国ナザレ大学 スポーツリハビリ学科 兼任教授", "(元) 西京大学 芸術教育院 ピラティス課程 院長", "(元) 盆唐ソウル大学病院 麻酔痛症医学科", "(元) 韓国報勲福祉公団 脊椎&関節センター"] },
         { h: "主要研修 - ソウル大学病院", list: ["重症患者専門看護研修", "整形外科 術後リハビリ課程", "糖尿病・高血圧・骨粗鬆症の管理", "高齢者看護およびリハビリ課程"] },
@@ -352,7 +349,6 @@ export const CONTENT = {
       title: "朴恩珠教授 (Eun-Ju Park) - 创始人 | CPPI 韩国普拉提教育协会",
       desc: "CPPI创始人朴恩珠(Eun-Ju Park)教授的完整履历：盆唐首尔大学医院脊柱与关节中心临床经验，以及韩国拿撒勒大学教职经历。",
       eyebrow: "FOUNDER", h1: "朴恩珠 (Eun-Ju Park) 教授",
-      lead: "医疗与大学验证的履历，完整公开。",
       blocks: [
         { h: "主要经历", list: ["(现) 韩国普拉提教育协会 会长", "(现) 京畿道排球协会 理事", "(现) Recovering 康复普拉提 大师", "(现) 大韩肥胖学会 正会员", "(前) 韩国拿撒勒大学 运动康复学科 兼任教授", "(前) 西京大学 艺术教育院 普拉提课程 院长", "(前) 盆唐首尔大学医院 麻醉疼痛医学科", "(前) 韩国报勋福祉公团 脊柱与关节中心"] },
         { h: "主要研修 - 首尔大学医院", list: ["重症监护专科护理研修", "骨科术后康复课程", "糖尿病·高血压·骨质疏松管理", "老年护理与康复课程"] },
@@ -364,7 +360,6 @@ export const CONTENT = {
       title: "朴恩珠教授 (Eun-Ju Park) - 創辦人 | CPPI 韓國皮拉提斯教育協會",
       desc: "CPPI 創辦人朴恩珠(Eun-Ju Park)教授的完整經歷：盆唐首爾大學醫院脊椎與關節中心臨床經驗，以及韓國拿撒勒大學教職資歷。",
       eyebrow: "FOUNDER", h1: "朴恩珠 (Eun-Ju Park) 教授",
-      lead: "經醫療機構與大學驗證的完整經歷，不作省略地公開。",
       blocks: [
         { h: "主要經歷", list: ["(現) 韓國皮拉提斯教育協會 會長", "(現) 京畿道排球協會 理事", "(現) Recovering 復健皮拉提斯 大師導師", "(現) 大韓肥胖學會 正會員", "(前) 韓國拿撒勒大學 運動復健學系 兼任教授", "(前) 西京大學 藝術教育院 皮拉提斯課程 院長", "(前) 盆唐首爾大學醫院 麻醉疼痛醫學科", "(前) 韓國報勳福祉公團 脊椎與關節中心"] },
         { h: "主要研修 - 首爾大學醫院", list: ["重症監護專科護理研修", "骨科術後復健課程", "糖尿病·高血壓·骨質疏鬆管理", "高齡照護與復健課程"] },
