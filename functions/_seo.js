@@ -776,6 +776,12 @@ export const ROUTES = Object.keys(CONTENT);
 /* 홈을 제외한 하위 페이지 목록 - 네비게이션·사이트맵에서 사용 */
 export const SUB_ROUTES = ROUTES.filter(r => r !== "home");
 
+/* 본문이 아직 얇아서, 색인되면 사이트 전체의 품질 신호를 떨어뜨리는 라우트.
+   5개 라우트 x 5개 언어 = 25개 URL 을 '일시적으로' 색인에서 빼 둔다.
+   noindex,follow 이므로 링크 자산은 그대로 흐르고, 사람은 정상적으로 볼 수 있다.
+   본문을 채운 라우트는 이 배열에서 한 줄만 빼면 즉시 색인 대상으로 돌아온다. */
+export const THIN_ROUTES = ["workshop", "master", "stories", "global", "learn"];
+
 export function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
 }
@@ -1050,6 +1056,9 @@ footer .social{margin-top:8px;display:flex;gap:12px;justify-content:center}
 export function sitemapXML() {
   const urls = [];
   for (const route of ROUTES) {
+    /* 색인 제외(noindex) 라우트는 사이트맵에도 올리지 않는다.
+       noindex 인데 사이트맵에 있으면 서치콘솔이 계속 경고를 띄운다. */
+    if (THIN_ROUTES.includes(route)) continue;
     for (const lang of LANGS) {
       const alt = LANGS.flatMap(l =>
         HREFLANG[l].map(code =>
@@ -1109,7 +1118,9 @@ export function seoHead(lang, route) {
   const alts = LANGS.flatMap(l =>
     HREFLANG[l].map(code => `<link rel="alternate" hreflang="${code}" href="${ORIGIN + pathFor(l, route)}">`)
   ).join("\n");
-  return `<link rel="canonical" href="${url}">
+  const noindex = THIN_ROUTES.includes(route)
+    ? `<meta name="robots" content="noindex,follow">\n` : "";
+  return `${noindex}<link rel="canonical" href="${url}">
 ${alts}
 <link rel="alternate" hreflang="x-default" href="${ORIGIN + pathFor("en", route)}">
 <meta property="og:type" content="website">

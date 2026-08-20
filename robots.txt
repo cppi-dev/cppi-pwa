@@ -112,8 +112,9 @@ Disallow: /
 User-agent: Meta-ExternalAgent
 Disallow: /
 
-User-agent: FacebookBot
-Disallow: /
+# FacebookBot 은 위 'SNS 링크 미리보기' 섹션에서 Allow 로 이미 선언했다.
+# 여기서 다시 Disallow 하면 같은 파일 안에서 자기모순이 되어 크롤러마다 해석이 갈린다.
+# 정책상 Meta 의 '학습용'은 Meta-ExternalAgent 이므로 그것만 차단한다.
 
 User-agent: Amazonbot
 Disallow: /

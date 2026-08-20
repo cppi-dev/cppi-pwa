@@ -55,11 +55,19 @@ function pathOf(route, sub) {
 }
 
 /* ---------- 1) 언어 ---------- */
+/* 언어를 결정하는 것은 '경로'다. 접두어가 없으면 '알 수 없음'이 아니라 한국어(루트 경로)라는 뜻이다.
+   해시 라우팅 시절에는 저장값(localStorage)이 언어를 정하는 유일한 기준이었는데,
+   경로 라우팅으로 전환한 뒤에도 그 폴백이 그대로 남아 있었다.
+   그래서 예전에 다른 언어를 한 번이라도 고른 방문자는 /curriculum 으로 들어와도
+   저장값에 덮어써져 화면이 일본어로 뜨고 주소가 /ja/curriculum 으로 바뀌었다.
+   저장값은 이제 접두어도 ?lang= 도 없는 '맨 첫 진입'(설치한 앱 실행 등)에서만 쓴다. */
 const _qlang = new URLSearchParams(location.search).get("lang");
 const _slang = localStorage.getItem("cppi_lang");
-let LANG = parseLoc().lang
+const _ploc = parseLoc();
+const _isBareEntry = _ploc.lang === null && location.pathname === "/" && !location.hash;
+let LANG = _ploc.lang
   || (APP_LANG_LIST.includes(_qlang) ? _qlang : null)
-  || (APP_LANG_LIST.includes(_slang) ? _slang : null) || "ko";
+  || (_isBareEntry && APP_LANG_LIST.includes(_slang) ? _slang : null) || "ko";
 /* 번체 문구가 없는 항목은 영문이 아니라 간체로 폴백한다 */
 const L = (o) => (o && (o[LANG] ?? (LANG === "zh-Hant" ? o.zh : undefined) ?? o.en ?? o.ko)) ?? "";
 /* 마침표 뒤 줄바꿈(가독성 규칙) */
@@ -2121,9 +2129,11 @@ function renderSheet() {
     <a href="#support" onclick="closeSheet()">${L(UI.menu.support)}</a>
     <a href="#my" onclick="closeSheet()">${L(UI.menu.my)}</a>`;
 }
+/* html lang 은 BCP-47 이어야 한다. 내부 코드(zh)를 그대로 쓰면 간체인지 번체인지 불명확해진다. */
+const HTML_LANG_ATTR = { ko: "ko", en: "en", ja: "ja", zh: "zh-Hans", "zh-Hant": "zh-Hant" };
 function setLang(l) {
   LANG = l; localStorage.setItem("cppi_lang", l);
-  document.documentElement.lang = l;
+  document.documentElement.lang = HTML_LANG_ATTR[l] || l;
   /* /curriculum <-> /en/curriculum - 언어에 맞춰 경로 접두어를 갱신 */
   const { route, sub } = parseLoc();
   const want = pathOf(route, sub);
