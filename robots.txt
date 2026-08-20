@@ -1,5 +1,11 @@
 # CPPI - Korea Pilates Education Association
-# 정책: 검색·인용(citation)용 크롤러는 허용, 학습(training)용 크롤러는 차단
+# 정책
+#   - 검색·인용(citation)용 크롤러: 허용
+#   - 모델 학습(training) 전용 크롤러: 차단
+#   - 중국 본토 진입 채널(ByteDance·Huawei): 허용 (본토 검색 노출 우선 결정)
+#   - SNS 링크 미리보기(Meta): 허용
+# ※ Cloudflare AI Crawl Control 의 크롤러별 토글과 반드시 일치시킬 것.
+#    엣지에서 차단되면 여기서 허용해도 크롤러가 문 앞에서 막힌다.
 # ※ 이 파일이 그대로 서빙되려면 Cloudflare 대시보드의 AI 크롤러 차단 기능을 꺼야 합니다.
 #    (Cloudflare 가 managed robots.txt 를 주입하면 이 내용이 덮어써집니다)
 
@@ -60,7 +66,31 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
+# ── 중국 본토 채널 - 허용 ────────────────────────
+# 豆包(Doubao)·今日头条 검색은 Bytespider 색인을 참조한다.
+# 바이두는 ICP 미등록 해외 호스팅을 사실상 배제하므로, 본토 노출은 이 경로에 의존한다.
 User-agent: Bytespider
+Allow: /
+
+User-agent: TikTokSpider
+Allow: /
+
+User-agent: Bytedance
+Allow: /
+
+# ── SNS 링크 미리보기 - 허용 ────────────────────
+# 차단하면 인스타그램·페이스북 공유 시 og:image 썸네일이 표시되지 않는다.
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# ── 구글 AI 그라운딩 - 허용 ─────────────────────
+User-agent: Google-CloudVertexBot
 Allow: /
 
 # ── 모델 학습(training) 전용 - 차단 ──────────────
