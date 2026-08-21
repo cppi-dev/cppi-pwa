@@ -25,11 +25,17 @@ export const PATH_SEG = { ko: "", en: "en", ja: "ja", zh: "zh", "zh-Hant": "zh-h
    en 은 글로벌 + 싱가포르(영어 공용어), zh 는 중국 본토 + 싱가포르 화교,
    zh-Hant 는 대만 + 홍콩을 함께 겨냥한다. */
 export const HREFLANG = {
-  ko: ["ko-KR"],
-  en: ["en", "en-SG"],
-  ja: ["ja-JP"],
-  zh: ["zh-Hans", "zh-Hans-CN", "zh-Hans-SG"],
-  "zh-Hant": ["zh-Hant", "zh-Hant-TW", "zh-Hant-HK"],
+  ko: ["ko-KR", "ko"],
+  /* 동남아는 언어를 쪼개지 않는다. 페이지 내용이 같으면 en 하나가 맞고,
+     지역 코드는 '이 시장을 대상으로 한다'는 신호로만 추가한다.
+     싱가포르·말레이시아·필리핀은 영어 검색이 주류(EF EPI 24위·28위). */
+  en: ["en", "en-SG", "en-MY", "en-PH", "en-HK"],
+  ja: ["ja-JP", "ja"],
+  /* 본토는 简体, 어휘는 普拉提 / 资格证 */
+  zh: ["zh-Hans", "zh-Hans-CN", "zh-Hans-SG", "zh-CN", "zh-SG"],
+  /* 대만은 皮拉提斯 / 證照, 홍콩은 번체자를 쓰되 어휘가 본토식(普拉提 / 導師).
+     한 URL 로 양쪽을 받되 본문에 두 어휘를 함께 심는다. */
+  "zh-Hant": ["zh-Hant", "zh-Hant-TW", "zh-Hant-HK", "zh-TW", "zh-HK"],
 };
 
 export const OG_LOCALE = { ko: "ko_KR", en: "en_US", ja: "ja_JP", zh: "zh_CN", "zh-Hant": "zh_TW" };
@@ -54,6 +60,151 @@ export const FOUNDER = {
   ja: "パク・ウンジュ (Eun-Ju Park)",
   zh: "朴恩珠 (Eun-Ju Park)",
   "zh-Hant": "朴恩珠 (Eun-Ju Park)",
+};
+
+/* 전 페이지 하단에 붙는 기관 사실 블록.
+   AI 답변이 인용할 수 있는 형태(숫자 + 고유명사)로만 쓴다.
+   출처: 협회 공개 자료. 검증되지 않은 수치는 넣지 않는다. */
+export const SPECS = {
+  ko: {
+    h: "CPPI 기본 정보",
+    list: [
+      "설립: 2016년 (전신 리윰필라테스 아카데미, 2015년 출판사 등록)",
+      "정규 자격과정: 8과목 · 총 110~120시간",
+      "구성: 이론 25시간(기능해부학 10 · 기본원리 10 · 체형분석 5) + 실기 85~95시간(매트 25 · 리포머 20~25 · 캐딜락 20~25 · 체어 10 · 바렐 시리즈 10)",
+      "교재: 직접 집필한 출판 교재 9권 약 1,300페이지 + 소도구 교재 4권(폼롤러 164p · 서클 136p · 미니볼 178p · BOSU 160p)",
+      "수료 기수: 56기 이상",
+      "운영 지역: 대한민국(분당 · 서울 · 김포) · 캐나다(밴쿠버) · 일본(도쿄)",
+      "창립자: 박은주 (Eun-Ju Park) - 분당서울대병원 마취통증의학과, 한국보훈복지공단 척추&관절센터 근무. 나사렛대학교 스포츠재활학과 겸임교수, 서경대학교 예술교육원 필라테스과정 원장 역임",
+      "창립자 보유 자격: STOTT PILATES (IMP · IR · ICCB · AMP · AR · RMR1-ISP), PMA 2012, Balanced Body University 3종, POWER PLATE Master Trainer 2022, RECOVERING Master Trainer 2022",
+      "수료 시: 국제자격증 발급 · L3 정회원 승급 · 수료강사 명단 등재",
+      "교육 언어: 한국어 (해외 수강생은 이메일로 통역 가능 여부 문의)",
+    ],
+  },
+  en: {
+    h: "CPPI at a glance",
+    list: [
+      "Founded: 2016 (predecessor Re:yoom Pilates Academy, publishing registration 2015)",
+      "Certification programme: 8 subjects, 110-120 hours in total",
+      "Breakdown: 25 hours theory (functional anatomy 10, basic principles 10, posture and movement analysis 5) plus 85-95 hours practical (Mat 25, Reformer 20-25, Cadillac 20-25, Stability Chair 10, Barrel series 10)",
+      "Textbooks: 9 published volumes, approximately 1,300 pages, written in-house, plus 4 small-props volumes (foam roller 164pp, circle 136pp, mini ball 178pp, BOSU 160pp)",
+      "Graduating cohorts to date: 56 and counting",
+      "Locations: Korea (Bundang, Seoul, Gimpo), Canada (Vancouver), Japan (Tokyo)",
+      "Founder: Eun-Ju Park - clinical practice at Seoul National University Hospital Bundang (Anesthesiology and Pain Medicine) and the Spine & Joint Center of the Korea Veterans Health Service; Adjunct Professor of Sports Rehabilitation at Korea Nazarene University; Director of the Pilates Programme at Seokyeong University Arts Education Center",
+      "Founder credentials: STOTT PILATES (IMP, IR, ICCB, AMP, AR, RMR1-ISP), PMA 2012, Balanced Body University (3 certifications), POWER PLATE Master Trainer 2022, RECOVERING Master Trainer 2022",
+      "On completion: international certificate, upgrade to L3 membership, listing in the graduate instructor directory",
+      "Language of instruction: Korean. International applicants should email to ask about interpretation.",
+    ],
+  },
+  ja: {
+    h: "CPPI 基本情報",
+    list: [
+      "設立: 2016年 (前身はリユムピラティスアカデミー、2015年出版社登録)",
+      "正規資格課程: 8科目・合計110~120時間",
+      "内訳: 理論25時間 (機能解剖学10・基本原理10・体型分析5) + 実技85~95時間 (マット25・リフォーマー20~25・キャデラック20~25・チェア10・バレルシリーズ10)",
+      "教材: 自社執筆の出版教材9冊 約1,300ページ + 小道具教材4冊 (フォームローラー164p・サークル136p・ミニボール178p・BOSU 160p)",
+      "修了期数: 56期以上",
+      "運営地域: 韓国 (盆唐・ソウル・金浦)、カナダ (バンクーバー)、日本 (東京)",
+      "創立者: パク・ウンジュ (Eun-Ju Park) - 盆唐ソウル大学病院 麻酔痛症医学科、韓国報勲福祉公団 脊椎&関節センター勤務。韓国ナザレ大学スポーツリハビリ学科 兼任教授、西京大学芸術教育院ピラティス課程 院長を歴任",
+      "創立者の保有資格: STOTT PILATES (IMP・IR・ICCB・AMP・AR・RMR1-ISP)、PMA 2012、Balanced Body University 3種、POWER PLATE Master Trainer 2022、RECOVERING Master Trainer 2022",
+      "修了時: 国際資格証の発行・L3正会員への昇級・修了講師名簿への掲載",
+      "教育言語: 韓国語 (海外からの受講希望者は通訳の可否をメールでお問い合わせください)",
+    ],
+  },
+  zh: {
+    h: "CPPI 基本信息",
+    list: [
+      "成立: 2016年 (前身为 Re:yoom 普拉提学院，2015年出版社登记)",
+      "正规资格课程: 8门科目・合计110~120小时",
+      "构成: 理论25小时 (功能解剖学10・基本原理10・体型分析5) + 实操85~95小时 (垫上25・核心床20~25・凯迪拉克20~25・稳踏椅10・桶系列10)",
+      "教材: 自主编写出版教材9册 约1,300页 + 小器械教材4册 (泡沫轴164页・圈136页・迷你球178页・BOSU 160页)",
+      "结业期数: 56期以上",
+      "运营地区: 韩国 (盆唐・首尔・金浦)、加拿大 (温哥华)、日本 (东京)",
+      "创始人: 朴恩珠 (Eun-Ju Park) - 曾任职盆唐首尔大学医院麻醉疼痛医学科、韩国报勋福祉公团脊柱与关节中心。历任韩国拿撒勒大学运动康复学科兼任教授、西京大学艺术教育院普拉提课程院长",
+      "创始人持有资格: STOTT PILATES (IMP・IR・ICCB・AMP・AR・RMR1-ISP)、PMA 2012、Balanced Body University 3项、POWER PLATE Master Trainer 2022、RECOVERING Master Trainer 2022",
+      "结业后: 颁发国际资格证书・升级为L3正会员・登载于结业教练名录",
+      "授课语言: 韩语 (海外学员请邮件咨询翻译安排)",
+    ],
+  },
+  "zh-Hant": {
+    h: "CPPI 基本資訊",
+    list: [
+      "成立: 2016年 (前身為 Re:yoom 皮拉提斯學院，2015年出版社登記)",
+      "正規證照課程 (師資培訓): 8門科目・合計110~120小時",
+      "組成: 理論25小時 (功能解剖學10・基本原理10・體態分析5) + 實作85~95小時 (墊上25・核心床 Reformer 20~25・凱迪拉克20~25・穩踏椅10・桶系列10)",
+      "教材: 自行編寫出版教材9冊 約1,300頁 + 小器材教材4冊 (滾筒164頁・圈136頁・迷你球178頁・BOSU 160頁)",
+      "結業梯次: 56梯以上",
+      "營運地區: 韓國 (盆唐・首爾・金浦)、加拿大 (溫哥華)、日本 (東京)",
+      "創辦人: 朴恩珠 (Eun-Ju Park) - 曾任職盆唐首爾大學醫院麻醉疼痛醫學科、韓國報勳福祉公團脊椎與關節中心。歷任韓國拿撒勒大學運動復健學系兼任教授、西京大學藝術教育院皮拉提斯課程院長",
+      "創辦人持有證照: STOTT PILATES (IMP・IR・ICCB・AMP・AR・RMR1-ISP)、PMA 2012、Balanced Body University 3項、POWER PLATE Master Trainer 2022、RECOVERING Master Trainer 2022",
+      "結業後: 核發國際證照・升級為L3正會員・登載於結業導師名錄 (香港學員亦適用，普拉提導師證書課程相關洽詢請來信)",
+      "授課語言: 韓語 (海外學員請來信洽詢口譯安排)",
+    ],
+  },
+};
+
+/* 자격과정을 고를 때 무엇을 확인해야 하는가 - 비교 검증형 쿼리 대응.
+   대만 SERP: 「台灣證照 vs 國際證照」「證照怎麼選」
+   일본 SERP: 「国際認定と国内団体を比較」「どこがいい」
+   한국 SERP: 「국제 vs 국내 필라테스 자격증」
+   경쟁 기관의 수치를 우리 사이트에서 단정하지 않는다. 확인 항목을
+   제시하고 CPPI 의 답만 명시한다. 이것이 정직하면서 비교 쿼리를 받는 방법이다. */
+export const CHOOSE = {
+  ko: {
+    h: "자격과정을 고를 때 확인할 6가지",
+    list: [
+      "1. 총 교육 시수가 공개되어 있는가 - CPPI: 8과목 110~120시간, 과목별 시수 전부 공개",
+      "2. 누가 직접 가르치는가 - CPPI: 창립자 직강을 원칙으로 하고, 심화교육과 프레젠터 스피치 과정을 수료한 마스터 인스트럭터가 함께 지도",
+      "3. 교재가 있는가 - CPPI: 직접 집필한 출판 교재 9권 약 1,300페이지를 텍스트로 사용",
+      "4. 이론 근거가 무엇인가 - CPPI: 기능해부학과 근막경선(Anatomy Trains) 체계, 창립자의 병원 임상 경력이 커리큘럼의 기준",
+      "5. 평가 방식이 있는가 - CPPI: 온라인 강의는 보조 학습이며 수료에는 오프라인 실기와 티칭 평가가 포함",
+      "6. 수료 후 지원이 있는가 - CPPI: 국제자격증 발급, L3 정회원 승급, 수료강사 명단 등재, 활동 연계 지원",
+    ],
+  },
+  en: {
+    h: "Six things to check before choosing a certification",
+    list: [
+      "1. Are the total contact hours published? CPPI: 8 subjects, 110-120 hours, with hours listed per subject.",
+      "2. Who actually teaches? CPPI: the founder teaches the certification courses as a rule, alongside master instructors who have completed advanced training and presenter speech courses.",
+      "3. Is there a textbook? CPPI: 9 published volumes of roughly 1,300 pages, written in-house, used as the course text.",
+      "4. What is the theoretical basis? CPPI: functional anatomy and the Anatomy Trains myofascial framework, anchored in the founder's hospital clinical background.",
+      "5. Is there an assessment? CPPI: online lectures are supplementary; certification requires in-person practical work and a teaching assessment.",
+      "6. What happens after graduation? CPPI: international certificate, L3 membership, listing in the graduate instructor directory, and support in finding teaching work.",
+    ],
+  },
+  ja: {
+    h: "資格課程を選ぶ前に確認したい6点",
+    list: [
+      "1. 総時間数が公開されているか - CPPI: 8科目110~120時間、科目ごとの時間もすべて公開",
+      "2. 誰が直接指導するか - CPPI: 創立者の直接指導を原則とし、深化教育とプレゼンター・スピーチ課程を修了したマスターインストラクターが共に指導",
+      "3. 教材があるか - CPPI: 自社執筆の出版教材9冊 約1,300ページをテキストとして使用",
+      "4. 理論的根拠は何か - CPPI: 機能解剖学とアナトミー・トレイン (筋膜経線) の体系、および創立者の病院臨床経歴がカリキュラムの基準",
+      "5. 評価があるか - CPPI: オンライン講義は補助学習であり、修了には対面の実技と指導評価が必要",
+      "6. 修了後の支援があるか - CPPI: 国際資格証の発行、L3正会員への昇級、修了講師名簿への掲載、活動の連携支援",
+    ],
+  },
+  zh: {
+    h: "选择教练资格课程前应确认的6件事",
+    list: [
+      "1. 是否公开总课时 - CPPI: 8门科目110~120小时，各科目课时全部公开",
+      "2. 由谁亲自授课 - CPPI: 以创始人亲授为原则，并由完成深化教育与演讲课程的大师级导师共同指导",
+      "3. 是否有教材 - CPPI: 使用自主编写的出版教材9册 约1,300页",
+      "4. 理论依据是什么 - CPPI: 功能解剖学与筋膜经线 (Anatomy Trains) 体系，以创始人的医院临床经历为课程基准",
+      "5. 是否设有考核 - CPPI: 在线课程为辅助学习，结业须通过线下实操与教学考核",
+      "6. 结业后是否有支持 - CPPI: 颁发国际资格证书、升级L3正会员、登载结业教练名录、提供活动衔接支持",
+    ],
+  },
+  "zh-Hant": {
+    h: "選擇師資培訓證照前應確認的6件事",
+    list: [
+      "1. 是否公開總時數 - CPPI: 8門科目110~120小時，各科目時數全部公開",
+      "2. 由誰親自授課 - CPPI: 以創辦人親授為原則，並由完成深化教育與講師表達課程的大師級導師共同指導",
+      "3. 是否有教材 - CPPI: 使用自行編寫的出版教材9冊 約1,300頁",
+      "4. 理論依據是什麼 - CPPI: 功能解剖學與筋膜線 (Anatomy Trains) 體系，以創辦人的醫院臨床經歷作為課程基準",
+      "5. 是否設有考核 - CPPI: 線上課程為輔助學習，結業須通過實體實作與教學考核",
+      "6. 結業後是否有支援 - CPPI: 核發國際證照、升級L3正會員、登載結業導師名錄、提供授課媒合支援",
+    ],
+  },
 };
 
 export const SITE_NAME = {
@@ -200,7 +351,7 @@ export const CONTENT = {
       ],
     },
     ja: {
-      title: "CPPI 韓国ピラティス教育協会 | 国際ピラティス指導者資格課程",
+      title: "CPPI 韓国ピラティス教育協会 | 国際ピラティスインストラクター資格",
       desc: "機能解剖学・臨床リハビリ・指導実習を軸にした国際ピラティス指導者資格課程。2016年設立、韓国・カナダ・日本で運営、修了56期以上。",
       eyebrow: "CPPI KOREA", h1: "感覚ではなく、根拠で教えます",
       lead: "機能解剖学と臨床根拠の上に設計された国際ピラティス指導者資格課程です。",
@@ -399,21 +550,21 @@ export const CONTENT = {
       blocks: [{ h: "Eight core courses", list: ["1. Functional Pilates Anatomy - 10 hours", "2. Basic Principles: 10 principles / 5 movement rules - 10 hours", "3. Body type, posture and movement analysis - 5 hours", "4. Pilates Mat - 25 hours", "5. Reformer - 20-25 hours", "6. Cadillac - 20-25 hours", "7. Stability Chair - 10 hours", "8. Ladder Barrel and Barrel series - 10 hours"] }],
     },
     ja: {
-      title: "正規課程エッセンシャルカリキュラム | CPPI ピラティス指導者資格",
+      title: "ピラティス資格カリキュラム 8科目110~120時間 | CPPI 韓国",
       desc: "機能解剖学と医学的根拠に基づいて設計されたCPPI正規課程の8大カリキュラム。マット・リフォーマー・キャデラック・チェア・バレルシリーズを詳しくご案内します。",
       eyebrow: "CURRICULUM", h1: "CPPI エッセンシャルカリキュラム",
       lead: "全課程が機能解剖学と医学的根拠の上に設計されています。",
       blocks: [{ h: "8大カリキュラム", list: ["1. 機能解剖学ピラティス - 10時間", "2. ベーシックプリンシプル 10原則 / 5つの動作原則 - 10時間", "3. 体型分析および動作評価 - 5時間", "4. ピラティス・マット - 25時間", "5. リフォーマー - 20~25時間", "6. キャデラック - 20~25時間", "7. スタビリティチェア - 10時間", "8. ラダーバレルおよびバレルシリーズ - 10時間"] }],
     },
     zh: {
-      title: "正规课程核心体系 | CPPI 普拉提教练资格",
+      title: "普拉提教练培训课程 8大科目110~120小时 | CPPI 韩国资格证",
       desc: "基于功能解剖学与医学循证设计的CPPI正规课程八大体系 - 垫上、核心床、凯迪拉克、椅、桶系列详细介绍。",
       eyebrow: "CURRICULUM", h1: "CPPI 核心课程体系",
       lead: "所有课程均建立在功能解剖学与医学循证之上。",
       blocks: [{ h: "八大课程", list: ["1. 普拉提功能解剖学 - 10小时", "2. 基本原理10项 / 5大动作原则 - 10小时", "3. 体型分析与动作评估 - 5小时", "4. 垫上普拉提 - 25小时", "5. 核心床 - 20~25小时", "6. 凯迪拉克 - 20~25小时", "7. 稳踏椅 - 10小时", "8. 梯桶及桶系列 - 10小时"] }],
     },
     "zh-Hant": {
-      title: "正規課程核心體系 | CPPI 皮拉提斯師資培訓",
+      title: "皮拉提斯師資培訓課程 8大科目110~120小時 | CPPI 韓國證照",
       desc: "以功能解剖學與醫學實證設計的 CPPI 正規課程八大體系 - 墊上、核心床、凱迪拉克、椅、桶系列完整介紹。台灣稱皮拉提斯證照，香港稱普拉提導師課程。",
       eyebrow: "CURRICULUM", h1: "CPPI 核心課程體系",
       lead: "所有課程均建立在功能解剖學與醫學實證之上。",
@@ -453,7 +604,7 @@ export const CONTENT = {
       ],
     },
     ja: {
-      title: "ピラティス指導者資格課程 | CPPI 韓国ピラティス教育協会",
+      title: "ピラティスインストラクター資格取得コース 8科目110~120時間 | CPPI",
       desc: "理論＋実技＋指導実習を中心としたCPPI国際ピラティス指導者資格課程のご案内。マスター講師陣、修了特典、募集情報。",
       eyebrow: "CERTIFICATION", h1: "CPPI ピラティス指導者資格課程",
       lead: "理論・実技・指導実習を繰り返す、実務中心の資格課程です。",
@@ -507,7 +658,7 @@ export const CONTENT = {
       blocks: [{ h: "Current workshops", list: ["Recovering Rehabilitation Pilates - one-day certification, 8 hours", "Prenatal Pilates specialist course", "Small-props Pilates specialist course - 16 hours (foam roller, circle, mini ball, BOSU)"] }],
     },
     ja: {
-      title: "専門講師ワークショップ | CPPI 韓国ピラティス教育協会",
+      title: "現役インストラクター向けワークショップ | CPPI 韓国ピラティス教育協会",
       desc: "現役講師・リハビリ従事者のための短期深化実習ワークショップ。リカバリングリハビリ、マタニティ、小道具ピラティス課程。",
       eyebrow: "WORKSHOP", h1: "専門講師ワークショップ",
       lead: "現役講師・リハビリ従事者のための短期深化実習です。",
@@ -685,7 +836,7 @@ export const CONTENT = {
       ],
     },
     ja: {
-      title: "オンライン講義 | CPPI ピラティス教育",
+      title: "ピラティス オンライン講義 | CPPI 韓国ピラティス教育協会",
       desc: "正規課程オンライン講義、脊柱ピラティスアプローチ、ムーブメントセラピーなどCPPIオンライン講義のご案内。",
       eyebrow: "ONLINE LECTURES", h1: "オンライン講義",
       blocks: [
@@ -772,6 +923,319 @@ export const CONTENT = {
   },
 };
 
+
+/* ------------------------------------------------------------------
+   본문 보강 (2026-08) - 아래 5개 라우트는 본문이 100~380자에 그쳐
+   색인 시 사이트 전체 품질 신호를 떨어뜨리고 있었다. AI 답변이 인용할
+   수 있는 형태(숫자·고유명사·정의)로 사실을 채운다.
+   원본 CONTENT 리터럴은 건드리지 않고 블록만 덧붙인다.
+   ※ 리커버링의 이론 프레임워크는 CPPI 자체 교육 체계이며 동료심사
+      문헌으로 검증된 수준이 아니다. 그 점을 본문에 명시한다.
+------------------------------------------------------------------ */
+const EXTRA_BLOCKS = {
+  workshop: {
+    ko: [
+      { h: "리커버링 재활 필라테스 원데이 자격과정 (8시간)", p: "7교시 x 50분 구성으로 09:30에 시작해 17:30에 마칩니다(점심 12:30~13:30). 동작 37개와 이론 14개를 다룹니다. 교시 구성은 P1 오프닝 및 근막 기초, P2 풋워크, P3 포포인트 및 스탠딩, P4 스탠딩 브릿지 및 시티드 시리즈, P5 사이드라잉, P6 프론 및 롤업, P7 클로징입니다." },
+      { h: "리커버링이란 무엇인가", p: "리커버링(Recovering)은 CPPI가 운영하는 소도구 겸 프로그램명입니다. 단순 탄성 도구가 아니라 압박(Compression) · 보조(Assist) · 균형(Balance) 세 가지 원리로 척추를 입체적으로 자극하는 3D 감각 피드백 도구로 정의합니다." },
+      { h: "도구의 3요소", list: [
+        "6-TOP - 압박 포인트의 중심. 골반 · 흉골 · 발바닥 · 종아리 등에 압박 자극을 주어 즉각적인 감각 피드백을 전달합니다.",
+        "2-EDGE - 밀고 당기기의 경계선. 양손의 회전력을 형성하는 가이드로, 척추 회전 시 좌우 비대칭을 감지하게 합니다.",
+        "4-CURVE - 움직임의 가이드 레일. 굴곡과 신전의 방향을 안내하고 손목 · 팔꿈치 정렬과 안전한 가동범위 확보에 관여합니다." ] },
+      { h: "그 밖의 워크숍", list: [
+        "임산부 필라테스 전문가 과정",
+        "소도구 필라테스 전문가 과정 - 16시간 (폼롤러 · 서클 · 미니볼 · BOSU, 전용 교재 4권 총 638페이지)" ] },
+      { h: "이론 근거에 대한 고지", p: "리커버링의 생체역학 프레임워크(닫힌 사슬, 축성 신장, 항회전, 나선 근막 사슬, 관절 중심화, 고유수용감각 등)는 CPPI가 현장 교육을 위해 정리한 자체 체계입니다. 개별 항목이 무작위 대조시험이나 메타분석으로 검증된 수준인지는 별도의 문헌 검토가 필요합니다." },
+    ],
+    en: [
+      { h: "Recovering Rehabilitation Pilates - one-day certification (8 hours)", p: "Seven 50-minute periods running 09:30 to 17:30 with a lunch break from 12:30 to 13:30, covering 37 movements and 14 theory segments. The sequence is P1 opening and myofascial foundation, P2 foot work, P3 four-point and standing, P4 standing bridge and seated series, P5 side-lying, P6 prone and roll up, P7 closing." },
+      { h: "What Recovering is", p: "Recovering is both a prop and a programme run by CPPI. Rather than a simple elastic device, it is defined as a three-dimensional sensory feedback tool that works the spine through three principles: compression, assist and balance." },
+      { h: "The three elements of the prop", list: [
+        "6-TOP - the centre of compression. Applies pressure at the pelvis, sternum, sole and calf, returning immediate sensory feedback.",
+        "2-EDGE - the boundary of push and pull. Guides the rotational force of both hands and makes left-right asymmetry perceptible during spinal rotation.",
+        "4-CURVE - the guide rail of movement. Directs flexion and extension, and governs wrist and elbow alignment and a safe range of motion." ] },
+      { h: "Other workshops", list: [
+        "Prenatal Pilates specialist course",
+        "Small-props Pilates specialist course - 16 hours (foam roller, circle, mini ball, BOSU), with 4 dedicated textbooks totalling 638 pages" ] },
+      { h: "A note on the theoretical basis", p: "The biomechanical framework behind Recovering - closed kinetic chain, axial elongation, anti-rotation, spiral myofascial slings, joint centration, proprioception and related concepts - is CPPI's own teaching framework, compiled for field instruction. Whether each individual claim has been validated by randomised controlled trials or meta-analysis would require a separate literature review." },
+    ],
+    ja: [
+      { h: "リカバリング リハビリピラティス ワンデー資格課程 (8時間)", p: "7教時 x 50分の構成で、09:30に始まり17:30に終了します (昼食12:30~13:30)。動作37種と理論14項目を扱います。教時構成は P1 オープニングおよび筋膜基礎、P2 フットワーク、P3 フォーポイントおよびスタンディング、P4 スタンディングブリッジおよびシーテッドシリーズ、P5 サイドライイング、P6 プローンおよびロールアップ、P7 クロージングです。" },
+      { h: "リカバリングとは", p: "リカバリング (Recovering) は CPPI が運営する小道具兼プログラム名です。単なる弾性ツールではなく、圧迫 (Compression) · 補助 (Assist) · バランス (Balance) の3原理で脊柱を立体的に刺激する 3D 感覚フィードバックツールとして定義しています。" },
+      { h: "ツールの3要素", list: [
+        "6-TOP - 圧迫ポイントの中心。骨盤 · 胸骨 · 足底 · ふくらはぎなどに圧迫刺激を与え、即時の感覚フィードバックを伝えます。",
+        "2-EDGE - 押しと引きの境界線。両手の回旋力を形成するガイドで、脊柱回旋時の左右非対称を知覚させます。",
+        "4-CURVE - 動きのガイドレール。屈曲と伸展の方向を導き、手首 · 肘のアライメントと安全な可動域の確保に関わります。" ] },
+      { h: "その他のワークショップ", list: [
+        "マタニティピラティス専門家課程",
+        "小道具ピラティス専門家課程 - 16時間 (フォームローラー · サークル · ミニボール · BOSU)、専用教材4冊 計638ページ" ] },
+      { h: "理論的根拠についての注記", p: "リカバリングの生体力学フレームワーク (閉鎖性運動連鎖、軸性伸長、抗回旋、螺旋筋膜スリング、関節中心化、固有受容感覚など) は、CPPI が現場教育のために整理した独自の体系です。各項目がランダム化比較試験やメタ分析で検証された水準かどうかは、別途の文献レビューが必要です。" },
+    ],
+    zh: [
+      { h: "Recovering 康复普拉提 一日资格课程 (8小时)", p: "由7个课时 x 50分钟组成，09:30开始，17:30结束 (午餐12:30~13:30)。涵盖37个动作与14项理论。课时结构为 P1 开场与筋膜基础、P2 足部训练、P3 四点支撑与站姿、P4 站姿桥式与坐姿系列、P5 侧卧、P6 俯卧与卷起、P7 收尾。" },
+      { h: "什么是 Recovering", p: "Recovering 是 CPPI 运营的小器械兼课程名称。它并非单纯的弹性器械，而被定义为通过压迫 (Compression) · 辅助 (Assist) · 平衡 (Balance) 三项原理立体唤醒脊柱的 3D 感觉反馈系统。" },
+      { h: "器械的三要素", list: [
+        "6-TOP - 压迫点的中心。对骨盆 · 胸骨 · 足底 · 小腿等部位施加压迫刺激，即时传递感觉反馈。",
+        "2-EDGE - 推与拉的边界线。作为形成双手旋转力的导引，在脊柱旋转时提供左右不对称的反馈。",
+        "4-CURVE - 动作的导轨。引导屈曲与伸展的方向，并参与腕 · 肘对位及安全活动范围的确保。" ] },
+      { h: "其他工作坊", list: [
+        "孕产妇普拉提专家课程",
+        "小器械普拉提专家课程 - 16小时 (泡沫轴 · 圈 · 迷你球 · BOSU)，配套教材4册 共638页" ] },
+      { h: "关于理论依据的说明", p: "Recovering 的生物力学框架 (闭链运动、轴向延展、抗旋转、螺旋筋膜链、关节中心化、本体感觉等) 是 CPPI 为现场教学整理的自有体系。各项内容是否已通过随机对照试验或荟萃分析验证，需另行进行文献审阅。" },
+    ],
+    "zh-Hant": [
+      { h: "Recovering 復健皮拉提斯 一日證照課程 (8小時)", p: "由7堂課 x 50分鐘組成，09:30開始、17:30結束 (午餐12:30~13:30)。涵蓋37個動作與14項理論。課堂結構為 P1 開場與筋膜基礎、P2 足部訓練、P3 四足跪姿與站姿、P4 站姿橋式與坐姿系列、P5 側躺、P6 俯臥與捲起、P7 收尾。" },
+      { h: "什麼是 Recovering", p: "Recovering 是 CPPI 營運的小器材兼課程名稱。它並非單純的彈性器材，而是以壓迫 (Compression) · 輔助 (Assist) · 平衡 (Balance) 三項原理立體喚醒脊柱的 3D 感覺回饋系統。" },
+      { h: "器材的三要素", list: [
+        "6-TOP - 壓迫點的中心。對骨盆 · 胸骨 · 足底 · 小腿等部位施加壓迫刺激，即時傳遞感覺回饋。",
+        "2-EDGE - 推與拉的邊界線。作為形成雙手旋轉力的導引，在脊柱旋轉時提供左右不對稱的回饋。",
+        "4-CURVE - 動作的導軌。引導屈曲與伸展的方向，並參與腕 · 肘對位及安全活動範圍的確保。" ] },
+      { h: "其他工作坊", list: [
+        "孕產婦皮拉提斯專家課程",
+        "小器材皮拉提斯專家課程 - 16小時 (滾筒 · 圈 · 迷你球 · BOSU)，配套教材4冊 共638頁" ] },
+      { h: "關於理論依據的說明", p: "Recovering 的生物力學框架 (閉鎖鏈運動、軸向延展、抗旋轉、螺旋筋膜鏈、關節中心化、本體感覺等) 是 CPPI 為現場教學整理的自有體系。各項內容是否已通過隨機對照試驗或統合分析驗證，需另行進行文獻審閱。" },
+    ],
+  },
+
+  master: {
+    ko: [
+      { h: "마스터 인스트럭터가 되는 경로", p: "CPPI 정규과정 수료 후 심화교육과 프레젠터 스피치 과정을 이수해야 마스터 인스트럭터로 지도에 참여할 수 있습니다. 프레젠터 스피치 과정을 별도로 두는 이유는, 동작을 아는 것과 그것을 남에게 가르치는 것이 다른 역량이기 때문입니다." },
+      { h: "창립자 · 대표 마스터 - 박은주 (Eun-Ju Park)", p: "간호 임상 출신으로 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추&관절센터에서 근무했습니다. 서울대병원에서 중환자 전문간호연수, 정형외과 수술후 재활과정, 노인간호 및 재활과정, 당뇨 · 고혈압 · 골다공증 관리 과정을 이수했습니다. 나사렛대학교 스포츠재활학과 겸임교수와 서경대학교 예술교육원 필라테스과정 원장을 역임했습니다." },
+      { h: "창립자 보유 국제 자격", list: [
+        "STOTT PILATES - IMP · IR · ICCB · AMP · AR · RMR1-ISP (Injury Special Population)",
+        "PMA (Pilates Method Alliance) Certification Education - 2012",
+        "Balanced Body University - Creating Length & Strength / Scoliosis Spiral / Innovate Mat Sequences for Motor Control, Stability and Balance",
+        "POWER PLATE Master Trainer Certification - 2022",
+        "RECOVERING Master Trainer Certification - 2022" ] },
+      { h: "학회 · 단체 활동", list: ["경기도 배구협회 이사", "대한 간호정우회 · 간호 Q&A협회 정회원", "대한 비만학회 정회원"] },
+    ],
+    en: [
+      { h: "How one becomes a master instructor", p: "After completing the CPPI certification, an instructor must finish advanced training and a presenter speech course before teaching on CPPI programmes. The speech course exists as a separate requirement because knowing a movement and teaching it to someone else are different competencies." },
+      { h: "Founder and lead master - Eun-Ju Park", p: "A clinically trained nurse, she worked in the Department of Anesthesiology and Pain Medicine at Seoul National University Hospital Bundang and at the Spine & Joint Center of the Korea Veterans Health Service. Her training at SNUH covered critical care nursing, post-operative orthopedic rehabilitation, geriatric nursing and rehabilitation, and the management of diabetes, hypertension and osteoporosis. She served as Adjunct Professor of Sports Rehabilitation at Korea Nazarene University and as Director of the Pilates Programme at Seokyeong University Arts Education Center." },
+      { h: "International credentials held by the founder", list: [
+        "STOTT PILATES - IMP, IR, ICCB, AMP, AR, RMR1-ISP (Injury and Special Populations)",
+        "PMA (Pilates Method Alliance) Certification Education - 2012",
+        "Balanced Body University - Creating Length & Strength; Scoliosis Spiral; Innovate Mat Sequences for Motor Control, Stability and Balance",
+        "POWER PLATE Master Trainer Certification - 2022",
+        "RECOVERING Master Trainer Certification - 2022" ] },
+      { h: "Professional affiliations", list: ["Director, Gyeonggi-do Volleyball Association", "Full member, Korean Nurses associations", "Full member, Korean Society for the Study of Obesity"] },
+    ],
+    ja: [
+      { h: "マスターインストラクターになる道筋", p: "CPPI正規課程の修了後、深化教育とプレゼンター・スピーチ課程を修了して初めて、マスターインストラクターとして指導に参加できます。スピーチ課程を別に設けているのは、動作を知っていることと、それを他者に教えることが別の能力だからです。" },
+      { h: "創立者 · 代表マスター - パク・ウンジュ (Eun-Ju Park)", p: "看護臨床出身で、盆唐ソウル大学病院 麻酔痛症医学科および韓国報勲福祉公団 脊椎&関節センターに勤務しました。ソウル大学病院では重症患者専門看護研修、整形外科術後リハビリ課程、高齢者看護およびリハビリ課程、糖尿 · 高血圧 · 骨粗鬆症管理課程を修了しています。韓国ナザレ大学スポーツリハビリ学科 兼任教授、西京大学芸術教育院ピラティス課程 院長を歴任しました。" },
+      { h: "創立者が保有する国際資格", list: [
+        "STOTT PILATES - IMP · IR · ICCB · AMP · AR · RMR1-ISP (Injury Special Population)",
+        "PMA (Pilates Method Alliance) Certification Education - 2012",
+        "Balanced Body University - Creating Length & Strength / Scoliosis Spiral / Innovate Mat Sequences",
+        "POWER PLATE Master Trainer Certification - 2022",
+        "RECOVERING Master Trainer Certification - 2022" ] },
+      { h: "学会 · 団体活動", list: ["京畿道バレーボール協会 理事", "大韓看護関連団体 正会員", "大韓肥満学会 正会員"] },
+    ],
+    zh: [
+      { h: "成为大师级导师的路径", p: "结业于 CPPI 正规课程后，须再完成深化教育与演讲 (Presenter Speech) 课程，方可作为大师级导师参与授课。之所以将演讲课程单独设为条件，是因为掌握动作与把动作教给他人是两种不同的能力。" },
+      { h: "创始人 · 首席大师 - 朴恩珠 (Eun-Ju Park)", p: "护理临床出身，曾任职于盆唐首尔大学医院麻醉疼痛医学科及韩国报勋福祉公团脊柱与关节中心。在首尔大学医院完成重症监护专科护理研修、骨科术后康复课程、老年护理与康复课程，以及糖尿病 · 高血压 · 骨质疏松管理课程。历任韩国拿撒勒大学运动康复学科兼任教授、西京大学艺术教育院普拉提课程院长。" },
+      { h: "创始人持有的国际资格", list: [
+        "STOTT PILATES - IMP · IR · ICCB · AMP · AR · RMR1-ISP",
+        "PMA (Pilates Method Alliance) Certification Education - 2012",
+        "Balanced Body University - Creating Length & Strength / Scoliosis Spiral / Innovate Mat Sequences",
+        "POWER PLATE Master Trainer Certification - 2022",
+        "RECOVERING Master Trainer Certification - 2022" ] },
+      { h: "学会 · 团体活动", list: ["京畿道排球协会 理事", "大韩护理相关团体 正会员", "大韩肥胖学会 正会员"] },
+    ],
+    "zh-Hant": [
+      { h: "成為大師級導師的路徑", p: "結業於 CPPI 正規課程後，須再完成深化教育與講師表達 (Presenter Speech) 課程，方可作為大師級導師參與授課。之所以將表達課程單獨列為條件，是因為掌握動作與把動作教給他人是兩種不同的能力。" },
+      { h: "創辦人 · 首席大師 - 朴恩珠 (Eun-Ju Park)", p: "護理臨床出身，曾任職於盆唐首爾大學醫院麻醉疼痛醫學科及韓國報勳福祉公團脊椎與關節中心。並於首爾大學醫院完成重症監護專科護理研修、骨科術後復健課程、高齡照護與復健課程，以及糖尿病 · 高血壓 · 骨質疏鬆管理課程。歷任韓國拿撒勒大學運動復健學系兼任教授、西京大學藝術教育院皮拉提斯課程院長。" },
+      { h: "創辦人持有的國際證照", list: [
+        "STOTT PILATES - IMP · IR · ICCB · AMP · AR · RMR1-ISP",
+        "PMA (Pilates Method Alliance) Certification Education - 2012",
+        "Balanced Body University - Creating Length & Strength / Scoliosis Spiral / Innovate Mat Sequences",
+        "POWER PLATE Master Trainer Certification - 2022",
+        "RECOVERING Master Trainer Certification - 2022" ] },
+      { h: "學會 · 團體活動", list: ["京畿道排球協會 理事", "大韓護理相關團體 正會員", "大韓肥胖學會 正會員"] },
+    ],
+  },
+};
+
+for (const [route, byLang] of Object.entries(EXTRA_BLOCKS)) {
+  for (const [lang, extra] of Object.entries(byLang)) {
+    const entry = CONTENT[route] && CONTENT[route][lang];
+    if (entry) entry.blocks = (entry.blocks || []).concat(extra);
+  }
+}
+
+
+const EXTRA_BLOCKS_2 = {
+  stories: {
+    ko: [
+      { h: "회원 등급 체계", p: "CPPI는 3단계 회원 등급을 운영합니다. 정규과정을 수료하면 L3 정회원으로 승급되고, 수료강사 명단에 등재되어 활동 연계 지원을 받습니다. 등급은 수강 이력과 활동에 따라 관리됩니다." },
+      { h: "수료생 구성", p: "56기 이상이 정규과정을 마쳤습니다. 수료생 중 상당수가 필라테스 비전공자로, 다른 분야에서 전향해 강사가 된 경우입니다. 커리큘럼이 기능해부학 기초에서 출발하도록 설계된 것도 이 때문입니다." },
+      { h: "수료 후 진로", list: [
+        "필라테스 스튜디오 강사 - 그룹 수업 및 개인 지도",
+        "재활 · 교정 중심 프로그램 운영 - 병원 · 재활센터 연계",
+        "스튜디오 창업 및 운영",
+        "CPPI 심화교육 이수 후 마스터 인스트럭터 과정" ] },
+      { h: "후기 열람", p: "기수별 수료강사 명단과 개별 후기는 CPPI 앱에서 확인하실 수 있습니다. 후기는 수료생이 직접 작성한 것만 게재합니다." },
+    ],
+    en: [
+      { h: "Membership tiers", p: "CPPI runs a three-tier membership system. Graduates of the certification programme are upgraded to L3 full membership and listed in the graduate instructor directory, which carries support in finding teaching work. Tiers are maintained according to study history and activity." },
+      { h: "Who takes the course", p: "More than 56 cohorts have completed the certification. A substantial share of graduates had no Pilates background and moved into teaching from other fields. This is why the curriculum is built to start from functional anatomy fundamentals." },
+      { h: "Where graduates go", list: [
+        "Studio instructor - group classes and private instruction",
+        "Rehabilitation and corrective programmes, in partnership with clinics and rehabilitation centres",
+        "Opening and running a studio",
+        "The master instructor track, after completing CPPI advanced training" ] },
+      { h: "Reading the reviews", p: "Cohort-by-cohort graduate listings and individual reviews are available in the CPPI app. Only reviews written by graduates themselves are published." },
+    ],
+    ja: [
+      { h: "会員等級制度", p: "CPPI は3段階の会員等級を運営しています。正規課程を修了すると L3 正会員に昇級し、修了講師名簿に掲載されて活動の連携支援を受けられます。等級は受講履歴と活動に応じて管理されます。" },
+      { h: "受講者の構成", p: "56期以上が正規課程を修了しました。修了生のうち相当数はピラティス未経験者で、他分野から転向して指導者になった方々です。カリキュラムが機能解剖学の基礎から始まる設計になっているのはこのためです。" },
+      { h: "修了後の進路", list: [
+        "ピラティススタジオのインストラクター - グループレッスンおよびパーソナル指導",
+        "リハビリ · 姿勢矯正中心のプログラム運営 - 病院 · リハビリセンターとの連携",
+        "スタジオの開業および運営",
+        "CPPI 深化教育の修了を経てマスターインストラクター課程へ" ] },
+      { h: "レビューの閲覧", p: "期別の修了講師名簿と個別レビューは CPPI アプリでご確認いただけます。レビューは修了生本人が書いたもののみを掲載しています。" },
+    ],
+    zh: [
+      { h: "会员等级体系", p: "CPPI 采用三级会员等级制度。结业于正规课程后升级为 L3 正会员，并登载于结业教练名录，可获得活动衔接支持。等级依据学习履历与活动情况管理。" },
+      { h: "学员构成", p: "已有56期以上完成正规课程。结业学员中相当比例并无普拉提基础，是从其他行业转型而来。课程之所以从功能解剖学基础起步，正是出于这一考量。" },
+      { h: "结业后的出路", list: [
+        "普拉提工作室教练 - 团体课与私教",
+        "康复 · 矫正导向课程的运营 - 与医院 · 康复中心衔接",
+        "工作室创业与经营",
+        "完成 CPPI 深化教育后进入大师级导师课程" ] },
+      { h: "查看评价", p: "各期结业教练名录与个别评价可在 CPPI 应用中查看。仅刊载由结业学员本人撰写的评价。" },
+    ],
+    "zh-Hant": [
+      { h: "會員等級制度", p: "CPPI 採用三級會員等級制度。結業於正規課程後升級為 L3 正會員，並登載於結業導師名錄，可獲得授課媒合支援。等級依據學習履歷與活動情況管理。" },
+      { h: "學員組成", p: "已有56梯以上完成正規課程。結業學員中相當比例並無皮拉提斯基礎，是從其他行業轉職而來。課程之所以從功能解剖學基礎起步，正是出於這一考量。" },
+      { h: "結業後的出路", list: [
+        "皮拉提斯工作室導師 - 團課與私人指導",
+        "復健 · 矯正導向課程的營運 - 與醫院 · 復健中心銜接",
+        "工作室創業與經營",
+        "完成 CPPI 深化教育後進入大師級導師課程" ] },
+      { h: "查看評價", p: "各梯次結業導師名錄與個別評價可於 CPPI 應用程式查看。僅刊載由結業學員本人撰寫的評價。" },
+    ],
+  },
+
+  global: {
+    ko: [
+      { h: "교육 언어와 통역", p: "정규과정의 교육 언어는 한국어입니다. 해외에서 수강을 원하시는 분은 이메일로 통역 가능 여부와 일정을 먼저 문의해 주세요. 교재는 한국어판이 기준입니다." },
+      { h: "지역별 문의 채널", list: [
+        "대한민국 - 010-4894-4292 · 네이버 톡톡",
+        "일본 - 이메일 (LINE 공식 계정 준비 중)",
+        "대만 · 홍콩 · 싱가포르 · 말레이시아 - 이메일 (영어 또는 중국어)",
+        "캐나다 및 그 외 지역 - 이메일 (영어)",
+        "공통 이메일 - allmovements@naver.com" ] },
+      { h: "해외 수강 시 확인할 것", list: [
+        "정규과정은 오프라인 실기와 티칭 평가를 포함하므로 방한 일정이 필요합니다.",
+        "온라인 강의는 사전 학습과 복습용이며 단독으로는 수료가 되지 않습니다.",
+        "기수 일정, 총 소요 기간, 숙박 및 이동은 문의 시 개별 안내드립니다." ] },
+    ],
+    en: [
+      { h: "Language of instruction and interpretation", p: "Certification courses are taught in Korean. If you are applying from outside Korea, please email first to ask about interpretation and scheduling. Textbooks are published in Korean." },
+      { h: "Contact by region", list: [
+        "Korea - +82-10-4894-4292, Naver TalkTalk",
+        "Japan - email (an official LINE account is in preparation)",
+        "Taiwan, Hong Kong, Singapore, Malaysia - email, in English or Chinese",
+        "Canada and elsewhere - email, in English",
+        "General email - allmovements@naver.com" ] },
+      { h: "What to check before applying from abroad", list: [
+        "Certification includes in-person practical work and a teaching assessment, so a stay in Korea is required.",
+        "Online lectures are for preparation and review; they do not lead to certification on their own.",
+        "Cohort dates, total duration, accommodation and travel are advised individually on enquiry." ] },
+    ],
+    ja: [
+      { h: "教育言語と通訳", p: "正規課程の教育言語は韓国語です。海外から受講をご希望の方は、まずメールで通訳の可否と日程をお問い合わせください。教材は韓国語版が基準です。" },
+      { h: "地域別のお問い合わせ窓口", list: [
+        "韓国 - 010-4894-4292 · Naver トークトーク",
+        "日本 - メール (LINE 公式アカウントは準備中)",
+        "台湾 · 香港 · シンガポール · マレーシア - メール (英語または中国語)",
+        "カナダおよびその他の地域 - メール (英語)",
+        "共通メール - allmovements@naver.com" ] },
+      { h: "海外から受講する際の確認事項", list: [
+        "正規課程は対面の実技と指導評価を含むため、訪韓の日程が必要です。",
+        "オンライン講義は事前学習と復習用であり、単独では修了になりません。",
+        "期の日程、総所要期間、宿泊および移動については、お問い合わせ時に個別にご案内します。" ] },
+    ],
+    zh: [
+      { h: "授课语言与翻译", p: "正规课程的授课语言为韩语。希望从海外报读者，请先通过邮件咨询翻译安排与日程。教材以韩语版为准。" },
+      { h: "各地区咨询渠道", list: [
+        "韩国 - 010-4894-4292 · Naver TalkTalk",
+        "日本 - 邮件 (LINE 官方账号筹备中)",
+        "台湾 · 香港 · 新加坡 · 马来西亚 - 邮件 (英语或中文)",
+        "加拿大及其他地区 - 邮件 (英语)",
+        "通用邮箱 - allmovements@naver.com" ] },
+      { h: "海外报读前需确认", list: [
+        "正规课程包含线下实操与教学考核，因此需要安排赴韩行程。",
+        "在线课程用于课前学习与复习，单独学习无法结业。",
+        "期次日程、总时长、住宿与交通将在咨询时个别说明。" ] },
+    ],
+    "zh-Hant": [
+      { h: "授課語言與口譯", p: "正規課程的授課語言為韓語。希望自海外報名者，請先以電子郵件洽詢口譯安排與梯次日程。教材以韓語版為準。" },
+      { h: "各地區洽詢管道", list: [
+        "韓國 - 010-4894-4292 · Naver TalkTalk",
+        "日本 - 電子郵件 (LINE 官方帳號籌備中)",
+        "台灣 · 香港 · 新加坡 · 馬來西亞 - 電子郵件 (英文或中文)",
+        "加拿大及其他地區 - 電子郵件 (英文)",
+        "共用信箱 - allmovements@naver.com" ] },
+      { h: "海外報名前需確認", list: [
+        "正規課程包含實體實作與教學考核，因此需安排赴韓行程。",
+        "線上課程用於課前學習與複習，單獨修習無法結業。",
+        "梯次日程、總時長、住宿與交通將於洽詢時個別說明。" ] },
+    ],
+  },
+
+  learn: {
+    ko: [
+      { h: "온라인 강의 3종 비교", list: [
+        "정규과정 온라인 강의 - 8개 과목 전체. 박은주 교수 직강. 정규과정 등록자와 수료자 전용이며 복습과 사전학습에 사용합니다.",
+        "척추 필라테스 어프로치 - 이론 1강 + 실기 2강. 척추질환별 금지 동작과 추천 동작을 다룹니다. 구매 후 시청 가능합니다.",
+        "CPPI 필라테스 무브먼트 테라피 - 경추 · 견관절 · 척추 · 골반 4개 부위별 교정운동. 구매 후 시청, 수료증은 온라인으로 발급됩니다." ] },
+      { h: "온라인 강의로 수료가 되나요", p: "되지 않습니다. 온라인 강의는 보조 학습 수단입니다. 정규 수료에는 오프라인 실기와 티칭 평가가 반드시 포함됩니다. 다만 무브먼트 테라피 강의는 자체 수료증을 온라인으로 발급합니다." },
+      { h: "결제와 열람", p: "결제 · 환불 · 고객응대는 교육사업 대행사 씨앤티파트너스(C&T Partners)가 담당합니다. 계좌이체는 입금 확인 후 열람 권한이 부여되며, 디지털 상품은 열람 이후 환불이 어렵습니다." },
+    ],
+    en: [
+      { h: "The three online courses compared", list: [
+        "Certification online lectures - all 8 subjects, taught by Prof. Eun-Ju Park. Restricted to enrolled students and graduates, for preparation and review.",
+        "Pilates Approach for Spine - 1 theory lecture plus 2 practical lectures, covering contraindicated and recommended movements by spinal condition. Available after purchase.",
+        "CPPI Pilates Movement Therapy - corrective exercise for four regions: cervical spine, shoulder, spine and pelvis. Available after purchase; a certificate is issued online." ] },
+      { h: "Can I certify online only?", p: "No. Online lectures are a supplement. Certification always requires in-person practical work and a teaching assessment. The Movement Therapy course does issue its own certificate online." },
+      { h: "Payment and access", p: "Payment, refunds and customer service are handled by C&T Partners, CPPI's education business agency. For bank transfers, access is granted once the deposit is confirmed. Digital products are difficult to refund once accessed." },
+    ],
+    ja: [
+      { h: "オンライン講義3種の比較", list: [
+        "正規課程オンライン講義 - 8科目すべて。パク・ウンジュ教授の直接講義。正規課程の登録者と修了者専用で、予習と復習に使用します。",
+        "脊柱ピラティスアプローチ - 理論1講 + 実技2講。脊椎疾患別の禁忌動作と推奨動作を扱います。購入後に視聴できます。",
+        "CPPI ピラティス・ムーブメントセラピー - 頸椎 · 肩関節 · 脊柱 · 骨盤の4部位別の矯正運動。購入後に視聴、修了証はオンラインで発行されます。" ] },
+      { h: "オンライン講義だけで修了できますか", p: "できません。オンライン講義は補助的な学習手段です。正規修了には対面の実技と指導評価が必ず含まれます。ただしムーブメントセラピー講義は独自の修了証をオンラインで発行します。" },
+      { h: "決済と視聴", p: "決済 · 返金 · 顧客対応は教育事業代行社の C&T Partners が担当します。銀行振込は入金確認後に視聴権限が付与され、デジタル商品は視聴後の返金が困難です。" },
+    ],
+    zh: [
+      { h: "三种在线课程对比", list: [
+        "正规课程在线课程 - 全部8门科目，朴恩珠教授亲授。仅限正规课程报名者与结业学员，用于预习与复习。",
+        "脊柱普拉提方法 - 理论1讲 + 实操2讲，讲解按脊柱疾病分类的禁忌动作与推荐动作。购买后可观看。",
+        "CPPI 普拉提运动治疗 - 颈椎 · 肩关节 · 脊柱 · 骨盆四个部位的矫正运动。购买后可观看，结业证书在线颁发。" ] },
+      { h: "只上在线课程可以结业吗", p: "不可以。在线课程属于辅助学习手段。正式结业必须包含线下实操与教学考核。不过运动治疗课程会在线颁发其自有结业证书。" },
+      { h: "支付与观看", p: "支付 · 退款 · 客户服务由教育事业代理机构 C&T Partners 负责。银行转账在确认到账后开通观看权限，数字商品一经观看难以退款。" },
+    ],
+    "zh-Hant": [
+      { h: "三種線上課程比較", list: [
+        "正規課程線上課程 - 全部8門科目，朴恩珠教授親授。僅限正規課程報名者與結業學員，用於預習與複習。",
+        "脊柱皮拉提斯方法 - 理論1講 + 實作2講，講解按脊椎疾病分類的禁忌動作與建議動作。購買後即可觀看。",
+        "CPPI 皮拉提斯運動治療 - 頸椎 · 肩關節 · 脊柱 · 骨盆四個部位的矯正運動。購買後即可觀看，結業證書線上核發。" ] },
+      { h: "只上線上課程可以結業嗎", p: "不可以。線上課程屬於輔助學習手段。正式結業必須包含實體實作與教學考核。不過運動治療課程會線上核發其自有結業證書。" },
+      { h: "付款與觀看", p: "付款 · 退款 · 客戶服務由教育事業代理機構 C&T Partners 負責。銀行匯款於確認入帳後開通觀看權限，數位商品一經觀看難以退款。" },
+    ],
+  },
+};
+
+for (const [route, byLang] of Object.entries(EXTRA_BLOCKS_2)) {
+  for (const [lang, extra] of Object.entries(byLang)) {
+    const entry = CONTENT[route] && CONTENT[route][lang];
+    if (entry) entry.blocks = (entry.blocks || []).concat(extra);
+  }
+}
+
 export const ROUTES = Object.keys(CONTENT);
 /* 홈을 제외한 하위 페이지 목록 - 네비게이션·사이트맵에서 사용 */
 export const SUB_ROUTES = ROUTES.filter(r => r !== "home");
@@ -780,7 +1244,12 @@ export const SUB_ROUTES = ROUTES.filter(r => r !== "home");
    5개 라우트 x 5개 언어 = 25개 URL 을 '일시적으로' 색인에서 빼 둔다.
    noindex,follow 이므로 링크 자산은 그대로 흐르고, 사람은 정상적으로 볼 수 있다.
    본문을 채운 라우트는 이 배열에서 한 줄만 빼면 즉시 색인 대상으로 돌아온다. */
-export const THIN_ROUTES = ["workshop", "master", "stories", "global", "learn"];
+/* 2026-08: 5개 라우트 모두 본문을 채워 색인 대상으로 복귀시켰다.
+   기준은 글자 수가 아니라 '답할 거리'다 - 시수, 구성, 자격, 절차 같은
+   검증 가능한 사실이 각 언어의 본문에 실제로 들어 있는지로 판단한다.
+   앞으로 새 라우트를 만들 때 본문이 비어 있으면 여기에 넣어 두고,
+   채운 뒤에 빼면 된다. */
+export const THIN_ROUTES = [];
 
 export function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
@@ -848,8 +1317,26 @@ export function jsonLD(lang, route) {
   /* Course 리치결과 요건: provider 필수 */
   if (pageNode["@type"] === "Course") {
     pageNode.provider = { "@id": ORIGIN + "/#org" };
-    pageNode.educationalCredentialAwarded = "CPPI Certified Professional Pilates Instructor";
-    pageNode.inLanguage = ["ko", "en", "ja"];
+    pageNode.educationalCredentialAwarded = {
+      "@type": "EducationalOccupationalCredential",
+      name: "CPPI Certified Professional Pilates Instructor",
+      credentialCategory: "certificate",
+      recognizedBy: { "@id": ORIGIN + "/#org" },
+    };
+    pageNode.timeRequired = "PT115H";
+    pageNode.numberOfCredits = 8;
+    pageNode.educationalLevel = "Professional certification";
+    pageNode.occupationalCategory = "Pilates instructor";
+    pageNode.coursePrerequisites = "No prior Pilates qualification required. The curriculum begins from functional anatomy fundamentals.";
+    pageNode.teaches = [
+      "Functional Pilates anatomy",
+      "Pilates basic principles and the five movement rules",
+      "Posture and movement analysis",
+      "Pilates Mat repertoire",
+      "Reformer", "Cadillac", "Stability Chair", "Ladder Barrel and Barrel series",
+      "Cueing and hands-on teaching practice",
+    ];
+    pageNode.inLanguage = ["ko", "en", "ja", "zh-Hans", "zh-Hant"];
     pageNode.hasCourseInstance = {
       "@type": "CourseInstance",
       courseMode: ["Onsite", "Blended"],
@@ -1152,6 +1639,12 @@ export function ssrBody(lang, route) {
       + b.list.map(li => `<li>${esc(li)}</li>`).join("") + `</ul>`;
     return out + `</div>`;
   }).join("");
+  /* 과정 선택 비교 블록 - 비교·검증형 검색어(국제 vs 국내, 證照怎麼選,
+     国際認定と国内団体を比較)의 착지점이 되는 라우트에만 붙인다. */
+  const chooseB = ["curriculum", "courses", "global", "home"].includes(route)
+    ? blockHTML(CHOOSE[lang] || CHOOSE.en) : "";
+  /* 기관 사실 블록 - 전 페이지 공통. 형용사가 아니라 숫자로 답한다. */
+  const specsB = blockHTML(SPECS[lang] || SPECS.en);
   const faqItems = (FAQ[route] || {})[lang] || [];
   const faq = faqItems.length
     ? `<div class="eyebrow" style="margin-top:18px">${esc(UI.faq[lang])}</div>`
@@ -1164,7 +1657,9 @@ export function ssrBody(lang, route) {
   ${c.lead ? `<p style="color:var(--ink2);font-size:14px;margin-bottom:16px">${esc(c.lead)}</p>` : ""}
   ${hero ? `<img src="${hero.src}" alt="${esc(heroAlt)}" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">` : ""}
   ${blocks}
+  ${chooseB}
   ${faq}
+  ${specsB}
   ${c.note ? `<div class="note">${esc(c.note)}</div>` : ""}
 </section>`;
 }
