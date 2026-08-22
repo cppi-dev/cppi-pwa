@@ -62,6 +62,93 @@ export const FOUNDER = {
   "zh-Hant": "朴恩珠 (Eun-Ju Park)",
 };
 
+/* 콘텐츠 최종 수정일 - ProfilePage 등 스키마의 dateModified 로 나간다.
+   본문·프로필을 실제로 고칠 때만 갱신할 것. 임의로 올리면 허위 신호가 된다. */
+export const LAST_MODIFIED = "2026-08-22";
+
+
+/* ------------------------------------------------------------
+   교육센터 - 정규과정·워크숍·자격검정이 실제로 열리는 장소.
+   검증 가능한 고유명사(상호 + 도로명 주소)로만 쓴다. 확인 안 된 주소는 넣지 않는다.
+   PLACES 는 본문(CENTER_BLOCK)과 JSON-LD(CourseInstance.location) 양쪽에서 함께 쓴다.
+   ------------------------------------------------------------ */
+export const HQ_PLACE = {
+  name: "CPPI Korea HQ",
+  street: "25 Sangwon 1-gil, Seongdong-gu",
+  streetKo: "서울 성동구 상원1길 25 4181호",
+  locality: "Seoul", country: "KR", tel: "0507-1410-4282",
+};
+
+export const PLACES = [
+  { key: "seoul",   name: "BodyMulti Pilates Sangil-dong Station", nameKo: "바디멀티 필라테스 상일동역점",
+    street: "14 Godeok-ro 83-gil, Gangdong-gu", streetKo: "서울 강동구 고덕로83길 14", locality: "Seoul", country: "KR" },
+  { key: "bundang", name: "Pilatique Movement Lab", nameKo: "필라티크 운동연구소",
+    street: "", streetKo: "", locality: "Bundang, Seongnam", country: "KR" },
+  { key: "gimpo",   name: "Wellness Way Pilates Unyang", nameKo: "운양 웰니스웨이 필라테스",
+    street: "#703, 133 Gimpohangang 11-ro", streetKo: "경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호",
+    locality: "Gimpo", country: "KR" },
+];
+
+/* 본문 블록 - 교육센터 안내 + 공식 교육센터 파트너 모집.
+   장소 정보는 "어디서 배우나"라는 실제 검색 의도의 착지점이고,
+   모집 문구는 스튜디오 제휴 리드를 받는 입구다. */
+export const CENTER_BLOCK = {
+  ko: {
+    h: "CPPI 교육센터",
+    list: [
+      "HQ (협회 사무국) - 서울 성동구 상원1길 25 4181호. 뚝섬역 6번 출구에서 125m. 운영 10:00-22:00. 0507-1410-4282",
+      "서울 교육센터 - 바디멀티 필라테스 상일동역점. 서울 강동구 고덕로83길 14",
+      "분당 교육센터 - 필라티크 운동연구소. 경기 성남시 분당구",
+      "김포 교육센터 - 운양 웰니스웨이 필라테스. 경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호",
+      "해외 - 캐나다 밴쿠버 · 일본 도쿄",
+    ],
+    p: "CPPI 필라테스 공식 교육센터 모집중 - 정규 자격과정과 워크숍을 함께 운영할 스튜디오를 모집합니다. 기수 운영·교재 공급·강사 배정은 협회가 지원합니다. 제휴 문의는 이메일로 받습니다.",
+  },
+  en: {
+    h: "CPPI education centers",
+    list: [
+      "HQ (association office) - 25 Sangwon 1-gil, Seongdong-gu, Seoul. 125m from Ttukseom Station Exit 6. Open 10:00-22:00. +82-507-1410-4282",
+      "Seoul center - BodyMulti Pilates, Sangil-dong Station: 14 Godeok-ro 83-gil, Gangdong-gu, Seoul",
+      "Bundang center - Pilatique Movement Lab: Bundang-gu, Seongnam, Gyeonggi-do",
+      "Gimpo center - Wellness Way Pilates Unyang: #703, 133 Gimpohangang 11-ro, Gimpo-si, Gyeonggi-do",
+      "Overseas - Vancouver, Canada and Tokyo, Japan",
+    ],
+    p: "CPPI is now accepting official education center partners. We are looking for studios to host CPPI certification courses and workshops; the association supplies cohort scheduling, textbooks and assigned instructors. Enquiries by email.",
+  },
+  ja: {
+    h: "CPPI 教育センター",
+    list: [
+      "HQ(協会事務局) - ソウル特別市 城東区 上院1キル25 4181号。トゥクソム駅6番出口から125m。営業10:00-22:00。+82-507-1410-4282",
+      "ソウル教育センター - ボディマルチ ピラティス 上一洞駅店:ソウル特別市 江東区 高徳路83キル14",
+      "盆唐教育センター - ピラティーク運動研究所:京畿道 城南市 盆唐区",
+      "金浦教育センター - 雲陽ウェルネスウェイ ピラティス:京畿道 金浦市 金浦漢江11路133(雲陽洞・中央プラザ)703号",
+      "海外 - カナダ バンクーバー、日本 東京",
+    ],
+    p: "CPPI ピラティス公式教育センター募集中 - 正規資格課程とワークショップを共同運営するスタジオを募集しています。期の運営・教材供給・講師派遣は協会が支援します。提携のお問い合わせはメールで承ります。",
+  },
+  zh: {
+    h: "CPPI 教育中心",
+    list: [
+      "HQ(协会事务局)- 首尔特别市城东区上院1街25号 4181室。纛岛站6号出口125m。营业10:00-22:00。+82-507-1410-4282",
+      "首尔教育中心 - BodyMulti 普拉提 上一洞站店：首尔特别市江东区高德路83街14号",
+      "盆唐教育中心 - Pilatique 运动研究所：京畿道城南市盆唐区",
+      "金浦教育中心 - 云阳 Wellness Way 普拉提：京畿道金浦市金浦汉江11路133号(云阳洞·中央广场)703室",
+      "海外 - 加拿大温哥华、日本东京",
+    ],
+    p: "CPPI 普拉提官方教育中心招募中 - 招募共同运营正规资格课程与工作坊的工作室。期数运营、教材供应与师资派遣由协会支援。合作咨询请发邮件。",
+  },
+  "zh-Hant": {
+    h: "CPPI 教育中心",
+    list: [
+      "HQ(協會事務局)- 首爾特別市城東區上院1街25號 4181室。纛島站6號出口125m。營業10:00-22:00。+82-507-1410-4282",
+      "首爾教育中心 - BodyMulti 皮拉提斯 上一洞站店：首爾特別市江東區高德路83街14號",
+      "盆唐教育中心 - Pilatique 運動研究所：京畿道城南市盆唐區",
+      "金浦教育中心 - 雲陽 Wellness Way 皮拉提斯：京畿道金浦市金浦漢江11路133號(雲陽洞·中央廣場)703室",
+      "海外 - 加拿大溫哥華、日本東京",
+    ],
+    p: "CPPI 皮拉提斯官方教育中心招募中 - 招募共同運營正規資格課程與工作坊的工作室。期數運營、教材供應與師資派遣由協會支援。合作諮詢請來信。",
+  },
+};
 /* 전 페이지 하단에 붙는 기관 사실 블록.
    AI 답변이 인용할 수 있는 형태(숫자 + 고유명사)로만 쓴다.
    출처: 협회 공개 자료. 검증되지 않은 수치는 넣지 않는다. */
@@ -323,6 +410,86 @@ export const FAQ = {
 /* ------------------------------------------------------------------
    페이지 콘텐츠 - 사실 관계는 협회 공개 자료 기준이며 언어별로 동일하다.
 ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------
+   FAQ 확장 (2026-08) - 기존에는 courses·founder 2개 라우트에만 있었다.
+   근거 정리: 구글은 2026-05-07 FAQ 리치결과를 폐지했으므로 스키마
+   자체의 검색 이득은 없다. 그럼에도 확장하는 이유는 둘이다.
+   1) AI 답변은 '자족적으로 추출 가능한 단락'을 인용한다. 질문 바로
+      아래 2~3문장으로 답이 끝나는 형태가 그 조건에 맞는다.
+   2) 일본 시장에서 포괄적 FAQ 는 신뢰의 기대 사양이다. 없으면
+      '정보를 숨긴다'로 읽힌다.
+   질문은 각 시장 SERP 에서 실제로 관측된 형태를 쓴다.
+   (한국 '비용/따는 법/비전공자', 일본 'どこがいい/費用/働きながら',
+    대만 '好考嗎/怎麼選/費用', 본토 '多少钱/难不难')
+------------------------------------------------------------------ */
+const EXTRA_FAQ = {
+  curriculum: {
+    ko: [
+      ["정규과정 8과목은 각각 몇 시간인가요?", "기능해부학 10시간, 기본원리 10시간, 체형 분석 및 움직임 평가 5시간, 매트 25시간, 리포머 20~25시간, 캐딜락 20~25시간, 스태빌리티 체어 10시간, 래더바렐 및 바렐 시리즈 10시간입니다. 합계 약 110~120시간입니다."],
+      ["이론과 실기 비중은 어떻게 되나요?", "이론 25시간, 실기 85~95시간입니다. 다만 실기 시간에도 해당 동작이 어떤 관절에서 어떤 움직임을 만들고 어떤 근육이 관여하는지를 함께 다루므로, 이론과 실기가 분리되어 진행되지는 않습니다."],
+      ["교재는 따로 사야 하나요?", "정규과정은 직접 집필한 출판 교재 9권 약 1,300페이지를 텍스트로 사용합니다. 교재 포함 여부와 비용은 기수별로 다르므로 문의 시 안내드립니다. 모든 교재는 목차와 본문 10페이지를 스토어에서 미리 볼 수 있습니다."],
+      ["필라테스를 한 번도 안 해봤는데 따라갈 수 있나요?", "커리큘럼이 기능해부학 기초에서 출발하도록 설계되어 있어 비전공 입문자도 따라올 수 있습니다. 실제 수료생 중 상당수가 타 분야에서 전향한 분들입니다."],
+    ],
+    en: [
+      ["How many hours is each of the eight subjects?", "Functional anatomy 10 hours, basic principles 10, posture and movement analysis 5, Mat 25, Reformer 20-25, Cadillac 20-25, Stability Chair 10, Ladder Barrel and Barrel series 10. The total is roughly 110-120 hours."],
+      ["What is the theory-to-practical ratio?", "25 hours of theory and 85-95 hours of practical work. Theory is not taught in isolation, though: practical sessions also cover which joints produce a given movement and which muscles are involved."],
+      ["Do I have to buy the textbooks separately?", "The certification uses 9 published volumes of roughly 1,300 pages, written in-house, as its course text. Whether textbooks are included and at what cost varies by cohort, so please ask when you enquire. Every volume can be previewed in the store: table of contents plus 10 pages of the body text."],
+      ["Can I follow the course with no Pilates experience?", "Yes. The curriculum is built to start from functional anatomy fundamentals, so beginners without a related degree can follow it. A substantial share of graduates moved into Pilates from other fields."],
+    ],
+    ja: [
+      ["正規課程の8科目はそれぞれ何時間ですか。", "機能解剖学10時間、基本原理10時間、体型分析および動作評価5時間、マット25時間、リフォーマー20~25時間、キャデラック20~25時間、スタビリティチェア10時間、ラダーバレルおよびバレルシリーズ10時間です。合計およそ110~120時間になります。"],
+      ["理論と実技の割合はどのくらいですか。", "理論25時間、実技85~95時間です。ただし実技の時間にも、その動作がどの関節でどんな動きを作り、どの筋が関与するのかを併せて扱うため、理論と実技が切り離されて進むことはありません。"],
+      ["教材は別途購入が必要ですか。", "正規課程では自社執筆の出版教材9冊 約1,300ページをテキストとして使用します。教材が受講料に含まれるかどうかと費用は期によって異なりますので、お問い合わせ時にご案内します。全教材は目次と本文10ページをストアで試し読みできます。"],
+      ["働きながらでも受講できますか。", "科目ごとに日程が組まれるため、期によって週末中心の編成が可能な場合があります。ただし正規修了には対面の実技と指導評価が必要です。ご希望の期の日程はメールでお問い合わせください。"],
+    ],
+    zh: [
+      ["正规课程8门科目各多少课时？", "功能解剖学10小时、基本原理10小时、体型分析与动作评估5小时、垫上25小时、核心床20~25小时、凯迪拉克20~25小时、稳踏椅10小时、梯桶及桶系列10小时。合计约110~120小时。"],
+      ["理论与实操的比例是多少？", "理论25小时、实操85~95小时。不过实操时间也会同时讲解该动作由哪些关节产生何种运动、涉及哪些肌肉，因此理论与实操并非分开进行。"],
+      ["教材需要另外购买吗？", "正规课程使用自主编写的出版教材9册 约1,300页作为课本。教材是否含在学费内及其费用因期次而异，咨询时会另行说明。所有教材均可在商店试读目录与正文10页。"],
+      ["完全没有普拉提基础可以跟上吗？", "可以。课程自功能解剖学基础起循序设计，非相关专业的入门者也能跟上。结业学员中有相当比例是从其他行业转型而来。"],
+    ],
+    "zh-Hant": [
+      ["正規課程8門科目各多少時數？", "功能解剖學10小時、基本原理10小時、體態分析與動作評估5小時、墊上25小時、核心床 (Reformer) 20~25小時、凱迪拉克20~25小時、穩踏椅10小時、梯桶及桶系列10小時。合計約110~120小時。"],
+      ["皮拉提斯證照好考嗎？考核方式為何？", "線上課程屬於輔助學習，正式結業須通過實體實作與教學考核。考核重點不在於背熟動作順序，而在於能否說明該動作的目的、涉及的肌群，以及發現代償時的即時修正方式。"],
+      ["教材需要另外購買嗎？", "正規課程使用自行編寫的出版教材9冊 約1,300頁作為課本。教材是否含於學費及其費用因梯次而異，洽詢時會另行說明。所有教材皆可於商店試閱目錄與內文10頁。"],
+      ["完全沒有皮拉提斯基礎可以跟上嗎？", "可以。課程自功能解剖學基礎起循序設計，非相關科系的入門者也能跟上。結業學員中有相當比例是從其他行業轉職而來。"],
+    ],
+  },
+
+  workshop: {
+    ko: [
+      ["정규과정을 안 들었어도 워크숍만 신청할 수 있나요?", "워크숍은 현직 강사와 재활 종사자를 대상으로 한 단기 심화 과정입니다. 리커버링 원데이 자격과정은 8시간 단독 과정으로 운영되며, 사전 요건은 과정별로 다르므로 문의 시 안내드립니다."],
+      ["리커버링은 다른 소도구와 무엇이 다른가요?", "리커버링은 탄성으로 저항을 주는 도구가 아니라, 압박(Compression) · 보조(Assist) · 균형(Balance) 세 가지 원리로 척추에 감각 피드백을 주는 도구입니다. 6-TOP은 압박점, 2-EDGE는 회전 가이드, 4-CURVE는 굴곡·신전 가이드 역할을 합니다."],
+      ["원데이 과정도 수료증이 나오나요?", "리커버링 재활 필라테스 원데이 과정은 자격과정으로 운영됩니다. 발급 조건과 절차는 과정 신청 시 안내드립니다."],
+    ],
+    en: [
+      ["Can I take a workshop without the full certification?", "Workshops are short intensive courses for practising instructors and rehabilitation professionals. The Recovering one-day certification runs as a standalone 8-hour course; prerequisites vary by workshop, so please ask when you enquire."],
+      ["How is Recovering different from other props?", "Recovering is not a prop that supplies resistance through elasticity. It delivers sensory feedback to the spine through three principles - compression, assist and balance. The 6-TOP acts as the compression point, the 2-EDGE as the rotational guide, and the 4-CURVE as the flexion and extension guide."],
+      ["Does the one-day course award a certificate?", "The Recovering Rehabilitation Pilates one-day course runs as a certification course. Conditions and procedure are explained at the point of application."],
+    ],
+    ja: [
+      ["正規課程を受けていなくてもワークショップだけ申し込めますか。", "ワークショップは現役インストラクターとリハビリ従事者を対象とした短期の深化課程です。リカバリング ワンデー資格課程は8時間の単独課程として運営しており、事前要件は課程ごとに異なりますのでお問い合わせ時にご案内します。"],
+      ["リカバリングは他の小道具と何が違いますか。", "リカバリングは弾性で抵抗を与えるツールではなく、圧迫 (Compression) · 補助 (Assist) · バランス (Balance) の3原理で脊柱に感覚フィードバックを与えるツールです。6-TOP が圧迫点、2-EDGE が回旋ガイド、4-CURVE が屈曲 · 伸展ガイドの役割を担います。"],
+      ["ワンデー課程でも修了証は発行されますか。", "リカバリング リハビリピラティス ワンデー課程は資格課程として運営しています。発行条件と手続きは課程のお申し込み時にご案内します。"],
+    ],
+    zh: [
+      ["没有修读正规课程，可以只报工作坊吗？", "工作坊面向在职教练与康复从业者，属短期深化课程。Recovering 一日资格课程作为8小时独立课程运营，各课程的先修要求不同，咨询时会另行说明。"],
+      ["Recovering 与其他小器械有什么不同？", "Recovering 并非依靠弹性提供阻力的器械，而是通过压迫 (Compression) · 辅助 (Assist) · 平衡 (Balance) 三项原理向脊柱提供感觉反馈。6-TOP 为压迫点，2-EDGE 为旋转导引，4-CURVE 为屈伸导引。"],
+      ["一日课程也颁发结业证书吗？", "Recovering 康复普拉提一日课程按资格课程运营。颁发条件与流程将在报名时说明。"],
+    ],
+    "zh-Hant": [
+      ["沒有修讀正規課程，可以只報工作坊嗎？", "工作坊面向在職導師與復健從業者，屬短期深化課程。Recovering 一日證照課程以8小時獨立課程運營，各課程的先修條件不同，洽詢時會另行說明。"],
+      ["Recovering 與其他小器材有什麼不同？", "Recovering 並非依靠彈性提供阻力的器材，而是透過壓迫 (Compression) · 輔助 (Assist) · 平衡 (Balance) 三項原理向脊柱提供感覺回饋。6-TOP 為壓迫點，2-EDGE 為旋轉導引，4-CURVE 為屈伸導引。"],
+      ["一日課程也核發結業證書嗎？", "Recovering 復健皮拉提斯一日課程以證照課程運營。核發條件與流程將於報名時說明。"],
+    ],
+  },
+};
+
+for (const [route, byLang] of Object.entries(EXTRA_FAQ)) {
+  FAQ[route] = Object.assign(FAQ[route] || {}, byLang);
+}
+
 export const CONTENT = {
   /* 언어별 홈 - 기존에는 홈의 hreflang 이 ?lang= 파라미터 URL 을 가리켰는데,
      그 URL 들의 canonical 이 "/" 라서 구글이 hreflang 세트를 폐기할 수 있었다.
@@ -1341,12 +1508,37 @@ export function jsonLD(lang, route) {
       "@type": "CourseInstance",
       courseMode: ["Onsite", "Blended"],
       courseWorkload: "PT115H",
-      location: [
-        { "@type": "Place", name: "CPPI Korea", address: { "@type": "PostalAddress", addressCountry: "KR" } },
-        { "@type": "Place", name: "CPPI Vancouver", address: { "@type": "PostalAddress", addressCountry: "CA" } },
-        { "@type": "Place", name: "CPPI Tokyo", address: { "@type": "PostalAddress", addressCountry: "JP" } },
-      ],
+      /* 실제 개설 장소 - 검증 가능한 상호와 도로명 주소로 내보낸다 */
+      location: PLACES.map(pl => ({
+        "@type": "Place", name: pl.name,
+        address: Object.assign(
+          { "@type": "PostalAddress", addressLocality: pl.locality, addressCountry: pl.country },
+          pl.street ? { streetAddress: pl.street } : {}
+        ),
+      })).concat([
+        { "@type": "Place", name: "CPPI Vancouver", address: { "@type": "PostalAddress", addressLocality: "Vancouver", addressCountry: "CA" } },
+        { "@type": "Place", name: "CPPI Tokyo", address: { "@type": "PostalAddress", addressLocality: "Tokyo", addressCountry: "JP" } },
+      ]),
     };
+  }
+
+  /* ProfilePage 리치결과 요건: mainEntity 는 필수 필드다.
+     2026-08-22 GSC "'mainEntity' 입력란이 누락되었습니다"(심각) 대응.
+     @graph 에 Person 노드(/#founder)가 이미 있으나 ProfilePage 에서 가리키지 않아 누락으로 판정됐다.
+     참조(@id)만 두면 검증기가 필수 필드(name)를 못 읽는 경우가 있어 최소 필드를 안에 직접 넣는다.
+     @id 가 동일하므로 JSON-LD 규칙상 두 노드는 하나로 병합된다. */
+  if (pageNode["@type"] === "ProfilePage") {
+    pageNode.mainEntity = {
+      "@id": ORIGIN + "/#founder",
+      "@type": "Person",
+      name: FOUNDER[lang],
+      alternateName: ["Eun-Ju Park", "박은주", "パク・ウンジュ", "朴恩珠"],
+      jobTitle: JOB_TITLE[lang] || JOB_TITLE.en,
+      image: ORIGIN + "/img/founder_photo.jpg",
+      url: ORIGIN + pathFor(lang, "founder"),
+      worksFor: { "@id": ORIGIN + "/#org" },
+    };
+    pageNode.dateModified = LAST_MODIFIED;
   }
 
   /* 빵부스러기 - 홈 > 현재 페이지 */
@@ -1373,6 +1565,19 @@ export function jsonLD(lang, route) {
         { "@type": "Country", name: "Hong Kong" }, { "@type": "Country", name: "Singapore" },
       ],
       email: CONTACT.email, telephone: CONTACT.tel,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: HQ_PLACE.street,
+        addressLocality: HQ_PLACE.locality,
+        addressCountry: HQ_PLACE.country,
+      },
+      location: PLACES.map(pl => ({
+        "@type": "Place", name: pl.name,
+        address: Object.assign(
+          { "@type": "PostalAddress", addressLocality: pl.locality, addressCountry: pl.country },
+          pl.street ? { streetAddress: pl.street } : {}
+        ),
+      })),
       contactPoint: {
         "@type": "ContactPoint", contactType: "admissions",
         email: CONTACT.email, telephone: CONTACT.tel,
@@ -1644,6 +1849,10 @@ export function ssrBody(lang, route) {
   const chooseB = ["curriculum", "courses", "global", "home"].includes(route)
     ? blockHTML(CHOOSE[lang] || CHOOSE.en) : "";
   /* 기관 사실 블록 - 전 페이지 공통. 형용사가 아니라 숫자로 답한다. */
+  /* 교육센터 - "어디서 배우나"는 실제 검색 의도의 착지점이고,
+     모집 문구는 제휴 스튜디오 리드를 받는 입구다. 장소가 의미 있는 라우트에만 붙인다. */
+  const centerB = ["home", "about", "curriculum", "courses", "workshop", "global"].includes(route)
+    ? blockHTML(CENTER_BLOCK[lang] || CENTER_BLOCK.en) : "";
   const specsB = blockHTML(SPECS[lang] || SPECS.en);
   const faqItems = (FAQ[route] || {})[lang] || [];
   const faq = faqItems.length
@@ -1658,6 +1867,7 @@ export function ssrBody(lang, route) {
   ${hero ? `<img src="${hero.src}" alt="${esc(heroAlt)}" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">` : ""}
   ${blocks}
   ${chooseB}
+  ${centerB}
   ${faq}
   ${specsB}
   ${c.note ? `<div class="note">${esc(c.note)}</div>` : ""}

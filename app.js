@@ -1573,8 +1573,9 @@ const NAVER_MAP_KEY = "";   // ← 발급 후 여기에 Client ID 입력
 const HQ = {
   name: { ko: "CPPI 한국 필라테스교육협회 HQ", en: "CPPI Korea HQ", ja: "CPPI 韓国ピラティス教育協会 HQ",
           zh: "CPPI 韩国普拉提教育协会 HQ", "zh-Hant": "CPPI 韓國皮拉提斯教育協會 HQ" },
-  sub: { ko: "필라티크 운동연구소", en: "Pilatique Movement Lab", ja: "ピラティーク運動研究所",
-         zh: "Pilatique 运动研究所", "zh-Hant": "Pilatique 運動研究所" },
+  /* 2026-08-22 - 기존 sub 표기 "필라티크 운동연구소" 는 분당 교육센터 상호로 확인되어 HQ 에서 분리했다.
+     HQ 사무소의 실제 표기 명칭이 확정되면 아래에 5개 언어로 다시 넣을 것. null 이면 화면에서 자동으로 빠진다. */
+  sub: null,
   addr: "서울 성동구 상원1길 25 4181호",
   addrEn: "25 Sangwon 1-gil, Seongdong-gu, Seoul, Korea",
   metro: { ko: "뚝섬역 6번 출구에서 125m", en: "125m from Ttukseom Stn. Exit 6", ja: "トゥクソム駅6番出口から125m",
@@ -1586,23 +1587,101 @@ const HQ = {
   lat: 37.5449, lng: 127.0559,
 };
 
+/* ------------------------------------------------------------
+   공식 교육센터 - 정규과정·워크숍·자격검정이 실제로 열리는 장소.
+   ※ 확인된 값만 넣는다. addr 이 비어 있으면 주소 줄이 화면에서 자동으로 빠진다.
+   ------------------------------------------------------------ */
+const CENTERS = [
+  {
+    city: { ko: "서울 교육센터", en: "Seoul Center", ja: "ソウル教育センター", zh: "首尔教育中心", "zh-Hant": "首爾教育中心" },
+    name: { ko: "바디멀티 필라테스 상일동역점", en: "BodyMulti Pilates - Sangil-dong Stn.", ja: "ボディマルチ ピラティス 上一洞駅店",
+            zh: "BodyMulti 普拉提 上一洞站店", "zh-Hant": "BodyMulti 皮拉提斯 上一洞站店" },
+    addr: "서울 강동구 고덕로83길 14",
+    addrEn: "14 Godeok-ro 83-gil, Gangdong-gu, Seoul, Korea",
+    place: "https://naver.me/59vokcao",
+  },
+  {
+    city: { ko: "분당 교육센터", en: "Bundang Center", ja: "盆唐教育センター", zh: "盆唐教育中心", "zh-Hant": "盆唐教育中心" },
+    name: { ko: "필라티크 운동연구소", en: "Pilatique Movement Lab", ja: "ピラティーク運動研究所",
+            zh: "Pilatique 运动研究所", "zh-Hant": "Pilatique 運動研究所" },
+    addr: "",     /* ← 도로명 주소 확인 후 입력 (미확인 상태에서는 노출하지 않는다) */
+    addrEn: "",
+    place: "https://share.google/eHZNJaBsIe1P3YsZp",
+  },
+  {
+    city: { ko: "김포 교육센터", en: "Gimpo Center", ja: "金浦教育センター", zh: "金浦教育中心", "zh-Hant": "金浦教育中心" },
+    name: { ko: "운양 웰니스웨이 필라테스", en: "Wellness Way Pilates - Unyang", ja: "雲陽 ウェルネスウェイ ピラティス",
+            zh: "云阳 Wellness Way 普拉提", "zh-Hant": "雲陽 Wellness Way 皮拉提斯" },
+    addr: "경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호",
+    addrEn: "#703, 133 Gimpohangang 11-ro, Gimpo-si, Gyeonggi-do, Korea",
+    place: "https://naver.me/FZ27jQvs",
+  },
+];
+
+/* 공식 교육센터 파트너 모집 문구 */
+const CENTER_CTA = {
+  head: { ko: "CPPI 필라테스 공식 교육센터 모집중", en: "CPPI Official Education Center - partners wanted",
+          ja: "CPPI ピラティス公式教育センター募集中", zh: "CPPI 普拉提官方教育中心招募中", "zh-Hant": "CPPI 皮拉提斯官方教育中心招募中" },
+  sub: { ko: "정규과정·워크숍을 함께 운영할 스튜디오를 모집합니다.",
+         en: "We are looking for studios to host CPPI certification courses and workshops.",
+         ja: "正規課程・ワークショップを共同運営するスタジオを募集しています。",
+         zh: "招募共同运营正规课程与工作坊的工作室。",
+         "zh-Hant": "招募共同運營正規課程與工作坊的工作室。" },
+  btn: { ko: "교육센터 제휴 문의 →", en: "Partner with CPPI →", ja: "教育センター提携のお問い合わせ →",
+         zh: "教育中心合作咨询 →", "zh-Hant": "教育中心合作諮詢 →" },
+};
+
+/* 정보 줄 라벨 - 언어별 */
+const HQ_LABEL = {
+  addr: { ko: "주소", en: "Addr", ja: "住所", zh: "地址", "zh-Hant": "地址" },
+  metro: { ko: "교통", en: "Access", ja: "交通", zh: "交通", "zh-Hant": "交通" },
+  hours: { ko: "시간", en: "Hours", ja: "時間", zh: "时间", "zh-Hant": "時間" },
+  tel: { ko: "전화", en: "Tel", ja: "電話", zh: "电话", "zh-Hant": "電話" },
+};
+
+/* 교육센터 리스트 - LOCATION 카드와 필요 시 다른 화면에서 함께 쓴다 */
+function centersBlock() {
+  const rows = CENTERS.map(c => {
+    const addr = LANG === "ko" ? c.addr : (c.addrEn || c.addr);
+    return `
+    <div style="padding:10px 0;border-top:1px solid var(--line)">
+      <div style="font-size:11.5px;font-weight:800;letter-spacing:.1em;color:var(--pri)">${esc(L(c.city))}</div>
+      <b style="font-size:14px">${esc(L(c.name))}</b>
+      ${addr ? `<div style="font-size:13px;color:var(--ink2);margin-top:2px">${esc(addr)}</div>` : ""}
+      ${c.place ? `<a href="${c.place}" target="_blank" rel="noopener" style="font-size:12.5px;color:var(--pri);font-weight:700">${L({ ko: "지도 보기 →", en: "View map →", ja: "地図を見る →", zh: "查看地图 →", "zh-Hant": "查看地圖 →" })}</a>` : ""}
+    </div>`;
+  }).join("");
+
+  return `
+  <div style="margin-top:16px">
+    <div class="eyebrow" style="margin-bottom:4px">EDUCATION CENTERS</div>
+    ${rows}
+    <div style="margin-top:12px;padding:12px;border-radius:12px;background:var(--pri);color:#fff">
+      <b style="font-size:13.5px">${esc(L(CENTER_CTA.head))}</b>
+      <p style="font-size:12.5px;margin:4px 0 8px;opacity:.92">${esc(L(CENTER_CTA.sub))}</p>
+      <a href="#apply" style="font-size:12.5px;font-weight:800;color:#fff;text-decoration:underline">${esc(L(CENTER_CTA.btn))}</a>
+    </div>
+  </div>`;
+}
+
 function hqMapBlock() {
   return `
   <div class="card hqbox">
     <div class="eyebrow" style="margin-bottom:8px">LOCATION</div>
     <b style="font-size:16px">${esc(L(HQ.name))}</b>
-    <div style="font-size:13px;color:var(--ink2);margin-top:2px">${esc(L(HQ.sub))}</div>
+    ${HQ.sub ? `<div style="font-size:13px;color:var(--ink2);margin-top:2px">${esc(L(HQ.sub))}</div>` : ""}
     <div id="hqmap" class="hqmap"></div>
     <div class="hqinfo">
-      <div><span>주소</span>${esc(LANG === "ko" ? HQ.addr : HQ.addrEn)}</div>
-      <div><span>교통</span>${esc(L(HQ.metro))}</div>
-      <div><span>시간</span>${esc(L(HQ.hours))}</div>
-      <div><span>전화</span><a href="tel:${HQ.tel}">${HQ.tel}</a></div>
+      <div><span>${esc(L(HQ_LABEL.addr))}</span>${esc(LANG === "ko" ? HQ.addr : HQ.addrEn)}</div>
+      <div><span>${esc(L(HQ_LABEL.metro))}</span>${esc(L(HQ.metro))}</div>
+      <div><span>${esc(L(HQ_LABEL.hours))}</span>${esc(L(HQ.hours))}</div>
+      <div><span>${esc(L(HQ_LABEL.tel))}</span><a href="tel:${HQ.tel}">${HQ.tel}</a></div>
     </div>
     <div class="grid2" style="margin-top:12px">
       <a class="btn ghost" href="${HQ.place}" target="_blank" rel="noopener">${L({ ko: "네이버지도에서 보기", en: "View on NAVER Map", ja: "NAVERマップで見る", zh: "在NAVER地图查看", "zh-Hant": "在 NAVER 地圖查看" })}</a>
       <a class="btn ghost" href="${HQ.place}" target="_blank" rel="noopener">${L({ ko: "길찾기", en: "Directions", ja: "経路案内", zh: "路线导航", "zh-Hant": "路線導航" })}</a>
     </div>
+    ${centersBlock()}
   </div>`;
 }
 
