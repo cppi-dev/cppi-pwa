@@ -1604,8 +1604,8 @@ const CENTERS = [
     city: { ko: "분당 교육센터", en: "Bundang Center", ja: "盆唐教育センター", zh: "盆唐教育中心", "zh-Hant": "盆唐教育中心" },
     name: { ko: "필라티크 운동연구소", en: "Pilatique Movement Lab", ja: "ピラティーク運動研究所",
             zh: "Pilatique 运动研究所", "zh-Hant": "Pilatique 運動研究所" },
-    addr: "",     /* ← 도로명 주소 확인 후 입력 (미확인 상태에서는 노출하지 않는다) */
-    addrEn: "",
+    addr: "경기도 성남시 분당구 정자일로198번길 6-5",
+    addrEn: "6-5 Jeongjail-ro 198beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do, Korea",
     place: "https://share.google/eHZNJaBsIe1P3YsZp",
   },
   {

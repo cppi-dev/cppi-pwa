@@ -83,7 +83,8 @@ export const PLACES = [
   { key: "seoul",   name: "BodyMulti Pilates Sangil-dong Station", nameKo: "바디멀티 필라테스 상일동역점",
     street: "14 Godeok-ro 83-gil, Gangdong-gu", streetKo: "서울 강동구 고덕로83길 14", locality: "Seoul", country: "KR" },
   { key: "bundang", name: "Pilatique Movement Lab", nameKo: "필라티크 운동연구소",
-    street: "", streetKo: "", locality: "Bundang, Seongnam", country: "KR" },
+    street: "6-5 Jeongjail-ro 198beon-gil, Bundang-gu", streetKo: "경기도 성남시 분당구 정자일로198번길 6-5",
+    locality: "Seongnam", country: "KR" },
   { key: "gimpo",   name: "Wellness Way Pilates Unyang", nameKo: "운양 웰니스웨이 필라테스",
     street: "#703, 133 Gimpohangang 11-ro", streetKo: "경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호",
     locality: "Gimpo", country: "KR" },
@@ -98,7 +99,7 @@ export const CENTER_BLOCK = {
     list: [
       "HQ (협회 사무국) - 서울 성동구 상원1길 25 4181호. 뚝섬역 6번 출구에서 125m. 운영 10:00-22:00. 0507-1410-4282",
       "서울 교육센터 - 바디멀티 필라테스 상일동역점. 서울 강동구 고덕로83길 14",
-      "분당 교육센터 - 필라티크 운동연구소. 경기 성남시 분당구",
+      "분당 교육센터 - 필라티크 운동연구소. 경기도 성남시 분당구 정자일로198번길 6-5",
       "김포 교육센터 - 운양 웰니스웨이 필라테스. 경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호",
       "해외 - 캐나다 밴쿠버 · 일본 도쿄",
     ],
@@ -109,7 +110,7 @@ export const CENTER_BLOCK = {
     list: [
       "HQ (association office) - 25 Sangwon 1-gil, Seongdong-gu, Seoul. 125m from Ttukseom Station Exit 6. Open 10:00-22:00. +82-507-1410-4282",
       "Seoul center - BodyMulti Pilates, Sangil-dong Station: 14 Godeok-ro 83-gil, Gangdong-gu, Seoul",
-      "Bundang center - Pilatique Movement Lab: Bundang-gu, Seongnam, Gyeonggi-do",
+      "Bundang center - Pilatique Movement Lab: 6-5 Jeongjail-ro 198beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do",
       "Gimpo center - Wellness Way Pilates Unyang: #703, 133 Gimpohangang 11-ro, Gimpo-si, Gyeonggi-do",
       "Overseas - Vancouver, Canada and Tokyo, Japan",
     ],
@@ -120,7 +121,7 @@ export const CENTER_BLOCK = {
     list: [
       "HQ(協会事務局) - ソウル特別市 城東区 上院1キル25 4181号。トゥクソム駅6番出口から125m。営業10:00-22:00。+82-507-1410-4282",
       "ソウル教育センター - ボディマルチ ピラティス 上一洞駅店:ソウル特別市 江東区 高徳路83キル14",
-      "盆唐教育センター - ピラティーク運動研究所:京畿道 城南市 盆唐区",
+      "盆唐教育センター - ピラティーク運動研究所:京畿道 城南市 盆唐区 亭子日路198番キル6-5",
       "金浦教育センター - 雲陽ウェルネスウェイ ピラティス:京畿道 金浦市 金浦漢江11路133(雲陽洞・中央プラザ)703号",
       "海外 - カナダ バンクーバー、日本 東京",
     ],
@@ -131,7 +132,7 @@ export const CENTER_BLOCK = {
     list: [
       "HQ(协会事务局)- 首尔特别市城东区上院1街25号 4181室。纛岛站6号出口125m。营业10:00-22:00。+82-507-1410-4282",
       "首尔教育中心 - BodyMulti 普拉提 上一洞站店：首尔特别市江东区高德路83街14号",
-      "盆唐教育中心 - Pilatique 运动研究所：京畿道城南市盆唐区",
+      "盆唐教育中心 - Pilatique 运动研究所：京畿道城南市盆唐区亭子日路198街6-5号",
       "金浦教育中心 - 云阳 Wellness Way 普拉提：京畿道金浦市金浦汉江11路133号(云阳洞·中央广场)703室",
       "海外 - 加拿大温哥华、日本东京",
     ],
@@ -142,7 +143,7 @@ export const CENTER_BLOCK = {
     list: [
       "HQ(協會事務局)- 首爾特別市城東區上院1街25號 4181室。纛島站6號出口125m。營業10:00-22:00。+82-507-1410-4282",
       "首爾教育中心 - BodyMulti 皮拉提斯 上一洞站店：首爾特別市江東區高德路83街14號",
-      "盆唐教育中心 - Pilatique 運動研究所：京畿道城南市盆唐區",
+      "盆唐教育中心 - Pilatique 運動研究所：京畿道城南市盆唐區亭子日路198街6-5號",
       "金浦教育中心 - 雲陽 Wellness Way 皮拉提斯：京畿道金浦市金浦漢江11路133號(雲陽洞·中央廣場)703室",
       "海外 - 加拿大溫哥華、日本東京",
     ],
