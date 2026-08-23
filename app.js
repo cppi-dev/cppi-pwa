@@ -425,6 +425,7 @@ function render() {
   scrollToTopHard();
   closeSheet();
   initHeroReel();
+  initLazyVideos();
   if (SERVER && r === "my" && me()) loadMyOrders();
   if (SERVER && me() && (r === "learn" || r === "lecture")) loadEntitlements().then(() => { if (currentRoute() === r) $("#view").innerHTML = (routes[r] || routes.home)(); });
   requestAnimationFrame(() => requestAnimationFrame(initDesktopFX));
@@ -438,6 +439,42 @@ function render() {
    3) .cband    - 챕터 전환 배너: 스크롤 진행에 따라 텍스트가 가로로 흐름
    4) 히어로 영상 - 스크롤에 따라 미세한 시차(패럴랙스)
    접근성: prefers-reduced-motion 사용자는 애니메이션 없이 즉시 표시                        */
+/* 영상 지연 로딩 - Core Web Vitals(LCP) 보호.
+   hero1~3.mp4 는 합계 8.6MB 다. 예전에는 홈 진입 즉시 두 개가 동시에 내려받혀
+   첫 화면 렌더와 대역폭을 다퉜다. 이제 포스터 이미지(117KB)만 먼저 보이고,
+   영상은 (a) 히어로는 페이지 로드가 끝난 뒤 유휴 시점에, (b) 나머지는 화면에
+   들어오기 직전에 받는다. prefers-reduced-motion 사용자에게는 재생하지 않는다.
+   preload="none" 만으로는 부족하다 - autoplay 속성이 붙어 있으면 브라우저가
+   그것을 무시하고 즉시 내려받으므로 autoplay 를 떼고 코드로 재생시킨다. */
+function initLazyVideos() {
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const start = (v) => {
+    if (v.dataset.lazyOn === "1") return;
+    v.dataset.lazyOn = "1";
+    if (reduced) return;                 // 포스터만 남기고 재생하지 않는다
+    v.preload = "auto";
+    const pr = v.play();
+    if (pr && pr.catch) pr.catch(() => {});
+  };
+
+  /* (a) 히어로 - 첫 화면 밖으로 밀지 않되, 로드 완료 후 유휴 시점까지 미룬다 */
+  const hero = document.querySelector('video[data-lazy="hero"]');
+  if (hero) {
+    const kick = () => (window.requestIdleCallback || ((f) => setTimeout(f, 300)))(() => start(hero));
+    if (document.readyState === "complete") kick();
+    else window.addEventListener("load", kick, { once: true });
+  }
+
+  /* (b) 스크롤 아래 영상 - 화면 200px 앞에서 로드 */
+  const rest = [...document.querySelectorAll('video[data-lazy="1"]')];
+  if (!rest.length) return;
+  if (!("IntersectionObserver" in window)) { rest.forEach(start); return; }
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { start(e.target); io.unobserve(e.target); }
+  }, { rootMargin: "200px" });
+  rest.forEach((v) => io.observe(v));
+}
+
 /* 히어로 영상 릴 - hero1~4를 순서대로 이어 재생 (끝나면 처음으로 순환).
    기존에는 접속 시 4개 중 1개만 무작위 재생되어 나머지가 노출되지 않았음. */
 function initHeroReel() {
@@ -813,7 +850,7 @@ routes.home = () => `
     <div class="xhero-stage">
       <img class="xhero-bg" src="img/hero_bg.jpg" alt="${esc(L({ ko: "박은주(Eun-Ju Park) 교수가 CPPI 필라테스 강사 양성과정 실습을 지도하는 교육 현장", en: "Prof. Eun-Ju Park teaching a CPPI Pilates instructor certification practicum", zh: "朴恩珠(Eun-Ju Park)教授指导CPPI普拉提教练资格课程实操现场", "zh-Hant": "朴恩珠(Eun-Ju Park)教授指導CPPI皮拉提斯教練資格課程實操現場", ja: "パク・ウンジュ(Eun-Ju Park)教授がCPPIピラティス指導者養成課程の実技を指導する現場" }))}">
       <div class="xhero-box">
-        <video id="xheroVid" src="${HEROS[0]}" poster="hero-poster.jpg" autoplay muted playsinline preload="auto"></video>
+        <video id="xheroVid" src="${HEROS[0]}" poster="hero-poster.jpg" muted playsinline preload="none" data-lazy="hero"></video>
         <div class="xhero-veil"></div>
       </div>
       <div class="xhero-title">
@@ -840,7 +877,7 @@ routes.home = () => `
     <!-- Row 1 : 히어로(2) + 파운더(1) -->
     <div class="lay-hero">
       <a class="hcard big" href="#courses">
-        <video src="${heroSrc()}" poster="hero-poster.jpg" autoplay muted loop playsinline></video>
+        <video src="${heroSrc()}" poster="hero-poster.jpg" muted loop playsinline preload="none" data-lazy="1"></video>
         <span class="hbadge">${L({ ko: "모집중", en: "Enrolling", zh: "招生中", "zh-Hant": "招生中", ja: "募集中" })}</span>
         <div class="hov">
           <b>${L({ ko: "CPPI 정규 자격과정", en: "CPPI Certification", zh: "CPPI正规资格课程", "zh-Hant": "CPPI正規資格課程", ja: "CPPI正規資格課程" })}</b>

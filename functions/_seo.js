@@ -64,7 +64,23 @@ export const FOUNDER = {
 
 /* 콘텐츠 최종 수정일 - ProfilePage 등 스키마의 dateModified 로 나간다.
    본문·프로필을 실제로 고칠 때만 갱신할 것. 임의로 올리면 허위 신호가 된다. */
-export const LAST_MODIFIED = "2026-08-22";
+export const LAST_MODIFIED = "2026-08-23T15:55:08+09:00";
+
+/* 프로필 페이지 최초 게시 시각 - /founder 라우트 신설 커밋(bdeaf87) 기준. 검증 가능한 값만 쓴다. */
+export const PROFILE_CREATED = "2026-08-18T10:50:53+09:00";
+
+/* 구글은 ProfilePage 의 dateCreated/dateModified 를 Date 가 아니라 DateTime 으로 요구한다.
+   "2026-08-22" 처럼 날짜만 있는 값은 GSC 에서 "datetime 값이 잘못됨" 으로 판정된다.
+   (2026-08-23 GSC 접수 건의 원인이 정확히 이것이었다.)
+   이후 누가 날짜만 적어 넣어도 스키마가 깨지지 않도록 여기서 강제 정규화한다.
+   기준 시간대는 KST(+09:00). */
+export function isoDateTime(v) {
+  if (!v) return undefined;
+  const s = String(v).trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s + "T00:00:00+09:00";        // 날짜만 -> 자정 KST
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?$/.test(s)) return s + "+09:00"; // 오프셋 누락 -> KST 부착
+  return s;
+}
 
 
 /* ------------------------------------------------------------
@@ -1539,7 +1555,8 @@ export function jsonLD(lang, route) {
       url: ORIGIN + pathFor(lang, "founder"),
       worksFor: { "@id": ORIGIN + "/#org" },
     };
-    pageNode.dateModified = LAST_MODIFIED;
+    pageNode.dateCreated = isoDateTime(PROFILE_CREATED);
+    pageNode.dateModified = isoDateTime(LAST_MODIFIED);
   }
 
   /* 빵부스러기 - 홈 > 현재 페이지 */
