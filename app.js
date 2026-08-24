@@ -11,8 +11,59 @@ const OFFICIAL_CHANNEL_URL = "https://www.youtube.com/@cppi.pilates";
 const INSTA_URL = "https://www.instagram.com/cppi.pilates";
 const CONTACT = { tel: "010-4894-4292", telIntl: "+82-10-4894-4292", mail: "allmovements@naver.com" };
 const BANK = { name: "우리은행", num: "1002-836-066783", holder: "김형석 (씨앤티파트너스 C&T Partners)" };
-const SELLER = "씨앤티파트너스 (C&T Partners) · 842-09-02365";
-const PG = { naver: "", kakao: "" }; // 간편결제 링크 - 연동 후 입력, 비어 있으면 계좌이체 안내
+/* 판매 · 결제 · 환불 · 고객응대 주체 - 씨앤티파트너스 (C&T Partners).
+   전자상거래법 제10조 표시의무 항목이다. 값이 빈 항목은 화면에 나오지 않으므로
+   결제 오픈 전에 mailOrderNo(통신판매업신고번호)와 addr(사업장 주소)를 반드시 채울 것.
+   이 두 가지가 없으면 온라인 결제를 붙일 수 없다. */
+const SELLER_INFO = {
+  name: "씨앤티파트너스 (C&T Partners)",
+  ceo: "김형석",
+  bizNo: "842-09-02365",
+  mailOrderNo: "",            // 통신판매업신고번호 - 관할 구청 발급  ★미입력
+  addr: "",                   // 사업장 소재지                      ★미입력
+  tel: "010-4894-4292",
+  mail: "allmovements@naver.com",
+  host: "Cloudflare, Inc.",
+};
+const SELLER = SELLER_INFO.name + " · " + SELLER_INFO.bizNo;
+
+/* 결제 링크 - 상품 하나에 링크 하나.
+   키는 장바구니의 item.key 와 같다: "book#0" ~ "book#8", "ebook#0" ~ "ebook#3",
+   "lecture-mt#0" ~ "lecture-mt#3". 씨앤티파트너스 명의 스토어의 상품 URL 을 넣는다.
+   상품별 링크가 없으면 PAY_HOME(스토어 대표 주소)으로 폴백한다.
+   둘 다 비면 그 수단은 결제화면에서 아예 숨는다 - 고른 뒤에 "준비중" 안내를
+   받는 기존 동작은 이탈을 만들기 때문이다. */
+const PAY_LINKS = {
+  naver: {
+    // "book#0": "https://smartstore.naver.com/.../products/0000000000",
+  },
+  kakao: {
+  },
+};
+const PAY_HOME = { naver: "", kakao: "" };
+const payLink = (method, key) => (PAY_LINKS[method] && PAY_LINKS[method][key]) || PAY_HOME[method] || "";
+
+/* 결제수단 라디오 - 실제로 결제 가능한 수단만 그린다 */
+function payMethodsHtml(key) {
+  const ROW = "display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-top:10px";
+  const easy = L({ ko: "카드 · 간편결제", en: "Card / Easy pay", zh: "银行卡·快捷支付", "zh-Hant": "銀行卡·快捷支付", ja: "カード·簡単決済" });
+  const out = [];
+  if (payLink("naver", key)) out.push(`<label style="${ROW}"><input type="radio" name="pay" value="naver" style="width:auto"> <span><b style="color:#03C75A">N</b> <b>${L({ ko: "네이버페이", en: "Naver Pay", zh: "Naver Pay", "zh-Hant": "Naver Pay", ja: "Naver Pay" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${easy}</span></span></label>`);
+  if (payLink("kakao", key)) out.push(`<label style="${ROW}"><input type="radio" name="pay" value="kakao" style="width:auto"> <span><b style="color:#B8860B">K</b> <b>${L({ ko: "카카오페이", en: "Kakao Pay", zh: "Kakao Pay", "zh-Hant": "Kakao Pay", ja: "Kakao Pay" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${easy}</span></span></label>`);
+  out.push(`<label style="${ROW}"><input type="radio" name="pay" value="bank" style="width:auto"> <span><b>${L({ ko: "계좌이체 (무통장 입금)", en: "Bank Transfer", zh: "银行转账", "zh-Hant": "銀行轉賬", ja: "銀行振込" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${BANK.name} ${BANK.num} · ${L({ ko: "입금 확인 후 처리", en: "processed on confirmation", zh: "确认后处理", "zh-Hant": "確認後處理", ja: "確認後処理" })}</span></span></label>`);
+  return out.join("").replace('type="radio"', 'type="radio" checked');   // 첫 수단을 기본 선택
+}
+
+/* 푸터 - 표시의무 항목 중 값이 채워진 것만 덧붙인다 */
+function renderSellerInfo() {
+  const el = document.getElementById("sellerExtra");
+  if (!el) return;
+  const s = SELLER_INFO, rows = [];
+  if (s.mailOrderNo) rows.push("통신판매업신고 " + s.mailOrderNo);
+  if (s.addr) rows.push("사업장 " + s.addr);
+  if (s.host) rows.push("호스팅 " + s.host);
+  el.innerHTML = rows.length ? rows.join(" · ") + "<br>" : "";
+}
 /* 관리자 비밀번호는 소스에 두지 않는다.
    서버(Cloudflare 환경변수 ADMIN_PASS)가 검증하고, 입력값은 이 탭의 세션에만 잠시 보관한다.
    탭을 닫으면 사라지며, 새로고침해도 다시 입력할 필요는 없다. */
@@ -426,6 +477,7 @@ function render() {
   closeSheet();
   initHeroReel();
   initLazyVideos();
+  renderSellerInfo();
   if (SERVER && r === "my" && me()) loadMyOrders();
   if (SERVER && me() && (r === "learn" || r === "lecture")) loadEntitlements().then(() => { if (currentRoute() === r) $("#view").innerHTML = (routes[r] || routes.home)(); });
   requestAnimationFrame(() => requestAnimationFrame(initDesktopFX));
@@ -1550,14 +1602,9 @@ routes.checkout = () => {
     </div>`}
     <div class="card" style="margin-bottom:10px">
       <b>${L({ ko: "결제수단 선택", en: "Payment Method", zh: "支付方式", "zh-Hant": "支付方式", ja: "決済方法" })}</b>
-      <label style="display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-top:10px">
-        <input type="radio" name="pay" value="naver" style="width:auto" checked> <span><b style="color:#03C75A">N</b> <b>${L({ ko: "네이버페이", en: "Naver Pay", zh: "Naver Pay", ja: "Naver Pay" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${L({ ko: "카드 · 간편결제", en: "Card / Easy pay", zh: "银行卡·快捷支付", "zh-Hant": "銀行卡·快捷支付", ja: "カード·簡単決済" })}</span></span></label>
-      <label style="display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-top:8px">
-        <input type="radio" name="pay" value="kakao" style="width:auto"> <span><b style="color:#B8860B">K</b> <b>${L({ ko: "카카오페이", en: "Kakao Pay", zh: "Kakao Pay", ja: "Kakao Pay" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${L({ ko: "카드 · 간편결제", en: "Card / Easy pay", zh: "银行卡·快捷支付", "zh-Hant": "銀行卡·快捷支付", ja: "カード·簡単決済" })}</span></span></label>
-      <label style="display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-top:8px">
-        <input type="radio" name="pay" value="bank" style="width:auto"> <span><b>${L({ ko: "계좌이체 (무통장 입금)", en: "Bank Transfer", zh: "银行转账", "zh-Hant": "銀行轉賬", ja: "銀行振込" })}</b> <span style="font-size:12px;color:var(--ink2)">- ${BANK.name} ${BANK.num} · ${L({ ko: "입금 확인 후 처리", en: "processed on confirmation", zh: "确认后处理", "zh-Hant": "確認後處理", ja: "確認後処理" })}</span></span></label>
+      ${payMethodsHtml(item.key || item.type)}
     </div>
-    <div class="note">${L({ ko: "사업 대행: ", en: "Business agency: ", zh: "业务代理：", "zh-Hant": "業務代理：", ja: "事業代行：" })}${SELLER}</div>
+    <div class="note">${L({ ko: "판매 · 결제 · 환불 · 고객응대: ", en: "Sold and processed by: ", zh: "销售·结算·退款·客服：", "zh-Hant": "銷售·結算·退款·客服：", ja: "販売·決済·返金·お問い合わせ：" })}${SELLER}<br>${L({ ko: "교육 제공: 한국필라테스교육협회 (CPPI Korea) · 고유번호 201-82-74381", en: "Education provided by Korea Pilates Education Association (CPPI Korea), reg. 201-82-74381", zh: "教育提供：韩国普拉提教育协会 (CPPI Korea) · 编号 201-82-74381", "zh-Hant": "教育提供：韓國皮拉提斯教育協會 (CPPI Korea) · 編號 201-82-74381", ja: "教育提供：韓国ピラティス教育協会 (CPPI Korea) · 固有番号 201-82-74381" })}</div>
     <div style="height:10px"></div>
     <button class="btn pri" onclick="doCheckout()">${L(UI.btn.pay)}</button>
   </section>`;
@@ -2065,8 +2112,9 @@ function doCheckout() {
     store.set("cppi_guest", { name: n, phone: p, email });
   }
   if (method !== "bank") {
-    if (!PG[method]) { toast(L({ ko: "간편결제는 오픈 준비중입니다. 계좌이체를 이용해 주세요.", en: "Easy pay is coming soon - please use bank transfer.", zh: "快捷支付即将开通，请用银行转账。", "zh-Hant": "快捷支付即將開通，請用銀行轉賬。", ja: "簡単決済は準備中です。振込をご利用ください。" })); return; }
-    window.open(PG[method], "_blank");
+    const payUrl = payLink(method, item.key || item.type);
+    if (!payUrl) { toast(L({ ko: "간편결제는 오픈 준비중입니다. 계좌이체를 이용해 주세요.", en: "Easy pay is coming soon - please use bank transfer.", zh: "快捷支付即将开通，请用银行转账。", "zh-Hant": "快捷支付即將開通，請用銀行轉賬。", ja: "簡単決済は準備中です。振込をご利用ください。" })); return; }
+    window.open(payUrl, "_blank");
   }
   const methodKo = method === "bank" ? "계좌이체" : method === "naver" ? "네이버페이" : "카카오페이";
   const orderType = item.key || item.type;
