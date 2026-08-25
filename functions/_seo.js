@@ -343,6 +343,7 @@ export const NAV = {
    alt 는 검색·AI가 인물/주제를 연결하도록 영문 고유명을 함께 넣는다. */
 export const HERO = {
   home:       { src: "/img/hero_bg.jpg",          alt: { ko: "CPPI 한국 필라테스 교육협회 정규과정 교육 현장", en: "CPPI Korea Pilates Education Association instructor training", ja: "CPPI 韓国ピラティス教育協会の指導者養成", zh: "CPPI 韩国普拉提教育协会教练培训现场", "zh-Hant": "CPPI 韓國皮拉提斯教育協會師資培訓現場" } },
+  journal:    { src: "/img/founder_face.jpg",     alt: { ko: "CPPI 협회장 박은주 (Eun-Ju Park) 칼럼 - 박은주의 필라테스 라이프", en: "Column by Eun-Ju Park, president of CPPI Korea Pilates Education Association", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park) のコラム", zh: "CPPI协会长朴恩珠 (Eun-Ju Park) 专栏", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park) 專欄" } },
   why:        { src: "/img/founder_studio.jpg",   alt: { ko: "CPPI 창립자 박은주 (Eun-Ju Park) 교수의 임상 기반 필라테스 교육", en: "Evidence-based Pilates teaching by CPPI founder Eun-Ju Park", ja: "CPPI創立者 パク・ウンジュ (Eun-Ju Park) 教授の臨床に基づくピラティス教育", zh: "CPPI创始人朴恩珠 (Eun-Ju Park) 教授的临床循证普拉提教育", "zh-Hant": "CPPI 創辦人朴恩珠 (Eun-Ju Park) 教授的臨床實證皮拉提斯教育" } },
   books:      { src: "/img/covers_fan.jpg",      alt: { ko: "박은주 (Eun-Ju Park) 저 CPPI 필라테스 정규과정 교재 9권", en: "The nine CPPI Pilates course textbooks authored by Eun-Ju Park", ja: "パク・ウンジュ (Eun-Ju Park) 著 CPPIピラティス正規課程教材9巻", zh: "朴恩珠 (Eun-Ju Park) 著 CPPI普拉提正规课程教材9册", "zh-Hant": "朴恩珠 (Eun-Ju Park) 著 CPPI 皮拉提斯正規課程教材 9 冊" } },
   guide:      { src: "/img/lect_mt.webp",        alt: { ko: "CPPI 필라테스 무브먼트 테라피 부위별 전문 지침서", en: "CPPI Pilates Movement Therapy regional guidebooks", ja: "CPPIピラティス ムーブメントセラピー 部位別指針書", zh: "CPPI普拉提运动治疗部位别专业指南", "zh-Hant": "CPPI 皮拉提斯動作治療部位別專業指南" } },
@@ -1310,6 +1311,76 @@ export const CONTENT = {
     },
     schema: { "@type": "CollectionPage" },
   },
+  /* ------------------------------------------------------------------
+     칼럼 - 박은주의 필라테스 라이프
+     이 페이지는 목록이고, 개별 글은 CONTENT 에 "journal/{slug}" 키로 넣는다.
+       예) "journal/first-post": { ko: {...}, en: {...}, ..., schema: { "@type": "Article" } }
+     그렇게 하면 사이트맵 · hreflang · canonical · SSR 이 전부 자동으로 따라온다.
+     별도 배열이나 렌더러를 만들 필요가 없다.
+
+     글이 하나도 없는 동안 /journal 은 THIN_ROUTES 에 자동으로 들어가
+     noindex 가 붙고 사이트맵에서 빠진다. 빈 페이지를 색인시키면
+     2026-08 GSC 색인 문제를 다시 만드는 셈이기 때문이다.
+     첫 글이 들어오면 색인 대상으로 자동 전환된다.
+     ------------------------------------------------------------------ */
+  journal: {
+    ko: {
+      title: "박은주의 필라테스 라이프 | CPPI 한국 필라테스 교육협회",
+      desc: "움직임으로 몸과 마음의 균형을 세우다. CPPI 협회장 박은주가 현장에서 겪은 이야기로 바른 자세와 건강한 움직임을 풀어내는 칼럼입니다.",
+      eyebrow: "COLUMN", h1: "박은주의 필라테스 라이프",
+      lead: "움직임으로 몸과 마음의 균형을 세우다",
+      blocks: [
+        { p: "신체의 중심이 잡혀야 바른 움직임이 나오듯, 삶에도 흔들리지 않는 중심이 필요합니다. 『박은주의 필라테스 라이프』는 단순한 운동 지도를 넘어, 바른 자세와 건강한 움직임이 어떻게 개인의 긍정적인 에너지와 성장으로 이어지는지 탐구합니다. 현장에서 겪은 흥미로운 에피소드를 통해 일상 속에서 몸과 마음의 근력을 함께 키우는 실천적인 영감을 나눕니다." },
+        { h: "글쓴이", p: "박은주. CPPI 한국필라테스교육협회 회장이자 리커버링 재활필라테스 공인 마스터입니다. 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추·관절센터에서 통증과 수술 후 회복을 다뤘고, 나사렛대학교 스포츠재활학과 겸임교수와 서경대학교 예술교육원 필라테스과정 원장을 역임했습니다." },
+        { h: "연재 안내", p: "칼럼은 순차적으로 공개됩니다. 새 글이 올라오면 이 페이지에 정리됩니다." },
+      ],
+    },
+    en: {
+      title: "Eun-Ju Park's Pilates Life | CPPI Korea Pilates Education Association",
+      desc: "Building balance in body and mind through movement. A column by CPPI president Eun-Ju Park on posture, healthy movement and the stories behind them.",
+      eyebrow: "COLUMN", h1: "Eun-Ju Park's Pilates Life",
+      lead: "Building balance in body and mind through movement",
+      blocks: [
+        { p: "Just as correct movement follows from a stable centre in the body, a life needs a centre that does not waver. Eun-Ju Park's Pilates Life goes beyond exercise instruction to explore how good posture and healthy movement translate into personal energy and growth. Through episodes drawn from the studio floor, the column shares practical inspiration for building strength in body and mind together." },
+        { h: "About the author", p: "Eun-Ju Park is president of the Korea Pilates Education Association and a certified Recovering Rehabilitation Pilates master. She worked in anesthesiology and pain medicine at Seoul National University Bundang Hospital and at the Spine and Joint Center of the Korea Veterans Health Service, and served as adjunct professor of sports rehabilitation at Korea Nazarene University and director of the Pilates programme at Seokyeong University." },
+        { h: "About the series", p: "Columns are published in sequence. New pieces are collected on this page as they appear." },
+      ],
+    },
+    ja: {
+      title: "パク・ウンジュのピラティス・ライフ | CPPI 韓国ピラティス教育協会",
+      desc: "動きで心と体の均衡を立てる。CPPI協会長パク・ウンジュが現場のエピソードから正しい姿勢と健やかな動きを綴るコラムです。",
+      eyebrow: "COLUMN", h1: "パク・ウンジュのピラティス・ライフ",
+      lead: "動きで心と体の均衡を立てる",
+      blocks: [
+        { p: "身体の中心が定まってこそ正しい動きが生まれるように、人生にも揺るがない中心が必要です。『パク・ウンジュのピラティス・ライフ』は単なる運動指導を超え、正しい姿勢と健やかな動きが個人の前向きなエネルギーと成長にどうつながるのかを探ります。現場で出会った興味深いエピソードを通じて、日常の中で心と体の筋力をともに育てる実践的なヒントを分かち合います。" },
+        { h: "著者について", p: "パク・ウンジュ。CPPI韓国ピラティス教育協会の会長であり、リカバリング リハビリピラティス公認マスターです。盆唐ソウル大学病院麻酔痛症医学科と韓国報勲福祉公団の脊椎・関節センターで痛みと術後回復に携わり、ナザレ大学スポーツリハビリ学科の兼任教授、西京大学芸術教育院ピラティス課程の院長を歴任しました。" },
+        { h: "連載について", p: "コラムは順次公開されます。新しい記事が公開されるとこのページにまとめられます。" },
+      ],
+    },
+    zh: {
+      title: "朴恩珠的普拉提生活 | CPPI 韩国普拉提教育协会",
+      desc: "以动作建立身心平衡。CPPI协会长朴恩珠以现场故事书写正确体态与健康动作的专栏。",
+      eyebrow: "COLUMN", h1: "朴恩珠的普拉提生活",
+      lead: "以动作建立身心平衡",
+      blocks: [
+        { p: "正如身体的中心稳固才会有正确的动作，人生也需要一个不摇摆的中心。《朴恩珠的普拉提生活》超越单纯的运动指导，探讨正确体态与健康动作如何转化为个人的正向能量与成长。透过现场遇到的有趣故事，分享在日常中同时锻炼身心力量的实践灵感。" },
+        { h: "关于作者", p: "朴恩珠，CPPI韩国普拉提教育协会会长，Recovering康复普拉提认证大师。曾任职于盆唐首尔大学医院麻醉疼痛医学科与韩国报勋福祉公团脊柱·关节中心，处理疼痛与术后恢复；并曾任拿撒勒大学运动康复学科兼任教授、西京大学艺术教育院普拉提课程院长。" },
+        { h: "连载说明", p: "专栏将陆续发布。新文章上线后会汇整于本页。" },
+      ],
+    },
+    "zh-Hant": {
+      title: "朴恩珠的皮拉提斯生活 | CPPI 韓國皮拉提斯教育協會",
+      desc: "以動作建立身心平衡。CPPI 協會長朴恩珠以現場故事書寫正確體態與健康動作的專欄。",
+      eyebrow: "COLUMN", h1: "朴恩珠的皮拉提斯生活",
+      lead: "以動作建立身心平衡",
+      blocks: [
+        { p: "正如身體的中心穩固才會有正確的動作，人生也需要一個不搖擺的中心。《朴恩珠的皮拉提斯生活》超越單純的運動指導，探討正確體態與健康動作如何轉化為個人的正向能量與成長。透過現場遇到的有趣故事，分享在日常中同時鍛鍊身心力量的實踐靈感。" },
+        { h: "關於作者", p: "朴恩珠，CPPI 韓國皮拉提斯教育協會會長，Recovering 復健皮拉提斯認證大師。曾任職於盆唐首爾大學醫院麻醉疼痛醫學科與韓國報勳福祉公團脊椎·關節中心，處理疼痛與術後恢復；並曾任拿撒勒大學運動復健學科兼任教授、西京大學藝術教育院皮拉提斯課程院長。" },
+        { h: "連載說明", p: "專欄將陸續發布。新文章上線後會彙整於本頁。" },
+      ],
+    },
+    schema: { "@type": "CollectionPage" },
+  },
 };
 
 
@@ -1811,7 +1882,11 @@ export const SUB_ROUTES = ROUTES.filter(r => r !== "home");
    검증 가능한 사실이 각 언어의 본문에 실제로 들어 있는지로 판단한다.
    앞으로 새 라우트를 만들 때 본문이 비어 있으면 여기에 넣어 두고,
    채운 뒤에 빼면 된다. */
-export const THIN_ROUTES = [];
+/* 칼럼 목록은 글이 하나라도 있어야 색인 가치가 있다.
+   비어 있는 동안 noindex + 사이트맵 제외로 자동 격리하고,
+   "journal/{slug}" 키의 글이 CONTENT 에 들어오면 자동으로 풀린다. */
+export const JOURNAL_POSTS = Object.keys(CONTENT).filter(r => r.startsWith("journal/"));
+export const THIN_ROUTES = JOURNAL_POSTS.length ? [] : ["journal"];
 
 export function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
@@ -2055,6 +2130,8 @@ export function pageHTML(lang, route) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(c.title)}</title>
 <meta name="description" content="${esc(c.desc)}">
+${THIN_ROUTES.includes(route) ? `<meta name="robots" content="noindex,follow">
+` : ""}
 <link rel="canonical" href="${url}">
 ${alts}
 <link rel="alternate" hreflang="x-default" href="${ORIGIN + pathFor("en", route)}">
@@ -2191,7 +2268,7 @@ export const APP_LANGS = ["ko", "en", "ja", "zh", "zh-Hant"];
 
 /* 앱이 가진 전체 라우트. SEO 콘텐츠가 없는 화면(/my, /checkout 등)도
    새로고침·직접접속에서 404 가 나지 않도록 앱 셸을 돌려주기 위해 필요하다. */
-export const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","master",
+export const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","master","journal",
   "stories","global","learn","store","why","lecture","prep","books","ebooks","guide","checkout",
   "bank","apply","support","members","my","login","signup","admin"];
 

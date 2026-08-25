@@ -80,7 +80,7 @@ const heroSrc = () => HEROS[Math.floor(Math.random() * HEROS.length)];
    서버가 본문을 먼저 렌더한 뒤 그 위에서 앱이 부팅하는 구조로 바꾼다.
    기존에 뿌린 #주소로 들어와도 같은 화면을 보여 주고 경로 주소로 정규화한다.
    번체(/zh-hant/)는 앱 UI가 아직 번체를 갖고 있지 않아 정적 페이지로만 서빙한다. */
-const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","master","stories",
+const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","master","stories","journal",
   "global","learn","store","why","lecture","prep","books","ebooks","guide","checkout","bank",
   "apply","support","members","my","login","signup","admin"];
 const PATH_LANG = { en: "en", ja: "ja", zh: "zh", "zh-hant": "zh-Hant" };
@@ -151,6 +151,7 @@ const UI = {
     workshop: { ko: "전문 강사 워크숍", en: "Pro Instructor Workshop", zh: "专业教练工作坊", "zh-Hant": "專業教練工作坊", ja: "専門講師ワークショップ" },
     learn: { ko: "온라인 강의", en: "Online Lectures", zh: "在线课程", "zh-Hant": "線上課程", ja: "オンライン講義" },
     store: { ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", "zh-Hant": "電子書·教材商店", ja: "電子書籍·教材ストア" },
+    journal: { ko: "박은주의 필라테스 라이프", en: "Eun-Ju Park's Pilates Life", zh: "朴恩珠的普拉提生活", "zh-Hant": "朴恩珠的皮拉提斯生活", ja: "パク・ウンジュのピラティス・ライフ" },
     guide: { ko: "필라테스 전문 지침서", en: "Pilates Pro Guidebooks", zh: "普拉提专业指南", "zh-Hant": "皮拉提斯專業指南", ja: "ピラティス専門指針書" },
     apply: { ko: "상담 · 신청", en: "Consultation", zh: "咨询 · 申请", "zh-Hant": "諮詢 · 申請", ja: "相談 · 申込" },
     support: { ko: "FAQ · 후기 · 앱 설치", en: "FAQ · Reviews · Install", zh: "FAQ · 评价 · 安装", "zh-Hant": "FAQ · 評價 · 安裝", ja: "FAQ · 口コミ · インストール" },
@@ -1259,6 +1260,38 @@ function pickMaster(i) {
   d.classList.remove("pop"); void d.offsetWidth; d.classList.add("pop");
 }
 
+/* 칼럼 - 박은주의 필라테스 라이프.
+   글은 서버 CONTENT 의 "journal/{slug}" 키로 관리한다. 여기는 목록 화면이다. */
+routes.journal = () => `
+  <section>
+    ${secHead("COLUMN", L({ ko: "박은주의 필라테스 라이프", en: "Eun-Ju Park's Pilates Life", zh: "朴恩珠的普拉提生活", "zh-Hant": "朴恩珠的皮拉提斯生活", ja: "パク・ウンジュのピラティス・ライフ" }), L({ ko: "움직임으로 몸과 마음의 균형을 세우다", en: "Building balance in body and mind through movement", zh: "以动作建立身心平衡", "zh-Hant": "以動作建立身心平衡", ja: "動きで心と体の均衡を立てる" }))}
+    <img src="img/founder_face.jpg" alt="${esc(L({ ko: "CPPI 협회장 박은주 (Eun-Ju Park)", en: "Eun-Ju Park, president of CPPI Korea", zh: "CPPI协会长朴恩珠 (Eun-Ju Park)", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park)", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park)" }))}" loading="lazy" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">
+    <div class="card" style="margin-bottom:10px">
+      <p style="font-size:13.5px;line-height:1.85;color:var(--ink2)">${L({
+        ko: "신체의 중심이 잡혀야 바른 움직임이 나오듯, 삶에도 흔들리지 않는 중심이 필요합니다. 『박은주의 필라테스 라이프』는 단순한 운동 지도를 넘어, 바른 자세와 건강한 움직임이 어떻게 개인의 긍정적인 에너지와 성장으로 이어지는지 탐구합니다. 현장에서 겪은 흥미로운 에피소드를 통해 일상 속에서 몸과 마음의 근력을 함께 키우는 실천적인 영감을 나눕니다.",
+        en: "Just as correct movement follows from a stable centre in the body, a life needs a centre that does not waver. This column goes beyond exercise instruction to explore how good posture and healthy movement translate into personal energy and growth, sharing practical inspiration drawn from the studio floor.",
+        ja: "身体の中心が定まってこそ正しい動きが生まれるように、人生にも揺るがない中心が必要です。本コラムは単なる運動指導を超え、正しい姿勢と健やかな動きが個人の前向きなエネルギーと成長にどうつながるのかを、現場のエピソードを通じて綴ります。",
+        zh: "正如身体的中心稳固才会有正确的动作，人生也需要一个不摇摆的中心。本专栏超越单纯的运动指导，透过现场故事探讨正确体态与健康动作如何转化为个人的正向能量与成长。",
+        "zh-Hant": "正如身體的中心穩固才會有正確的動作，人生也需要一個不搖擺的中心。本專欄超越單純的運動指導，透過現場故事探討正確體態與健康動作如何轉化為個人的正向能量與成長。",
+      })}</p>
+    </div>
+    <div class="card" style="margin-bottom:10px">
+      <b>${L({ ko: "글쓴이", en: "About the author", zh: "关于作者", "zh-Hant": "關於作者", ja: "著者について" })}</b>
+      <p style="font-size:13px;color:var(--ink2);margin-top:5px;line-height:1.8">${L({
+        ko: "박은주 - CPPI 한국필라테스교육협회 회장 · 리커버링 재활필라테스 공인 마스터. 분당서울대병원 마취통증의학과, 한국보훈복지공단 척추·관절센터.",
+        en: "Eun-Ju Park - president of the Korea Pilates Education Association and certified Recovering Rehabilitation Pilates master. Formerly SNUH Bundang and the Korea Veterans Health Service Spine and Joint Center.",
+        ja: "パク・ウンジュ - CPPI韓国ピラティス教育協会 会長 · リカバリング リハビリピラティス公認マスター。盆唐ソウル大学病院麻酔痛症医学科、韓国報勲福祉公団 脊椎・関節センター。",
+        zh: "朴恩珠 - CPPI韩国普拉提教育协会会长 · Recovering康复普拉提认证大师。曾任职盆唐首尔大学医院麻醉疼痛医学科、韩国报勋福祉公团脊柱·关节中心。",
+        "zh-Hant": "朴恩珠 - CPPI 韓國皮拉提斯教育協會會長 · Recovering 復健皮拉提斯認證大師。曾任職盆唐首爾大學醫院麻醉疼痛醫學科、韓國報勳福祉公團脊椎·關節中心。",
+      })}</p>
+      <a class="btn ghost small" href="#founder" style="margin-top:8px">${L({ ko: "파운더 프로필 보기", en: "Founder profile", zh: "查看创始人简介", "zh-Hant": "檢視創辦人簡介", ja: "創立者プロフィール" })}</a>
+    </div>
+    <div class="card">
+      <b>${L({ ko: "연재 안내", en: "About the series", zh: "连载说明", "zh-Hant": "連載說明", ja: "連載について" })}</b>
+      <p style="font-size:13px;color:var(--ink2);margin-top:5px">${L({ ko: "칼럼은 순차적으로 공개됩니다. 새 글이 올라오면 이 화면에 정리됩니다.", en: "Columns are published in sequence. New pieces are collected here as they appear.", zh: "专栏将陆续发布，新文章上线后会汇整于此。", "zh-Hant": "專欄將陸續發布，新文章上線後會彙整於此。", ja: "コラムは順次公開されます。新しい記事はこの画面にまとめられます。" })}</p>
+    </div>
+  </section>`;
+
 routes.master = () => `
   <section>
     ${secHead("MASTER INSTRUCTORS", L(UI.menu.master), L({ ko: "엄격한 기준의 심화교육과 프레젠터 스피치 과정을 거친 CPPI 교육강사입니다.", en: "Trained through rigorous advanced education and presenter speech courses.", zh: "经过严格深化教育与演讲课程的CPPI教育导师。", "zh-Hant": "經過嚴格深化教育與演講課程的CPPI教育導師。", ja: "厳格な深化教育とスピーチ課程を経たCPPI教育講師。" }))}
@@ -2277,6 +2310,7 @@ function renderSheet() {
     <a href="#why" onclick="closeSheet()">${L(UI.menu.why)}</a>
     <a href="#about" onclick="closeSheet()">${L(UI.menu.about)}</a>
     <a href="#founder" onclick="closeSheet()">${L(UI.menu.founder)}</a>
+    <a href="#journal" onclick="closeSheet()">${L(UI.menu.journal)}</a>
     <a href="#master" onclick="closeSheet()">${L(UI.menu.master)}</a>
     <a href="#stories" onclick="closeSheet()">${L(UI.menu.stories)}</a>
     <a href="#members" onclick="closeSheet()">${L(UI.menu.members)}</a>

@@ -112,6 +112,21 @@ export async function onRequest(context) {
     return moved301(u.toString());
   }
 
+  /* 4-b) 칼럼 개별 글 - CONTENT 에 "journal/{slug}" 키로 들어 있다.
+     목록(/journal)과 같은 엔진을 그대로 쓰므로 사이트맵 · hreflang ·
+     canonical · 스키마가 전부 자동으로 따라온다. */
+  if (route === "journal" && segs[1]) {
+    const key = "journal/" + segs[1];
+    if (!CONTENT[key]) return notFound(404);
+    if (APP_LANGS.includes(lang)) {
+      const res = await respondApp(context, lang, key);
+      if (res) return res;
+    }
+    const res = respond(lang, key);
+    if (res) return res;
+    return notFound(404);
+  }
+
   /* 5) 정상 경로 렌더 */
   if (CONTENT[route]) {
     if (APP_LANGS.includes(lang)) {
