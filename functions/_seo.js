@@ -343,6 +343,9 @@ export const NAV = {
    alt 는 검색·AI가 인물/주제를 연결하도록 영문 고유명을 함께 넣는다. */
 export const HERO = {
   home:       { src: "/img/hero_bg.jpg",          alt: { ko: "CPPI 한국 필라테스 교육협회 정규과정 교육 현장", en: "CPPI Korea Pilates Education Association instructor training", ja: "CPPI 韓国ピラティス教育協会の指導者養成", zh: "CPPI 韩国普拉提教育协会教练培训现场", "zh-Hant": "CPPI 韓國皮拉提斯教育協會師資培訓現場" } },
+  why:        { src: "/img/founder_studio.jpg",   alt: { ko: "CPPI 창립자 박은주 (Eun-Ju Park) 교수의 임상 기반 필라테스 교육", en: "Evidence-based Pilates teaching by CPPI founder Eun-Ju Park", ja: "CPPI創立者 パク・ウンジュ (Eun-Ju Park) 教授の臨床に基づくピラティス教育", zh: "CPPI创始人朴恩珠 (Eun-Ju Park) 教授的临床循证普拉提教育", "zh-Hant": "CPPI 創辦人朴恩珠 (Eun-Ju Park) 教授的臨床實證皮拉提斯教育" } },
+  books:      { src: "/img/covers_fan.jpg",      alt: { ko: "박은주 (Eun-Ju Park) 저 CPPI 필라테스 정규과정 교재 9권", en: "The nine CPPI Pilates course textbooks authored by Eun-Ju Park", ja: "パク・ウンジュ (Eun-Ju Park) 著 CPPIピラティス正規課程教材9巻", zh: "朴恩珠 (Eun-Ju Park) 著 CPPI普拉提正规课程教材9册", "zh-Hant": "朴恩珠 (Eun-Ju Park) 著 CPPI 皮拉提斯正規課程教材 9 冊" } },
+  guide:      { src: "/img/lect_mt.webp",        alt: { ko: "CPPI 필라테스 무브먼트 테라피 부위별 전문 지침서", en: "CPPI Pilates Movement Therapy regional guidebooks", ja: "CPPIピラティス ムーブメントセラピー 部位別指針書", zh: "CPPI普拉提运动治疗部位别专业指南", "zh-Hant": "CPPI 皮拉提斯動作治療部位別專業指南" } },
   about:      { src: "/img/medical_banner.jpg",   alt: { ko: "기능해부학과 임상 근거 기반의 CPPI 교육", en: "CPPI education grounded in functional anatomy and clinical evidence", ja: "機能解剖学と臨床根拠に基づくCPPI教育", zh: "基于功能解剖学与临床循证的CPPI教育", "zh-Hant": "以功能解剖學與臨床實證為基礎的 CPPI 教育" } },
   founder:    { src: "/img/founder_photo.jpg",    alt: { ko: "CPPI 창립자 박은주 (Eun-Ju Park) 교수", en: "Eun-Ju Park, founder of CPPI Korea Pilates Education Association", ja: "CPPI創立者 パク・ウンジュ (Eun-Ju Park) 教授", zh: "CPPI创始人 朴恩珠 (Eun-Ju Park) 教授", "zh-Hant": "CPPI 創辦人 朴恩珠 (Eun-Ju Park) 教授" } },
   curriculum: { src: "/img/curriculum_banner.jpg", alt: { ko: "CPPI 정규과정 8대 커리큘럼 교재", en: "The eight core courses of the CPPI Pilates certification", ja: "CPPI正規課程 8大カリキュラム教材", zh: "CPPI正规课程八大体系教材", "zh-Hant": "CPPI 正規課程八大體系教材" } },
@@ -1105,6 +1108,208 @@ export const CONTENT = {
     },
     schema: { "@type": "CollectionPage" },
   },
+  /* ------------------------------------------------------------------
+     2026-08-23 승격 - why · books · guide
+     이 세 라우트는 앱 화면에는 충실한 내용이 있었으나 CONTENT 에 없어
+     respondShell 경로로 빠지면서 noindex 가 강제로 붙고 있었다.
+     GSC 색인 리포트의 'NOINDEX 태그에 의해 제외' 20건의 일부다.
+     본문을 SSR 로 옮겨 색인 자산으로 만든다. (+3 라우트 x 5 언어 = 15 URL)
+     ※ /ebooks 는 /guide 와 같은 화면이므로 승격하지 않고 301 로 합친다.
+     ------------------------------------------------------------------ */
+  why: {
+    ko: {
+      title: "왜 CPPI인가 - 근거로 검증하는 필라테스 강사 자격과정 | CPPI 한국 필라테스 교육협회",
+      desc: "임상에서 출발한 커리큘럼, 317개 동작 매뉴얼, 과목마다 반복하는 티칭 실습, 수료 이후 재교육. CPPI가 다르다고 말하는 근거를 항목으로 공개합니다.",
+      eyebrow: "WHY CPPI", h1: "왜 근거인가",
+      lead: "필라테스 강사 자격과정은 많습니다. 우리가 다르다고 말하려면 그 근거를 먼저 보여야 한다고 생각했습니다. CPPI가 내세우는 네 가지를 확인 가능한 형태로 적었습니다.",
+      blocks: [
+        { h: "01 임상에서 왔습니다", p: "필라테스 교육의 대부분은 동작 체계에서 출발합니다. CPPI는 병원에서 출발했습니다. 창립자 박은주는 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추·관절센터에서 통증과 수술 후 회복을 직접 다뤘고, 그 경험이 커리큘럼의 뼈대가 되었습니다.", list: ["병원 임상 - 분당서울대병원 마취통증의학과, 한국보훈복지공단 척추·관절센터 근무", "전문 연수 - 서울대병원 중환자 전문간호, 정형외과 수술후 재활, 당뇨·고혈압·골다공증 관리, 노인간호 및 재활", "대학 강단 - 나사렛대학교 스포츠재활학과 겸임교수, 서경대학교 예술교육원 필라테스과정 원장 역임", "학회 활동 - 대한비만학회 정회원, 대한간호정우회·간호 Q&A협회 정회원"] },
+        { h: "02 동작을 외우지 않습니다", p: "같은 동작도 대상이 달라지면 다른 운동이 됩니다. 임신 중인 수강생, 수술 후 6주차 회원, 어깨 가동범위가 제한된 시니어에게 같은 큐잉을 줄 수는 없습니다. CPPI는 기능해부학에서 시작해 배리에이션과 모디피케이션까지 가르칩니다.", list: ["매트 53 · 리포머 79 - 기구별 동작을 원리 단위로 분해해 배웁니다", "캐딜락 62 · 스태빌리티 체어 28 - 스프링 저항과 지지면 변화가 부하에 어떻게 작용하는지 다룹니다", "바렐 시리즈 95 - 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39", "체형 분석 및 움직임 평가 5시간 - 단축근과 약화근을 판별해 체형별 프로그램을 구성합니다", "동작 매뉴얼 합계 317개"] },
+        { h: "03 가르치는 법을 배웁니다", p: "동작을 할 줄 아는 것과 가르칠 줄 아는 것은 다릅니다. CPPI는 과목마다 이론, 실기 체득, 상호 인스트럭팅 순서를 반복합니다. 왜 이 동작을 이 순서로 주는지 스스로 설명할 수 있을 때까지 훈련합니다.", list: ["티칭 실습 반복 - 이론 → 실기 체득 → 상호 인스트럭팅을 과목마다 반복", "설명할 수 있는 강사 - 동작의 근거와 순서를 스스로 설명하도록 훈련", "마스터 심화 과정 - 심화교육과 프레젠터 스피치 과정을 거친 마스터 인스트럭터가 실제 강의를 담당"] },
+        { h: "04 수료 이후가 있습니다", p: "자격증 발급으로 끝나지 않습니다. 수료 후 활동과 재교육까지가 과정의 일부입니다.", list: ["56기 이상 수료 - 기수별 명단을 공개하고 있습니다", "국제 자격 발급 - 한국 · 캐나다 · 일본에서 교육을 운영합니다", "L3 정회원 승급 - 수료강사 명단에 등재되어 활동 연계 지원을 받습니다", "지속 재교육 - 리커버링 재활, 임산부, 소도구 워크숍으로 이어집니다"] },
+        { h: "확인 방법", p: "위 항목은 협회 소개, 파운더 프로필, 에센셜 커리큘럼, 수료강사 명단 페이지에서 각각 확인할 수 있습니다. 근거 없이 주장하지 않는 것이 CPPI의 기준입니다." },
+      ],
+    },
+    en: {
+      title: "Why CPPI - the evidence behind our Pilates instructor certification | CPPI Korea",
+      desc: "A curriculum that began in a hospital, 317 documented movements, peer teaching repeated in every module, and continuing education after graduation. Here is the evidence, item by item.",
+      eyebrow: "WHY CPPI", h1: "Why evidence",
+      lead: "There are many Pilates certifications. If we claim to be different, we should show the evidence first. Here are the four things CPPI stands on, written so you can check them.",
+      blocks: [
+        { h: "01 It came from the clinic", p: "Most Pilates education starts from a movement repertoire. CPPI started in a hospital. Founder Eun-Ju Park worked in anesthesiology and pain medicine at Seoul National University Bundang Hospital and at the Spine and Joint Center of the Korea Veterans Health Service, handling pain and post-operative recovery directly. That experience became the backbone of the curriculum.", list: ["Hospital practice - Anesthesiology and Pain Medicine, SNUH Bundang; Spine and Joint Center, Korea Veterans Health Service", "Clinical training - SNUH programmes in critical care nursing, post-op orthopedic rehabilitation, chronic disease management and geriatric rehabilitation", "University faculty - former adjunct professor of sports rehabilitation, Korea Nazarene University; former director of the Pilates programme, Seokyeong University", "Academic bodies - member of the Korean Society for the Study of Obesity and of Korean nursing associations"] },
+        { h: "02 We do not memorize movements", p: "The same exercise becomes a different exercise when the person changes. You cannot give identical cues to a pregnant client, someone six weeks post-operative, and a senior with limited shoulder range. CPPI teaches from functional anatomy through variation and modification.", list: ["Mat 53 and Reformer 79 - movements broken down by principle, apparatus by apparatus", "Cadillac 62 and Stability Chair 28 - how spring resistance and base of support alter loading", "Barrel series 95 - Ladder Barrel 27, Arc Barrel 29, Spine Corrector 39", "Postural analysis and movement assessment, 5 hours - identifying shortened and weakened muscles to build type-specific programmes", "317 documented movements in total"] },
+        { h: "03 You learn how to teach", p: "Being able to perform a movement and being able to teach it are different skills. In every module CPPI repeats the same sequence: theory, embodiment, then peer instructing. Training continues until you can explain in your own words why a movement is given and why in that order.", list: ["Repeated peer teaching - theory, then embodiment, then peer instructing, in every module", "Instructors who can explain - trained to justify the rationale and the sequence", "Master track - master instructors who have completed advanced and presenter-speech training deliver the courses"] },
+        { h: "04 There is life after graduation", p: "The certificate is not the end. What you do afterwards, and how you keep learning, is part of the programme.", list: ["56+ graduating classes - the directory is published by class", "International certification - programmes run in Korea, Canada and Japan", "L3 full membership - graduates are listed in the directory and receive support in finding work", "Continuing education - Recovering rehabilitation, prenatal and small-props workshops"] },
+        { h: "How to verify this", p: "Each item above can be checked on the About, Founder, Essential Curriculum and Graduates pages. Not claiming anything we cannot show is the CPPI standard." },
+      ],
+    },
+    ja: {
+      title: "なぜCPPIか - 根拠で検証するピラティス指導者資格課程 | CPPI 韓国ピラティス教育協会",
+      desc: "臨床から出発したカリキュラム、317種の動作マニュアル、科目ごとに繰り返す指導実習、修了後の再教育。CPPIが違うと言える根拠を項目で公開します。",
+      eyebrow: "WHY CPPI", h1: "なぜ根拠なのか",
+      lead: "ピラティス指導者資格は数多くあります。違うと言うなら、まず根拠を示すべきだと考えました。CPPIが掲げる4つを、確認できる形で記しました。",
+      blocks: [
+        { h: "01 臨床から来ました", p: "ピラティス教育の多くは動作体系から出発します。CPPIは病院から出発しました。創立者パク・ウンジュは盆唐ソウル大学病院麻酔痛症医学科と韓国報勲福祉公団の脊椎・関節センターで痛みと術後回復を直接扱い、その経験がカリキュラムの骨格になりました。", list: ["病院臨床 - 盆唐ソウル大学病院麻酔痛症医学科、韓国報勲福祉公団 脊椎・関節センター勤務", "専門研修 - ソウル大学病院の重症患者専門看護、整形外科術後リハビリ、糖尿・高血圧・骨粗鬆症管理、老人看護およびリハビリ", "大学教壇 - ナザレ大学スポーツリハビリ学科 兼任教授、西京大学芸術教育院ピラティス課程 院長を歴任", "学会活動 - 大韓肥満学会 正会員、大韓看護正友会・看護Q&A協会 正会員"] },
+        { h: "02 動作を暗記しません", p: "同じ動作でも対象が変われば別の運動になります。妊娠中の受講生、術後6週目の会員、肩の可動域が制限されたシニアに同じキューイングを与えることはできません。CPPIは機能解剖学から始め、バリエーションとモディフィケーションまで教えます。", list: ["マット53 · リフォーマー79 - 器具別の動作を原理単位で分解して学びます", "キャデラック62 · スタビリティチェア28 - スプリング抵抗と支持面の変化が負荷にどう作用するかを扱います", "バレルシリーズ95 - ラダーバレル27 · アークバレル29 · スパインコレクター39", "体型分析および動作評価 5時間 - 短縮筋と弱化筋を判別し体型別プログラムを構成します", "動作マニュアル 合計317種"] },
+        { h: "03 教え方を学びます", p: "動作ができることと教えられることは違います。CPPIは科目ごとに理論、実技の体得、相互インストラクティングの順を繰り返します。なぜこの動作をこの順序で与えるのかを自分で説明できるまで訓練します。", list: ["指導実習の反復 - 理論 → 実技体得 → 相互インストラクティングを科目ごとに", "説明できる講師 - 動作の根拠と順序を自分で説明できるよう訓練", "マスター深化課程 - 深化教育とプレゼンター・スピーチ課程を経たマスターインストラクターが実際の講義を担当"] },
+        { h: "04 修了後があります", p: "資格発行で終わりではありません。修了後の活動と再教育までが課程の一部です。", list: ["56期以上が修了 - 期別の名簿を公開しています", "国際資格の発行 - 韓国 · カナダ · 日本で教育を運営しています", "L3正会員への昇級 - 修了講師名簿に登載され活動の連携支援を受けます", "継続再教育 - リカバリング リハビリ、マタニティ、小道具ワークショップへ続きます"] },
+        { h: "確認の方法", p: "上記の項目は協会紹介、創立者プロフィール、エッセンシャルカリキュラム、修了講師名簿の各ページで確認できます。根拠なく主張しないことがCPPIの基準です。" },
+      ],
+    },
+    zh: {
+      title: "为何选择CPPI - 以依据检验的普拉提教练资格课程 | CPPI 韩国普拉提教育协会",
+      desc: "源自临床的课程体系、317个动作手册、每门科目反复进行的教学实习、结业后的持续再教育。我们把CPPI与众不同的依据逐条公开。",
+      eyebrow: "WHY CPPI", h1: "为何强调循证",
+      lead: "普拉提教练课程很多。若要说我们不同，就该先拿出依据。以下是CPPI立足的四点，均以可核查的形式写出。",
+      blocks: [
+        { h: "01 源自临床", p: "多数普拉提教育从动作体系出发，CPPI则从医院出发。创始人朴恩珠曾在盆唐首尔大学医院麻醉疼痛医学科与韩国报勋福祉公团脊柱·关节中心直接处理疼痛与术后恢复，这些经验成为课程的骨架。", list: ["医院临床 - 盆唐首尔大学医院麻醉疼痛医学科、韩国报勋福祉公团脊柱·关节中心任职", "专业研修 - 首尔大学医院重症专科护理、骨科术后康复、糖尿病·高血压·骨质疏松管理、老年护理及康复", "大学讲坛 - 曾任拿撒勒大学运动康复学科兼任教授、西京大学艺术教育院普拉提课程院长", "学会活动 - 大韩肥胖学会正会员、大韩护理正友会·护理Q&A协会正会员"] },
+        { h: "02 不靠死记动作", p: "同一动作，对象不同就是不同的运动。对孕期学员、术后第六周会员、肩关节活动度受限的长者，不可能给出相同的口令。CPPI从功能解剖学出发，一直教到变式与调整。", list: ["垫上53 · 核心床79 - 按原理拆解各器械动作", "凯迪拉克62 · 稳踏椅28 - 讲解弹簧阻力与支撑面变化如何影响负荷", "桶系列95 - 梯桶27 · 弧形桶29 · 脊柱矫正器39", "体态分析与动作评估 5小时 - 判别短缩肌与无力肌，构建体态针对性方案", "动作手册合计317个"] },
+        { h: "03 学习如何教学", p: "会做动作与会教动作是两回事。CPPI在每门科目重复理论、实操内化、相互教学三个步骤，训练到能自己说明为何以此顺序给出该动作为止。", list: ["教学实习反复 - 理论 → 实操内化 → 相互教学，每门科目重复", "能讲清楚的教练 - 训练学员自行说明动作依据与顺序", "大师深化课程 - 由完成深化教育与演讲课程的大师级导师授课"] },
+        { h: "04 结业之后仍有路", p: "颁发证书并非终点。结业后的活动与再教育同样是课程的一部分。", list: ["已培养56期以上 - 按期公开结业名单", "国际资格颁发 - 在韩国 · 加拿大 · 日本运营教育", "晋升L3正式会员 - 登载于结业教练名单并获得活动衔接支持", "持续再教育 - 延伸至Recovering康复、孕产、小器械工作坊"] },
+        { h: "如何核实", p: "以上各项可分别在协会介绍、创始人简介、核心课程、结业教练名单页面核实。不做无依据的主张，是CPPI的标准。" },
+      ],
+    },
+    "zh-Hant": {
+      title: "為何選擇CPPI - 以依據檢驗的皮拉提斯師資培訓 | CPPI 韓國皮拉提斯教育協會",
+      desc: "源自臨床的課程體系、317 個動作手冊、每門科目反覆進行的教學實習、結業後的持續再教育。我們把 CPPI 與眾不同的依據逐條公開。",
+      eyebrow: "WHY CPPI", h1: "為何強調循證",
+      lead: "皮拉提斯師資課程很多。若要說我們不同，就該先拿出依據。以下是 CPPI 立足的四點，均以可查核的形式寫出。",
+      blocks: [
+        { h: "01 源自臨床", p: "多數皮拉提斯教育從動作體系出發，CPPI 則從醫院出發。創辦人朴恩珠曾於盆唐首爾大學醫院麻醉疼痛醫學科與韓國報勳福祉公團脊椎·關節中心直接處理疼痛與術後恢復，這些經驗成為課程的骨架。", list: ["醫院臨床 - 盆唐首爾大學醫院麻醉疼痛醫學科、韓國報勳福祉公團脊椎·關節中心任職", "專業研修 - 首爾大學醫院重症專科護理、骨科術後復健、糖尿病·高血壓·骨質疏鬆管理、老年護理及復健", "大學講壇 - 曾任拿撒勒大學運動復健學科兼任教授、西京大學藝術教育院皮拉提斯課程院長", "學會活動 - 大韓肥胖學會正會員、大韓護理正友會·護理Q&A協會正會員"] },
+        { h: "02 不靠死記動作", p: "同一動作，對象不同就是不同的運動。對孕期學員、術後第六週會員、肩關節活動度受限的長者，不可能給出相同的口令。CPPI 從功能解剖學出發，一直教到變化式與調整。", list: ["墊上53 · 核心床79 - 依原理拆解各器材動作", "凱迪拉克62 · 穩踏椅28 - 講解彈簧阻力與支撐面變化如何影響負荷", "桶系列95 - 梯桶27 · 弧形桶29 · 脊椎矯正器39", "體態分析與動作評估 5 小時 - 判別短縮肌與無力肌，建立體態導向方案", "動作手冊合計 317 個"] },
+        { h: "03 學習如何教學", p: "會做動作與會教動作是兩回事。CPPI 在每門科目重複理論、實作內化、相互教學三個步驟，訓練到能自行說明為何以此順序給出該動作為止。", list: ["教學實習反覆 - 理論 → 實作內化 → 相互教學，每門科目重複", "能講清楚的導師 - 訓練學員自行說明動作依據與順序", "大師深化課程 - 由完成深化教育與講師表達課程的大師級導師授課"] },
+        { h: "04 結業之後仍有路", p: "核發證書並非終點。結業後的活動與再教育同樣是課程的一部分。", list: ["已培育 56 期以上 - 依期公開結業名單", "國際證照核發 - 於韓國 · 加拿大 · 日本營運教育", "晉升 L3 正式會員 - 登載於結業導師名單並獲得活動銜接支援", "持續再教育 - 延伸至 Recovering 復健、孕產、小器材工作坊"] },
+        { h: "如何查核", p: "以上各項可分別於協會介紹、創辦人簡介、核心課程、結業導師名單頁面查核。不做無依據的主張，是 CPPI 的標準。" },
+      ],
+    },
+    schema: { "@type": "AboutPage" },
+  },
+  books: {
+    ko: {
+      title: "정규과정 교재 9권 - 과목별 구매 | CPPI 한국 필라테스 교육협회",
+      desc: "박은주 저 CPPI 필라테스 정규과정 교재 9권. 기능해부학 238p, 리포머 306p, 캐딜락 368p 등 과목별 실물 교재. 목차와 본문 10페이지를 미리 볼 수 있습니다.",
+      eyebrow: "TEXTBOOKS", h1: "정규과정 교재 9권",
+      lead: "CPPI 정규과정에서 실제로 사용하는 출판 교재입니다. 저자는 협회장 박은주이며, 필요한 과목만 따로 구매할 수 있습니다.",
+      blocks: [
+        { h: "교재 목록", list: ["필라테스 기능해부학 - 238p", "필라테스 기본원리 - 80p", "필라테스 더 매트 - 160p", "리포머 - 306p", "캐딜락 - 368p", "스태빌리티 체어 - 202p", "래더 바렐 - 76p", "아크 바렐 - 79p", "스파인 코렉터 - 108p"] },
+        { h: "구매 전 확인", p: "모든 교재는 목차와 본문 10페이지를 미리 볼 수 있습니다. 표지를 누르면 미리보기가 열립니다. 실물 교재는 배송되며, 세트 구매와 해외 배송은 상담으로 안내드립니다." },
+        { h: "교재가 왜 중요한가", p: "자격과정을 고를 때 확인해야 할 항목 중 하나가 교재입니다. 강의 슬라이드만 있는 과정과 출판된 텍스트가 있는 과정은 복습 가능성이 다릅니다. CPPI 교재는 수료 이후 현장에서 참조하는 자료로 쓰입니다." },
+        { h: "소도구 교재", p: "정규과정 교재 외에 소도구 교재 4권이 있습니다. 폼롤러 164p, 서클 136p, 미니볼 178p, BOSU 160p로 구성됩니다." },
+      ],
+    },
+    en: {
+      title: "The nine core textbooks - buy by subject | CPPI Korea Pilates Education Association",
+      desc: "Nine published CPPI Pilates textbooks by Eun-Ju Park. Functional Anatomy 238pp, Reformer 306pp, Cadillac 368pp and more, sold by subject. Preview the contents and ten pages of the body text.",
+      eyebrow: "TEXTBOOKS", h1: "The nine core textbooks",
+      lead: "These are the published books actually used in the CPPI certification. They are written by association president Eun-Ju Park, and you can buy only the subjects you need.",
+      blocks: [
+        { h: "Titles", list: ["Anatomy of Movement - 238pp", "Basic Principle - 80pp", "Pilates Mat - 160pp", "Reformer - 306pp", "Cadillac - 368pp", "Stability Chair - 202pp", "Ladder Barrel - 76pp", "Arc Barrel - 79pp", "Spine Corrector - 108pp"] },
+        { h: "Before you order", p: "Every title lets you preview the table of contents and ten pages of the body text. Tap a cover to open the preview. Printed books are shipped; for set purchases and international shipping, please contact us." },
+        { h: "Why the textbook matters", p: "A textbook is one of the things worth checking when you compare certifications. A course backed only by slides and a course backed by published text differ in how well you can revise. CPPI graduates keep using these books as a reference in the studio." },
+        { h: "Small-props volumes", p: "Beyond the nine core titles there are four small-props volumes: foam roller 164pp, circle 136pp, mini ball 178pp and BOSU 160pp." },
+      ],
+    },
+    ja: {
+      title: "正規課程教材9巻 - 科目別購入 | CPPI 韓国ピラティス教育協会",
+      desc: "パク・ウンジュ著 CPPIピラティス正規課程教材9巻。機能解剖学238p、リフォーマー306p、キャデラック368pなど科目別の実物教材。目次と本文10ページを試し読みできます。",
+      eyebrow: "TEXTBOOKS", h1: "正規課程教材 9巻",
+      lead: "CPPI正規課程で実際に使用している出版教材です。著者は協会長パク・ウンジュで、必要な科目だけを個別に購入できます。",
+      blocks: [
+        { h: "教材一覧", list: ["ピラティス機能解剖学 - 238p", "ピラティス基本原理 - 80p", "ピラティス・ザ・マット - 160p", "リフォーマー - 306p", "キャデラック - 368p", "スタビリティチェア - 202p", "ラダーバレル - 76p", "アークバレル - 79p", "スパインコレクター - 108p"] },
+        { h: "ご注文前に", p: "すべての教材で目次と本文10ページを試し読みできます。表紙をタップするとプレビューが開きます。実物教材は配送となり、セット購入と海外配送はご相談ください。" },
+        { h: "教材がなぜ重要か", p: "資格課程を選ぶ際に確認したい項目のひとつが教材です。講義スライドだけの課程と、出版されたテキストがある課程では復習のしやすさが違います。CPPI教材は修了後も現場で参照する資料として使われています。" },
+        { h: "小道具教材", p: "正規課程教材のほかに小道具教材が4巻あります。フォームローラー164p、サークル136p、ミニボール178p、BOSU 160pです。" },
+      ],
+    },
+    zh: {
+      title: "正规课程教材9册 - 按科目购买 | CPPI 韩国普拉提教育协会",
+      desc: "朴恩珠著 CPPI普拉提正规课程教材9册。功能解剖学238页、核心床306页、凯迪拉克368页等按科目提供实体教材。可试阅目录与正文10页。",
+      eyebrow: "TEXTBOOKS", h1: "正规课程教材 9册",
+      lead: "这是CPPI正规课程实际使用的出版教材。著者为协会长朴恩珠，可只购买所需科目。",
+      blocks: [
+        { h: "教材目录", list: ["普拉提功能解剖学 - 238页", "普拉提基本原理 - 80页", "垫上普拉提 - 160页", "核心床 Reformer - 306页", "凯迪拉克 Cadillac - 368页", "稳踏椅 Stability Chair - 202页", "梯桶 Ladder Barrel - 76页", "弧形桶 Arc Barrel - 79页", "脊柱矫正器 Spine Corrector - 108页"] },
+        { h: "购买前确认", p: "所有教材均可试阅目录与正文10页，点击封面即可打开预览。实体教材将配送到府，整套购买与海外配送请咨询。" },
+        { h: "教材为何重要", p: "挑选资格课程时，教材是应当核查的项目之一。只有讲义幻灯片的课程与拥有正式出版教材的课程，在复习可行性上并不相同。CPPI教材在结业后仍作为现场参考资料使用。" },
+        { h: "小器械教材", p: "除正规课程教材外另有小器械教材4册：泡沫轴164页、圈136页、迷你球178页、BOSU 160页。" },
+      ],
+    },
+    "zh-Hant": {
+      title: "正規課程教材 9 冊 - 依科目購買 | CPPI 韓國皮拉提斯教育協會",
+      desc: "朴恩珠著 CPPI 皮拉提斯正規課程教材 9 冊。功能解剖學 238 頁、核心床 306 頁、凱迪拉克 368 頁等依科目提供實體教材。可試閱目錄與正文 10 頁。",
+      eyebrow: "TEXTBOOKS", h1: "正規課程教材 9 冊",
+      lead: "這是 CPPI 正規課程實際使用的出版教材。著者為協會長朴恩珠，可只購買所需科目。",
+      blocks: [
+        { h: "教材目錄", list: ["皮拉提斯功能解剖學 - 238 頁", "皮拉提斯基本原理 - 80 頁", "墊上皮拉提斯 - 160 頁", "核心床 Reformer - 306 頁", "凱迪拉克 Cadillac - 368 頁", "穩踏椅 Stability Chair - 202 頁", "梯桶 Ladder Barrel - 76 頁", "弧形桶 Arc Barrel - 79 頁", "脊椎矯正器 Spine Corrector - 108 頁"] },
+        { h: "購買前確認", p: "所有教材皆可試閱目錄與正文 10 頁，點擊封面即可開啟預覽。實體教材將配送到府，整套購買與海外配送請洽詢。" },
+        { h: "教材為何重要", p: "挑選證照課程時，教材是應當查核的項目之一。只有講義投影片的課程與擁有正式出版教材的課程，在複習可行性上並不相同。CPPI 教材在結業後仍作為現場參考資料使用。" },
+        { h: "小器材教材", p: "除正規課程教材外另有小器材教材 4 冊：滾筒 164 頁、圈 136 頁、迷你球 178 頁、BOSU 160 頁。" },
+      ],
+    },
+    schema: { "@type": "CollectionPage" },
+  },
+  guide: {
+    ko: {
+      title: "필라테스 무브먼트 테라피 전문 지침서 4종 (PDF 전자책) | CPPI",
+      desc: "경추 · 견관절 · 척추 · 골반 부위별 전문 지침서. PDF 전자책으로 제공되며 구입 시 전문 강사 워크숍 50% 할인 혜택이 있습니다.",
+      eyebrow: "PRO GUIDEBOOKS", h1: "CPPI 필라테스 무브먼트 테라피",
+      lead: "부위별 통증과 기능 개선을 다루는 전문 지침서입니다. PDF 전자책으로 제공합니다.",
+      blocks: [
+        { h: "지침서 4종", list: ["경추 - 필라테스 무브먼트 테라피", "견관절 - 필라테스 무브먼트 테라피", "척추 - 필라테스 무브먼트 테라피", "골반 - 필라테스 무브먼트 테라피"] },
+        { h: "누구를 위한 자료인가", p: "현직 필라테스 강사와 재활 종사자를 대상으로 합니다. 부위별로 무엇을 평가하고 어떤 순서로 접근할지를 다루므로 기능해부학 기초가 있는 분에게 적합합니다." },
+        { h: "구입 혜택", p: "전문 지침서를 구입하시면 전문 강사 워크숍을 50% 할인 가격으로 수강하실 수 있습니다." },
+        { h: "이용 조건", p: "전자책에는 구매자 이메일이 워터마크로 삽입됩니다. 저작권 보호를 위한 조치이며, 열람을 시작한 뒤에는 환불이 어렵습니다. 구매 전에 이 점을 확인해 주세요." },
+      ],
+    },
+    en: {
+      title: "Movement Therapy guidebooks - four regional volumes (PDF) | CPPI Korea",
+      desc: "Region-specific professional guidebooks for the cervical spine, shoulder, spine and pelvis. Delivered as PDF e-books; buyers receive 50% off the Pro Instructor Workshop.",
+      eyebrow: "PRO GUIDEBOOKS", h1: "CPPI Pilates Movement Therapy",
+      lead: "Professional guidebooks covering pain and functional improvement region by region, delivered as PDF e-books.",
+      blocks: [
+        { h: "The four volumes", list: ["Cervical - Pilates Movement Therapy", "Shoulder - Pilates Movement Therapy", "Spine - Pilates Movement Therapy", "Pelvis - Pilates Movement Therapy"] },
+        { h: "Who these are for", p: "They are written for practising Pilates instructors and rehabilitation professionals. Because they deal with what to assess in each region and in what order to approach it, they suit readers who already have a grounding in functional anatomy." },
+        { h: "Purchase benefit", p: "Buying a guidebook entitles you to take the Pro Instructor Workshop at 50% off." },
+        { h: "Terms of use", p: "Each e-book is watermarked with the buyer's email address to protect copyright. Once you have begun reading, a refund is not possible. Please confirm this before purchase." },
+      ],
+    },
+    ja: {
+      title: "ピラティス ムーブメントセラピー 部位別指針書 4種 (PDF電子書籍) | CPPI",
+      desc: "頸椎 · 肩関節 · 脊柱 · 骨盤の部位別専門指針書。PDF電子書籍で提供し、ご購入で専門講師ワークショップ50%割引の特典があります。",
+      eyebrow: "PRO GUIDEBOOKS", h1: "CPPI ピラティス ムーブメントセラピー",
+      lead: "部位別の痛みと機能改善を扱う専門指針書です。PDF電子書籍で提供します。",
+      blocks: [
+        { h: "指針書4種", list: ["頸椎 - ピラティス ムーブメントセラピー", "肩関節 - ピラティス ムーブメントセラピー", "脊柱 - ピラティス ムーブメントセラピー", "骨盤 - ピラティス ムーブメントセラピー"] },
+        { h: "対象読者", p: "現役のピラティス指導者とリハビリ従事者を対象としています。部位ごとに何を評価しどの順序で進めるかを扱うため、機能解剖学の基礎がある方に適しています。" },
+        { h: "購入特典", p: "専門指針書をご購入いただくと、専門講師ワークショップを50%割引価格で受講できます。" },
+        { h: "ご利用条件", p: "電子書籍には購入者のメールアドレスが透かしとして挿入されます。著作権保護のための措置で、閲覧を開始した後の返金はできません。ご購入前にご確認ください。" },
+      ],
+    },
+    zh: {
+      title: "普拉提运动治疗 部位别专业指南 4种 (PDF电子书) | CPPI",
+      desc: "颈椎 · 肩关节 · 脊柱 · 骨盆部位别专业指南。以PDF电子书提供，购买即享专业教练工作坊5折优惠。",
+      eyebrow: "PRO GUIDEBOOKS", h1: "CPPI 普拉提运动治疗",
+      lead: "针对各部位疼痛与功能改善的专业指南，以PDF电子书形式提供。",
+      blocks: [
+        { h: "指南4种", list: ["颈椎 - 普拉提运动治疗", "肩关节 - 普拉提运动治疗", "脊柱 - 普拉提运动治疗", "骨盆 - 普拉提运动治疗"] },
+        { h: "适合谁阅读", p: "面向在职普拉提教练与康复从业者。内容涉及各部位应评估什么、以何种顺序介入，因此适合已具备功能解剖学基础的读者。" },
+        { h: "购买福利", p: "购买专业指南后，可以5折价格参加专业教练工作坊。" },
+        { h: "使用条款", p: "电子书内会嵌入购买者邮箱水印，用于保护著作权。开始阅览后无法退款，请在购买前确认。" },
+      ],
+    },
+    "zh-Hant": {
+      title: "皮拉提斯動作治療 部位別專業指南 4 種 (PDF 電子書) | CPPI",
+      desc: "頸椎 · 肩關節 · 脊柱 · 骨盆部位別專業指南。以 PDF 電子書提供，購買即享專業導師工作坊 5 折優惠。",
+      eyebrow: "PRO GUIDEBOOKS", h1: "CPPI 皮拉提斯動作治療",
+      lead: "針對各部位疼痛與功能改善的專業指南，以 PDF 電子書形式提供。",
+      blocks: [
+        { h: "指南 4 種", list: ["頸椎 - 皮拉提斯動作治療", "肩關節 - 皮拉提斯動作治療", "脊柱 - 皮拉提斯動作治療", "骨盆 - 皮拉提斯動作治療"] },
+        { h: "適合誰閱讀", p: "面向在職皮拉提斯導師與復健從業者。內容涉及各部位應評估什麼、以何種順序介入，因此適合已具備功能解剖學基礎的讀者。" },
+        { h: "購買福利", p: "購買專業指南後，可以 5 折價格參加專業導師工作坊。" },
+        { h: "使用條款", p: "電子書內會嵌入購買者信箱浮水印，用於保護著作權。開始閱覽後無法退款，請於購買前確認。" },
+      ],
+    },
+    schema: { "@type": "CollectionPage" },
+  },
 };
 
 
@@ -1417,6 +1622,179 @@ for (const [route, byLang] of Object.entries(EXTRA_BLOCKS_2)) {
   for (const [lang, extra] of Object.entries(byLang)) {
     const entry = CONTENT[route] && CONTENT[route][lang];
     if (entry) entry.blocks = (entry.blocks || []).concat(extra);
+  }
+}
+
+/* ------------------------------------------------------------------
+   본문 보강 3차 (2026-08-23) - GSC 색인 리포트 '크롤링됨 - 현재 색인이
+   생성되지 않음' 11건 대응. store · stories · learn 은 본문이 750~1,000자에
+   그쳐 구글이 색인 가치를 낮게 판정했다. 새로 승격한 books · guide 도
+   같은 구간이었으므로 함께 채운다.
+   숫자와 고유명사, 정의를 담아 AI 답변이 인용할 수 있는 형태로 쓴다.
+   확인되지 않은 가격은 넣지 않는다. 코드가 빈 값을 자동으로 빼도록 설계돼 있다.
+------------------------------------------------------------------ */
+const EXTRA_BLOCKS_3 = {
+  store: {
+    ko: [
+      { h: "무엇을 파는가", p: "CPPI 스토어는 세 가지를 취급합니다. 첫째는 정규과정에서 실제로 쓰는 출판 교재 9권으로, 실물 배송 상품입니다. 둘째는 부위별 전문 지침서인 무브먼트 테라피 4종으로, PDF 전자책입니다. 셋째는 온라인 강의 수강권으로, 결제 확인 후 시청 링크가 제공됩니다. 세 가지는 배송 여부와 환불 조건이 서로 다르므로 구매 전에 구분해 주세요." },
+      { h: "구매 절차", p: "상품을 고르면 주문 정보를 입력하고 결제수단을 선택합니다. 회원은 저장된 정보로, 비회원은 이름 · 연락처 · 이메일을 입력해 주문할 수 있습니다. 계좌이체를 선택하면 입금 계좌 안내 화면으로 이동하고, 입금이 확인되면 주문 상태가 '완료'로 바뀌면서 전자책 열람 권한과 온라인 강의 수강권이 부여됩니다. 실물 교재는 이 시점부터 배송이 시작됩니다." },
+      { h: "판매 · 결제 주체", p: "CPPI 한국필라테스교육협회(고유번호 201-82-74381)는 교육과 강의를 주관하는 비영리 단체입니다. 상품 판매와 결제, 환불, 고객응대는 사업 대행사인 씨앤티파트너스(C&T Partners, 사업자등록번호 842-09-02365)가 담당합니다. 결제 관련 문의는 씨앤티파트너스로 연결됩니다." },
+      { h: "환불 기준", p: "실물 교재는 배송 전이면 취소할 수 있습니다. 전자책과 온라인 강의 수강권은 디지털 상품이므로 열람을 시작한 뒤에는 환불이 어렵습니다. 전자책에는 구매자 이메일이 워터마크로 삽입됩니다. 정규 자격과정과 워크숍의 환불 규정은 과정별로 다르므로 신청 시 별도로 안내드립니다." },
+    ],
+    en: [
+      { h: "What we sell", p: "The CPPI store carries three kinds of item. First, the nine published textbooks actually used in the certification - these are physical books that ship. Second, the four Movement Therapy guidebooks covering specific body regions - these are PDF e-books. Third, online lecture access, for which a viewing link is issued once payment is confirmed. Shipping and refund terms differ across the three, so please note which one you are buying." },
+      { h: "How ordering works", p: "Choose an item, enter your order details, and select a payment method. Members order with their stored details; guests enter a name, phone number and email. If you choose bank transfer you are taken to the account details screen. Once the deposit is confirmed, the order status changes to complete, e-book access and online lecture entitlements are granted, and printed books enter shipping." },
+      { h: "Who sells and who teaches", p: "The Korea Pilates Education Association (CPPI, registration 201-82-74381) is the non-profit body that runs the education and the courses. Sales, payment, refunds and customer support are handled by the business agency C&T Partners (business registration 842-09-02365). Payment enquiries are routed to C&T Partners." },
+      { h: "Refund basis", p: "Printed textbooks can be cancelled before they ship. E-books and online lecture access are digital goods, so a refund is not possible once you have begun reading or viewing. Every e-book is watermarked with the buyer's email address. Refund terms for the certification course and for workshops vary by programme and are explained at the point of application." },
+    ],
+    ja: [
+      { h: "取り扱い品目", p: "CPPIストアでは3種類を扱っています。1つ目は正規課程で実際に使用する出版教材9巻で、実物配送の商品です。2つ目は部位別の専門指針書であるムーブメントセラピー4種で、PDF電子書籍です。3つ目はオンライン講義の受講券で、決済確認後に視聴リンクが提供されます。3つは配送の有無と返金条件が異なりますので、ご購入前にご確認ください。" },
+      { h: "ご注文の流れ", p: "商品を選び、注文情報を入力して決済方法を選択します。会員は保存された情報で、非会員はお名前 · ご連絡先 · メールアドレスを入力してご注文いただけます。振込を選択すると振込口座のご案内画面に移動し、入金が確認されると注文状態が「完了」に変わり、電子書籍の閲覧権限とオンライン講義の受講券が付与されます。実物教材はこの時点から発送が始まります。" },
+      { h: "販売 · 決済の主体", p: "CPPI韓国ピラティス教育協会(固有番号 201-82-74381)は教育と講義を主管する非営利団体です。商品の販売と決済、返金、お客様対応は事業代行会社である씨앤티파트너스 (C&T Partners、事業者登録番号 842-09-02365) が担当します。決済に関するお問い合わせはC&T Partnersにつながります。" },
+      { h: "返金の基準", p: "実物教材は発送前であればキャンセルできます。電子書籍とオンライン講義受講券はデジタル商品のため、閲覧を開始した後の返金はできません。電子書籍には購入者のメールアドレスが透かしとして挿入されます。正規資格課程とワークショップの返金規定は課程ごとに異なり、お申し込み時に個別にご案内します。" },
+    ],
+    zh: [
+      { h: "销售内容", p: "CPPI商店经营三类商品。第一类是正规课程实际使用的出版教材9册，属实体配送商品。第二类是部位别专业指南「运动治疗」4种，为PDF电子书。第三类是在线课程券，确认付款后提供观看链接。三者在配送与退款条件上各不相同，请在购买前加以区分。" },
+      { h: "购买流程", p: "选择商品后填写订单信息并选择支付方式。会员使用已保存的信息，非会员填写姓名 · 联系方式 · 邮箱即可下单。选择银行转账将进入汇款账户指引页面；确认到账后订单状态变更为「完成」，电子书阅览权限与在线课程券随即开通，实体教材亦从该时点开始发货。" },
+      { h: "销售与结算主体", p: "CPPI韩国普拉提教育协会(编号 201-82-74381)是主管教育与授课的非营利团体。商品销售、结算、退款与客户服务由业务代理公司C&T Partners(营业执照号 842-09-02365)负责。结算相关咨询将转接至C&T Partners。" },
+      { h: "退款标准", p: "实体教材在发货前可以取消。电子书与在线课程券属数字商品，开始阅览或观看后无法退款。电子书内嵌有购买者邮箱水印。正规资格课程与工作坊的退款规定因课程而异，将在报名时另行说明。" },
+    ],
+    "zh-Hant": [
+      { h: "銷售內容", p: "CPPI 商店經營三類商品。第一類是正規課程實際使用的出版教材 9 冊，屬實體配送商品。第二類是部位別專業指南「動作治療」4 種，為 PDF 電子書。第三類是線上課程券，確認付款後提供觀看連結。三者在配送與退款條件上各不相同，請於購買前加以區分。" },
+      { h: "購買流程", p: "選擇商品後填寫訂單資訊並選擇付款方式。會員使用已儲存的資訊，非會員填寫姓名 · 聯絡方式 · 信箱即可下單。選擇銀行轉帳將進入匯款帳戶指引頁面；確認入帳後訂單狀態變更為「完成」，電子書閱覽權限與線上課程券隨即開通，實體教材亦自該時點開始出貨。" },
+      { h: "銷售與結算主體", p: "CPPI 韓國皮拉提斯教育協會(編號 201-82-74381)是主管教育與授課的非營利團體。商品銷售、結算、退款與客戶服務由業務代理公司 C&T Partners(營業執照號 842-09-02365)負責。結算相關洽詢將轉接至 C&T Partners。" },
+      { h: "退款標準", p: "實體教材於出貨前可以取消。電子書與線上課程券屬數位商品，開始閱覽或觀看後無法退款。電子書內嵌有購買者信箱浮水印。正規證照課程與工作坊的退款規定因課程而異，將於報名時另行說明。" },
+    ],
+  },
+  stories: {
+    ko: [
+      { h: "누가 CPPI를 수료하는가", p: "정규과정을 마친 기수는 56기를 넘었습니다. 수료생 가운데 상당수는 필라테스 비전공자로, 다른 분야에서 전향해 강사가 된 분들입니다. 간호 · 물리치료 같은 인접 분야에서 오신 분도 있고, 전혀 다른 직군에서 경력을 다시 설계한 분도 있습니다. 기능해부학 기초부터 단계적으로 설계되어 있어 입문자도 따라올 수 있는 구조입니다." },
+      { h: "회원 등급 체계", p: "CPPI는 3단계 회원 등급을 운영합니다. 가입 시 L1로 시작하고, 온라인 강의 수강권을 보유하면 L2가 됩니다. 정규과정을 수료하면 L3 정회원으로 승급되며, 수료강사 명단에 등재되어 활동 연계 지원을 받습니다. 등급은 수강 이력과 활동에 따라 관리되며, 기수별 명단은 앱에서 확인할 수 있습니다." },
+      { h: "수료 이후의 경로", p: "자격증 발급이 끝이 아닙니다. 수료 후에는 리커버링 재활 필라테스, 임산부, 소도구 워크숍 같은 심화 과정으로 이어집니다. 심화교육과 프레젠터 스피치 과정을 거치면 마스터 인스트럭터로 강의를 담당할 수 있습니다. 현재 마스터 인스트럭터는 파운더 박은주를 포함해 김민서 · 이청아 · 손희정 · 김휘향입니다." },
+      { h: "후기에 관한 원칙", p: "CPPI는 실존 수료생이 직접 작성한 후기만 게재합니다. 지어낸 사례나 대필한 추천사는 싣지 않습니다. 전체 후기와 기수별 명단은 앱에서 확인하실 수 있습니다." },
+    ],
+    en: [
+      { h: "Who completes CPPI", p: "More than 56 cohorts have finished the certification. A substantial share of graduates did not come from a Pilates background; they changed careers into teaching. Some arrive from adjacent fields such as nursing or physiotherapy, others rebuilt a career from an unrelated job. Because the programme is sequenced from the fundamentals of functional anatomy upward, beginners can follow it." },
+      { h: "Membership tiers", p: "CPPI runs three membership tiers. You join at L1. Holding online lecture access moves you to L2. Completing the certification promotes you to L3 full membership, which lists you in the graduate directory and gives you support in finding work. Tiers are maintained according to study history and activity, and the directory is published by cohort in the app." },
+      { h: "What follows graduation", p: "The certificate is not the end point. Graduates continue into advanced tracks such as Recovering rehabilitation Pilates, prenatal work and small-props workshops. Those who complete advanced training and the presenter speech course can go on to teach as master instructors. The current master instructors are founder Eun-Ju Park together with Min-seo KIM, Cheong-ah LEE, Hee-jung SOHN and Hwy-hyang KIM." },
+      { h: "Our rule on testimonials", p: "CPPI publishes only reviews written by real graduates. We do not invent cases or commission testimonials. The full set of reviews and the cohort directory are available in the app." },
+    ],
+    ja: [
+      { h: "誰がCPPIを修了するのか", p: "正規課程を修了した期は56期を超えました。修了生のうち相当数はピラティス非専攻で、他分野から転向して講師になった方々です。看護 · 理学療法などの隣接分野から来られた方もいれば、まったく異なる職種からキャリアを再設計した方もいます。機能解剖学の基礎から段階的に設計されているため、入門者でもついていける構造です。" },
+      { h: "会員等級体系", p: "CPPIは3段階の会員等級を運営しています。登録時はL1から始まり、オンライン講義の受講券を保有するとL2になります。正規課程を修了するとL3正会員に昇級し、修了講師名簿に登載されて活動の連携支援を受けます。等級は受講履歴と活動に応じて管理され、期別の名簿はアプリで確認できます。" },
+      { h: "修了後の進路", p: "資格の発行が終点ではありません。修了後はリカバリング リハビリピラティス、マタニティ、小道具ワークショップなどの深化課程へ続きます。深化教育とプレゼンター・スピーチ課程を経ると、マスターインストラクターとして講義を担当できます。現在のマスターインストラクターは創立者パク・ウンジュのほか、キム・ミンソ · イ・チョンア · ソン・ヒジョン · キム・フィヒャンです。" },
+      { h: "口コミに関する原則", p: "CPPIは実在する修了生が自ら書いた口コミのみを掲載します。作り話や代筆の推薦文は載せません。全ての口コミと期別名簿はアプリでご確認いただけます。" },
+    ],
+    zh: [
+      { h: "谁在CPPI结业", p: "完成正规课程的期数已超过56期。结业生中相当一部分并非普拉提专业出身，而是从其他领域转行成为教练。有人来自护理、物理治疗等相邻领域，也有人从完全不同的职业重新规划职涯。课程自功能解剖学基础起循序设计，因此入门者也能跟上。" },
+      { h: "会员等级体系", p: "CPPI运营三级会员制度。注册时为L1；持有在线课程券即成为L2；完成正规课程后晋升为L3正式会员，登载于结业教练名单并获得活动衔接支持。等级依据修读履历与活动情况管理，各期名单可在应用内查询。" },
+      { h: "结业之后的路径", p: "颁发证书并非终点。结业后可继续进入Recovering康复普拉提、孕产、小器械工作坊等深化课程。完成深化教育与演讲课程者，可作为大师级导师承担授课。现任大师级导师为创始人朴恩珠，以及金玟序 · 李清娥 · 孙熙贞 · 金辉香。" },
+      { h: "关于评价的原则", p: "CPPI仅刊载真实结业生本人撰写的评价，不编造案例或代笔推荐语。全部评价与各期名单可在应用内查看。" },
+    ],
+    "zh-Hant": [
+      { h: "誰在 CPPI 結業", p: "完成正規課程的期數已超過 56 期。結業生中相當一部分並非皮拉提斯專業出身，而是從其他領域轉行成為導師。有人來自護理、物理治療等相鄰領域，也有人從完全不同的職業重新規劃職涯。課程自功能解剖學基礎起循序設計，因此入門者也能跟上。" },
+      { h: "會員等級體系", p: "CPPI 營運三級會員制度。註冊時為 L1；持有線上課程券即成為 L2；完成正規課程後晉升為 L3 正式會員，登載於結業導師名單並獲得活動銜接支援。等級依據修讀履歷與活動情況管理，各期名單可於應用程式內查詢。" },
+      { h: "結業之後的路徑", p: "核發證書並非終點。結業後可繼續進入 Recovering 復健皮拉提斯、孕產、小器材工作坊等深化課程。完成深化教育與講師表達課程者，可作為大師級導師承擔授課。現任大師級導師為創辦人朴恩珠，以及金玟序 · 李清娥 · 孫熙貞 · 金輝香。" },
+      { h: "關於評價的原則", p: "CPPI 僅刊載真實結業生本人撰寫的評價，不編造案例或代筆推薦語。全部評價與各期名單可於應用程式內查看。" },
+    ],
+  },
+  learn: {
+    ko: [
+      { h: "온라인 강의 3종의 차이", p: "CPPI 온라인 강의는 성격이 다른 세 가지로 나뉩니다. 정규과정 온라인 강의는 8개 과목 전체를 담은 박은주 교수 직강으로, 정규과정 등록자와 수료자 전용입니다. 사전학습과 복습에 사용합니다. 척추 필라테스 어프로치는 이론 1강과 실기 2강으로 구성되며 구매 후 시청할 수 있습니다. CPPI 필라테스 무브먼트 테라피는 경추 · 견관절 · 척추 · 골반 네 부위를 다루고, 구매 후 시청하며 과정별 수료증이 온라인으로 발급됩니다." },
+      { h: "온라인만으로 수료할 수 있는가", p: "할 수 없습니다. 온라인 강의는 복습과 보조 학습을 위한 자료입니다. 정규 수료에는 오프라인 실기와 티칭 평가가 포함됩니다. 필라테스는 큐잉과 촉지, 동작 교정이 핵심이므로 대면 실습을 대체할 수 없다고 판단하고 있습니다." },
+      { h: "시청 권한이 열리는 시점", p: "결제가 '완료'로 처리된 항목만 시청할 수 있습니다. 계좌이체로 주문한 경우 입금이 확인되면 상태가 완료로 바뀌고 그 시점에 권한이 부여됩니다. 온라인 강의 수강권을 보유하면 회원 등급이 L2로 승급됩니다. 시청 링크는 마이페이지에서 확인하실 수 있습니다." },
+      { h: "영상 콘텐츠 원칙", p: "CPPI가 제공하는 영상은 공식 채널(@cppi.pilates)의 콘텐츠만 사용합니다. 출처가 불분명한 영상은 강의 자료로 쓰지 않습니다." },
+    ],
+    en: [
+      { h: "How the three online tracks differ", p: "CPPI online lectures fall into three distinct kinds. The certification lectures cover all eight core subjects, taught by Prof. Eun-Ju Park, and are reserved for enrolled students and graduates; they are for preparation and revision. Pilates Approach for the Spine consists of one theory lesson and two practical lessons, available to watch after purchase. CPPI Pilates Movement Therapy covers four regions - cervical spine, shoulder, spine and pelvis - is watched after purchase, and issues an e-certificate for each completed course." },
+      { h: "Can you certify online only?", p: "No. Online lectures are supplementary material for revision. Certification requires in-person practical work and a teaching assessment. Cueing, palpation and movement correction sit at the heart of Pilates teaching, and we do not consider them replaceable by video." },
+      { h: "When access opens", p: "Only items whose payment has been marked complete can be viewed. For a bank transfer, the status changes to complete once the deposit is confirmed, and access is granted at that moment. Holding online lecture access raises your membership to L2. Viewing links appear on your account page." },
+      { h: "Our rule on video", p: "CPPI uses video only from the official channel, @cppi.pilates. Material of uncertain provenance is not used as course content." },
+    ],
+    ja: [
+      { h: "オンライン講義3種の違い", p: "CPPIのオンライン講義は性格の異なる3種類に分かれます。正規課程オンライン講義は8科目全体を収めたパク・ウンジュ教授の直接講義で、正規課程の登録者と修了者専用です。事前学習と復習に使用します。脊柱ピラティスアプローチは理論1講と実技2講で構成され、購入後に視聴できます。CPPIピラティス ムーブメントセラピーは頸椎 · 肩関節 · 脊柱 · 骨盤の4部位を扱い、購入後に視聴し、課程ごとの修了証がオンラインで発行されます。" },
+      { h: "オンラインだけで修了できるか", p: "できません。オンライン講義は復習と補助学習のための資料です。正規修了にはオフラインの実技と指導評価が含まれます。ピラティスはキューイングと触診、動作の修正が核心であるため、対面実習に代えられないと考えています。" },
+      { h: "視聴権限が開く時点", p: "決済が「完了」として処理された項目のみ視聴できます。振込でご注文の場合、入金が確認されると状態が完了に変わり、その時点で権限が付与されます。オンライン講義の受講券を保有すると会員等級がL2に昇級します。視聴リンクはマイページでご確認いただけます。" },
+      { h: "映像コンテンツの原則", p: "CPPIが提供する映像は公式チャンネル(@cppi.pilates)のコンテンツのみを使用します。出所が不明な映像は講義資料として使用しません。" },
+    ],
+    zh: [
+      { h: "三类在线课程的差异", p: "CPPI在线课程分为性质不同的三类。正规课程在线课程收录全部8门科目，由朴恩珠教授亲授，仅限正规课程报名者与结业者使用，用于预习与复习。脊柱普拉提方法由理论1讲与实操2讲构成，购买后即可观看。CPPI普拉提运动治疗涵盖颈椎 · 肩关节 · 脊柱 · 骨盆四个部位，购买后观看，并按课程在线颁发结业证书。" },
+      { h: "仅凭在线课程能否结业", p: "不能。在线课程属复习与辅助学习资料。正规结业包含线下实操与教学评估。普拉提的核心在于口令、触诊与动作矫正，我们认为这些无法以视频取代。" },
+      { h: "开通观看权限的时点", p: "仅付款状态为「完成」的项目可以观看。以银行转账下单时，确认到账后状态变更为完成，权限于该时点开通。持有在线课程券者，会员等级晋升为L2。观看链接可在个人页面查看。" },
+      { h: "影片内容原则", p: "CPPI提供的影片仅使用官方频道(@cppi.pilates)的内容。来源不明的影片不作为课程资料使用。" },
+    ],
+    "zh-Hant": [
+      { h: "三類線上課程的差異", p: "CPPI 線上課程分為性質不同的三類。正規課程線上課程收錄全部 8 門科目，由朴恩珠教授親授，僅限正規課程報名者與結業者使用，用於預習與複習。脊椎皮拉提斯方法由理論 1 講與實操 2 講構成，購買後即可觀看。CPPI 皮拉提斯動作治療涵蓋頸椎 · 肩關節 · 脊柱 · 骨盆四個部位，購買後觀看，並依課程線上核發結業證書。" },
+      { h: "僅憑線上課程能否結業", p: "不能。線上課程屬複習與輔助學習資料。正規結業包含實體實操與教學評估。皮拉提斯的核心在於口令、觸診與動作矯正，我們認為這些無法以影片取代。" },
+      { h: "開通觀看權限的時點", p: "僅付款狀態為「完成」的項目可以觀看。以銀行轉帳下單時，確認入帳後狀態變更為完成，權限於該時點開通。持有線上課程券者，會員等級晉升為 L2。觀看連結可於個人頁面查看。" },
+      { h: "影片內容原則", p: "CPPI 提供的影片僅使用官方頻道(@cppi.pilates)的內容。來源不明的影片不作為課程資料使用。" },
+    ],
+  },
+  books: {
+    ko: [
+      { h: "교재와 커리큘럼의 대응", p: "교재는 정규과정 8개 과목에 그대로 대응합니다. 기능해부학 10시간에 238페이지, 기본원리 10시간에 80페이지, 체형 분석 및 움직임 평가 5시간, 매트 25시간에 160페이지, 리포머 20~25시간에 306페이지, 캐딜락 20~25시간에 368페이지, 스태빌리티 체어 10시간에 202페이지, 래더바렐 및 바렐 시리즈 10시간에 래더바렐 76 · 아크바렐 79 · 스파인코렉터 108페이지가 배정됩니다. 전 과정 합계는 약 110~120시간입니다." },
+      { h: "동작 매뉴얼", p: "교재에는 기구별 동작이 원리 단위로 정리되어 있습니다. 매트 53개, 리포머 79개, 캐딜락 62개, 스태빌리티 체어 28개, 래더바렐 27개, 아크바렐 29개, 스파인코렉터 39개로 합계 317개입니다. 동작을 나열하는 것이 아니라 왜 그 순서인지, 대상이 달라지면 무엇을 바꾸는지를 함께 다룹니다." },
+      { h: "저자와 발행", p: "저자는 CPPI 한국필라테스교육협회장 박은주입니다. 협회의 모체 브랜드 시절부터 자체 교재를 발간해 왔으며, 현재 정규과정 교재 9권이 강의 텍스트로 사용됩니다." },
+    ],
+    en: [
+      { h: "How the books map to the curriculum", p: "The textbooks correspond one to one with the eight core subjects. Functional Anatomy covers 10 hours in 238 pages; Basic Principle 10 hours in 80 pages; postural analysis and movement assessment takes 5 hours; Mat 25 hours in 160 pages; Reformer 20 to 25 hours in 306 pages; Cadillac 20 to 25 hours in 368 pages; Stability Chair 10 hours in 202 pages; and the Ladder Barrel and barrel series 10 hours across Ladder Barrel 76, Arc Barrel 79 and Spine Corrector 108 pages. The full programme runs roughly 110 to 120 hours." },
+      { h: "Documented movements", p: "The books organise movements by principle, apparatus by apparatus: Mat 53, Reformer 79, Cadillac 62, Stability Chair 28, Ladder Barrel 27, Arc Barrel 29 and Spine Corrector 39 - 317 in total. They do not simply list exercises; they set out why a sequence is ordered as it is and what to change when the client changes." },
+      { h: "Author and publication", p: "The author is Eun-Ju Park, president of the Korea Pilates Education Association. The organisation has published its own texts since its predecessor brand, and the nine current volumes serve as the course text." },
+    ],
+    ja: [
+      { h: "教材とカリキュラムの対応", p: "教材は正規課程の8科目にそのまま対応します。機能解剖学10時間に238ページ、基本原理10時間に80ページ、体型分析および動作評価5時間、マット25時間に160ページ、リフォーマー20~25時間に306ページ、キャデラック20~25時間に368ページ、スタビリティチェア10時間に202ページ、ラダーバレルおよびバレルシリーズ10時間にラダーバレル76 · アークバレル79 · スパインコレクター108ページが割り当てられます。全課程の合計は約110~120時間です。" },
+      { h: "動作マニュアル", p: "教材には器具別の動作が原理単位で整理されています。マット53、リフォーマー79、キャデラック62、スタビリティチェア28、ラダーバレル27、アークバレル29、スパインコレクター39で合計317です。動作を羅列するのではなく、なぜその順序なのか、対象が変われば何を変えるのかを併せて扱います。" },
+      { h: "著者と発行", p: "著者はCPPI韓国ピラティス教育協会長のパク・ウンジュです。協会の母体ブランド時代から自社教材を発行しており、現在は正規課程教材9巻が講義テキストとして使用されています。" },
+    ],
+    zh: [
+      { h: "教材与课程的对应", p: "教材与正规课程8门科目一一对应。功能解剖学10小时对应238页，基本原理10小时对应80页，体态分析与动作评估5小时，垫上25小时对应160页，核心床20~25小时对应306页，凯迪拉克20~25小时对应368页，稳踏椅10小时对应202页，梯桶与桶系列10小时对应梯桶76 · 弧形桶79 · 脊柱矫正器108页。全部课程合计约110~120小时。" },
+      { h: "动作手册", p: "教材按原理整理各器械动作：垫上53、核心床79、凯迪拉克62、稳踏椅28、梯桶27、弧形桶29、脊柱矫正器39，合计317个。教材并非罗列动作，而是同时说明为何采用该顺序、对象改变时应调整什么。" },
+      { h: "著者与发行", p: "著者为CPPI韩国普拉提教育协会长朴恩珠。协会自母体品牌时期便自行编写教材，目前9册正规课程教材作为授课文本使用。" },
+    ],
+    "zh-Hant": [
+      { h: "教材與課程的對應", p: "教材與正規課程 8 門科目一一對應。功能解剖學 10 小時對應 238 頁，基本原理 10 小時對應 80 頁，體態分析與動作評估 5 小時，墊上 25 小時對應 160 頁，核心床 20~25 小時對應 306 頁，凱迪拉克 20~25 小時對應 368 頁，穩踏椅 10 小時對應 202 頁，梯桶與桶系列 10 小時對應梯桶 76 · 弧形桶 79 · 脊椎矯正器 108 頁。全部課程合計約 110~120 小時。" },
+      { h: "動作手冊", p: "教材依原理整理各器材動作：墊上 53、核心床 79、凱迪拉克 62、穩踏椅 28、梯桶 27、弧形桶 29、脊椎矯正器 39，合計 317 個。教材並非羅列動作，而是同時說明為何採用該順序、對象改變時應調整什麼。" },
+      { h: "著者與發行", p: "著者為 CPPI 韓國皮拉提斯教育協會長朴恩珠。協會自母體品牌時期便自行編寫教材，目前 9 冊正規課程教材作為授課文本使用。" },
+    ],
+  },
+  guide: {
+    ko: [
+      { h: "네 부위를 나눈 이유", p: "무브먼트 테라피는 경추 · 견관절 · 척추 · 골반 네 부위로 나뉩니다. 부위마다 평가해야 할 항목과 접근 순서가 다르기 때문입니다. 한 권으로 묶으면 현장에서 필요한 부분만 빠르게 찾기 어렵고, 부위별 깊이도 얕아집니다. 필요한 부위만 선택해 볼 수 있도록 분리했습니다." },
+      { h: "워크숍과의 관계", p: "지침서는 전문 강사 워크숍과 짝을 이루는 자료입니다. 지침서로 이론과 순서를 익히고 워크숍에서 촉지와 큐잉을 몸으로 확인하는 구성입니다. 그래서 지침서 구입자에게 워크숍 50% 할인 혜택을 제공합니다. 지침서만으로도 읽을 수 있지만, 실기 확인 없이 현장 적용을 권하지는 않습니다." },
+      { h: "온라인 강의와의 차이", p: "같은 무브먼트 테라피 이름으로 온라인 강의도 운영합니다. 지침서는 읽는 자료이고, 온라인 강의는 보는 자료이며 과정별 수료증이 온라인으로 발급됩니다. 두 가지는 별개 상품이므로 필요에 따라 선택하시면 됩니다." },
+      { h: "근거의 수준", p: "CPPI가 정리한 접근법은 기능해부학과 임상 경험을 바탕으로 한 자체 교육 체계입니다. 동료심사 문헌으로 검증된 표준 프로토콜이 아니라는 점을 밝힙니다. 의학적 진단이나 치료를 대신하지 않으며, 통증이 있는 대상자는 의료진의 판단을 먼저 따라야 합니다." },
+    ],
+    en: [
+      { h: "Why four separate volumes", p: "Movement Therapy is split across four regions - cervical spine, shoulder, spine and pelvis - because what you assess and the order in which you approach it differ by region. Bound as a single book, the material would be slower to search in the studio and shallower region by region. Splitting it lets you take only the region you need." },
+      { h: "How it pairs with the workshop", p: "The guidebooks are designed to sit alongside the Pro Instructor Workshop: you learn the reasoning and the sequence from the book, then verify palpation and cueing with your hands in the workshop. That is why buyers receive 50% off the workshop. The books stand on their own as reading, but we do not recommend applying the material in the studio without the practical check." },
+      { h: "How this differs from the online course", p: "There is also an online lecture series under the same Movement Therapy name. The guidebook is something you read; the online course is something you watch, and it issues an e-certificate per completed course. They are separate products - choose according to what you need." },
+      { h: "The standard of evidence", p: "The approach CPPI has set out is an in-house educational framework built on functional anatomy and clinical experience. We state plainly that it is not a standard protocol validated by peer-reviewed literature. It does not replace medical diagnosis or treatment, and anyone in pain should follow clinical judgement first." },
+    ],
+    ja: [
+      { h: "4部位に分けた理由", p: "ムーブメントセラピーは頸椎 · 肩関節 · 脊柱 · 骨盤の4部位に分かれています。部位ごとに評価すべき項目と接近の順序が異なるためです。一冊にまとめると現場で必要な箇所を素早く探しにくく、部位ごとの深さも浅くなります。必要な部位だけを選んで読めるように分けました。" },
+      { h: "ワークショップとの関係", p: "指針書は専門講師ワークショップと対になる資料です。指針書で理論と順序を身につけ、ワークショップで触診とキューイングを体で確認する構成です。そのため指針書の購入者にワークショップ50%割引の特典を提供しています。指針書だけでも読めますが、実技の確認なしに現場へ適用することはお勧めしません。" },
+      { h: "オンライン講義との違い", p: "同じムーブメントセラピーの名称でオンライン講義も運営しています。指針書は読む資料、オンライン講義は視聴する資料で、課程ごとの修了証がオンラインで発行されます。両者は別の商品ですので、必要に応じてお選びください。" },
+      { h: "根拠の水準", p: "CPPIが整理した接近法は機能解剖学と臨床経験に基づく自社の教育体系です。査読文献で検証された標準プロトコルではないことを明示します。医学的診断や治療に代わるものではなく、痛みのある対象者はまず医療者の判断に従う必要があります。" },
+    ],
+    zh: [
+      { h: "分为四个部位的理由", p: "运动治疗分为颈椎 · 肩关节 · 脊柱 · 骨盆四个部位，因为各部位需要评估的项目与介入顺序并不相同。若合为一册，现场查找所需内容较慢，各部位的深度也会变浅。因此拆分开来，方便只选取所需部位阅读。" },
+      { h: "与工作坊的关系", p: "指南是与专业教练工作坊配套的资料。先以指南掌握理论与顺序，再于工作坊中亲手确认触诊与口令。因此为指南购买者提供工作坊5折优惠。指南本身可独立阅读，但在未经实操确认前，我们不建议直接应用于现场。" },
+      { h: "与在线课程的区别", p: "同名的「运动治疗」亦设有在线课程。指南是阅读资料，在线课程是观看资料，并按课程在线颁发结业证书。两者为独立商品，可依需要选择。" },
+      { h: "依据的层级", p: "CPPI整理的方法是以功能解剖学与临床经验为基础的自有教育体系。我们明确说明，它并非经同行评审文献验证的标准方案，亦不能替代医学诊断或治疗；有疼痛的对象应优先遵从医疗人员的判断。" },
+    ],
+    "zh-Hant": [
+      { h: "分為四個部位的理由", p: "動作治療分為頸椎 · 肩關節 · 脊柱 · 骨盆四個部位，因為各部位需要評估的項目與介入順序並不相同。若合為一冊，現場查找所需內容較慢，各部位的深度也會變淺。因此拆分開來，方便只選取所需部位閱讀。" },
+      { h: "與工作坊的關係", p: "指南是與專業導師工作坊配套的資料。先以指南掌握理論與順序，再於工作坊中親手確認觸診與口令。因此為指南購買者提供工作坊 5 折優惠。指南本身可獨立閱讀，但在未經實操確認前，我們不建議直接應用於現場。" },
+      { h: "與線上課程的區別", p: "同名的「動作治療」亦設有線上課程。指南是閱讀資料，線上課程是觀看資料，並依課程線上核發結業證書。兩者為獨立商品，可依需要選擇。" },
+      { h: "依據的層級", p: "CPPI 整理的方法是以功能解剖學與臨床經驗為基礎的自有教育體系。我們明確說明，它並非經同儕審查文獻驗證的標準方案，亦不能替代醫學診斷或治療；有疼痛的對象應優先遵從醫療人員的判斷。" },
+    ],
+  },
+};
+
+for (const [route, byLang] of Object.entries(EXTRA_BLOCKS_3)) {
+  for (const [lang, blocks] of Object.entries(byLang)) {
+    const c = CONTENT[route] && CONTENT[route][lang];
+    if (c) c.blocks = (c.blocks || []).concat(blocks);
   }
 }
 

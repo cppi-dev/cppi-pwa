@@ -35,7 +35,7 @@ const GONE_PREFIX = ["post", "challenge-page", "blog", "service-page",
   "book-online", "plans-pricing", "forum", "group", "profile", "bookings-checkout"];
 
 /* 구 경로 -> 현재 경로. 언어 접두어는 그대로 유지한다. */
-const MOVED = { "pilates-workshop": "workshop" };
+const MOVED = { "pilates-workshop": "workshop", "ebooks": "guide" };
 
 /* 구 ?lang= 파라미터 -> 경로 */
 const QLANG = { ko: "/", en: "/en/", ja: "/ja/", zh: "/zh/", "zh-hant": "/zh-hant/", "zh-hans": "/zh/" };
