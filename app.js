@@ -1268,11 +1268,11 @@ routes.journal = () => `
     <img src="img/founder_face.jpg" alt="${esc(L({ ko: "CPPI 협회장 박은주 (Eun-Ju Park)", en: "Eun-Ju Park, president of CPPI Korea", zh: "CPPI协会长朴恩珠 (Eun-Ju Park)", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park)", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park)" }))}" loading="lazy" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">
     <div class="card" style="margin-bottom:10px">
       <p style="font-size:13.5px;line-height:1.85;color:var(--ink2)">${L({
-        ko: "신체의 중심이 잡혀야 바른 움직임이 나오듯, 삶에도 흔들리지 않는 중심이 필요합니다. 『박은주의 필라테스 라이프』는 단순한 운동 지도를 넘어, 바른 자세와 건강한 움직임이 어떻게 개인의 긍정적인 에너지와 성장으로 이어지는지 탐구합니다. 현장에서 겪은 흥미로운 에피소드를 통해 일상 속에서 몸과 마음의 근력을 함께 키우는 실천적인 영감을 나눕니다.",
-        en: "Just as correct movement follows from a stable centre in the body, a life needs a centre that does not waver. This column goes beyond exercise instruction to explore how good posture and healthy movement translate into personal energy and growth, sharing practical inspiration drawn from the studio floor.",
-        ja: "身体の中心が定まってこそ正しい動きが生まれるように、人生にも揺るがない中心が必要です。本コラムは単なる運動指導を超え、正しい姿勢と健やかな動きが個人の前向きなエネルギーと成長にどうつながるのかを、現場のエピソードを通じて綴ります。",
-        zh: "正如身体的中心稳固才会有正确的动作，人生也需要一个不摇摆的中心。本专栏超越单纯的运动指导，透过现场故事探讨正确体态与健康动作如何转化为个人的正向能量与成长。",
-        "zh-Hant": "正如身體的中心穩固才會有正確的動作，人生也需要一個不搖擺的中心。本專欄超越單純的運動指導，透過現場故事探討正確體態與健康動作如何轉化為個人的正向能量與成長。",
+        ko: "신체의 중심이 잡혀야 바른 움직임이 나오듯, 삶에도 흔들리지 않는 중심이 필요합니다. 『박은주의 필라테스 라이프』는 단순한 운동 지도를 넘어, 바른 자세와 건강한 움직임이 어떻게 개인의 긍정적인 에너지와 성장으로 이어지는지 탐구합니다. 10년간의 임상 현장과 17년간의 필라테스 분야를 오가며 만난 수많은 사람들의 생생한 변화 과정을 바탕으로, 우리 일상 속에서 몸의 중심을 잡고 마음의 단단함을 채워나갈 수 있는 구체적인 삶의 지혜를 나눕니다.",
+        en: "Just as correct movement follows from a stable centre in the body, a life needs a centre that does not waver. Eun-Ju Park's Pilates Life goes beyond exercise instruction to explore how good posture and healthy movement translate into personal energy and growth. Drawing on the real changes witnessed in countless people across ten years of clinical practice and seventeen years in Pilates, it shares concrete, everyday wisdom for steadying the body's centre and building firmness of mind.",
+        ja: "身体の中心が定まってこそ正しい動きが生まれるように、人生にも揺るがない中心が必要です。『パク・ウンジュのピラティス・ライフ』は単なる運動指導を超え、正しい姿勢と健やかな動きが個人の前向きなエネルギーと成長にどうつながるのかを探ります。臨床現場での10年とピラティス分野での17年を行き来しながら出会った数多くの人々の生きた変化の過程をもとに、日常の中で体の中心を据え、心の強さを満たしていくための具体的な生き方の知恵を分かち合います。",
+        zh: "正如身体的中心稳固才会有正确的动作，人生也需要一个不摇摆的中心。《朴恩珠的普拉提生活》超越单纯的运动指导，探讨正确体态与健康动作如何转化为个人的正向能量与成长。以在十年临床现场与十七年普拉提领域往来间遇见的无数人真实的改变历程为基础，分享在日常中稳住身体中心、充实内心坚韧的具体人生智慧。",
+        "zh-Hant": "正如身體的中心穩固才會有正確的動作，人生也需要一個不搖擺的中心。《朴恩珠的皮拉提斯生活》超越單純的運動指導，探討正確體態與健康動作如何轉化為個人的正向能量與成長。以在十年臨床現場與十七年皮拉提斯領域往來間遇見的無數人真實的改變歷程為基礎，分享在日常中穩住身體中心、充實內心堅韌的具體人生智慧。",
       })}</p>
     </div>
     <div class="card" style="margin-bottom:10px">
