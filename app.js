@@ -1764,6 +1764,7 @@ function centersBlock() {
     <div style="padding:10px 0;border-top:1px solid var(--line)">
       <div style="font-size:11.5px;font-weight:800;letter-spacing:.1em;color:var(--pri)">${esc(L(c.city))}</div>
       <b style="font-size:14px">${esc(L(c.name))}</b>
+      <div style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:100px;background:var(--tint);color:var(--pri);font-size:10.5px;font-weight:800;vertical-align:middle">${L({ ko: "CPPI 공식 호스팅 센터", en: "Official CPPI hosting center", ja: "CPPI公式ホスティングセンター", zh: "CPPI官方托管中心", "zh-Hant": "CPPI 官方託管中心" })}</div>
       ${addr ? `<div style="font-size:13px;color:var(--ink2);margin-top:2px">${esc(addr)}</div>` : ""}
       ${c.place ? `<a href="${c.place}" target="_blank" rel="noopener" style="font-size:12.5px;color:var(--pri);font-weight:700">${L({ ko: "지도 보기 →", en: "View map →", ja: "地図を見る →", zh: "查看地图 →", "zh-Hant": "查看地圖 →" })}</a>` : ""}
     </div>`;
@@ -1772,6 +1773,13 @@ function centersBlock() {
   return `
   <div style="margin-top:16px">
     <div class="eyebrow" style="margin-bottom:4px">EDUCATION CENTERS</div>
+    <p style="font-size:12.5px;color:var(--ink2);margin:0 0 4px;line-height:1.7">${L({
+      ko: "커리큘럼과 교재, 강사 배정, 자격 검정은 협회가 직접 관리합니다. 어느 센터에서 수강하든 같은 과정과 같은 평가 기준이 적용됩니다.",
+      en: "The association manages the curriculum, textbooks, instructor assignment and certification assessment directly. The course and the standard are the same at every center.",
+      ja: "カリキュラム・教材・講師の配置・資格検定は協会が直接管理します。どのセンターで受講しても同じ課程と同じ評価基準が適用されます。",
+      zh: "课程体系、教材、师资配置与资格检定均由协会直接管理。无论在哪个中心修读，课程与评估标准完全相同。",
+      "zh-Hant": "課程體系、教材、師資配置與資格檢定均由協會直接管理。無論在哪個中心修讀，課程與評估標準完全相同。",
+    })}</p>
     ${rows}
     <div style="margin-top:12px;padding:12px;border-radius:12px;background:var(--pri);color:#fff">
       <b style="font-size:13.5px">${esc(L(CENTER_CTA.head))}</b>

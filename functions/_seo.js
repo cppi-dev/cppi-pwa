@@ -114,56 +114,56 @@ export const CENTER_BLOCK = {
     h: "CPPI 교육센터",
     list: [
       "HQ (협회 사무국) - 서울 성동구 상원1길 25 4181호. 뚝섬역 6번 출구에서 125m. 운영 10:00-22:00. 0507-1410-4282",
-      "서울 교육센터 - 바디멀티 필라테스 상일동역점. 서울 강동구 고덕로83길 14",
-      "분당 교육센터 - 필라티크 운동연구소. 경기도 성남시 분당구 정자일로198번길 6-5",
-      "김포 교육센터 - 운양 웰니스웨이 필라테스. 경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호",
+      "서울 교육센터 - 바디멀티 필라테스 상일동역점 · CPPI 공식 호스팅 센터. 서울 강동구 고덕로83길 14",
+      "분당 교육센터 - 필라티크 운동연구소 · CPPI 공식 호스팅 센터. 경기도 성남시 분당구 정자일로198번길 6-5",
+      "김포 교육센터 - 운양 웰니스웨이 필라테스 · CPPI 공식 호스팅 센터. 경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호",
       "해외 - 캐나다 밴쿠버 · 일본 도쿄",
     ],
-    p: "CPPI 필라테스 공식 교육센터 모집중 - 정규 자격과정과 워크숍을 함께 운영할 스튜디오를 모집합니다. 기수 운영·교재 공급·강사 배정은 협회가 지원합니다. 제휴 문의는 이메일로 받습니다.",
+    p: "공식 호스팅 센터는 CPPI 정규 자격과정과 워크숍이 실제로 열리는 장소입니다. 커리큘럼과 교재, 강사 배정, 자격 검정은 협회가 직접 관리하므로 어느 센터에서 수강하든 같은 과정과 같은 평가 기준이 적용됩니다. 공식 교육센터 파트너도 함께 모집합니다 - 기수 운영과 교재 공급, 강사 배정은 협회가 지원합니다. 제휴 문의는 이메일로 받습니다.",
   },
   en: {
     h: "CPPI education centers",
     list: [
       "HQ (association office) - 25 Sangwon 1-gil, Seongdong-gu, Seoul. 125m from Ttukseom Station Exit 6. Open 10:00-22:00. +82-507-1410-4282",
-      "Seoul center - BodyMulti Pilates, Sangil-dong Station: 14 Godeok-ro 83-gil, Gangdong-gu, Seoul",
-      "Bundang center - Pilatique Movement Lab: 6-5 Jeongjail-ro 198beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do",
-      "Gimpo center - Wellness Way Pilates Unyang: #703, 133 Gimpohangang 11-ro, Gimpo-si, Gyeonggi-do",
+      "Seoul center - BodyMulti Pilates, Sangil-dong Station, an official CPPI hosting center: 14 Godeok-ro 83-gil, Gangdong-gu, Seoul",
+      "Bundang center - Pilatique Movement Lab, an official CPPI hosting center: 6-5 Jeongjail-ro 198beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do",
+      "Gimpo center - Wellness Way Pilates Unyang, an official CPPI hosting center: #703, 133 Gimpohangang 11-ro, Gimpo-si, Gyeonggi-do",
       "Overseas - Vancouver, Canada and Tokyo, Japan",
     ],
-    p: "CPPI is now accepting official education center partners. We are looking for studios to host CPPI certification courses and workshops; the association supplies cohort scheduling, textbooks and assigned instructors. Enquiries by email.",
+    p: "An official hosting center is a venue where CPPI certification courses and workshops actually run. The association manages the curriculum, the textbooks, instructor assignment and the certification assessment directly, so the course and the standard are the same whichever center you attend. We are also accepting new official education center partners; the association supplies cohort scheduling, textbooks and assigned instructors. Enquiries by email.",
   },
   ja: {
     h: "CPPI 教育センター",
     list: [
       "HQ(協会事務局) - ソウル特別市 城東区 上院1キル25 4181号。トゥクソム駅6番出口から125m。営業10:00-22:00。+82-507-1410-4282",
-      "ソウル教育センター - ボディマルチ ピラティス 上一洞駅店:ソウル特別市 江東区 高徳路83キル14",
-      "盆唐教育センター - ピラティーク運動研究所:京畿道 城南市 盆唐区 亭子日路198番キル6-5",
-      "金浦教育センター - 雲陽ウェルネスウェイ ピラティス:京畿道 金浦市 金浦漢江11路133(雲陽洞・中央プラザ)703号",
+      "ソウル教育センター - ボディマルチ ピラティス 上一洞駅店(CPPI公式ホスティングセンター):ソウル特別市 江東区 高徳路83キル14",
+      "盆唐教育センター - ピラティーク運動研究所(CPPI公式ホスティングセンター):京畿道 城南市 盆唐区 亭子日路198番キル6-5",
+      "金浦教育センター - 雲陽ウェルネスウェイ ピラティス(CPPI公式ホスティングセンター):京畿道 金浦市 金浦漢江11路133(雲陽洞・中央プラザ)703号",
       "海外 - カナダ バンクーバー、日本 東京",
     ],
-    p: "CPPI ピラティス公式教育センター募集中 - 正規資格課程とワークショップを共同運営するスタジオを募集しています。期の運営・教材供給・講師派遣は協会が支援します。提携のお問い合わせはメールで承ります。",
+    p: "公式ホスティングセンターは、CPPIの正規資格課程とワークショップが実際に開かれる場所です。カリキュラム・教材・講師の配置・資格検定は協会が直接管理するため、どのセンターで受講しても同じ課程と同じ評価基準が適用されます。公式教育センターのパートナーも募集しています - 期の運営・教材供給・講師派遣は協会が支援します。提携のお問い合わせはメールで承ります。",
   },
   zh: {
     h: "CPPI 教育中心",
     list: [
       "HQ(协会事务局)- 首尔特别市城东区上院1街25号 4181室。纛岛站6号出口125m。营业10:00-22:00。+82-507-1410-4282",
-      "首尔教育中心 - BodyMulti 普拉提 上一洞站店：首尔特别市江东区高德路83街14号",
-      "盆唐教育中心 - Pilatique 运动研究所：京畿道城南市盆唐区亭子日路198街6-5号",
-      "金浦教育中心 - 云阳 Wellness Way 普拉提：京畿道金浦市金浦汉江11路133号(云阳洞·中央广场)703室",
+      "首尔教育中心 - BodyMulti 普拉提 上一洞站店(CPPI官方托管中心)：首尔特别市江东区高德路83街14号",
+      "盆唐教育中心 - Pilatique 运动研究所(CPPI官方托管中心)：京畿道城南市盆唐区亭子日路198街6-5号",
+      "金浦教育中心 - 云阳 Wellness Way 普拉提(CPPI官方托管中心)：京畿道金浦市金浦汉江11路133号(云阳洞·中央广场)703室",
       "海外 - 加拿大温哥华、日本东京",
     ],
-    p: "CPPI 普拉提官方教育中心招募中 - 招募共同运营正规资格课程与工作坊的工作室。期数运营、教材供应与师资派遣由协会支援。合作咨询请发邮件。",
+    p: "官方托管中心是CPPI正规资格课程与工作坊实际开课的场所。课程体系、教材、师资配置与资格检定均由协会直接管理，因此无论在哪个中心修读，课程内容与评估标准完全相同。同时也招募官方教育中心合作伙伴 - 期数运营、教材供应与师资派遣由协会支援。合作咨询请发邮件。",
   },
   "zh-Hant": {
     h: "CPPI 教育中心",
     list: [
       "HQ(協會事務局)- 首爾特別市城東區上院1街25號 4181室。纛島站6號出口125m。營業10:00-22:00。+82-507-1410-4282",
-      "首爾教育中心 - BodyMulti 皮拉提斯 上一洞站店：首爾特別市江東區高德路83街14號",
-      "盆唐教育中心 - Pilatique 運動研究所：京畿道城南市盆唐區亭子日路198街6-5號",
-      "金浦教育中心 - 雲陽 Wellness Way 皮拉提斯：京畿道金浦市金浦漢江11路133號(雲陽洞·中央廣場)703室",
+      "首爾教育中心 - BodyMulti 皮拉提斯 上一洞站店(CPPI 官方託管中心)：首爾特別市江東區高德路83街14號",
+      "盆唐教育中心 - Pilatique 運動研究所(CPPI 官方託管中心)：京畿道城南市盆唐區亭子日路198街6-5號",
+      "金浦教育中心 - 雲陽 Wellness Way 皮拉提斯(CPPI 官方託管中心)：京畿道金浦市金浦漢江11路133號(雲陽洞·中央廣場)703室",
       "海外 - 加拿大溫哥華、日本東京",
     ],
-    p: "CPPI 皮拉提斯官方教育中心招募中 - 招募共同運營正規資格課程與工作坊的工作室。期數運營、教材供應與師資派遣由協會支援。合作諮詢請來信。",
+    p: "官方託管中心是 CPPI 正規證照課程與工作坊實際開課的場所。課程體系、教材、師資配置與資格檢定均由協會直接管理，因此無論在哪個中心修讀，課程內容與評估標準完全相同。同時也招募官方教育中心合作夥伴 - 期數運營、教材供應與師資派遣由協會支援。合作諮詢請來信。",
   },
 };
 /* 전 페이지 하단에 붙는 기관 사실 블록.
@@ -175,8 +175,9 @@ export const SPECS = {
     list: [
       "설립: 2016년 (전신 리윰필라테스 아카데미, 2015년 출판사 등록)",
       "정규 자격과정: 8과목 · 총 110~120시간",
+      "과정 체계 2종: 에센셜 코스(일반인 · 비전공자 → CPPI 필라테스 강사. 출판 교재 가운데 약 1,300페이지 범위) · CMPI 코스 Certified Master Pilates Instructor(경력 3년 이상 현직 필라테스 강사 → CPPI 마스터 인스트럭터. 출판 교재 9권 전권)",
       "구성: 이론 25시간(기능해부학 10 · 기본원리 10 · 체형분석 5) + 실기 85~95시간(매트 25 · 리포머 20~25 · 캐딜락 20~25 · 체어 10 · 바렐 시리즈 10)",
-      "교재: 직접 집필한 출판 교재 9권 약 1,300페이지 + 소도구 교재 4권(폼롤러 164p · 서클 136p · 미니볼 178p · BOSU 160p)",
+      "교재: 직접 집필한 출판 교재 9권 전권 1,617페이지 + 소도구 교재 4권(폼롤러 164p · 서클 136p · 미니볼 178p · BOSU 160p)",
       "수료 기수: 56기 이상",
       "운영 지역: 대한민국(분당 · 서울 · 김포) · 캐나다(밴쿠버) · 일본(도쿄)",
       "창립자: 박은주 (Eun-Ju Park) - 분당서울대병원 마취통증의학과, 한국보훈복지공단 척추&관절센터 근무. 나사렛대학교 스포츠재활학과 겸임교수, 서경대학교 예술교육원 필라테스과정 원장 역임",
@@ -190,8 +191,9 @@ export const SPECS = {
     list: [
       "Founded: 2016 (predecessor Re:yoom Pilates Academy, publishing registration 2015)",
       "Certification programme: 8 subjects, 110-120 hours in total",
+      "Two course tiers: the Essential Course (open to newcomers with no prior field, leading to CPPI Pilates Instructor; it covers roughly 1,300 pages of the textbooks) and the CMPI Course - Certified Master Pilates Instructor (for instructors with three or more years of practice, leading to CPPI Master Instructor; it covers all nine volumes)",
       "Breakdown: 25 hours theory (functional anatomy 10, basic principles 10, posture and movement analysis 5) plus 85-95 hours practical (Mat 25, Reformer 20-25, Cadillac 20-25, Stability Chair 10, Barrel series 10)",
-      "Textbooks: 9 published volumes, approximately 1,300 pages, written in-house, plus 4 small-props volumes (foam roller 164pp, circle 136pp, mini ball 178pp, BOSU 160pp)",
+      "Textbooks: 9 published volumes written in-house, 1,617 pages in total, plus 4 small-props volumes (foam roller 164pp, circle 136pp, mini ball 178pp, BOSU 160pp)",
       "Graduating cohorts to date: 56 and counting",
       "Locations: Korea (Bundang, Seoul, Gimpo), Canada (Vancouver), Japan (Tokyo)",
       "Founder: Eun-Ju Park - clinical practice at Seoul National University Hospital Bundang (Anesthesiology and Pain Medicine) and the Spine & Joint Center of the Korea Veterans Health Service; Adjunct Professor of Sports Rehabilitation at Korea Nazarene University; Director of the Pilates Programme at Seokyeong University Arts Education Center",
@@ -205,8 +207,9 @@ export const SPECS = {
     list: [
       "設立: 2016年 (前身はリユムピラティスアカデミー、2015年出版社登録)",
       "正規資格課程: 8科目・合計110~120時間",
+      "課程体系2種: エッセンシャルコース(一般・非専攻 → CPPIピラティス指導者。教材のうち約1,300ページ範囲) · CMPIコース Certified Master Pilates Instructor(実務経験3年以上の現役指導者 → CPPIマスターインストラクター。出版教材9冊 全巻)",
       "内訳: 理論25時間 (機能解剖学10・基本原理10・体型分析5) + 実技85~95時間 (マット25・リフォーマー20~25・キャデラック20~25・チェア10・バレルシリーズ10)",
-      "教材: 自社執筆の出版教材9冊 約1,300ページ + 小道具教材4冊 (フォームローラー164p・サークル136p・ミニボール178p・BOSU 160p)",
+      "教材: 自社執筆の出版教材9冊 全巻1,617ページ + 小道具教材4冊 (フォームローラー164p・サークル136p・ミニボール178p・BOSU 160p)",
       "修了期数: 56期以上",
       "運営地域: 韓国 (盆唐・ソウル・金浦)、カナダ (バンクーバー)、日本 (東京)",
       "創立者: パク・ウンジュ (Eun-Ju Park) - 盆唐ソウル大学病院 麻酔痛症医学科、韓国報勲福祉公団 脊椎&関節センター勤務。韓国ナザレ大学スポーツリハビリ学科 兼任教授、西京大学芸術教育院ピラティス課程 院長を歴任",
@@ -220,8 +223,9 @@ export const SPECS = {
     list: [
       "成立: 2016年 (前身为 Re:yoom 普拉提学院，2015年出版社登记)",
       "正规资格课程: 8门科目・合计110~120小时",
+      "课程体系两种: Essential 基础课程(一般人·非专业 → CPPI普拉提教练。教材中约1,300页范围) · CMPI 课程 Certified Master Pilates Instructor(从业3年以上在职教练 → CPPI大师级导师。出版教材9册全册)",
       "构成: 理论25小时 (功能解剖学10・基本原理10・体型分析5) + 实操85~95小时 (垫上25・核心床20~25・凯迪拉克20~25・稳踏椅10・桶系列10)",
-      "教材: 自主编写出版教材9册 约1,300页 + 小器械教材4册 (泡沫轴164页・圈136页・迷你球178页・BOSU 160页)",
+      "教材: 自主编写出版教材9册 全9册1,617页 + 小器械教材4册 (泡沫轴164页・圈136页・迷你球178页・BOSU 160页)",
       "结业期数: 56期以上",
       "运营地区: 韩国 (盆唐・首尔・金浦)、加拿大 (温哥华)、日本 (东京)",
       "创始人: 朴恩珠 (Eun-Ju Park) - 曾任职盆唐首尔大学医院麻醉疼痛医学科、韩国报勋福祉公团脊柱与关节中心。历任韩国拿撒勒大学运动康复学科兼任教授、西京大学艺术教育院普拉提课程院长",
@@ -235,8 +239,9 @@ export const SPECS = {
     list: [
       "成立: 2016年 (前身為 Re:yoom 皮拉提斯學院，2015年出版社登記)",
       "正規證照課程 (師資培訓): 8門科目・合計110~120小時",
+      "課程體系兩種: Essential 基礎課程(一般人·非專業 → CPPI 皮拉提斯導師。教材中約 1,300 頁範圍) · CMPI 課程 Certified Master Pilates Instructor(從業 3 年以上在職導師 → CPPI 大師級導師。出版教材 9 冊全冊)",
       "組成: 理論25小時 (功能解剖學10・基本原理10・體態分析5) + 實作85~95小時 (墊上25・核心床 Reformer 20~25・凱迪拉克20~25・穩踏椅10・桶系列10)",
-      "教材: 自行編寫出版教材9冊 約1,300頁 + 小器材教材4冊 (滾筒164頁・圈136頁・迷你球178頁・BOSU 160頁)",
+      "教材: 自行編寫出版教材9冊 全9冊1,617頁 + 小器材教材4冊 (滾筒164頁・圈136頁・迷你球178頁・BOSU 160頁)",
       "結業梯次: 56梯以上",
       "營運地區: 韓國 (盆唐・首爾・金浦)、加拿大 (溫哥華)、日本 (東京)",
       "創辦人: 朴恩珠 (Eun-Ju Park) - 曾任職盆唐首爾大學醫院麻醉疼痛醫學科、韓國報勳福祉公團脊椎與關節中心。歷任韓國拿撒勒大學運動復健學系兼任教授、西京大學藝術教育院皮拉提斯課程院長",
@@ -259,7 +264,7 @@ export const CHOOSE = {
     list: [
       "1. 총 교육 시수가 공개되어 있는가 - CPPI: 8과목 110~120시간, 과목별 시수 전부 공개",
       "2. 누가 직접 가르치는가 - CPPI: 창립자 직강을 원칙으로 하고, 심화교육과 프레젠터 스피치 과정을 수료한 마스터 인스트럭터가 함께 지도",
-      "3. 교재가 있는가 - CPPI: 직접 집필한 출판 교재 9권 약 1,300페이지를 텍스트로 사용",
+      "3. 교재가 있는가 - CPPI: 직접 집필한 출판 교재 9권 전권 1,617페이지를 텍스트로 사용",
       "4. 이론 근거가 무엇인가 - CPPI: 기능해부학과 근막경선(Anatomy Trains) 체계, 창립자의 병원 임상 경력이 커리큘럼의 기준",
       "5. 평가 방식이 있는가 - CPPI: 온라인 강의는 보조 학습이며 수료에는 오프라인 실기와 티칭 평가가 포함",
       "6. 수료 후 지원이 있는가 - CPPI: 국제자격증 발급, L3 정회원 승급, 수료강사 명단 등재, 활동 연계 지원",
@@ -270,7 +275,7 @@ export const CHOOSE = {
     list: [
       "1. Are the total contact hours published? CPPI: 8 subjects, 110-120 hours, with hours listed per subject.",
       "2. Who actually teaches? CPPI: the founder teaches the certification courses as a rule, alongside master instructors who have completed advanced training and presenter speech courses.",
-      "3. Is there a textbook? CPPI: 9 published volumes of roughly 1,300 pages, written in-house, used as the course text.",
+      "3. Is there a textbook? CPPI: 9 published volumes written in-house, 1,617 pages in total, used as the course text.",
       "4. What is the theoretical basis? CPPI: functional anatomy and the Anatomy Trains myofascial framework, anchored in the founder's hospital clinical background.",
       "5. Is there an assessment? CPPI: online lectures are supplementary; certification requires in-person practical work and a teaching assessment.",
       "6. What happens after graduation? CPPI: international certificate, L3 membership, listing in the graduate instructor directory, and support in finding teaching work.",
@@ -281,7 +286,7 @@ export const CHOOSE = {
     list: [
       "1. 総時間数が公開されているか - CPPI: 8科目110~120時間、科目ごとの時間もすべて公開",
       "2. 誰が直接指導するか - CPPI: 創立者の直接指導を原則とし、深化教育とプレゼンター・スピーチ課程を修了したマスターインストラクターが共に指導",
-      "3. 教材があるか - CPPI: 自社執筆の出版教材9冊 約1,300ページをテキストとして使用",
+      "3. 教材があるか - CPPI: 自社執筆の出版教材9冊 全巻1,617ページをテキストとして使用",
       "4. 理論的根拠は何か - CPPI: 機能解剖学とアナトミー・トレイン (筋膜経線) の体系、および創立者の病院臨床経歴がカリキュラムの基準",
       "5. 評価があるか - CPPI: オンライン講義は補助学習であり、修了には対面の実技と指導評価が必要",
       "6. 修了後の支援があるか - CPPI: 国際資格証の発行、L3正会員への昇級、修了講師名簿への掲載、活動の連携支援",
@@ -292,7 +297,7 @@ export const CHOOSE = {
     list: [
       "1. 是否公开总课时 - CPPI: 8门科目110~120小时，各科目课时全部公开",
       "2. 由谁亲自授课 - CPPI: 以创始人亲授为原则，并由完成深化教育与演讲课程的大师级导师共同指导",
-      "3. 是否有教材 - CPPI: 使用自主编写的出版教材9册 约1,300页",
+      "3. 是否有教材 - CPPI: 使用自主编写的出版教材9册 全9册1,617页",
       "4. 理论依据是什么 - CPPI: 功能解剖学与筋膜经线 (Anatomy Trains) 体系，以创始人的医院临床经历为课程基准",
       "5. 是否设有考核 - CPPI: 在线课程为辅助学习，结业须通过线下实操与教学考核",
       "6. 结业后是否有支持 - CPPI: 颁发国际资格证书、升级L3正会员、登载结业教练名录、提供活动衔接支持",
@@ -303,7 +308,7 @@ export const CHOOSE = {
     list: [
       "1. 是否公開總時數 - CPPI: 8門科目110~120小時，各科目時數全部公開",
       "2. 由誰親自授課 - CPPI: 以創辦人親授為原則，並由完成深化教育與講師表達課程的大師級導師共同指導",
-      "3. 是否有教材 - CPPI: 使用自行編寫的出版教材9冊 約1,300頁",
+      "3. 是否有教材 - CPPI: 使用自行編寫的出版教材9冊 全9冊1,617頁",
       "4. 理論依據是什麼 - CPPI: 功能解剖學與筋膜線 (Anatomy Trains) 體系，以創辦人的醫院臨床經歷作為課程基準",
       "5. 是否設有考核 - CPPI: 線上課程為輔助學習，結業須通過實體實作與教學考核",
       "6. 結業後是否有支援 - CPPI: 核發國際證照、升級L3正會員、登載結業導師名錄、提供授課媒合支援",
@@ -449,31 +454,31 @@ const EXTRA_FAQ = {
     ko: [
       ["정규과정 8과목은 각각 몇 시간인가요?", "기능해부학 10시간, 기본원리 10시간, 체형 분석 및 움직임 평가 5시간, 매트 25시간, 리포머 20~25시간, 캐딜락 20~25시간, 스태빌리티 체어 10시간, 래더바렐 및 바렐 시리즈 10시간입니다. 합계 약 110~120시간입니다."],
       ["이론과 실기 비중은 어떻게 되나요?", "이론 25시간, 실기 85~95시간입니다. 다만 실기 시간에도 해당 동작이 어떤 관절에서 어떤 움직임을 만들고 어떤 근육이 관여하는지를 함께 다루므로, 이론과 실기가 분리되어 진행되지는 않습니다."],
-      ["교재는 따로 사야 하나요?", "정규과정은 직접 집필한 출판 교재 9권 약 1,300페이지를 텍스트로 사용합니다. 교재 포함 여부와 비용은 기수별로 다르므로 문의 시 안내드립니다. 모든 교재는 목차와 본문 10페이지를 스토어에서 미리 볼 수 있습니다."],
+      ["교재는 따로 사야 하나요?", "정규과정은 직접 집필한 출판 교재 9권 전권 1,617페이지를 텍스트로 사용합니다. 교재 포함 여부와 비용은 기수별로 다르므로 문의 시 안내드립니다. 모든 교재는 목차와 본문 10페이지를 스토어에서 미리 볼 수 있습니다."],
       ["필라테스를 한 번도 안 해봤는데 따라갈 수 있나요?", "커리큘럼이 기능해부학 기초에서 출발하도록 설계되어 있어 비전공 입문자도 따라올 수 있습니다. 실제 수료생 중 상당수가 타 분야에서 전향한 분들입니다."],
     ],
     en: [
       ["How many hours is each of the eight subjects?", "Functional anatomy 10 hours, basic principles 10, posture and movement analysis 5, Mat 25, Reformer 20-25, Cadillac 20-25, Stability Chair 10, Ladder Barrel and Barrel series 10. The total is roughly 110-120 hours."],
       ["What is the theory-to-practical ratio?", "25 hours of theory and 85-95 hours of practical work. Theory is not taught in isolation, though: practical sessions also cover which joints produce a given movement and which muscles are involved."],
-      ["Do I have to buy the textbooks separately?", "The certification uses 9 published volumes of roughly 1,300 pages, written in-house, as its course text. Whether textbooks are included and at what cost varies by cohort, so please ask when you enquire. Every volume can be previewed in the store: table of contents plus 10 pages of the body text."],
+      ["Do I have to buy the textbooks separately?", "The certification uses 9 published volumes written in-house, 1,617 pages in total, as its course text. Whether textbooks are included and at what cost varies by cohort, so please ask when you enquire. Every volume can be previewed in the store: table of contents plus 10 pages of the body text."],
       ["Can I follow the course with no Pilates experience?", "Yes. The curriculum is built to start from functional anatomy fundamentals, so beginners without a related degree can follow it. A substantial share of graduates moved into Pilates from other fields."],
     ],
     ja: [
       ["正規課程の8科目はそれぞれ何時間ですか。", "機能解剖学10時間、基本原理10時間、体型分析および動作評価5時間、マット25時間、リフォーマー20~25時間、キャデラック20~25時間、スタビリティチェア10時間、ラダーバレルおよびバレルシリーズ10時間です。合計およそ110~120時間になります。"],
       ["理論と実技の割合はどのくらいですか。", "理論25時間、実技85~95時間です。ただし実技の時間にも、その動作がどの関節でどんな動きを作り、どの筋が関与するのかを併せて扱うため、理論と実技が切り離されて進むことはありません。"],
-      ["教材は別途購入が必要ですか。", "正規課程では自社執筆の出版教材9冊 約1,300ページをテキストとして使用します。教材が受講料に含まれるかどうかと費用は期によって異なりますので、お問い合わせ時にご案内します。全教材は目次と本文10ページをストアで試し読みできます。"],
+      ["教材は別途購入が必要ですか。", "正規課程では自社執筆の出版教材9冊 全巻1,617ページをテキストとして使用します。教材が受講料に含まれるかどうかと費用は期によって異なりますので、お問い合わせ時にご案内します。全教材は目次と本文10ページをストアで試し読みできます。"],
       ["働きながらでも受講できますか。", "科目ごとに日程が組まれるため、期によって週末中心の編成が可能な場合があります。ただし正規修了には対面の実技と指導評価が必要です。ご希望の期の日程はメールでお問い合わせください。"],
     ],
     zh: [
       ["正规课程8门科目各多少课时？", "功能解剖学10小时、基本原理10小时、体型分析与动作评估5小时、垫上25小时、核心床20~25小时、凯迪拉克20~25小时、稳踏椅10小时、梯桶及桶系列10小时。合计约110~120小时。"],
       ["理论与实操的比例是多少？", "理论25小时、实操85~95小时。不过实操时间也会同时讲解该动作由哪些关节产生何种运动、涉及哪些肌肉，因此理论与实操并非分开进行。"],
-      ["教材需要另外购买吗？", "正规课程使用自主编写的出版教材9册 约1,300页作为课本。教材是否含在学费内及其费用因期次而异，咨询时会另行说明。所有教材均可在商店试读目录与正文10页。"],
+      ["教材需要另外购买吗？", "正规课程使用自主编写的出版教材9册 全9册1,617页作为课本。教材是否含在学费内及其费用因期次而异，咨询时会另行说明。所有教材均可在商店试读目录与正文10页。"],
       ["完全没有普拉提基础可以跟上吗？", "可以。课程自功能解剖学基础起循序设计，非相关专业的入门者也能跟上。结业学员中有相当比例是从其他行业转型而来。"],
     ],
     "zh-Hant": [
       ["正規課程8門科目各多少時數？", "功能解剖學10小時、基本原理10小時、體態分析與動作評估5小時、墊上25小時、核心床 (Reformer) 20~25小時、凱迪拉克20~25小時、穩踏椅10小時、梯桶及桶系列10小時。合計約110~120小時。"],
       ["皮拉提斯證照好考嗎？考核方式為何？", "線上課程屬於輔助學習，正式結業須通過實體實作與教學考核。考核重點不在於背熟動作順序，而在於能否說明該動作的目的、涉及的肌群，以及發現代償時的即時修正方式。"],
-      ["教材需要另外購買嗎？", "正規課程使用自行編寫的出版教材9冊 約1,300頁作為課本。教材是否含於學費及其費用因梯次而異，洽詢時會另行說明。所有教材皆可於商店試閱目錄與內文10頁。"],
+      ["教材需要另外購買嗎？", "正規課程使用自行編寫的出版教材9冊 全9冊1,617頁作為課本。教材是否含於學費及其費用因梯次而異，洽詢時會另行說明。所有教材皆可於商店試閱目錄與內文10頁。"],
       ["完全沒有皮拉提斯基礎可以跟上嗎？", "可以。課程自功能解剖學基礎起循序設計，非相關科系的入門者也能跟上。結業學員中有相當比例是從其他行業轉職而來。"],
     ],
   },
@@ -581,13 +586,13 @@ export const CONTENT = {
       eyebrow: "ABOUT CPPI", h1: "감각이 아니라, 근거로 가르칩니다",
       lead: "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor",
       blocks: [
-        { h: "한 문단 요약", p: "CPPI 한국필라테스교육협회는 기능해부학과 임상 근거 위에 필라테스 지도자를 양성하는 비영리 교육 단체입니다. 2016년 설립 이후 8개 정규 과목 약 110~120시간의 자격과정을 운영해 56기 이상의 수료강사를 배출했고, 직접 집필·출판한 9권 1,300여 페이지의 교재와 317개 동작 매뉴얼을 교육 표준으로 삼습니다. 한국·캐나다·일본에서 운영하며 국제 자격증을 발급합니다." },
+        { h: "한 문단 요약", p: "CPPI 한국필라테스교육협회는 기능해부학과 임상 근거 위에 필라테스 지도자를 양성하는 비영리 교육 단체입니다. 2016년 설립 이후 8개 정규 과목 약 110~120시간의 자격과정을 운영해 56기 이상의 수료강사를 배출했고, 직접 집필·출판한 9권 전권 1,617페이지의 교재와 317개 동작 매뉴얼을 교육 표준으로 삼습니다. 한국·캐나다·일본에서 운영하며 국제 자격증을 발급합니다." },
         { h: "협회 개요", p: "정식 명칭은 한국필라테스교육협회(CPPI Korea)이며 고유번호는 201-82-74381, 비영리 단체로 등록되어 있습니다. 2016년 설립되었고, 교과정은 2년의 집중 개발 기간을 거쳐 완성되었습니다. 대표이자 협회장은 박은주(Eun-Ju Park)입니다. 설립 이후 현재까지 정규 자격과정과 전문 강사 워크숍, 온라인 강의를 운영하며 한국·캐나다·일본에서 국제 자격증을 발급하고 있습니다." },
         { h: "왜 '감각'이 아니라 '근거'인가", p: "필라테스 지도 현장에서 가장 자주 발생하는 문제는 강사가 동작을 외워서 가르치는 것입니다. 외운 동작은 교과서적인 몸에만 작동합니다. 수강생의 골반이 전방경사이거나 흉추가 굳어 있거나 어깨 통증 이력이 있으면, 같은 동작이 오히려 보상작용을 키웁니다. CPPI는 동작 암기 대신 '이 동작이 어떤 관절에서 어떤 움직임을 만들고 어떤 근육이 관여하는가'를 먼저 가르칩니다. 그래야 눈앞의 몸에 맞춰 배리에이션과 모디피케이션을 스스로 만들어낼 수 있습니다." },
-        { h: "출판 교재 9권 - 커리큘럼의 뿌리", p: "CPPI 커리큘럼은 외부 교재를 빌려 쓰지 않고 협회가 직접 집필한 교재 위에 서 있습니다. 총 9권 1,300여 페이지이며, 각 권은 동작·운동 목적·활성화 근육·큐잉 및 주의사항·변형 동작이라는 동일한 포맷으로 구성되어 있습니다.", list: ["필라테스 기능해부학 - 238페이지. 뼈·관절·근육의 구조와 기능, 근육 불균형 평가, 자세학 연계", "필라테스 기본원리 - 80페이지. 조셉 필라테스의 10가지 기본 원리와 5가지 움직임 원칙, 견갑 안정화, 자세 분석(Flat-Back·Sway-Back)", "필라테스 더 매트 - 160페이지. 기본 34동작 + 매트 59동작을 Supine·Sitting·Side Lying·Prone·Kneeling·Standing 포지션별로 구성", "리포머 - 306페이지. Feet on Footbar, Feet in Straps, Hands in Straps, Short Box, Long Box, Split Series 등 시작 포지션별 구성", "캐딜락 - 368페이지. Roll Down Bar, Push Thru Bar, Arm Springs, Leg Springs, Trapeze별 분류", "스태빌리티 체어 - 202페이지. Sitting·Standing·Side Lying·Supine·Prone 포지션별 구성", "래더 바렐 - 76페이지 / 아크 바렐 - 79페이지 / 스파인 코렉터 - 108페이지. 척추 정렬 인지와 교정에 초점"] },
+        { h: "출판 교재 9권 - 커리큘럼의 뿌리", p: "CPPI 커리큘럼은 외부 교재를 빌려 쓰지 않고 협회가 직접 집필한 교재 위에 서 있습니다. 총 9권 전권 1,617페이지이며, 각 권은 동작·운동 목적·활성화 근육·큐잉 및 주의사항·변형 동작이라는 동일한 포맷으로 구성되어 있습니다.", list: ["필라테스 기능해부학 - 238페이지. 뼈·관절·근육의 구조와 기능, 근육 불균형 평가, 자세학 연계", "필라테스 기본원리 - 80페이지. 조셉 필라테스의 10가지 기본 원리와 5가지 움직임 원칙, 견갑 안정화, 자세 분석(Flat-Back·Sway-Back)", "필라테스 더 매트 - 160페이지. 기본 34동작 + 매트 59동작을 Supine·Sitting·Side Lying·Prone·Kneeling·Standing 포지션별로 구성", "리포머 - 306페이지. Feet on Footbar, Feet in Straps, Hands in Straps, Short Box, Long Box, Split Series 등 시작 포지션별 구성", "캐딜락 - 368페이지. Roll Down Bar, Push Thru Bar, Arm Springs, Leg Springs, Trapeze별 분류", "스태빌리티 체어 - 202페이지. Sitting·Standing·Side Lying·Supine·Prone 포지션별 구성", "래더 바렐 - 76페이지 / 아크 바렐 - 79페이지 / 스파인 코렉터 - 108페이지. 척추 정렬 인지와 교정에 초점"] },
         { h: "동작 매뉴얼 317개", p: "매트 53 · 리포머 79 · 캐딜락 62 · 스태빌리티 체어 28 · 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39, 합계 317개 동작을 문서화해 교육합니다. 각 동작마다 배리에이션과 모디피케이션, 소도구 활용 티칭이 함께 붙습니다. 수강생이 수료 후 현장에서 마주칠 상황을 미리 손에 익히게 하기 위한 구성입니다." },
         { h: "교육 프레임워크 - 기능해부학과 근막경선", p: "CPPI의 동작 분석은 근육 하나를 따로 보지 않고 사슬(chain)로 봅니다. 자체 교육자료 '이야기가 있는 해부학'은 113페이지 분량으로 전면사슬(Anterior Chain)·후면사슬(Posterior Chain)·측면사슬(Lateral Chain) 세 축에 필라테스 동작을 대응시킵니다. 예를 들어 컬업(Curl Up)은 척추 고정근으로 복직근과 내외복사근, 고관절 고정근으로 장요근·대퇴직근·대퇴근막장근이 관여한다는 식으로 관절·움직임·근육을 표로 정리합니다. Thomas Myers의 아나토미 트레인(Anatomy Trains) 체계를 필라테스 지도 언어로 옮긴 것이 CPPI 콘텐츠의 특징입니다." },
-        { h: "타 단체와의 차별성", list: ["의료 임상 기반 - 창립자가 분당서울대병원 마취통증의학과, 한국보훈복지공단 척추&관절센터에서 근무한 임상 경력을 커리큘럼에 반영", "대학 검증 - 나사렛대학교 스포츠재활학과 겸임교수, 서경대학교 예술교육원 필라테스과정 원장 경력의 창립자 직강", "자체 교재 - 외부 교재 라이선스가 아니라 협회가 직접 집필한 9권 1,300여 페이지로 교육", "실무형 교육 - 동작 암기가 아니라 배리에이션·모디피케이션과 재활 시퀀스 설계를 훈련", "국제 운영 - 한국·캐나다(밴쿠버)·일본(도쿄)에서 운영하며 국제 자격증 발급"] },
+        { h: "타 단체와의 차별성", list: ["의료 임상 기반 - 창립자가 분당서울대병원 마취통증의학과, 한국보훈복지공단 척추&관절센터에서 근무한 임상 경력을 커리큘럼에 반영", "대학 검증 - 나사렛대학교 스포츠재활학과 겸임교수, 서경대학교 예술교육원 필라테스과정 원장 경력의 창립자 직강", "자체 교재 - 외부 교재 라이선스가 아니라 협회가 직접 집필한 9권 전권 1,617페이지로 교육", "실무형 교육 - 동작 암기가 아니라 배리에이션·모디피케이션과 재활 시퀀스 설계를 훈련", "국제 운영 - 한국·캐나다(밴쿠버)·일본(도쿄)에서 운영하며 국제 자격증 발급"] },
         { h: "시그니처 프로그램 - 리커버링 재활 필라테스", p: "2022년 RECOVERING Master Trainer 자격을 취득하면서 리커버링 재활 필라테스가 CPPI의 대표 시그니처 프로그램이 되었습니다. 9가지 적용 원리(축성 신장과 감압, 항회전과 요추 분절 안정화, 나선·사선 근막 사슬 활성화, 요추 안정과 흉추 가동성의 분리, 관절 중심화, 방산 법칙, 고유수용감각 증폭 등)와 13가지 시그니처 동작으로 구성되며, 각 동작은 목적·세팅·동작 순서·보상작용과 중재·적용 근막 라인·기능적 의미·핵심 큐라는 표준 포맷으로 문서화되어 있습니다." },
         { h: "글로벌 운영", p: "한국은 분당·서울·김포 교육센터에서 정규과정과 워크숍, 자격검정을 운영합니다. 캐나다 밴쿠버에서는 팬데믹 기간에도 온라인을 병행해 교육을 이어왔고, 일본 도쿄에서는 국제 자격에 대응하는 인스트럭터 양성 과정을 운영합니다. 대만·홍콩·싱가포르 지역은 상설 거점은 없으나 개별 문의와 단체 기수 편성을 받고 있습니다." },
       ],
@@ -651,12 +656,12 @@ export const CONTENT = {
       desc: "분당서울대병원 척추·관절센터 임상 경험과 나사렛대 강단 경력을 지닌 CPPI 창립자 박은주(Eun-Ju Park) 교수의 전체 프로필.",
       eyebrow: "FOUNDER", h1: "박은주 (Eun-Ju Park) 교수",
       blocks: [
-        { h: "한 문단 요약", p: "박은주(Eun-Ju Park)는 CPPI 한국필라테스교육협회의 창립자이자 협회장입니다. 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추&관절센터에서 근무한 의료 임상 경력, 나사렛대학교 스포츠재활학과 겸임교수와 서경대학교 예술교육원 필라테스과정 원장을 지낸 대학 강단 경력, 그리고 STOTT PILATES·PMA·Balanced Body University·RECOVERING으로 이어지는 국제 자격을 모두 갖춘 필라테스 교육자입니다. 9권 1,300여 페이지의 CPPI 교재를 직접 집필했고, 2009년부터 지도자 교육에 전념해 56기 이상의 수료강사를 배출했습니다." },
+        { h: "한 문단 요약", p: "박은주(Eun-Ju Park)는 CPPI 한국필라테스교육협회의 창립자이자 협회장입니다. 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추&관절센터에서 근무한 의료 임상 경력, 나사렛대학교 스포츠재활학과 겸임교수와 서경대학교 예술교육원 필라테스과정 원장을 지낸 대학 강단 경력, 그리고 STOTT PILATES·PMA·Balanced Body University·RECOVERING으로 이어지는 국제 자격을 모두 갖춘 필라테스 교육자입니다. 9권 전권 1,617페이지의 CPPI 교재를 직접 집필했고, 2009년부터 지도자 교육에 전념해 56기 이상의 수료강사를 배출했습니다." },
         { h: "임상에서 출발한 이력", p: "박은주 교수의 출발점은 필라테스 스튜디오가 아니라 병원이었습니다. 간호 임상을 거쳐 분당서울대병원 마취통증의학과에서 통증 환자를 접했고, 한국보훈복지공단 척추&관절센터에서 척추·관절 재활 현장을 경험했습니다. 이 시기에 서울대병원에서 중환자 전문간호연수, 정형외과 수술후 재활과정, 당뇨·고혈압·골다공증 관리, 노인간호 및 재활과정을 이수했습니다. 수술 후 회복 단계의 몸, 만성 통증을 안고 사는 몸, 대사질환과 고령을 함께 가진 몸을 직접 다뤄 본 경험이 이후 CPPI 커리큘럼이 '재활·교정 중심'으로 설계된 직접적인 배경입니다." },
         { h: "주요 경력", list: ["(현) CPPI 한국필라테스교육협회 회장", "(현) 리커버링 재활 필라테스 공인 마스터 (RECOVERING Master Trainer)", "(현) 경기도 배구협회 이사", "(현) 대한간호정우회 / 간호 Q&A협회 정회원", "(현) 대한비만학회 정회원", "(전) 나사렛대학교 스포츠재활학과 겸임교수", "(전) 서경대학교 예술교육원 필라테스과정 원장", "(전) 분당서울대병원 마취통증의학과", "(전) 한국보훈복지공단 척추&관절센터"] },
         { h: "주요 연수 - 서울대학교병원", list: ["중환자 전문간호연수", "정형외과 수술후 재활과정", "당뇨 · 고혈압 · 골다공증 관리", "노인간호 및 재활과정"] },
         { h: "국제 자격", p: "필라테스 지도자 자격은 한 단체에 머무르지 않고 여러 체계를 교차해 이수했습니다. 서로 다른 학파의 접근을 비교할 수 있어야 수강생에게 '왜 이렇게 가르치는가'를 설명할 수 있다는 판단에서입니다.", list: ["STOTT PILATES : IMP / IR / ICCB / AMP / AR / RMR1", "ISP (Injury Special Population) 2009~2011", "PMA (Pilates Method Alliance) Certification Education 2012", "BBU (Balanced Body University) Creating Length & Strength Certification", "BBU Scoliosis Spiral Certification", "BBU Innovate Mat Sequences for Motor Control, Stability and Balance", "STOTT Pre-Natal Pilates On the Reformer", "POWER PLATE Master Trainer Certification 2022", "RECOVERING Master Trainer Certification 2022"] },
-        { h: "저술 - CPPI 교재 9권", p: "CPPI 정규과정에서 쓰는 교재는 전량 자체 집필본입니다. 필라테스 기능해부학 238페이지, 필라테스 기본원리 80페이지를 비롯해 매트·리포머·캐딜락·스태빌리티 체어·래더바렐·아크바렐·스파인코렉터까지 총 9권 1,300여 페이지입니다. 각 권은 동작, 운동 목적, 활성화 근육, 큐잉 및 주의사항, 변형 동작이라는 동일한 포맷을 따릅니다." },
+        { h: "저술 - CPPI 교재 9권", p: "CPPI 정규과정에서 쓰는 교재는 전량 자체 집필본입니다. 필라테스 기능해부학 238페이지, 필라테스 기본원리 80페이지를 비롯해 매트·리포머·캐딜락·스태빌리티 체어·래더바렐·아크바렐·스파인코렉터까지 총 9권 전권 1,617페이지입니다. 각 권은 동작, 운동 목적, 활성화 근육, 큐잉 및 주의사항, 변형 동작이라는 동일한 포맷을 따릅니다." },
         { h: "교육 철학 - 근막경선으로 동작을 읽는다", p: "박은주 교수의 동작 분석은 개별 근육이 아니라 사슬을 봅니다. 자체 자료 '이야기가 있는 해부학'(113페이지)은 전면사슬·후면사슬·측면사슬 세 축으로 필라테스 동작을 재배열하고, 동작마다 관여 관절과 움직임, 근육을 표로 정리한 뒤 임상 팁을 덧붙입니다. Thomas Myers의 아나토미 트레인 체계를 지도 언어로 옮긴 이 접근은 CPPI 전 과정에 일관되게 적용됩니다." },
         { h: "리커버링 재활 필라테스", p: "2022년 RECOVERING Master Trainer 자격을 취득한 이후, 리커버링을 CPPI의 시그니처 프로그램으로 체계화했습니다. 축성 신장과 감압, 항회전과 요추 분절 안정화, 나선·사선 근막 사슬 교차 활성화, 요추 안정과 흉추 가동성의 분리, 관절 중심화, 방산 법칙, 고유수용감각 증폭 등 9가지 원리와 13가지 시그니처 동작으로 구성됩니다. 원데이 자격과정은 7교시 × 50분 구성으로 하루 동안 동작 37개와 이론 14개를 다룹니다." },
         { h: "활동", p: "IDEA 컨벤션과 CKLZ 피트니스 컨벤션에 초청 프레젠터로 참여했습니다. 2009년부터 지도자 교육에 전념해 왔으며, 수료생 중 다수가 현재 타 아카데미에서 마스터(교육강사)로 활동하고 있습니다. 유튜브 채널 @cppi.pilates를 통해 필라테스 자격과정과 지도자 교육에 관한 정보를 공개하고 있습니다." },
@@ -716,7 +721,7 @@ export const CONTENT = {
       eyebrow: "CURRICULUM", h1: "CPPI 정규과정 에센셜 커리큘럼",
       lead: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다.",
       blocks: [
-        { h: "한 문단 요약", p: "CPPI 정규과정은 8개 과목 약 110~120시간으로 구성됩니다. 기능해부학 10시간에서 출발해 기본원리 10시간, 체형 분석 및 움직임 평가 5시간으로 이론 토대를 세운 뒤, 매트 25시간과 기구 4종(리포머·캐딜락·스태빌리티 체어·바렐 시리즈) 60~70시간의 실기로 이어집니다. 모든 과목은 직접 집필한 출판 교재 9권 1,300여 페이지를 텍스트로 사용합니다." },
+        { h: "한 문단 요약", p: "CPPI 정규과정은 8개 과목 약 110~120시간으로 구성됩니다. 기능해부학 10시간에서 출발해 기본원리 10시간, 체형 분석 및 움직임 평가 5시간으로 이론 토대를 세운 뒤, 매트 25시간과 기구 4종(리포머·캐딜락·스태빌리티 체어·바렐 시리즈) 60~70시간의 실기로 이어집니다. 모든 과목은 직접 집필한 출판 교재 9권 전권 1,617페이지를 텍스트로 사용합니다." },
         { h: "8대 커리큘럼", list: ["1. 필라테스 기능해부학 - 10시간", "2. 베이직 프린서플 10가지 / 5가지 움직임 원칙 - 10시간", "3. 체형 분석 및 움직임 평가 - 5시간", "4. 필라테스 매트 - 25시간", "5. 리포머 - 20~25시간", "6. 캐딜락 - 20~25시간", "7. 스태빌리티 체어 - 10시간", "8. 래더바렐 및 바렐 시리즈 - 10시간"] },
         { h: "01. 필라테스 기능해부학 (10시간)", p: "교재 238페이지. 뼈·관절·근육의 구조와 기능, 움직임의 원리를 다룹니다. 단순 암기가 아니라 해부학 지식을 근거로 인체와 움직임을 분석하는 훈련이 목표입니다. 근육 불균형의 평가와 중재, 근육과 자세학의 연계를 포함합니다. 이 과목이 뒤따르는 모든 실기 과목의 판단 기준이 됩니다." },
         { h: "02. 베이직 프린서플 (10시간)", p: "교재 80페이지. 조셉 필라테스가 정립한 10가지 기본 원리와 5가지 움직임 원칙을 다룹니다. 견갑 안정화와 움직임의 원리(Scapular Stability & Mobility), 신체 비정렬, 근막 시스템, 그리고 Flat-Back·Sway-Back 등 자세 유형 분석이 포함됩니다. 실기에서 '왜 이 큐를 주는가'를 설명할 수 있게 만드는 과목입니다." },
@@ -771,7 +776,7 @@ export const CONTENT = {
         { h: "한 문단 요약", p: "CPPI 필라테스 강사 자격과정은 8개 과목 약 110~120시간으로 구성된 국제 자격과정입니다. 이론 강의, 실기 체득, 교육생 상호 티칭 실습을 반복하는 실무 중심 구조이며, 수료 시 국제자격증 발급과 L3 정회원 승급, 수료강사 명단 등재, 활동 연계 지원이 따릅니다. 2016년 이후 56기 이상을 배출했고 한국·캐나다·일본에서 운영합니다." },
         { h: "교육 방식 - 세 번 반복한다", p: "CPPI의 한 과목은 세 단계를 거칩니다. 첫째, 이론 강의로 해당 동작이 어떤 관절에서 어떤 움직임을 만들고 어떤 근육이 관여하는지를 이해합니다. 둘째, 자기 몸으로 직접 수행해 감각을 익힙니다. 셋째, 교육생끼리 서로를 지도하는 티칭 실습을 반복합니다. 세 번째 단계가 가장 중요합니다. 아는 것과 가르치는 것은 다른 능력이고, 현장에서 필요한 것은 후자이기 때문입니다. 이 과정에서 큐잉 언어, 핸즈온 타이밍, 보상작용을 발견했을 때의 즉각적인 수정안이 훈련됩니다." },
         { h: "누가 듣는가", p: "수강생 구성은 크게 셋으로 나뉩니다. 첫째, 필라테스를 접해본 적 없는 완전 입문자입니다. 기능해부학 기초부터 단계적으로 설계되어 있어 비전공자도 따라올 수 있고, 실제 수료생 중 상당수가 타 분야에서 전향한 분들입니다. 둘째, 경력 단절 이후 전문직으로 복귀하려는 30~40대입니다. 셋째, 이미 현장에서 지도하고 있으나 근거 없이 외운 동작을 반복하는 데 한계를 느낀 현직 강사입니다." },
-        { h: "과정 구성과 시간", p: "필라테스 기능해부학 10시간, 베이직 프린서플 10시간, 체형 분석 및 움직임 평가 5시간, 필라테스 매트 25시간, 리포머 20~25시간, 캐딜락 20~25시간, 스태빌리티 체어 10시간, 래더바렐 및 바렐 시리즈 10시간으로 합계 약 110~120시간입니다. 교재는 직접 집필·출판한 9권 1,300여 페이지를 사용하며, 317개 동작 매뉴얼이 실기의 기준이 됩니다." },
+        { h: "과정 구성과 시간", p: "필라테스 기능해부학 10시간, 베이직 프린서플 10시간, 체형 분석 및 움직임 평가 5시간, 필라테스 매트 25시간, 리포머 20~25시간, 캐딜락 20~25시간, 스태빌리티 체어 10시간, 래더바렐 및 바렐 시리즈 10시간으로 합계 약 110~120시간입니다. 교재는 직접 집필·출판한 9권 전권 1,617페이지를 사용하며, 317개 동작 매뉴얼이 실기의 기준이 됩니다." },
         { h: "수료 요건", p: "정규 수료에는 오프라인 실기와 티칭 평가가 포함됩니다. 온라인 강의는 복습과 보조 학습용이며 온라인만으로는 수료가 인정되지 않습니다. 실기 평가는 동작 수행 정확도뿐 아니라 '수강생의 몸 상태를 읽고 그에 맞게 조정할 수 있는가'를 함께 봅니다." },
         { h: "수료 혜택 · 국제자격증", p: "수료 시 CPPI 국제자격증(Certified Professional Pilates Instructor)이 발급되고 L3 정회원으로 승급됩니다. 수료강사 명단에 등재되며, 스튜디오 연계와 네트워크 지원을 받습니다. 수료 이후에도 워크숍과 온라인 강의를 통해 심화 학습을 이어갈 수 있습니다." },
         { h: "모집 · 수강료", p: "기수별로 모집합니다. 개강 일정과 수강료는 공지 및 개별 상담 시 자세히 안내드립니다. 무료 상담을 통해 현재 상태에서 어떤 과정부터 시작하는 것이 적절한지 먼저 확인하실 수 있습니다." },
@@ -1863,6 +1868,61 @@ const EXTRA_BLOCKS_3 = {
 };
 
 for (const [route, byLang] of Object.entries(EXTRA_BLOCKS_3)) {
+  for (const [lang, blocks] of Object.entries(byLang)) {
+    const c = CONTENT[route] && CONTENT[route][lang];
+    if (c) c.blocks = (c.blocks || []).concat(blocks);
+  }
+}
+
+/* ------------------------------------------------------------------
+   과정 체계 2종 (2026-09-30 확정) - master 라우트 보강
+
+   CPPI 는 대상이 다른 두 과정을 운영한다.
+     에센셜 코스  일반인 · 비전공자          -> CPPI 필라테스 강사
+     CMPI 코스    경력 3년 이상 현직 강사    -> CPPI 마스터 인스트럭터
+                  Certified Master Pilates Instructor
+
+   그동안 사이트에는 정규과정 하나만 있는 것처럼 보였고, master 라우트는
+   마스터 강사 5명의 명단만 있는 가장 얇은 페이지(ko 1,362자)였다.
+   CMPI 는 '경력 강사의 다음 단계'라는 별개 검색 수요를 가지므로
+   여기를 그 착지점으로 만든다.
+------------------------------------------------------------------ */
+const EXTRA_BLOCKS_4 = {
+  master: {
+    ko: [
+      { h: "CMPI 코스란", p: "CMPI는 Certified Master Pilates Instructor의 약자입니다. 이미 현장에서 가르치고 있는 강사가 다음 단계로 올라서기 위한 과정이며, 수료하면 CPPI 마스터 인스트럭터 자격을 받습니다. 처음 강사가 되기 위한 에센셜 코스와는 대상도 내용도 다른 별개의 과정입니다." },
+      { h: "두 과정의 차이", list: ["에센셜 코스 - 대상은 일반인과 비전공자입니다. 수료 시 CPPI 필라테스 강사 자격을 받습니다. 출판 교재 가운데 약 1,300페이지 범위를 다룹니다.", "CMPI 코스 - 대상은 필라테스 경력 3년 이상의 현직 강사입니다. 수료 시 CPPI 마스터 인스트럭터 자격을 받습니다. 출판 교재 9권 전권 1,617페이지를 다룹니다.", "두 과정 모두 커리큘럼 · 교재 · 강사 배정 · 자격 검정을 협회가 직접 관리합니다."] },
+      { h: "왜 경력 3년인가", p: "3년은 회원을 직접 지도하며 자기 수업의 한계를 체감하기 시작하는 시점입니다. 동작은 익숙해졌는데 왜 이 사람에게 이 동작이 안 되는지 설명하지 못하는 구간이 옵니다. CMPI는 그 지점에서 시작합니다. 동작을 더 배우는 과정이 아니라 판단의 근거를 다시 세우는 과정입니다." },
+      { h: "마스터 인스트럭터가 하는 일", p: "심화교육과 프레젠터 스피치 과정을 거친 마스터 인스트럭터는 CPPI 정규 자격과정의 실제 강의를 담당합니다. 현재 마스터 인스트럭터는 파운더 박은주를 포함해 김민서 · 이청아 · 손희정 · 김휘향입니다." },
+    ],
+    en: [
+      { h: "What the CMPI course is", p: "CMPI stands for Certified Master Pilates Instructor. It is the next step for instructors already teaching in the field, and graduates receive CPPI Master Instructor certification. It is a separate course from the Essential Course, which is where new instructors begin - different entrants, different material." },
+      { h: "How the two tiers differ", list: ["Essential Course - open to newcomers with no prior field. Graduates receive CPPI Pilates Instructor certification. It covers roughly 1,300 pages of the published textbooks.", "CMPI Course - for instructors with three or more years of practice. Graduates receive CPPI Master Instructor certification. It covers all nine published volumes, 1,617 pages.", "For both tiers the association manages the curriculum, the textbooks, instructor assignment and the certification assessment directly."] },
+      { h: "Why three years", p: "Three years is the point at which an instructor, having taught real clients, starts to feel the ceiling of their own teaching. The movements have become familiar, but explaining why a given exercise does not work for a given person is still out of reach. CMPI starts there. It is not a course for learning more exercises; it is a course for rebuilding the reasoning behind your decisions." },
+      { h: "What master instructors do", p: "Master instructors, who have completed advanced training and the presenter speech course, deliver the CPPI certification courses themselves. The current master instructors are founder Eun-Ju Park together with Min-seo KIM, Cheong-ah LEE, Hee-jung SOHN and Hwy-hyang KIM." },
+    ],
+    ja: [
+      { h: "CMPIコースとは", p: "CMPIは Certified Master Pilates Instructor の略です。すでに現場で教えている指導者が次の段階へ進むための課程で、修了するとCPPIマスターインストラクターの資格を取得します。初めて指導者になるためのエッセンシャルコースとは対象も内容も異なる別の課程です。" },
+      { h: "2つの課程の違い", list: ["エッセンシャルコース - 対象は一般の方と非専攻者です。修了時にCPPIピラティス指導者の資格を取得します。出版教材のうち約1,300ページの範囲を扱います。", "CMPIコース - 対象はピラティス実務経験3年以上の現役指導者です。修了時にCPPIマスターインストラクターの資格を取得します。出版教材9冊 全巻1,617ページを扱います。", "いずれの課程もカリキュラム・教材・講師の配置・資格検定を協会が直接管理します。"] },
+      { h: "なぜ経験3年なのか", p: "3年は、会員を直接指導しながら自分の授業の限界を感じ始める時期です。動作には慣れたのに、なぜこの人にこの動作ができないのかを説明できない区間が訪れます。CMPIはその地点から始まります。動作をさらに学ぶ課程ではなく、判断の根拠を立て直す課程です。" },
+      { h: "マスターインストラクターの役割", p: "深化教育とプレゼンター・スピーチ課程を経たマスターインストラクターが、CPPI正規資格課程の実際の講義を担当します。現在のマスターインストラクターは創立者パク・ウンジュのほか、キム・ミンソ · イ・チョンア · ソン・ヒジョン · キム・フィヒャンです。" },
+    ],
+    zh: [
+      { h: "什么是CMPI课程", p: "CMPI是 Certified Master Pilates Instructor 的缩写。这是为已在现场授课的教练准备的进阶课程，结业后可取得CPPI大师级导师资格。它与初次成为教练所修读的Essential基础课程，在对象与内容上都是两个独立的课程。" },
+      { h: "两个课程的差异", list: ["Essential 基础课程 - 面向一般人与非专业出身者。结业取得CPPI普拉提教练资格。涵盖出版教材中约1,300页范围。", "CMPI 课程 - 面向从业3年以上的在职普拉提教练。结业取得CPPI大师级导师资格。涵盖出版教材9册全册1,617页。", "两个课程的体系、教材、师资配置与资格检定均由协会直接管理。"] },
+      { h: "为何是3年", p: "三年是教练在直接指导会员的过程中，开始感受到自身授课瓶颈的时点。动作已经熟练，却仍无法说明为何某个动作对某位会员行不通。CMPI正是从这个地方开始。它不是学更多动作的课程，而是重建判断依据的课程。" },
+      { h: "大师级导师的职责", p: "完成深化教育与演讲课程的大师级导师，亲自承担CPPI正规资格课程的授课。现任大师级导师为创始人朴恩珠，以及金玟序 · 李清娥 · 孙熙贞 · 金辉香。" },
+    ],
+    "zh-Hant": [
+      { h: "什麼是 CMPI 課程", p: "CMPI 是 Certified Master Pilates Instructor 的縮寫。這是為已在現場授課的導師準備的進階課程，結業後可取得 CPPI 大師級導師資格。它與初次成為導師所修讀的 Essential 基礎課程，在對象與內容上都是兩個獨立的課程。" },
+      { h: "兩個課程的差異", list: ["Essential 基礎課程 - 面向一般人與非專業出身者。結業取得 CPPI 皮拉提斯導師資格。涵蓋出版教材中約 1,300 頁範圍。", "CMPI 課程 - 面向從業 3 年以上的在職皮拉提斯導師。結業取得 CPPI 大師級導師資格。涵蓋出版教材 9 冊全冊 1,617 頁。", "兩個課程的體系、教材、師資配置與資格檢定均由協會直接管理。"] },
+      { h: "為何是 3 年", p: "三年是導師在直接指導會員的過程中，開始感受到自身授課瓶頸的時點。動作已經熟練，卻仍無法說明為何某個動作對某位會員行不通。CMPI 正是從這個地方開始。它不是學更多動作的課程，而是重建判斷依據的課程。" },
+      { h: "大師級導師的職責", p: "完成深化教育與講師表達課程的大師級導師，親自承擔 CPPI 正規證照課程的授課。現任大師級導師為創辦人朴恩珠，以及金玟序 · 李清娥 · 孫熙貞 · 金輝香。" },
+    ],
+  },
+};
+
+for (const [route, byLang] of Object.entries(EXTRA_BLOCKS_4)) {
   for (const [lang, blocks] of Object.entries(byLang)) {
     const c = CONTENT[route] && CONTENT[route][lang];
     if (c) c.blocks = (c.blocks || []).concat(blocks);
