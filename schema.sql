@@ -24,8 +24,24 @@ CREATE TABLE IF NOT EXISTS leads (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT, email TEXT, phone TEXT,
   birth TEXT, region TEXT, interest TEXT,
-  news INTEGER, at TEXT
+  news INTEGER, at TEXT,
+  -- 유입 경로. 어떤 검색어·채널이 실제 상담으로 이어지는지 알기 위한 최소 정보.
+  -- 전체 URL 과 IP 는 받지 않는다.
+  ref TEXT,           -- 유입 도메인 (search.naver.com, google.com 등)
+  utm_source TEXT,    -- 캠페인 출처 (naver, instagram, blog 등)
+  utm_medium TEXT,    -- 매체 (cpc, organic, sns 등)
+  utm_campaign TEXT,  -- 캠페인명
+  landing TEXT        -- 첫 진입 경로 (/courses, /ja/curriculum 등)
 );
+
+-- [기존 DB 마이그레이션] 이미 leads 테이블이 있는 D1 에서는 위 CREATE 가
+-- 건너뛰어지므로 아래 5줄을 D1 콘솔에서 한 번 실행해야 컬럼이 생긴다.
+-- 이미 있는 컬럼이면 오류가 나는데 그 줄만 건너뛰면 된다.
+--   ALTER TABLE leads ADD COLUMN ref TEXT;
+--   ALTER TABLE leads ADD COLUMN utm_source TEXT;
+--   ALTER TABLE leads ADD COLUMN utm_medium TEXT;
+--   ALTER TABLE leads ADD COLUMN utm_campaign TEXT;
+--   ALTER TABLE leads ADD COLUMN landing TEXT;
 
 -- 뉴스레터 발행분 (관리자 페이지에서 작성 · 발송)
 CREATE TABLE IF NOT EXISTS newsletters (

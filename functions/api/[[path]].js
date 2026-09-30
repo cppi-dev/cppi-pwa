@@ -149,8 +149,16 @@ export async function onRequest(context) {
     /* ---- 상담 리드 ---- */
     if (path === "lead" && request.method === "POST") {
       const at = new Date().toISOString().slice(0, 16).replace("T", " ");
-      await DB.prepare("INSERT INTO leads(name,email,phone,birth,region,interest,news,at) VALUES(?,?,?,?,?,?,?,?)")
-        .bind(body.name, body.email, body.phone, body.birth || "", body.region || "", body.interest, body.news ? 1 : 0, at).run();
+      /* 유입 경로 컬럼이 아직 없는 D1 에서도 접수는 성공해야 한다.
+         마이그레이션(schema.sql 하단) 전에는 조용히 기존 형태로 저장한다. */
+      try {
+        await DB.prepare("INSERT INTO leads(name,email,phone,birth,region,interest,news,at,ref,utm_source,utm_medium,utm_campaign,landing) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)")
+          .bind(body.name, body.email, body.phone, body.birth || "", body.region || "", body.interest, body.news ? 1 : 0, at,
+                body.ref || "", body.utmSource || "", body.utmMedium || "", body.utmCampaign || "", body.landing || "").run();
+      } catch (_) {
+        await DB.prepare("INSERT INTO leads(name,email,phone,birth,region,interest,news,at) VALUES(?,?,?,?,?,?,?,?)")
+          .bind(body.name, body.email, body.phone, body.birth || "", body.region || "", body.interest, body.news ? 1 : 0, at).run();
+      }
 
       /* 뉴스레터 수신에 동의했으면 구독자로 등록 */
       if (body.news) await addSubscriber(DB, { email: body.email, name: body.name, source: "lead" }).catch(() => {});

@@ -1997,7 +1997,7 @@ routes.admin = () => {
       ${o.status === "완료" ? `<span class="badge free">완료</span>` : `<button class="btn acc small" onclick="confirmPay(${i})">입금 확인</button>`}
     </div>`).join("") : `<p class="lead">주문이 없습니다.</p>`}
     <h3 style="font-size:15px;margin:16px 0 8px">상담 리드 (${leads.length})</h3>
-    ${leads.length ? leads.map(l => `<div class="admin-row"><div class="who"><b>${esc(l.name)}</b><span>${esc(l.phone)} · ${esc(l.email)} · ${esc(l.interest)} · ${l.at}</span></div></div>`).join("") : `<p class="lead">접수된 리드가 없습니다.</p>`}
+    ${leads.length ? leads.map(l => `<div class="admin-row"><div class="who"><b>${esc(l.name)}</b><span>${esc(l.phone)} · ${esc(l.email)} · ${esc(l.interest)} · ${l.at}</span><span style="color:var(--pri);font-weight:700">유입 ${esc(l.utmSource || l.ref || "직접")}${l.utmCampaign ? " / " + esc(l.utmCampaign) : ""}${l.landing ? " · " + esc(l.landing) : ""}</span></div></div>`).join("") : `<p class="lead">접수된 리드가 없습니다.</p>`}
     <h3 style="font-size:15px;margin:16px 0 8px">뉴스레터</h3>
     <div class="card nl-editor">
       <label>제목</label>
@@ -2236,7 +2236,7 @@ async function loadMyOrders() {
 function submitLead(e) {
   e.preventDefault();
   const f = new FormData(e.target);
-  const lead = { name: f.get("name"), email: f.get("email"), phone: f.get("phone"), birth: f.get("birth"), region: f.get("region"), interest: f.get("interest"), news: !!f.get("news"), at: new Date().toISOString().slice(0, 16).replace("T", " ") };
+  const lead = { name: f.get("name"), email: f.get("email"), phone: f.get("phone"), birth: f.get("birth"), region: f.get("region"), interest: f.get("interest"), news: !!f.get("news"), at: new Date().toISOString().slice(0, 16).replace("T", " "), ...leadSource() };
   const leads = APP.leads; leads.push(lead); APP.leads = leads;
   /* 서버(D1)에 저장 + 관리자 알림 메일 발송은 서버가 처리한다.
      예전에는 여기서 mailto: 를 열어 메일 앱(아웃룩)을 강제로 띄웠는데,
@@ -2246,6 +2246,32 @@ function submitLead(e) {
   e.target.reset();
   return false;
 }
+
+/* 유입 경로 캡처 - 첫 진입 시 한 번만 기록하고 세션 내내 유지한다.
+   리드가 들어와도 출처를 모르면 어떤 키워드가 실제로 돈이 되는지
+   판단할 수 없다. 개인 식별 정보는 받지 않는다 - 유입 도메인과
+   utm 파라미터, 첫 진입 경로까지만 남긴다. */
+const SRC_KEY = "cppi_src";
+function captureSource() {
+  try {
+    if (sessionStorage.getItem(SRC_KEY)) return;   // 세션 첫 진입만
+    const q = new URLSearchParams(location.search);
+    let ref = "";
+    try { ref = document.referrer ? new URL(document.referrer).hostname : ""; } catch (_) {}
+    if (ref && ref.endsWith("cppipilates.com")) ref = "";   // 내부 이동은 유입이 아니다
+    sessionStorage.setItem(SRC_KEY, JSON.stringify({
+      ref,
+      utmSource: q.get("utm_source") || "",
+      utmMedium: q.get("utm_medium") || "",
+      utmCampaign: q.get("utm_campaign") || "",
+      landing: location.pathname,
+    }));
+  } catch (_) {}
+}
+function leadSource() {
+  try { return JSON.parse(sessionStorage.getItem(SRC_KEY) || "{}"); } catch (_) { return {}; }
+}
+captureSource();
 
 /* ---------- 관리자 - 뉴스레터 ---------- */
 let _nlId = null;
