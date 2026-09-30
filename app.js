@@ -1713,6 +1713,7 @@ const CENTERS = [
     city: { ko: "서울 교육센터", en: "Seoul Center", ja: "ソウル教育センター", zh: "首尔教育中心", "zh-Hant": "首爾教育中心" },
     name: { ko: "바디멀티 필라테스 상일동역점", en: "BodyMulti Pilates - Sangil-dong Stn.", ja: "ボディマルチ ピラティス 上一洞駅店",
             zh: "BodyMulti 普拉提 上一洞站店", "zh-Hant": "BodyMulti 皮拉提斯 上一洞站店" },
+    kind: "host",
     addr: "서울 강동구 고덕로83길 14",
     addrEn: "14 Godeok-ro 83-gil, Gangdong-gu, Seoul, Korea",
     place: "https://naver.me/59vokcao",
@@ -1721,6 +1722,7 @@ const CENTERS = [
     city: { ko: "분당 교육센터", en: "Bundang Center", ja: "盆唐教育センター", zh: "盆唐教育中心", "zh-Hant": "盆唐教育中心" },
     name: { ko: "필라티크 운동연구소", en: "Pilatique Movement Lab", ja: "ピラティーク運動研究所",
             zh: "Pilatique 运动研究所", "zh-Hant": "Pilatique 運動研究所" },
+    kind: "lab",
     addr: "경기도 성남시 분당구 정자일로198번길 6-5",
     addrEn: "6-5 Jeongjail-ro 198beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do, Korea",
     place: "https://share.google/eHZNJaBsIe1P3YsZp",
@@ -1729,6 +1731,7 @@ const CENTERS = [
     city: { ko: "김포 교육센터", en: "Gimpo Center", ja: "金浦教育センター", zh: "金浦教育中心", "zh-Hant": "金浦教育中心" },
     name: { ko: "운양 웰니스웨이 필라테스", en: "Wellness Way Pilates - Unyang", ja: "雲陽 ウェルネスウェイ ピラティス",
             zh: "云阳 Wellness Way 普拉提", "zh-Hant": "雲陽 Wellness Way 皮拉提斯" },
+    kind: "host",
     addr: "경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호",
     addrEn: "#703, 133 Gimpohangang 11-ro, Gimpo-si, Gyeonggi-do, Korea",
     place: "https://naver.me/FZ27jQvs",
@@ -1757,6 +1760,12 @@ const HQ_LABEL = {
 };
 
 /* 교육센터 리스트 - LOCATION 카드와 필요 시 다른 화면에서 함께 쓴다 */
+/* 센터 지위 - 협회 부설시설(직영)과 공식 호스팅 센터(제휴)는 성격이 다르다.
+   한 단어로 뭉뚱그리면 직영 연구시설을 가진 구조가 드러나지 않는다. */
+const CENTER_KIND = {
+  lab:  { ko: "협회 부설시설", en: "Association facility", ja: "協会附設施設", zh: "协会附设机构", "zh-Hant": "協會附設機構" },
+  host: { ko: "CPPI 공식 호스팅 센터", en: "Official CPPI hosting center", ja: "CPPI公式ホスティングセンター", zh: "CPPI官方托管中心", "zh-Hant": "CPPI 官方託管中心" },
+};
 function centersBlock() {
   const rows = CENTERS.map(c => {
     const addr = LANG === "ko" ? c.addr : (c.addrEn || c.addr);
@@ -1764,7 +1773,7 @@ function centersBlock() {
     <div style="padding:10px 0;border-top:1px solid var(--line)">
       <div style="font-size:11.5px;font-weight:800;letter-spacing:.1em;color:var(--pri)">${esc(L(c.city))}</div>
       <b style="font-size:14px">${esc(L(c.name))}</b>
-      <div style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:100px;background:var(--tint);color:var(--pri);font-size:10.5px;font-weight:800;vertical-align:middle">${L({ ko: "CPPI 공식 호스팅 센터", en: "Official CPPI hosting center", ja: "CPPI公式ホスティングセンター", zh: "CPPI官方托管中心", "zh-Hant": "CPPI 官方託管中心" })}</div>
+      ${c.kind ? `<div style="display:inline-block;margin-left:6px;padding:1px 7px;border-radius:100px;background:var(--tint);color:var(--pri);font-size:10.5px;font-weight:800;vertical-align:middle">${L(CENTER_KIND[c.kind])}</div>` : ""}
       ${addr ? `<div style="font-size:13px;color:var(--ink2);margin-top:2px">${esc(addr)}</div>` : ""}
       ${c.place ? `<a href="${c.place}" target="_blank" rel="noopener" style="font-size:12.5px;color:var(--pri);font-weight:700">${L({ ko: "지도 보기 →", en: "View map →", ja: "地図を見る →", zh: "查看地图 →", "zh-Hant": "查看地圖 →" })}</a>` : ""}
     </div>`;
