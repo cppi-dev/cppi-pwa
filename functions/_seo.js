@@ -443,6 +443,102 @@ export const FAQ = {
       ["創辦人是否親自授課？", "CPPI 正規課程以創辦人親授為原則，並由完成深化教育與講師表達課程的大師級導師共同指導。"],
     ],
   },
+  gimpo: {
+    ko: [
+      ["김포에서도 CPPI 필라테스 강사 자격과정을 들을 수 있나요?", "가능합니다. 운양 웰니스웨이 필라테스(경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호)에서 에센셜 코스와 CMPI 마스터 코스를 모두 운영합니다. 개강 일정은 기수별 공지와 개별 상담에서 안내드립니다."],
+      ["센터마다 교육 내용이나 수료 기준이 다른가요?", "다르지 않습니다. 커리큘럼과 교재, 강사 배정, 자격 검정은 CPPI 한국필라테스교육협회가 직접 관리합니다. 어느 센터에서 수강하든 같은 교재 9권 1,617페이지와 같은 317개 동작 매뉴얼을 쓰고, 같은 평가 기준으로 수료를 판정합니다."],
+      ["운양 웰니스웨이 필라테스은 CPPI 직영 센터인가요?", "운양 웰니스웨이 필라테스은 CPPI 공식 호스팅 센터입니다. 교육의 주관과 자격 발급은 협회가 직접 담당합니다."],
+      ["김포 센터의 수강료도 같습니까?", "같습니다. 에센셜 코스는 정상가 420만원이고, 얼리버드 신청과 할인 혜택이 적용되면 400만원입니다. 납부 방법과 포함 항목은 기수별 공지와 개별 상담에서 안내드립니다."],
+    ],
+    en: [
+      ["Can I take the CPPI certification in Gimpo?", "Yes. Both the Essential course and the CMPI master course run at Wellness Way Pilates Unyang (#703, 133 Gimpohangang 11-ro, Unyang-dong, Gimpo-si). Start dates are confirmed in each cohort announcement and in individual consultation."],
+      ["Does the course or the completion standard differ by center?", "No. The curriculum, the textbooks, instructor assignment and the certification assessment are managed directly by CPPI Korea Pilates Education Association. Wherever you study you work from the same nine textbooks and 1,617 pages, the same manual of 317 documented movements, and the same assessment standard."],
+      ["Is Wellness Way Pilates Unyang owned by CPPI?", "Wellness Way Pilates Unyang is an official CPPI hosting center. The association itself is responsible for delivering the education and issuing the qualification."],
+      ["Is the tuition the same at the Gimpo center?", "Yes. The Essential course is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts. Payment methods and what the fee covers are confirmed in each cohort announcement and in individual consultation."],
+    ],
+    ja: [
+      ["金浦でもCPPIピラティス指導者資格課程を受講できますか。", "受講できます。雲陽ウェルネスウェイ ピラティス(京畿道 金浦市 金浦漢江11路133(雲陽洞・中央プラザ)703号)でエッセンシャルコースとCMPIマスターコースの両方を運営しています。開講日程は期別の告知と個別相談でご案内します。"],
+      ["センターによって教育内容や修了基準は異なりますか。", "異なりません。カリキュラム・教材・講師の配置・資格検定はCPPI韓国ピラティス教育協会が直接管理します。どのセンターで受講しても同じ教材9巻1,617ページと同じ317動作マニュアルを使い、同じ評価基準で修了を判定します。"],
+      ["雲陽ウェルネスウェイ ピラティスはCPPI直営センターですか。", "雲陽ウェルネスウェイ ピラティスはCPPI公式ホスティングセンターです。教育の主管と資格の発行は協会が直接担当します。"],
+      ["金浦センターの受講料も同じですか。", "同じです。エッセンシャルコースは定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。"],
+    ],
+    zh: [
+      ["在金浦也能修读CPPI普拉提教练资格课程吗？", "可以。云阳 Wellness Way 普拉提(京畿道金浦市金浦汉江11路133号(云阳洞·中央广场)703室)同时开设 Essential 课程与 CMPI 大师课程。开课日程将在各期公告与个别咨询中说明。"],
+      ["各中心的课程内容与结业标准会不同吗？", "不会。课程体系、教材、师资配置与资格检定均由CPPI韩国普拉提教育协会直接管理。无论在哪个中心修读，都使用同一套九卷1,617页教材与317个动作手册，并以同一评估标准判定结业。"],
+      ["云阳 Wellness Way 普拉提是CPPI直营中心吗？", "云阳 Wellness Way 普拉提为CPPI官方托管中心。教育主办与资格颁发由协会直接负责。"],
+      ["金浦中心的学费也一样吗？", "一样。Essential 课程标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。"],
+    ],
+    "zh-Hant": [
+      ["在金浦也能修讀 CPPI 皮拉提斯師資培訓課程嗎？", "可以。雲陽 Wellness Way 皮拉提斯(京畿道金浦市金浦漢江11路133號(雲陽洞·中央廣場)703室)同時開設 Essential 課程與 CMPI 大師課程。開課日程將於各梯次公告與個別諮詢中說明。"],
+      ["各中心的課程內容與結業標準會不同嗎？", "不會。課程體系、教材、師資配置與資格檢定均由 CPPI 韓國皮拉提斯教育協會直接管理。無論在哪個中心修讀，都使用同一套九卷1,617頁教材與317個動作手冊，並以同一評估標準判定結業。"],
+      ["雲陽 Wellness Way 皮拉提斯是 CPPI 直營中心嗎？", "雲陽 Wellness Way 皮拉提斯為CPPI 官方託管中心。教育主辦與資格頒發由協會直接負責。"],
+      ["金浦中心的學費也一樣嗎？", "一樣。Essential 課程標準價為420萬韓元，適用早鳥報名與折扣優惠時為400萬韓元。"],
+    ],
+  },
+  bundang: {
+    ko: [
+      ["분당에서도 CPPI 필라테스 강사 자격과정을 들을 수 있나요?", "가능합니다. 필라티크 운동연구소(경기도 성남시 분당구 정자일로198번길 6-5)에서 에센셜 코스와 CMPI 마스터 코스를 모두 운영합니다. 개강 일정은 기수별 공지와 개별 상담에서 안내드립니다."],
+      ["센터마다 교육 내용이나 수료 기준이 다른가요?", "다르지 않습니다. 커리큘럼과 교재, 강사 배정, 자격 검정은 CPPI 한국필라테스교육협회가 직접 관리합니다. 어느 센터에서 수강하든 같은 교재 9권 1,617페이지와 같은 317개 동작 매뉴얼을 쓰고, 같은 평가 기준으로 수료를 판정합니다."],
+      ["필라티크 운동연구소은 CPPI 직영 센터인가요?", "필라티크 운동연구소은 협회 부설시설입니다. 교육의 주관과 자격 발급은 협회가 직접 담당합니다."],
+      ["분당 센터의 수강료도 같습니까?", "같습니다. 에센셜 코스는 정상가 420만원이고, 얼리버드 신청과 할인 혜택이 적용되면 400만원입니다. 납부 방법과 포함 항목은 기수별 공지와 개별 상담에서 안내드립니다."],
+    ],
+    en: [
+      ["Can I take the CPPI certification in Bundang?", "Yes. Both the Essential course and the CMPI master course run at Pilatique Movement Lab (6-5 Jeongjail-ro 198beon-gil, Bundang-gu, Seongnam-si). Start dates are confirmed in each cohort announcement and in individual consultation."],
+      ["Does the course or the completion standard differ by center?", "No. The curriculum, the textbooks, instructor assignment and the certification assessment are managed directly by CPPI Korea Pilates Education Association. Wherever you study you work from the same nine textbooks and 1,617 pages, the same manual of 317 documented movements, and the same assessment standard."],
+      ["Is Pilatique Movement Lab owned by CPPI?", "Pilatique Movement Lab is the association's own affiliated facility. The association itself is responsible for delivering the education and issuing the qualification."],
+      ["Is the tuition the same at the Bundang center?", "Yes. The Essential course is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts. Payment methods and what the fee covers are confirmed in each cohort announcement and in individual consultation."],
+    ],
+    ja: [
+      ["盆唐でもCPPIピラティス指導者資格課程を受講できますか。", "受講できます。ピラティーク運動研究所(京畿道 城南市 盆唐区 亭子日路198番キル6-5)でエッセンシャルコースとCMPIマスターコースの両方を運営しています。開講日程は期別の告知と個別相談でご案内します。"],
+      ["センターによって教育内容や修了基準は異なりますか。", "異なりません。カリキュラム・教材・講師の配置・資格検定はCPPI韓国ピラティス教育協会が直接管理します。どのセンターで受講しても同じ教材9巻1,617ページと同じ317動作マニュアルを使い、同じ評価基準で修了を判定します。"],
+      ["ピラティーク運動研究所はCPPI直営センターですか。", "ピラティーク運動研究所は協会附設施設です。教育の主管と資格の発行は協会が直接担当します。"],
+      ["盆唐センターの受講料も同じですか。", "同じです。エッセンシャルコースは定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。"],
+    ],
+    zh: [
+      ["在盆唐也能修读CPPI普拉提教练资格课程吗？", "可以。Pilatique 运动研究所(京畿道城南市盆唐区亭子日路198街6-5号)同时开设 Essential 课程与 CMPI 大师课程。开课日程将在各期公告与个别咨询中说明。"],
+      ["各中心的课程内容与结业标准会不同吗？", "不会。课程体系、教材、师资配置与资格检定均由CPPI韩国普拉提教育协会直接管理。无论在哪个中心修读，都使用同一套九卷1,617页教材与317个动作手册，并以同一评估标准判定结业。"],
+      ["Pilatique 运动研究所是CPPI直营中心吗？", "Pilatique 运动研究所为协会附设机构。教育主办与资格颁发由协会直接负责。"],
+      ["盆唐中心的学费也一样吗？", "一样。Essential 课程标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。"],
+    ],
+    "zh-Hant": [
+      ["在盆唐也能修讀 CPPI 皮拉提斯師資培訓課程嗎？", "可以。Pilatique 運動研究所(京畿道城南市盆唐區亭子日路198街6-5號)同時開設 Essential 課程與 CMPI 大師課程。開課日程將於各梯次公告與個別諮詢中說明。"],
+      ["各中心的課程內容與結業標準會不同嗎？", "不會。課程體系、教材、師資配置與資格檢定均由 CPPI 韓國皮拉提斯教育協會直接管理。無論在哪個中心修讀，都使用同一套九卷1,617頁教材與317個動作手冊，並以同一評估標準判定結業。"],
+      ["Pilatique 運動研究所是 CPPI 直營中心嗎？", "Pilatique 運動研究所為協會附設機構。教育主辦與資格頒發由協會直接負責。"],
+      ["盆唐中心的學費也一樣嗎？", "一樣。Essential 課程標準價為420萬韓元，適用早鳥報名與折扣優惠時為400萬韓元。"],
+    ],
+  },
+  gangdong: {
+    ko: [
+      ["서울 강동에서도 CPPI 필라테스 강사 자격과정을 들을 수 있나요?", "가능합니다. 바디멀티 필라테스 상일동역점(서울 강동구 고덕로83길 14)에서 에센셜 코스와 CMPI 마스터 코스를 모두 운영합니다. 개강 일정은 기수별 공지와 개별 상담에서 안내드립니다."],
+      ["센터마다 교육 내용이나 수료 기준이 다른가요?", "다르지 않습니다. 커리큘럼과 교재, 강사 배정, 자격 검정은 CPPI 한국필라테스교육협회가 직접 관리합니다. 어느 센터에서 수강하든 같은 교재 9권 1,617페이지와 같은 317개 동작 매뉴얼을 쓰고, 같은 평가 기준으로 수료를 판정합니다."],
+      ["바디멀티 필라테스 상일동역점은 CPPI 직영 센터인가요?", "바디멀티 필라테스 상일동역점은 CPPI 공식 호스팅 센터입니다. 교육의 주관과 자격 발급은 협회가 직접 담당합니다."],
+      ["서울 강동 센터의 수강료도 같습니까?", "같습니다. 에센셜 코스는 정상가 420만원이고, 얼리버드 신청과 할인 혜택이 적용되면 400만원입니다. 납부 방법과 포함 항목은 기수별 공지와 개별 상담에서 안내드립니다."],
+    ],
+    en: [
+      ["Can I take the CPPI certification in Gangdong, Seoul?", "Yes. Both the Essential course and the CMPI master course run at BodyMulti Pilates Sangil-dong Station (14 Godeok-ro 83-gil, Gangdong-gu, Seoul). Start dates are confirmed in each cohort announcement and in individual consultation."],
+      ["Does the course or the completion standard differ by center?", "No. The curriculum, the textbooks, instructor assignment and the certification assessment are managed directly by CPPI Korea Pilates Education Association. Wherever you study you work from the same nine textbooks and 1,617 pages, the same manual of 317 documented movements, and the same assessment standard."],
+      ["Is BodyMulti Pilates Sangil-dong Station owned by CPPI?", "BodyMulti Pilates Sangil-dong Station is an official CPPI hosting center. The association itself is responsible for delivering the education and issuing the qualification."],
+      ["Is the tuition the same at the Gangdong, Seoul center?", "Yes. The Essential course is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts. Payment methods and what the fee covers are confirmed in each cohort announcement and in individual consultation."],
+    ],
+    ja: [
+      ["ソウル江東でもCPPIピラティス指導者資格課程を受講できますか。", "受講できます。ボディマルチ ピラティス 上一洞駅店(ソウル特別市 江東区 高徳路83キル14)でエッセンシャルコースとCMPIマスターコースの両方を運営しています。開講日程は期別の告知と個別相談でご案内します。"],
+      ["センターによって教育内容や修了基準は異なりますか。", "異なりません。カリキュラム・教材・講師の配置・資格検定はCPPI韓国ピラティス教育協会が直接管理します。どのセンターで受講しても同じ教材9巻1,617ページと同じ317動作マニュアルを使い、同じ評価基準で修了を判定します。"],
+      ["ボディマルチ ピラティス 上一洞駅店はCPPI直営センターですか。", "ボディマルチ ピラティス 上一洞駅店はCPPI公式ホスティングセンターです。教育の主管と資格の発行は協会が直接担当します。"],
+      ["ソウル江東センターの受講料も同じですか。", "同じです。エッセンシャルコースは定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。"],
+    ],
+    zh: [
+      ["在首尔江东也能修读CPPI普拉提教练资格课程吗？", "可以。BodyMulti 普拉提 上一洞站店(首尔特别市江东区高德路83街14号)同时开设 Essential 课程与 CMPI 大师课程。开课日程将在各期公告与个别咨询中说明。"],
+      ["各中心的课程内容与结业标准会不同吗？", "不会。课程体系、教材、师资配置与资格检定均由CPPI韩国普拉提教育协会直接管理。无论在哪个中心修读，都使用同一套九卷1,617页教材与317个动作手册，并以同一评估标准判定结业。"],
+      ["BodyMulti 普拉提 上一洞站店是CPPI直营中心吗？", "BodyMulti 普拉提 上一洞站店为CPPI官方托管中心。教育主办与资格颁发由协会直接负责。"],
+      ["首尔江东中心的学费也一样吗？", "一样。Essential 课程标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。"],
+    ],
+    "zh-Hant": [
+      ["在首爾江東也能修讀 CPPI 皮拉提斯師資培訓課程嗎？", "可以。BodyMulti 皮拉提斯 上一洞站店(首爾特別市江東區高德路83街14號)同時開設 Essential 課程與 CMPI 大師課程。開課日程將於各梯次公告與個別諮詢中說明。"],
+      ["各中心的課程內容與結業標準會不同嗎？", "不會。課程體系、教材、師資配置與資格檢定均由 CPPI 韓國皮拉提斯教育協會直接管理。無論在哪個中心修讀，都使用同一套九卷1,617頁教材與317個動作手冊，並以同一評估標準判定結業。"],
+      ["BodyMulti 皮拉提斯 上一洞站店是 CPPI 直營中心嗎？", "BodyMulti 皮拉提斯 上一洞站店為CPPI 官方託管中心。教育主辦與資格頒發由協會直接負責。"],
+      ["首爾江東中心的學費也一樣嗎？", "一樣。Essential 課程標準價為420萬韓元，適用早鳥報名與折扣優惠時為400萬韓元。"],
+    ],
+  },
 };
 
 /* ------------------------------------------------------------------
@@ -1418,6 +1514,209 @@ export const CONTENT = {
     },
     schema: { "@type": "CollectionPage" },
   },
+  gimpo: {
+    ko: {
+      title: "김포 필라테스 강사 자격과정 - CPPI 김포 교육센터 (운양 웰니스웨이 필라테스) | CPPI 한국 필라테스 교육협회",
+      desc: "경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호, 운양 웰니스웨이 필라테스에서 운영하는 CPPI 필라테스 강사 자격과정. 에센셜 코스와 CMPI 마스터 코스. 수강료 정상가 420만원, 얼리버드 400만원.",
+      eyebrow: "GIMPO", h1: "김포 교육센터 - 운양 웰니스웨이 필라테스",
+      lead: "김포 운양동·김포한강신도시 생활권에서 CPPI 필라테스 강사 자격과정을 받을 수 있는 공식 호스팅 센터입니다.",
+      blocks: [
+        { h: "센터 정보", list: ["센터명 - 운양 웰니스웨이 필라테스", "주소 - 경기 김포시 김포한강11로 133 (운양동, 중앙프라자) 703호", "센터 구분 - CPPI 공식 호스팅 센터", "운영 과정 - 에센셜 코스 · CMPI 마스터 코스 · 전문 강사 워크숍", "교육 주관 - CPPI 한국필라테스교육협회 (고유번호 201-82-74381, 비영리)"] },
+        { h: "김포에서 받을 수 있는 과정", p: "김포 교육센터에서는 CPPI 정규 자격과정 2종을 운영합니다. 에센셜 코스는 필라테스를 접해본 적 없는 비전공 입문자가 CPPI 필라테스 강사 자격까지 가는 과정으로, 8개 과목 약 110~120시간입니다. CMPI 코스는 경력 3년 이상 현직 강사가 CPPI 마스터 인스트럭터가 되는 별도 과정이며, 교재 9권 전권 1,617페이지를 다루고 취득 시 CPPI 자격과정을 직접 강의할 수 있는 자격이 부여됩니다. 리커버링 재활 필라테스 원데이 자격과정과 임산부·소도구 전문가 과정도 단기 워크숍으로 운영합니다." },
+        { h: "어느 센터에서 들어도 같은 과정인 이유", p: "운양 웰니스웨이 필라테스는 CPPI 공식 호스팅 센터입니다. 호스팅 센터는 교육 공간과 기구를 제공하고, 커리큘럼과 교재, 강사 배정, 자격 검정은 협회가 직접 관리합니다. 김포에서 수강하든 서울 강동이나 분당에서 수강하든 같은 교재 9권 1,617페이지와 같은 317개 동작 매뉴얼을 쓰고, 같은 평가 기준으로 수료를 판정합니다. 수료 시 발급되는 국제자격증과 L3 정회원 승급, 수료강사 명단 등재도 동일합니다." },
+        { h: "서울까지 가지 않아도 되는 이유", p: "필라테스 강사 자격과정은 110~120시간을 수개월에 걸쳐 나누어 수강하는 구조입니다. 매 회차 이동 시간이 길면 중도 이탈의 가장 큰 원인이 됩니다. 김포 교육센터는 김포 서북부 생활권에서 동일한 과정을 받을 수 있도록 운영합니다. 교육 품질은 협회가 직접 관리하므로 접근성 때문에 과정 수준을 양보해야 하는 구조가 아닙니다." },
+        { h: "수강료와 상담", p: "에센셜 코스 수강료는 정상가 420만원이고, 얼리버드 신청과 할인 혜택이 적용되면 400만원입니다. 개강 일정과 납부 방법, 수강료에 포함되는 항목은 기수별 공지와 개별 상담에서 안내드립니다. 에센셜과 CMPI 중 어느 과정부터 시작할지는 무료 상담에서 먼저 확인하실 수 있습니다." },
+      ],
+    },
+    en: {
+      title: "Pilates Instructor Certification in Gimpo - CPPI Gimpo Center | CPPI Korea",
+      desc: "CPPI Pilates instructor certification at Wellness Way Pilates Unyang, #703, 133 Gimpohangang 11-ro, Gimpo-si, Gyeonggi-do. Essential and CMPI tracks. Tuition KRW 4,200,000 list, KRW 4,000,000 early-bird.",
+      eyebrow: "GIMPO", h1: "Gimpo center - Wellness Way Pilates Unyang",
+      lead: "An official CPPI hosting center serving Unyang-dong and the Gimpo Hangang new town area.",
+      blocks: [
+        { h: "Center details", list: ["Center - Wellness Way Pilates Unyang", "Address - #703, 133 Gimpohangang 11-ro, Unyang-dong, Gimpo-si, Gyeonggi-do", "Type - official CPPI hosting center", "Courses - Essential course, CMPI master course, professional instructor workshops", "Education provider - CPPI Korea Pilates Education Association (reg. 201-82-74381, non-profit)"] },
+        { h: "What runs here", p: "Both CPPI certification tracks run at the Gimpo center. The Essential course takes a complete beginner without a related degree through to the CPPI Pilates Instructor qualification across eight subjects and roughly 110 to 120 hours. The CMPI course is a separate track for instructors with three or more years of experience, covering all nine volumes and 1,617 pages; holding it confers the right to teach the CPPI certification course itself. Short workshops also run here: the Recovering Rehabilitation Pilates one-day certification and the prenatal and small-props specialist courses." },
+        { h: "Why the course is identical at every center", p: "Wellness Way Pilates Unyang is an official CPPI hosting center. A hosting center provides the teaching space and apparatus; the association manages the curriculum, the textbooks, instructor assignment and the certification assessment directly. Whether you study in Gimpo, in Gangdong in Seoul, or in Bundang, you work from the same nine textbooks and 1,617 pages, the same manual of 317 documented movements, and the same assessment standard. The international certificate, the upgrade to L3 full membership and the listing in the graduate instructor directory are identical too." },
+        { h: "Why you do not need to travel into Seoul", p: "A Pilates instructor certification is 110 to 120 hours spread over several months. When each session involves a long journey, that becomes the single largest cause of students dropping out. The Gimpo center exists so that the same course is available in the north-western part of the metropolitan area. Because the association manages the teaching standard directly, choosing the closer center does not mean accepting a lesser course." },
+        { h: "Tuition and consultation", p: "Tuition for the Essential course is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts. Start dates, payment methods and what the fee covers are confirmed in each cohort announcement and in individual consultation." },
+      ],
+    },
+    ja: {
+      title: "金浦ピラティス指導者資格課程 - CPPI 金浦教育センター(雲陽ウェルネスウェイ ピラティス) | CPPI 韓国ピラティス教育協会",
+      desc: "京畿道金浦市金浦漢江11路133(雲陽洞・中央プラザ)703号、雲陽ウェルネスウェイ ピラティスで運営するCPPIピラティス指導者資格課程。エッセンシャルコースとCMPIマスターコース。受講料は定価420万ウォン、アーリーバード400万ウォン。",
+      eyebrow: "GIMPO", h1: "金浦教育センター - 雲陽ウェルネスウェイ ピラティス",
+      lead: "金浦の雲陽洞・金浦漢江新都市エリアでCPPIピラティス指導者資格課程を受講できる公式ホスティングセンターです。",
+      blocks: [
+        { h: "センター情報", list: ["センター名 - 雲陽ウェルネスウェイ ピラティス", "住所 - 京畿道 金浦市 金浦漢江11路133(雲陽洞・中央プラザ)703号", "区分 - CPPI 公式ホスティングセンター", "運営課程 - エッセンシャルコース・CMPIマスターコース・専門講師ワークショップ", "教育主管 - CPPI 韓国ピラティス教育協会(固有番号 201-82-74381、非営利)"] },
+        { h: "金浦で受講できる課程", p: "金浦教育センターではCPPI正規資格課程2種を運営しています。エッセンシャルコースは未経験者がCPPIピラティス指導者資格を取得する8科目およそ110~120時間の課程です。CMPIコースは経歴3年以上の現役講師を対象とした別課程で、教材9巻全巻1,617ページを扱い、取得するとCPPI資格課程を直接指導する資格が与えられます。" },
+        { h: "どのセンターでも同じ課程である理由", p: "雲陽ウェルネスウェイ ピラティスはCPPI公式ホスティングセンターです。ホスティングセンターは教育空間と機器を提供し、カリキュラム・教材・講師の配置・資格検定は協会が直接管理します。金浦・ソウル江東・盆唐のどこで受講しても、同じ教材9巻1,617ページと同じ317動作マニュアルを使い、同じ評価基準で修了を判定します。" },
+        { h: "ソウルまで通わなくてよい理由", p: "ピラティス指導者資格課程は110~120時間を数か月かけて分割受講する構造です。毎回の移動時間が長いことは中途離脱の最大の原因になります。金浦教育センターは首都圏北西部で同一の課程を受けられるように運営しています。" },
+        { h: "受講料とご相談", p: "エッセンシャルコースの受講料は定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。開講日程・納付方法・受講料に含まれる項目は期別の告知と個別相談でご案内します。" },
+      ],
+    },
+    zh: {
+      title: "金浦普拉提教练资格课程 - CPPI 金浦教育中心(云阳 Wellness Way 普拉提) | CPPI 韩国普拉提教育协会",
+      desc: "于京畿道金浦市金浦汉江11路133号(云阳洞·中央广场)703室、云阳 Wellness Way 普拉提开设的CPPI普拉提教练资格课程。Essential 课程与 CMPI 大师课程。学费标准价420万韩元，早鸟价400万韩元。",
+      eyebrow: "GIMPO", h1: "金浦教育中心 - 云阳 Wellness Way 普拉提",
+      lead: "可在金浦云阳洞、金浦汉江新城一带修读CPPI普拉提教练资格课程的官方托管中心。",
+      blocks: [
+        { h: "中心信息", list: ["中心名称 - 云阳 Wellness Way 普拉提", "地址 - 京畿道金浦市金浦汉江11路133号(云阳洞·中央广场)703室", "类别 - CPPI 官方托管中心", "开设课程 - Essential 课程、CMPI 大师课程、专业教练工作坊", "教育主办 - CPPI 韩国普拉提教育协会(登记号 201-82-74381，非营利)"] },
+        { h: "金浦可修读的课程", p: "金浦教育中心开设CPPI两类正规资格课程。Essential 课程面向无普拉提基础的入门者，共八门科目约110~120小时。CMPI 课程面向三年以上经验的在职教练，涵盖九卷全书1,617页，取得后即具备直接讲授CPPI资格课程的资格。" },
+        { h: "各中心课程完全一致的原因", p: "云阳 Wellness Way 普拉提为CPPI官方托管中心。托管中心提供教学空间与器械，课程体系、教材、师资配置与资格检定均由协会直接管理。无论在金浦、首尔江东或盆唐修读，都使用同一套九卷1,617页教材与317个动作手册，并以同一评估标准判定结业。" },
+        { h: "无需远赴首尔的理由", p: "普拉提教练资格课程为110~120小时、分数月修读的结构。每次往返耗时过长是中途退出的首要原因。金浦教育中心让首都圈西北部的学员能就近修读同一课程。" },
+        { h: "学费与咨询", p: "Essential 课程学费标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。开课日程、缴费方式及学费包含项目将在各期公告与个别咨询中说明。" },
+      ],
+    },
+    "zh-Hant": {
+      title: "金浦皮拉提斯師資培訓課程 - CPPI 金浦教育中心(雲陽 Wellness Way 皮拉提斯) | CPPI 韓國皮拉提斯教育協會",
+      desc: "於京畿道金浦市金浦漢江11路133號(雲陽洞·中央廣場)703室、雲陽 Wellness Way 皮拉提斯開設的 CPPI 皮拉提斯師資培訓課程。Essential 課程與 CMPI 大師課程。學費標準價420萬韓元，早鳥價400萬韓元。",
+      eyebrow: "GIMPO", h1: "金浦教育中心 - 雲陽 Wellness Way 皮拉提斯",
+      lead: "可在金浦雲陽洞、金浦漢江新城一帶修讀 CPPI 皮拉提斯師資培訓課程的官方託管中心。",
+      blocks: [
+        { h: "中心資訊", list: ["中心名稱 - 雲陽 Wellness Way 皮拉提斯", "地址 - 京畿道金浦市金浦漢江11路133號(雲陽洞·中央廣場)703室", "類別 - CPPI 官方託管中心", "開設課程 - Essential 課程、CMPI 大師課程、專業導師工作坊", "教育主辦 - CPPI 韓國皮拉提斯教育協會(登記號 201-82-74381，非營利)"] },
+        { h: "金浦可修讀的課程", p: "金浦教育中心開設 CPPI 兩類正規證照課程。Essential 課程面向無皮拉提斯基礎的入門者，共八門科目約110~120小時。CMPI 課程面向三年以上經驗的在職導師，涵蓋九卷全書1,617頁，取得後即具備直接講授 CPPI 證照課程的資格。" },
+        { h: "各中心課程完全一致的原因", p: "雲陽 Wellness Way 皮拉提斯為 CPPI 官方託管中心。託管中心提供教學空間與器械，課程體系、教材、師資配置與資格檢定均由協會直接管理。無論在金浦、首爾江東或盆唐修讀，都使用同一套九卷1,617頁教材與317個動作手冊，並以同一評估標準判定結業。" },
+        { h: "無需遠赴首爾的理由", p: "皮拉提斯師資培訓課程為110~120小時、分數月修讀的結構。每次往返耗時過長是中途退出的首要原因。金浦教育中心讓首都圈西北部的學員能就近修讀同一課程。" },
+        { h: "學費與諮詢", p: "Essential 課程學費標準價為420萬韓元，適用早鳥報名與折扣優惠時為400萬韓元。開課日程、繳費方式及學費包含項目將於各梯次公告與個別諮詢中說明。" },
+      ],
+    },
+    schema: { "@type": "WebPage", about: { "@type": "Place", name: "Wellness Way Pilates Unyang",
+      address: { "@type": "PostalAddress", streetAddress: "#703, 133 Gimpohangang 11-ro", addressLocality: "Gimpo", addressCountry: "KR" } } },
+  },
+  bundang: {
+    ko: {
+      title: "분당 필라테스 강사 자격과정 - CPPI 분당 교육센터 (필라티크 운동연구소) | CPPI 한국 필라테스 교육협회",
+      desc: "경기도 성남시 분당구 정자일로198번길 6-5, 협회 부설시설 필라티크 운동연구소에서 운영하는 CPPI 필라테스 강사 자격과정. 에센셜 코스와 CMPI 마스터 코스. 수강료 정상가 420만원, 얼리버드 400만원.",
+      eyebrow: "BUNDANG", h1: "분당 교육센터 - 필라티크 운동연구소",
+      lead: "CPPI 한국필라테스교육협회의 부설시설입니다. 분당·성남·정자동 생활권에서 자격과정과 자격 검정을 함께 운영합니다.",
+      blocks: [
+        { h: "센터 정보", list: ["센터명 - 필라티크 운동연구소", "주소 - 경기도 성남시 분당구 정자일로198번길 6-5", "센터 구분 - CPPI 한국필라테스교육협회 부설시설", "운영 과정 - 에센셜 코스 · CMPI 마스터 코스 · 전문 강사 워크숍 · 자격 검정", "교육 주관 - CPPI 한국필라테스교육협회 (고유번호 201-82-74381, 비영리)"] },
+        { h: "협회 부설시설이라는 뜻", p: "분당 교육센터는 다른 두 센터와 성격이 다릅니다. 서울 바디멀티 상일동역점과 김포 운양 웰니스웨이 필라테스는 CPPI 공식 호스팅 센터, 즉 교육 공간과 기구를 제공하는 제휴 스튜디오입니다. 필라티크 운동연구소는 협회가 직접 운영하는 부설시설입니다. 다만 수강생 입장에서 받는 교육은 동일합니다. 어느 센터든 커리큘럼과 교재, 강사 배정, 자격 검정은 협회가 직접 관리하므로 같은 과정과 같은 평가 기준이 적용됩니다." },
+        { h: "분당에서 받을 수 있는 과정", p: "에센셜 코스와 CMPI 코스를 모두 운영합니다. 에센셜 코스는 비전공 입문자가 CPPI 필라테스 강사 자격까지 가는 8개 과목 약 110~120시간 과정입니다. CMPI 코스는 경력 3년 이상 현직 강사를 대상으로 한 별도 과정으로, 교재 9권 전권 1,617페이지를 다루며 취득 시 CPPI 자격과정을 직접 강의할 수 있는 자격이 부여됩니다. 리커버링 재활 필라테스 원데이 자격과정과 임산부·소도구 전문가 과정도 단기 워크숍으로 운영합니다." },
+        { h: "커리큘럼의 임상 출발점이 분당입니다", p: "CPPI 커리큘럼이 재활·교정 중심으로 설계된 배경은 창립자 박은주 교수의 병원 임상 경력입니다. 분당서울대병원 마취통증의학과에서 통증 환자를 접하고, 한국보훈복지공단 척추&관절센터에서 척추·관절 재활 현장을 경험한 기간이 교재 9권의 뼈대가 되었습니다. 동작을 외우는 교육이 아니라 눈앞의 몸을 읽고 조정하는 교육을 지향하는 이유가 여기에 있습니다." },
+        { h: "수강료와 상담", p: "에센셜 코스 수강료는 정상가 420만원이고, 얼리버드 신청과 할인 혜택이 적용되면 400만원입니다. 개강 일정과 납부 방법, 수강료에 포함되는 항목은 기수별 공지와 개별 상담에서 안내드립니다. 에센셜과 CMPI 중 어느 과정부터 시작할지는 무료 상담에서 먼저 확인하실 수 있습니다." },
+      ],
+    },
+    en: {
+      title: "Pilates Instructor Certification in Bundang - CPPI Bundang Center | CPPI Korea",
+      desc: "CPPI Pilates instructor certification at Pilatique Movement Lab, the association's own affiliated facility, 6-5 Jeongjail-ro 198beon-gil, Bundang-gu, Seongnam. Essential and CMPI tracks. Tuition KRW 4,200,000 list, KRW 4,000,000 early-bird.",
+      eyebrow: "BUNDANG", h1: "Bundang center - Pilatique Movement Lab",
+      lead: "The association's own affiliated facility, running both certification and certification assessment in Bundang, Seongnam.",
+      blocks: [
+        { h: "Center details", list: ["Center - Pilatique Movement Lab", "Address - 6-5 Jeongjail-ro 198beon-gil, Bundang-gu, Seongnam-si, Gyeonggi-do", "Type - affiliated facility of CPPI Korea Pilates Education Association", "Courses - Essential course, CMPI master course, professional workshops, certification assessment", "Education provider - CPPI Korea Pilates Education Association (reg. 201-82-74381, non-profit)"] },
+        { h: "What an affiliated facility means", p: "The Bundang center differs in kind from the other two. BodyMulti Sangil-dong Station in Seoul and Wellness Way Unyang in Gimpo are official CPPI hosting centers - partner studios that provide teaching space and apparatus. Pilatique Movement Lab is run by the association itself. For a student, however, the education received is the same: at every center the association manages the curriculum, the textbooks, instructor assignment and the certification assessment directly, so the course and the standard are identical." },
+        { h: "What runs here", p: "Both the Essential and the CMPI course run in Bundang. The Essential course takes a beginner without a related degree through to the CPPI Pilates Instructor qualification across eight subjects and roughly 110 to 120 hours. The CMPI course is a separate track for instructors with three or more years of experience, covering all nine volumes and 1,617 pages; holding it confers the right to teach the CPPI certification course itself. The Recovering Rehabilitation Pilates one-day certification and the prenatal and small-props specialist courses also run here as short workshops." },
+        { h: "The clinical origin of the curriculum is in Bundang", p: "The reason the CPPI curriculum was designed around rehabilitation and correction is the founder's hospital practice. Eun-Ju Park worked with pain patients in the Department of Anesthesiology and Pain Medicine at Seoul National University Hospital Bundang, and with spine and joint rehabilitation at the Spine and Joint Center of the Korea Veterans Health Service. That period became the skeleton of the nine textbooks, and it is why the training aims at reading and adjusting the body in front of you rather than at memorising repertoire." },
+        { h: "Tuition and consultation", p: "Tuition for the Essential course is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts. Start dates, payment methods and what the fee covers are confirmed in each cohort announcement and in individual consultation." },
+      ],
+    },
+    ja: {
+      title: "盆唐ピラティス指導者資格課程 - CPPI 盆唐教育センター(ピラティーク運動研究所) | CPPI 韓国ピラティス教育協会",
+      desc: "京畿道城南市盆唐区亭子日路198番キル6-5、協会附設施設ピラティーク運動研究所で運営するCPPIピラティス指導者資格課程。エッセンシャルコースとCMPIマスターコース。受講料は定価420万ウォン、アーリーバード400万ウォン。",
+      eyebrow: "BUNDANG", h1: "盆唐教育センター - ピラティーク運動研究所",
+      lead: "CPPI 韓国ピラティス教育協会の附設施設です。盆唐・城南エリアで資格課程と資格検定を併せて運営しています。",
+      blocks: [
+        { h: "センター情報", list: ["センター名 - ピラティーク運動研究所", "住所 - 京畿道 城南市 盆唐区 亭子日路198番キル6-5", "区分 - CPPI 韓国ピラティス教育協会 附設施設", "運営課程 - エッセンシャルコース・CMPIマスターコース・専門講師ワークショップ・資格検定", "教育主管 - CPPI 韓国ピラティス教育協会(固有番号 201-82-74381、非営利)"] },
+        { h: "附設施設とは", p: "盆唐教育センターは他の2センターと性格が異なります。ソウルのボディマルチ上一洞駅店と金浦の雲陽ウェルネスウェイはCPPI公式ホスティングセンター、すなわち教育空間と機器を提供する提携スタジオです。ピラティーク運動研究所は協会が直接運営する附設施設です。ただし受講生が受ける教育は同一です。いずれのセンターでもカリキュラム・教材・講師の配置・資格検定は協会が直接管理します。" },
+        { h: "盆唐で受講できる課程", p: "エッセンシャルコースとCMPIコースの両方を運営しています。エッセンシャルコースは未経験者がCPPIピラティス指導者資格を取得する8科目およそ110~120時間の課程です。CMPIコースは経歴3年以上の現役講師を対象とした別課程で、教材9巻全巻1,617ページを扱い、取得するとCPPI資格課程を直接指導する資格が与えられます。" },
+        { h: "カリキュラムの臨床的出発点は盆唐です", p: "CPPIカリキュラムがリハビリ・矯正中心に設計された背景は、創立者パク・ウンジュ教授の病院臨床経歴です。盆唐ソウル大学病院 麻酔痛症医学科で痛み患者に接し、韓国報勲福祉公団 脊椎&関節センターで脊椎・関節リハビリの現場を経験した期間が教材9巻の骨格となりました。" },
+        { h: "受講料とご相談", p: "エッセンシャルコースの受講料は定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。開講日程・納付方法・受講料に含まれる項目は期別の告知と個別相談でご案内します。" },
+      ],
+    },
+    zh: {
+      title: "盆唐普拉提教练资格课程 - CPPI 盆唐教育中心(Pilatique 运动研究所) | CPPI 韩国普拉提教育协会",
+      desc: "于京畿道城南市盆唐区亭子日路198街6-5号、协会附设机构 Pilatique 运动研究所开设的CPPI普拉提教练资格课程。Essential 课程与 CMPI 大师课程。学费标准价420万韩元，早鸟价400万韩元。",
+      eyebrow: "BUNDANG", h1: "盆唐教育中心 - Pilatique 运动研究所",
+      lead: "CPPI 韩国普拉提教育协会的附设机构。在盆唐、城南一带同时开设资格课程与资格检定。",
+      blocks: [
+        { h: "中心信息", list: ["中心名称 - Pilatique 运动研究所", "地址 - 京畿道城南市盆唐区亭子日路198街6-5号", "类别 - CPPI 韩国普拉提教育协会 附设机构", "开设课程 - Essential 课程、CMPI 大师课程、专业教练工作坊、资格检定", "教育主办 - CPPI 韩国普拉提教育协会(登记号 201-82-74381，非营利)"] },
+        { h: "附设机构的含义", p: "盆唐教育中心与另外两个中心性质不同。首尔 BodyMulti 上一洞站店与金浦云阳 Wellness Way 为CPPI官方托管中心，即提供教学空间与器械的合作工作室。Pilatique 运动研究所由协会直接运营。但就学员所接受的教育而言完全相同：各中心的课程体系、教材、师资配置与资格检定均由协会直接管理。" },
+        { h: "盆唐可修读的课程", p: "同时开设 Essential 课程与 CMPI 课程。Essential 课程面向无基础入门者，共八门科目约110~120小时。CMPI 课程面向三年以上经验的在职教练，涵盖九卷全书1,617页，取得后即具备直接讲授CPPI资格课程的资格。" },
+        { h: "课程的临床起点在盆唐", p: "CPPI 课程以康复与矫正为核心的原因，来自创始人朴恩珠教授的医院临床经历。她曾在盆唐首尔大学医院麻醉疼痛医学科接触疼痛患者，并在韩国报勋福祉公团脊柱与关节中心经历脊柱关节康复现场，这段经历构成了九卷教材的骨架。" },
+        { h: "学费与咨询", p: "Essential 课程学费标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。开课日程、缴费方式及学费包含项目将在各期公告与个别咨询中说明。" },
+      ],
+    },
+    "zh-Hant": {
+      title: "盆唐皮拉提斯師資培訓課程 - CPPI 盆唐教育中心(Pilatique 運動研究所) | CPPI 韓國皮拉提斯教育協會",
+      desc: "於京畿道城南市盆唐區亭子日路198街6-5號、協會附設機構 Pilatique 運動研究所開設的 CPPI 皮拉提斯師資培訓課程。Essential 課程與 CMPI 大師課程。學費標準價420萬韓元，早鳥價400萬韓元。",
+      eyebrow: "BUNDANG", h1: "盆唐教育中心 - Pilatique 運動研究所",
+      lead: "CPPI 韓國皮拉提斯教育協會的附設機構。在盆唐、城南一帶同時開設證照課程與資格檢定。",
+      blocks: [
+        { h: "中心資訊", list: ["中心名稱 - Pilatique 運動研究所", "地址 - 京畿道城南市盆唐區亭子日路198街6-5號", "類別 - CPPI 韓國皮拉提斯教育協會 附設機構", "開設課程 - Essential 課程、CMPI 大師課程、專業導師工作坊、資格檢定", "教育主辦 - CPPI 韓國皮拉提斯教育協會(登記號 201-82-74381，非營利)"] },
+        { h: "附設機構的含義", p: "盆唐教育中心與另外兩個中心性質不同。首爾 BodyMulti 上一洞站店與金浦雲陽 Wellness Way 為 CPPI 官方託管中心，即提供教學空間與器械的合作工作室。Pilatique 運動研究所由協會直接營運。但就學員所接受的教育而言完全相同：各中心的課程體系、教材、師資配置與資格檢定均由協會直接管理。" },
+        { h: "盆唐可修讀的課程", p: "同時開設 Essential 課程與 CMPI 課程。Essential 課程面向無基礎入門者，共八門科目約110~120小時。CMPI 課程面向三年以上經驗的在職導師，涵蓋九卷全書1,617頁，取得後即具備直接講授 CPPI 證照課程的資格。" },
+        { h: "課程的臨床起點在盆唐", p: "CPPI 課程以康復與矯正為核心的原因，來自創辦人朴恩珠教授的醫院臨床經歷。她曾在盆唐首爾大學醫院麻醉疼痛醫學科接觸疼痛患者，並在韓國報勳福祉公團脊椎與關節中心經歷脊椎關節康復現場，這段經歷構成了九卷教材的骨架。" },
+        { h: "學費與諮詢", p: "Essential 課程學費標準價為420萬韓元，適用早鳥報名與折扣優惠時為400萬韓元。開課日程、繳費方式及學費包含項目將於各梯次公告與個別諮詢中說明。" },
+      ],
+    },
+    schema: { "@type": "WebPage", about: { "@type": "Place", name: "Pilatique Movement Lab",
+      address: { "@type": "PostalAddress", streetAddress: "6-5 Jeongjail-ro 198beon-gil, Bundang-gu", addressLocality: "Seongnam", addressCountry: "KR" } } },
+  },
+  gangdong: {
+    ko: {
+      title: "강동 필라테스 강사 자격과정 - CPPI 서울 교육센터 (바디멀티 상일동역점) | CPPI 한국 필라테스 교육협회",
+      desc: "서울 강동구 고덕로83길 14, 바디멀티 필라테스 상일동역점에서 운영하는 CPPI 필라테스 강사 자격과정. 에센셜 코스와 CMPI 마스터 코스, 전문 강사 워크숍. 수강료 정상가 420만원, 얼리버드 400만원.",
+      eyebrow: "SEOUL GANGDONG", h1: "강동 교육센터 - 바디멀티 필라테스 상일동역점",
+      lead: "서울 강동·고덕·상일동 생활권에서 CPPI 필라테스 강사 자격과정을 받을 수 있는 공식 호스팅 센터입니다.",
+      blocks: [
+        { h: "센터 정보", list: ["센터명 - 바디멀티 필라테스 상일동역점", "주소 - 서울 강동구 고덕로83길 14", "센터 구분 - CPPI 공식 호스팅 센터", "운영 과정 - 에센셜 코스 · CMPI 마스터 코스 · 전문 강사 워크숍", "교육 주관 - CPPI 한국필라테스교육협회 (고유번호 201-82-74381, 비영리)"] },
+        { h: "강동에서 받을 수 있는 과정", p: "강동 교육센터에서는 CPPI 정규 자격과정 2종을 모두 운영합니다. 에센셜 코스는 필라테스를 접해본 적 없는 비전공 입문자가 CPPI 필라테스 강사 자격까지 가는 과정으로, 8개 과목 약 110~120시간입니다. CMPI 코스는 경력 3년 이상 현직 강사가 CPPI 마스터 인스트럭터가 되는 별도 과정이며, 취득 시 CPPI 자격과정을 직접 강의할 수 있는 자격이 부여됩니다. 여기에 리커버링 재활 필라테스 원데이 자격과정, 임산부 필라테스 전문가 과정, 소도구 필라테스 전문가 과정을 단기 워크숍으로 함께 운영합니다." },
+        { h: "어느 센터에서 들어도 같은 과정인 이유", p: "바디멀티 필라테스 상일동역점은 CPPI 공식 호스팅 센터입니다. 호스팅 센터는 교육 공간과 기구를 제공하고, 커리큘럼과 교재, 강사 배정, 자격 검정은 협회가 직접 관리합니다. 즉 강동에서 수강하든 분당이나 김포에서 수강하든 같은 교재 9권 1,617페이지와 같은 317개 동작 매뉴얼을 쓰고, 같은 평가 기준으로 수료를 판정합니다. 수료 시 발급되는 국제자격증과 L3 정회원 승급도 동일합니다." },
+        { h: "바디멀티 필라테스 아카데미 연계", p: "바디멀티는 필라테스 아카데미를 함께 운영하는 스튜디오입니다. 수강 중에는 실제 회원을 지도하는 현장을 가까이에서 볼 수 있고, 수료 후에는 스튜디오 연계와 강사 네트워크 지원 대상이 됩니다. CPPI 수료강사 명단 등재와 활동 연계 지원은 센터 구분과 무관하게 협회가 동일하게 제공합니다." },
+        { h: "수강료와 상담", p: "에센셜 코스 수강료는 정상가 420만원이고, 얼리버드 신청과 할인 혜택이 적용되면 400만원입니다. 개강 일정과 납부 방법, 수강료에 포함되는 항목은 기수별 공지와 개별 상담에서 안내드립니다. 현재 상태에서 에센셜과 CMPI 중 어느 과정부터 시작하는 것이 적절한지는 무료 상담에서 먼저 확인하실 수 있습니다." },
+      ],
+    },
+    en: {
+      title: "Pilates Instructor Certification in Gangdong, Seoul - CPPI Seoul Center | CPPI Korea",
+      desc: "CPPI Pilates instructor certification at BodyMulti Pilates Sangil-dong Station, 14 Godeok-ro 83-gil, Gangdong-gu, Seoul. Essential and CMPI tracks plus professional workshops. Tuition KRW 4,200,000 list, KRW 4,000,000 early-bird.",
+      eyebrow: "SEOUL GANGDONG", h1: "Seoul center - BodyMulti Pilates, Sangil-dong Station",
+      lead: "An official CPPI hosting center serving Gangdong, Godeok and Sangil-dong in eastern Seoul.",
+      blocks: [
+        { h: "Center details", list: ["Center - BodyMulti Pilates, Sangil-dong Station", "Address - 14 Godeok-ro 83-gil, Gangdong-gu, Seoul", "Type - official CPPI hosting center", "Courses - Essential course, CMPI master course, professional instructor workshops", "Education provider - CPPI Korea Pilates Education Association (reg. 201-82-74381, non-profit)"] },
+        { h: "What runs here", p: "Both CPPI certification tracks run at the Seoul center. The Essential course takes a complete beginner without a related degree through to the CPPI Pilates Instructor qualification across eight subjects and roughly 110 to 120 hours. The CMPI course - Certified Master Pilates Instructor - is a separate track for instructors with three or more years of experience, and holding it confers the right to teach the CPPI certification course itself. Short workshops also run here: the Recovering Rehabilitation Pilates one-day certification, the Prenatal Pilates specialist course, and the Small-props Pilates specialist course." },
+        { h: "Why the course is identical at every center", p: "BodyMulti Pilates Sangil-dong Station is an official CPPI hosting center. A hosting center provides the teaching space and apparatus; the association manages the curriculum, the textbooks, instructor assignment and the certification assessment directly. Whether you study in Gangdong, Bundang or Gimpo you work from the same nine textbooks and 1,617 pages, the same manual of 317 documented movements, and the same assessment standard. The international certificate and the upgrade to L3 full membership are identical too." },
+        { h: "Tuition and consultation", p: "Tuition for the Essential course is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts. Start dates, payment methods and what the fee covers are confirmed in each cohort announcement and in individual consultation. A free consultation establishes whether Essential or CMPI is the right starting point for you." },
+      ],
+    },
+    ja: {
+      title: "江東ピラティス指導者資格課程 - CPPI ソウル教育センター(ボディマルチ上一洞駅店) | CPPI 韓国ピラティス教育協会",
+      desc: "ソウル特別市江東区高徳路83キル14、ボディマルチ ピラティス上一洞駅店で運営するCPPIピラティス指導者資格課程。エッセンシャルコースとCMPIマスターコース、専門講師ワークショップ。受講料は定価420万ウォン、アーリーバード400万ウォン。",
+      eyebrow: "SEOUL GANGDONG", h1: "ソウル教育センター - ボディマルチ ピラティス 上一洞駅店",
+      lead: "ソウル江東・高徳・上一洞エリアでCPPIピラティス指導者資格課程を受講できる公式ホスティングセンターです。",
+      blocks: [
+        { h: "センター情報", list: ["センター名 - ボディマルチ ピラティス 上一洞駅店", "住所 - ソウル特別市 江東区 高徳路83キル14", "区分 - CPPI 公式ホスティングセンター", "運営課程 - エッセンシャルコース・CMPIマスターコース・専門講師ワークショップ", "教育主管 - CPPI 韓国ピラティス教育協会(固有番号 201-82-74381、非営利)"] },
+        { h: "江東で受講できる課程", p: "ソウル教育センターではCPPI正規資格課程2種をすべて運営しています。エッセンシャルコースはピラティス未経験の方がCPPIピラティス指導者資格を取得する課程で、8科目およそ110~120時間です。CMPIコースは経歴3年以上の現役講師がCPPIマスターインストラクターになる別課程で、取得するとCPPI資格課程を直接指導する資格が与えられます。リカバリングリハビリピラティス、マタニティ、小道具の各専門課程も短期ワークショップとして併設しています。" },
+        { h: "どのセンターでも同じ課程である理由", p: "ボディマルチ上一洞駅店はCPPI公式ホスティングセンターです。ホスティングセンターは教育空間と機器を提供し、カリキュラム・教材・講師の配置・資格検定は協会が直接管理します。江東・盆唐・金浦のどこで受講しても、同じ教材9巻1,617ページと同じ317動作マニュアルを使い、同じ評価基準で修了を判定します。" },
+        { h: "受講料とご相談", p: "エッセンシャルコースの受講料は定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。開講日程・納付方法・受講料に含まれる項目は期別の告知と個別相談でご案内します。" },
+      ],
+    },
+    zh: {
+      title: "江东普拉提教练资格课程 - CPPI 首尔教育中心(BodyMulti 上一洞站店) | CPPI 韩国普拉提教育协会",
+      desc: "于首尔特别市江东区高德路83街14号 BodyMulti 普拉提上一洞站店开设的CPPI普拉提教练资格课程。Essential 课程与 CMPI 大师课程、专业教练工作坊。学费标准价420万韩元，早鸟价400万韩元。",
+      eyebrow: "SEOUL GANGDONG", h1: "首尔教育中心 - BodyMulti 普拉提 上一洞站店",
+      lead: "可在首尔江东、高德、上一洞一带修读CPPI普拉提教练资格课程的官方托管中心。",
+      blocks: [
+        { h: "中心信息", list: ["中心名称 - BodyMulti 普拉提 上一洞站店", "地址 - 首尔特别市江东区高德路83街14号", "类别 - CPPI 官方托管中心", "开设课程 - Essential 课程、CMPI 大师课程、专业教练工作坊", "教育主办 - CPPI 韩国普拉提教育协会(登记号 201-82-74381，非营利)"] },
+        { h: "江东可修读的课程", p: "首尔教育中心开设CPPI两类正规资格课程。Essential 课程面向无普拉提基础的入门者，取得CPPI普拉提教练资格，共八门科目约110~120小时。CMPI 课程面向三年以上经验的在职教练，取得后即具备直接讲授CPPI资格课程的资格。此外还设有康复、孕产、小工具三类短期专业工作坊。" },
+        { h: "各中心课程完全一致的原因", p: "BodyMulti 上一洞站店为CPPI官方托管中心。托管中心提供教学空间与器械，课程体系、教材、师资配置与资格检定均由协会直接管理。无论在江东、盆唐或金浦修读，都使用同一套九卷1,617页教材与317个动作手册，并以同一评估标准判定结业。" },
+        { h: "学费与咨询", p: "Essential 课程学费标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。开课日程、缴费方式及学费包含项目将在各期公告与个别咨询中说明。" },
+      ],
+    },
+    "zh-Hant": {
+      title: "江東皮拉提斯師資培訓課程 - CPPI 首爾教育中心(BodyMulti 上一洞站店) | CPPI 韓國皮拉提斯教育協會",
+      desc: "於首爾特別市江東區高德路83街14號 BodyMulti 皮拉提斯上一洞站店開設的 CPPI 皮拉提斯師資培訓課程。Essential 課程與 CMPI 大師課程、專業導師工作坊。學費標準價420萬韓元，早鳥價400萬韓元。",
+      eyebrow: "SEOUL GANGDONG", h1: "首爾教育中心 - BodyMulti 皮拉提斯 上一洞站店",
+      lead: "可在首爾江東、高德、上一洞一帶修讀 CPPI 皮拉提斯師資培訓課程的官方託管中心。",
+      blocks: [
+        { h: "中心資訊", list: ["中心名稱 - BodyMulti 皮拉提斯 上一洞站店", "地址 - 首爾特別市江東區高德路83街14號", "類別 - CPPI 官方託管中心", "開設課程 - Essential 課程、CMPI 大師課程、專業導師工作坊", "教育主辦 - CPPI 韓國皮拉提斯教育協會(登記號 201-82-74381，非營利)"] },
+        { h: "江東可修讀的課程", p: "首爾教育中心開設 CPPI 兩類正規證照課程。Essential 課程面向無皮拉提斯基礎的入門者，取得 CPPI 皮拉提斯導師證照，共八門科目約110~120小時。CMPI 課程面向三年以上經驗的在職導師，取得後即具備直接講授 CPPI 證照課程的資格。另設康復、孕產、小工具三類短期專業工作坊。" },
+        { h: "各中心課程完全一致的原因", p: "BodyMulti 上一洞站店為 CPPI 官方託管中心。託管中心提供教學空間與器械，課程體系、教材、師資配置與資格檢定均由協會直接管理。無論在江東、盆唐或金浦修讀，都使用同一套九卷1,617頁教材與317個動作手冊，並以同一評估標準判定結業。" },
+        { h: "學費與諮詢", p: "Essential 課程學費標準價為420萬韓元，適用早鳥報名與折扣優惠時為400萬韓元。開課日程、繳費方式及學費包含項目將於各梯次公告與個別諮詢中說明。" },
+      ],
+    },
+    schema: { "@type": "WebPage", about: { "@type": "Place", name: "BodyMulti Pilates Sangil-dong Station",
+      address: { "@type": "PostalAddress", streetAddress: "14 Godeok-ro 83-gil, Gangdong-gu", addressLocality: "Seoul", addressCountry: "KR" } } },
+  },
 };
 
 
@@ -2370,7 +2669,7 @@ export const APP_LANGS = ["ko", "en", "ja", "zh", "zh-Hant"];
 /* 앱이 가진 전체 라우트. SEO 콘텐츠가 없는 화면(/my, /checkout 등)도
    새로고침·직접접속에서 404 가 나지 않도록 앱 셸을 돌려주기 위해 필요하다. */
 export const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","master","journal",
-  "stories","global","learn","store","why","lecture","prep","books","ebooks","guide","checkout",
+  "stories","global","learn","store","why","gangdong","bundang","gimpo","lecture","prep","books","ebooks","guide","checkout",
   "bank","apply","support","members","my","login","signup","admin"];
 
 /* index.html 의 <!--SEO:START--> ~ <!--SEO:END--> 구간을 대체할 헤드 태그 */
