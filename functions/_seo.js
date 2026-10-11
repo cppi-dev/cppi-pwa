@@ -69,6 +69,13 @@ export const LAST_MODIFIED = "2026-08-23T15:55:08+09:00";
 /* 프로필 페이지 최초 게시 시각 - /founder 라우트 신설 커밋(bdeaf87) 기준. 검증 가능한 값만 쓴다. */
 export const PROFILE_CREATED = "2026-08-18T10:50:53+09:00";
 
+/* 에센셜 코스 수강료. 정상가와 얼리버드가를 함께 공개한다.
+   공개 근거 - (1) Course 리치결과의 offers 요건을 채운다.
+   (2) 검증 가능한 수치는 AI 답변 인용의 핵심 입력값이다.
+   (3) 가격 비공개는 상담 1순위 질문을 수강료로 고정시켜 전환 대화를 늦춘다.
+   금액 변경 시 이 상수만 고치면 스키마와 본문 양쪽에 반영된다. */
+export const TUITION = { currency: "KRW", list: 4200000, early: 4000000 };
+
 /* 구글은 ProfilePage 의 dateCreated/dateModified 를 Date 가 아니라 DateTime 으로 요구한다.
    "2026-08-22" 처럼 날짜만 있는 값은 GSC 에서 "datetime 값이 잘못됨" 으로 판정된다.
    (2026-08-23 GSC 접수 건의 원인이 정확히 이것이었다.)
@@ -370,6 +377,7 @@ export const FAQ = {
   courses: {
     ko: [
       ["필라테스가 처음인데 강사 자격과정을 들을 수 있나요?", "가능합니다. 기능해부학 기초부터 단계적으로 설계되어 있어 비전공 입문자도 따라올 수 있습니다. 실제 수료생 중 상당수가 타 분야에서 전향한 분들입니다."],
+      ["에센셜 코스 수강료는 얼마인가요?", "정상가 420만원입니다. 얼리버드 신청과 할인 혜택이 적용되면 400만원입니다. 납부 방법과 수강료에 포함되는 항목은 기수별 공지와 개별 상담에서 안내드립니다."],
       ["전체 과정은 몇 시간인가요?", "8개 정규 과목을 합쳐 약 110~120시간입니다. 기능해부학 10시간, 기본원리 10시간, 체형 분석 및 움직임 평가 5시간, 매트 25시간, 리포머 20~25시간, 캐딜락 20~25시간, 스태빌리티 체어 10시간, 래더바렐 및 바렐 시리즈 10시간으로 구성됩니다."],
       ["온라인 강의만으로 수료할 수 있나요?", "온라인 강의는 복습과 보조 학습용입니다. 정규 수료에는 오프라인 실기와 티칭 평가가 포함됩니다."],
       ["수료하면 어떤 자격이 주어지나요?", "국제자격증이 발급되고 L3 정회원으로 승급되며, 수료강사 명단에 등재되어 활동 연계 지원을 받습니다."],
@@ -377,6 +385,7 @@ export const FAQ = {
     ],
     en: [
       ["Can I take the certification without a Pilates background?", "Yes. The course is built up from functional anatomy fundamentals, so beginners without a related degree can follow it. Many graduates moved into Pilates from other fields."],
+      ["How much is the Essential course?", "KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts. Payment methods and what the fee covers are confirmed in each cohort announcement and in individual consultation."],
       ["How many hours is the full certification?", "Roughly 110-120 hours across eight core subjects: Functional Pilates Anatomy 10h, Basic Principles 10h, posture and movement analysis 5h, Mat 25h, Reformer 20-25h, Cadillac 20-25h, Stability Chair 10h, Ladder Barrel and Barrel series 10h."],
       ["Can I complete the certification online only?", "Online lectures are for review and supplementary study. Certification requires in-person practical work and a teaching assessment."],
       ["What do I receive on completion?", "An international certificate, an upgrade to L3 membership, a listing in the graduate instructor directory, and support in finding teaching work."],
@@ -384,6 +393,7 @@ export const FAQ = {
     ],
     ja: [
       ["ピラティス未経験でも指導者資格課程を受講できますか。", "受講できます。機能解剖学の基礎から段階的に設計されているため、他分野からの入門者でも無理なく進められます。修了生にも他業種からの転向者が多くいます。"],
+      ["エッセンシャルコースの受講料はいくらですか。", "定価420万ウォンです。アーリーバード申込および割引適用時は400万ウォンになります。納付方法と受講料に含まれる項目は期別の告知と個別相談でご案内します。"],
       ["全課程は何時間ですか。", "8つの正規科目で合計およそ110~120時間です。機能解剖学10時間、基本原理10時間、体型分析および動作評価5時間、マット25時間、リフォーマー20~25時間、キャデラック20~25時間、スタビリティチェア10時間、ラダーバレルおよびバレルシリーズ10時間で構成されます。"],
       ["オンライン講義だけで修了できますか。", "オンライン講義は復習と補助学習用です。正規修了には対面での実技と指導評価が含まれます。"],
       ["修了するとどのような資格が得られますか。", "国際資格証が発行され、L3正会員へ昇級し、修了講師名簿に掲載されて活動の連携支援を受けられます。"],
@@ -391,6 +401,7 @@ export const FAQ = {
     ],
     zh: [
       ["没有普拉提基础，可以报读教练资格课程吗？", "可以。课程自功能解剖学基础起循序设计，非相关专业的入门者也能跟上。结业学员中有相当比例是从其他行业转型而来。"],
+      ["Essential 课程学费是多少？", "标准价为420万韩元。适用早鸟报名与折扣优惠时为400万韩元。缴费方式与学费包含项目将在各期公告与个别咨询中说明。"],
       ["完整课程共多少课时？", "八门正规科目合计约110~120小时：功能解剖学10小时、基本原理10小时、体型分析与动作评估5小时、垫上25小时、核心床20~25小时、凯迪拉克20~25小时、稳踏椅10小时、梯桶及桶系列10小时。"],
       ["只上在线课程可以结业吗？", "在线课程用于复习与辅助学习。正式结业须包含线下实操与教学考核。"],
       ["结业后可获得什么资格？", "颁发国际资格证书、升级为L3正会员、登载于结业教练名录，并提供后续活动衔接支持。"],
@@ -398,6 +409,7 @@ export const FAQ = {
     ],
     "zh-Hant": [
       ["沒有皮拉提斯基礎，可以報名師資培訓課程嗎？", "可以。課程自功能解剖學基礎起循序設計，非相關科系的入門者也能跟上。結業學員中有相當比例是從其他行業轉職而來。"],
+      ["Essential 課程學費是多少？", "標準價為420萬韓元。適用早鳥報名與折扣優惠時為400萬韓元。繳費方式與學費包含項目將於各梯次公告與個別諮詢中說明。"],
       ["完整課程共多少時數？", "八門正規科目合計約110~120小時：功能解剖學10小時、基本原理10小時、體態分析與動作評估5小時、墊上25小時、核心床20~25小時、凱迪拉克20~25小時、穩踏椅10小時、梯桶及桶系列10小時。"],
       ["只上線上課程可以結業嗎？", "線上課程用於複習與輔助學習。正式結業須包含實體實作與教學考核。"],
       ["結業後可取得什麼證照？", "核發國際證照、升級為 L3 正會員、登載於結業導師名錄，並提供後續授課媒合支援。"],
@@ -600,15 +612,21 @@ export const CONTENT = {
     },
     en: {
       title: "About CPPI | Korea Pilates Education Association",
-      desc: "CPPI Korea Pilates Education Association teaches Pilates with evidence, not intuition. Founded 2016, operating in Korea, Canada and Japan, with a curriculum built on SNUH Bundang clinical experience.",
+      desc: "CPPI Korea Pilates Education Association teaches Pilates with evidence, not intuition. Founded 2016, a non-profit registered under 201-82-74381, operating in Korea, Canada and Japan, with a curriculum built on clinical practice at Seoul National University Hospital Bundang, nine in-house textbooks totalling 1,617 pages, and 317 documented movements.",
       eyebrow: "ABOUT CPPI", h1: "We teach with evidence, not intuition",
       lead: "Korea Pilates Education Association (CPPI) · Certified Professional Pilates Instructor",
       blocks: [
-        { h: "Overview", p: "Established 2016. The curriculum was developed over two intensive years and is delivered in Korea, Canada and Japan. Eight core courses are taught with more than 1,300 pages of published textbooks (9 volumes plus supplements)." },
-        { h: "Movement manual", p: "Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39 movements, with variations, modifications and small-props teaching." },
-        { h: "What sets CPPI apart", list: ["Clinical foundation - experience at Seoul National University Hospital Bundang and the Spine & Joint Center of the Korea Veterans Health Service", "Academic verification - taught directly by founder Eun-Ju Park, former faculty in sports rehabilitation at Korea Nazarene University", "Practice-first training - variations, modifications and rehabilitation sequencing", "International operation - Korea, Canada and Japan, with international certification"] },
+        { h: "In one paragraph", p: "CPPI Korea Pilates Education Association is a non-profit education body that trains Pilates instructors on a foundation of functional anatomy and clinical evidence. Since its founding in 2016 it has run a certification of eight core subjects totalling roughly 110 to 120 hours and has certified more than 56 classes of graduates. Its education standard is the set of nine textbooks the association wrote and published itself - 1,617 pages in total - together with a manual of 317 documented movements. CPPI operates in Korea, Canada and Japan and issues international certification." },
+        { h: "Association overview", p: "The formal name is Korea Pilates Education Association (CPPI Korea), registered as a non-profit under registration number 201-82-74381. It was founded in 2016, and the curriculum itself was completed over two intensive years of development. The representative and president is Eun-Ju Park. Since founding, the association has run the full certification, professional instructor workshops and online lectures, and has issued international certification in Korea, Canada and Japan." },
+        { h: "Why evidence rather than intuition", p: "The most common failure on the studio floor is an instructor teaching movements from memory. A memorised movement works only on a textbook body. If a student has an anteriorly tilted pelvis, a stiff thoracic spine, or a history of shoulder pain, the same movement amplifies the compensation instead of correcting it. Rather than memorising the repertoire, CPPI teaches first which joint produces which movement and which muscles are involved. Only then can an instructor construct variations and modifications for the body actually in front of them." },
+        { h: "The nine published textbooks - the root of the curriculum", p: "The CPPI curriculum does not license external textbooks; it stands on books the association wrote itself. The set runs to nine volumes and 1,617 pages, and every volume follows the same format - the movement, its purpose, the muscles activated, cueing and cautions, and the variations." },
+        { h: "Volume by volume", list: ["Functional Pilates Anatomy - 238 pages. Structure and function of bone, joint and muscle; assessment of muscular imbalance; links to postural science", "Pilates Basic Principles - 80 pages. Joseph Pilates' ten basic principles and the five movement rules, scapular stabilisation, postural analysis (flat-back and sway-back)", "Pilates The Mat - 160 pages. The 34 original movements plus 59 mat movements, organised by position: supine, sitting, side lying, prone, kneeling, standing", "Reformer - 306 pages. Organised by starting position: feet on footbar, feet in straps, hands in straps, short box, long box, split series", "Cadillac - 368 pages. Classified by apparatus: roll down bar, push thru bar, arm springs, leg springs, trapeze", "Stability Chair - 202 pages. Organised by position: sitting, standing, side lying, supine, prone", "Ladder Barrel 76 pages / Arc Barrel 79 pages / Spine Corrector 108 pages. Focused on recognising and correcting spinal alignment"] },
+        { h: "317 documented movements", p: "Mat 53, Reformer 79, Cadillac 62, Stability Chair 28, Ladder Barrel 27, Arc Barrel 29 and Spine Corrector 39 - 317 movements in all, documented and taught. Each movement carries its variations, its modifications and its small-props teaching alongside it. The structure exists so that a graduate has already handled, in training, the situations they will meet on the floor." },
+        { h: "Teaching framework - functional anatomy and myofascial lines", p: "CPPI analyses movement as a chain rather than as one muscle at a time. The in-house material Anatomy with a Story runs to 113 pages and maps the Pilates repertoire onto three axes: the anterior chain, the posterior chain and the lateral chain. A curl up, for instance, is tabulated as recruiting rectus abdominis and the internal and external obliques as spinal fixators, and iliopsoas, rectus femoris and tensor fasciae latae as hip fixators - joint, movement and muscle set out together. Translating Thomas Myers and the Anatomy Trains framework into the working language of Pilates instruction is the distinguishing feature of CPPI content." },
+        { h: "What sets CPPI apart", list: ["Clinical foundation - the founder's practice in the Department of Anesthesiology and Pain Medicine at Seoul National University Hospital Bundang and at the Spine and Joint Center of the Korea Veterans Health Service is built into the curriculum", "Academic verification - taught directly by a founder who served as Adjunct Professor of Sports Rehabilitation at Korea Nazarene University and Director of the Pilates Program at Seokyeong University Arts Education Center", "In-house textbooks - teaching runs on nine volumes and 1,617 pages written by the association, not on a licensed external syllabus", "Practice-first training - variations, modifications and rehabilitation sequencing rather than memorised repertoire", "International operation - running in Korea, Canada (Vancouver) and Japan (Tokyo), issuing international certification"] },
+        { h: "Signature program - Recovering Rehabilitation Pilates", p: "Recovering Rehabilitation Pilates became the association's flagship signature program when the founder qualified as a RECOVERING Master Trainer in 2022. It comprises nine applied principles - axial elongation and decompression, anti-rotation and segmental lumbar stabilisation, activation of the spiral and oblique fascial chains, separating lumbar stability from thoracic mobility, joint centration, the law of irradiation, and proprioceptive amplification among them - and thirteen signature movements. Each movement is documented to a standard format: purpose, setup, movement sequence, compensation patterns and interventions, the fascial line engaged, functional meaning, and the key cue." },
+        { h: "Global operations", p: "In Korea the association runs the certification, workshops and certification assessment at its Bundang, Seoul and Gimpo education centers. In Vancouver, Canada, teaching continued through the pandemic with online delivery alongside. In Tokyo, Japan, an instructor training course aligned to the international certification is in operation. Taiwan, Hong Kong and Singapore have no permanent base, but individual enquiries and group cohorts are accepted." },
       ],
-      note: "Registered non-profit association - Korea Pilates Education Association (CPPI), registration no. 201-82-74381",
     },
     ja: {
       title: "協会紹介 | CPPI 韓国ピラティス教育協会",
@@ -669,13 +687,20 @@ export const CONTENT = {
     },
     en: {
       title: "Prof. Eun-Ju Park - Founder | CPPI Korea Pilates Education Association",
-      desc: "Full profile of Eun-Ju Park, founder of CPPI Korea: clinical experience at Seoul National University Hospital Bundang Spine & Joint Center and faculty experience at Korea Nazarene University.",
+      desc: "Full profile of Eun-Ju Park, founder and president of CPPI Korea: clinical practice in anesthesiology and pain medicine at Seoul National University Hospital Bundang and at the Spine and Joint Center of the Korea Veterans Health Service, university faculty appointments, cross-school international certifications, and authorship of the nine CPPI textbooks totalling 1,617 pages.",
       eyebrow: "FOUNDER", h1: "Prof. Eun-Ju Park",
+      lead: "Founder and president of CPPI Korea Pilates Education Association. A Pilates educator who came to the work from hospital practice rather than from a studio.",
       blocks: [
-        { h: "Career", list: ["President, Korea Pilates Education Association (current)", "Director, Gyeonggi Volleyball Association (current)", "Recovering Rehabilitation Pilates Master (current)", "Member, Korean Society for the Study of Obesity (current)", "Former Adjunct Professor, Sports Rehabilitation, Korea Nazarene University", "Former Director, Pilates Program, Seokyeong University Arts Education Center", "Former, Department of Anesthesiology and Pain Medicine, SNUH Bundang", "Former, Spine & Joint Center, Korea Veterans Health Service"] },
-        { h: "Clinical training - Seoul National University Hospital", list: ["Critical care nursing training", "Post-operative orthopedic rehabilitation", "Diabetes, hypertension and osteoporosis care", "Geriatric nursing and rehabilitation"] },
-        { h: "Certifications", list: ["STOTT PILATES : IMP / IR / ICCB / AMP / AR / RMR1", "ISP (Injury Special Population) 2009-2011", "PMA : Certification Education 2012", "BBU Creating Length & Strength / Scoliosis Spiral", "STOTT Pre-Natal Pilates On the Reformer", "POWER PLATE Master Trainer 2022", "RECOVERING Master Trainer 2022"] },
-        { h: "Activities", p: "Invited presenter at the IDEA and CKLZ fitness conventions. Dedicated to instructor education since 2009." },
+        { h: "In one paragraph", p: "Eun-Ju Park is the founder and president of CPPI Korea Pilates Education Association. She brings together three strands: clinical practice in the Department of Anesthesiology and Pain Medicine at Seoul National University Hospital Bundang and at the Spine and Joint Center of the Korea Veterans Health Service; university teaching as Adjunct Professor of Sports Rehabilitation at Korea Nazarene University and Director of the Pilates Program at Seokyeong University Arts Education Center; and international qualifications taken across STOTT PILATES, PMA, Balanced Body University and RECOVERING. She wrote all nine CPPI textbooks, 1,617 pages in total, and has worked full time on instructor education since 2009, certifying more than 56 classes of graduates." },
+        { h: "A career that began in clinical practice", p: "Eun-Ju Park did not start in a Pilates studio. She started in a hospital. After nursing practice she worked with pain patients in the Department of Anesthesiology and Pain Medicine at Seoul National University Hospital Bundang, then moved to the Spine and Joint Center of the Korea Veterans Health Service, where spine and joint rehabilitation was the daily work. During this period she completed training at Seoul National University Hospital in critical care nursing, post-operative orthopedic rehabilitation, the management of diabetes, hypertension and osteoporosis, and geriatric nursing and rehabilitation. Handling bodies six weeks out of surgery, bodies carrying chronic pain, and bodies combining metabolic disease with advanced age is the direct reason the CPPI curriculum was later designed around rehabilitation and correction rather than around repertoire." },
+        { h: "Career", list: ["President, Korea Pilates Education Association (current)", "Certified RECOVERING Master Trainer, Recovering Rehabilitation Pilates (current)", "Director, Gyeonggi Volleyball Association (current)", "Full member, Korean Nursing Jeongwoo Society and the Nursing Q&A Association (current)", "Full member, Korean Society for the Study of Obesity (current)", "Former Adjunct Professor, Sports Rehabilitation, Korea Nazarene University", "Former Director, Pilates Program, Seokyeong University Arts Education Center", "Former, Department of Anesthesiology and Pain Medicine, Seoul National University Hospital Bundang", "Former, Spine and Joint Center, Korea Veterans Health Service"] },
+        { h: "Clinical training - Seoul National University Hospital", list: ["Critical care nursing training", "Post-operative orthopedic rehabilitation", "Management of diabetes, hypertension and osteoporosis", "Geriatric nursing and rehabilitation"] },
+        { h: "International certifications", p: "She deliberately took her instructor qualifications across several schools rather than staying inside one system. The reasoning is practical: you can only explain to a student why a movement is taught this way if you can compare how different schools approach it." },
+        { h: "Certifications held", list: ["STOTT PILATES : IMP / IR / ICCB / AMP / AR / RMR1", "ISP (Injury Special Population) 2009-2011", "PMA (Pilates Method Alliance) Certification Education 2012", "BBU (Balanced Body University) Creating Length and Strength Certification", "BBU Scoliosis Spiral Certification", "BBU Innovate Mat Sequences for Motor Control, Stability and Balance", "STOTT Pre-Natal Pilates On the Reformer", "POWER PLATE Master Trainer Certification 2022", "RECOVERING Master Trainer Certification 2022"] },
+        { h: "Authorship - the nine CPPI textbooks", p: "Every textbook used in the CPPI certification is written in house. Functional Pilates Anatomy runs to 238 pages and Pilates Basic Principles to 80; together with the Mat, Reformer, Cadillac, Stability Chair, Ladder Barrel, Arc Barrel and Spine Corrector volumes the set comes to nine books and 1,617 pages. Each volume follows an identical format - the movement, its purpose, the muscles activated, cueing and cautions, and the variations - so that a student can move between volumes without relearning how to read them." },
+        { h: "Teaching philosophy - reading movement through myofascial lines", p: "Eun-Ju Park analyses movement as chains rather than as isolated muscles. Her in-house material Anatomy with a Story, 113 pages, rearranges the Pilates repertoire along three axes - the anterior chain, the posterior chain and the lateral chain - tabulating for each movement the joints involved, the movement produced and the muscles recruited, then adding a clinical note. Translating Thomas Myers and the Anatomy Trains framework into the working language of Pilates instruction is applied consistently across every CPPI subject." },
+        { h: "Recovering Rehabilitation Pilates", p: "After qualifying as a RECOVERING Master Trainer in 2022 she systematised Recovering as the CPPI signature program. It is built on nine applied principles - axial elongation and decompression, anti-rotation and segmental lumbar stabilisation, crossed activation of the spiral and oblique fascial chains, separating lumbar stability from thoracic mobility, joint centration, the law of irradiation, and proprioceptive amplification among them - together with thirteen signature movements. The one-day certification is structured as seven 50-minute periods covering 37 movements and 14 theory points in a single day." },
+        { h: "Activities", p: "She has appeared as an invited presenter at the IDEA convention and the CKLZ fitness convention. She has worked full time on instructor education since 2009, and a number of her graduates now teach as master instructors - educators of instructors - at other academies. She publishes material on Pilates certification and instructor training through the YouTube channel @cppi.pilates." },
       ],
     },
     ja: {
@@ -779,21 +804,28 @@ export const CONTENT = {
         { h: "과정 구성과 시간", p: "필라테스 기능해부학 10시간, 베이직 프린서플 10시간, 체형 분석 및 움직임 평가 5시간, 필라테스 매트 25시간, 리포머 20~25시간, 캐딜락 20~25시간, 스태빌리티 체어 10시간, 래더바렐 및 바렐 시리즈 10시간으로 합계 약 110~120시간입니다. 교재는 직접 집필·출판한 9권 전권 1,617페이지를 사용하며, 317개 동작 매뉴얼이 실기의 기준이 됩니다." },
         { h: "수료 요건", p: "정규 수료에는 오프라인 실기와 티칭 평가가 포함됩니다. 온라인 강의는 복습과 보조 학습용이며 온라인만으로는 수료가 인정되지 않습니다. 실기 평가는 동작 수행 정확도뿐 아니라 '수강생의 몸 상태를 읽고 그에 맞게 조정할 수 있는가'를 함께 봅니다." },
         { h: "수료 혜택 · 국제자격증", p: "수료 시 CPPI 국제자격증(Certified Professional Pilates Instructor)이 발급되고 L3 정회원으로 승급됩니다. 수료강사 명단에 등재되며, 스튜디오 연계와 네트워크 지원을 받습니다. 수료 이후에도 워크숍과 온라인 강의를 통해 심화 학습을 이어갈 수 있습니다." },
-        { h: "모집 · 수강료", p: "기수별로 모집합니다. 개강 일정과 수강료는 공지 및 개별 상담 시 자세히 안내드립니다. 무료 상담을 통해 현재 상태에서 어떤 과정부터 시작하는 것이 적절한지 먼저 확인하실 수 있습니다." },
+        { h: "모집 · 수강료", p: "기수별로 모집합니다. 에센셜 코스 수강료는 정상가 420만원이고, 얼리버드 신청과 할인 혜택이 적용되면 400만원입니다. 개강 일정과 납부 방법, 수강료에 포함되는 항목은 기수별 공지와 개별 상담에서 안내드립니다. 무료 상담을 통해 현재 상태에서 어떤 과정부터 시작하는 것이 적절한지 먼저 확인하실 수 있습니다." },
         { h: "졸업생 성과", p: "2016년 이후 56기 이상을 배출했습니다. 수료생 중 다수가 현재 타 아카데미에서 마스터(교육강사)로 활동하고 있습니다. 수강생이 다시 교육자가 되는 구조가 만들어졌다는 점이 CPPI가 지표로 삼는 성과입니다." },
         { h: "심화 - 워크숍과 시그니처 과정", p: "정규과정 외에 현직 강사와 재활 종사자를 위한 단기 심화 워크숍을 운영합니다. 리커버링 재활 필라테스 원데이 자격과정(8시간, 7교시 × 50분 구성으로 동작 37개와 이론 14개), 임산부 필라테스 전문가 과정, 소도구 필라테스 전문가 과정(16시간, 폼롤러·써클·미니볼·BOSU)이 있습니다." },
       ],
     },
     en: {
       title: "Pilates Instructor Certification | CPPI Korea",
-      desc: "The CPPI international Pilates instructor certification: theory, hands-on practice and repeated peer teaching. Master instructors, certification benefits and enrollment information.",
-      eyebrow: "CERTIFICATION", h1: "CPPI Pilates Instructor Certification",
-      lead: "A practice-first certification built on repeated cycles of theory, practice and teaching.",
+      desc: "CPPI international Pilates instructor certification - eight subjects, 110-120 hours, 317 documented movements, taught from functional anatomy and clinical rehabilitation. Tuition KRW 4,200,000, or KRW 4,000,000 with early-bird registration.",
+      eyebrow: "CERTIFICATION", h1: "CPPI Pilates instructor certification",
+      lead: "A practice-first certification that repeats theory, practical work and peer teaching in every subject.",
       blocks: [
-        { h: "How we teach", p: "Theory, hands-on embodiment, and repeated peer instructing - training that prepares you for real lessons." },
-        { h: "Certification benefits", p: "International certificate, L3 membership upgrade, listing in the graduates directory, and career support." },
-        { h: "Enrollment and tuition", p: "Enrollment runs by class. Schedules are announced publicly and explained in detail during consultation." },
-        { h: "Graduate outcomes", p: "More than 56 certified classes to date. Many graduates now teach as master instructors at other academies." },
+        { h: "In one paragraph", p: "The CPPI Pilates instructor certification is an international qualification of eight subjects totalling roughly 110 to 120 hours. Every subject repeats the same three steps - theory lecture, practical embodiment, and peer teaching - because the goal is not a graduate who can perform the repertoire but one who can teach it. On completion you receive the CPPI international certificate, are upgraded to L3 full membership, are listed in the graduate instructor directory, and receive support in finding teaching work. More than 56 classes have been certified since 2016, and courses run in Korea, Canada and Japan." },
+        { h: "Two tracks - Essential and CMPI", p: "CPPI runs two distinct tracks. The Essential course takes members of the public and people without a related degree through to the CPPI Pilates Instructor qualification, working through approximately 1,300 pages of the published textbooks. The CMPI course - Certified Master Pilates Instructor - is for instructors already teaching with three or more years of experience, and covers all nine volumes, all 1,617 pages. Holding CMPI confers the right to teach the CPPI certification course itself. That is what separates it from simply a higher certificate: it moves you from teaching Pilates to training the people who teach it." },
+        { h: "How we teach - three passes per subject", p: "A CPPI subject moves through three stages. First, a theory lecture establishes which joint produces which movement and which muscles are involved. Second, you perform the movement on your own body until the sensation is familiar. Third, students teach one another, repeatedly. The third stage matters most, because knowing and teaching are different capacities and the studio floor demands the second. This is where cueing language, hands-on timing, and the immediate correction you make when you spot a compensation pattern are actually trained." },
+        { h: "Who takes this course", p: "Students fall into three broad groups. The first are complete beginners who have never practised Pilates; because the curriculum is built up in stages from functional anatomy, people without a related degree can follow it, and a substantial share of graduates moved across from other fields. The second are people in their thirties and forties returning to professional work after a career break. The third are instructors already teaching who have reached the limit of repeating memorised movements without understanding why." },
+        { h: "Course structure and hours", list: ["1. Functional Pilates Anatomy - 10 hours", "2. Basic Principles, 10 items, and the five movement rules - 10 hours", "3. Posture analysis and movement assessment - 5 hours", "4. Mat Pilates - 25 hours", "5. Reformer - 20-25 hours", "6. Cadillac - 20-25 hours", "7. Stability Chair - 10 hours", "8. Ladder Barrel and Barrel series - 10 hours", "Total approximately 110-120 hours · 9 published textbooks, 1,617 pages · 317 documented movements as the practical reference standard"] },
+        { h: "Completion requirements", p: "Certification requires in-person practical work and a teaching assessment. Online lectures exist for review and supplementary study; online study alone does not satisfy the requirement. The practical assessment looks beyond movement accuracy to a single question - can you read the state of the body in front of you and adjust the session accordingly?" },
+        { h: "Certification benefits", p: "Graduates receive the CPPI international certificate, Certified Professional Pilates Instructor, and are upgraded to L3 full membership. You are entered in the graduate instructor directory and receive studio placement and network support. Advanced study continues after certification through workshops and online lectures." },
+        { h: "Enrollment and tuition", p: "Enrollment runs by cohort. Tuition for the Essential course is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts. Start dates, payment methods and what the fee covers are confirmed in each cohort announcement and in individual consultation. A free consultation establishes which course suits your current level before you commit." },
+        { h: "Where the course runs", p: "In Korea, courses run at three education centers - BodyMulti Pilates at Sangil-dong Station in Gangdong-gu, Seoul, an official CPPI hosting center; Pilatique Movement Lab in Bundang, Seongnam, the association's own affiliated facility; and Wellness Way Pilates Unyang in Gimpo. The association manages the curriculum, textbooks, instructor assignment and certification assessment directly at every center, so the course and the standard are identical wherever you attend. CPPI also operates in Vancouver, Canada and Tokyo, Japan." },
+        { h: "Graduate outcomes", p: "More than 56 classes have been certified since 2016. A number of graduates now work as master instructors - educators of instructors - at other academies. That students go on to become educators themselves is the outcome CPPI treats as its own measure of success." },
+        { h: "Advanced workshops", p: "Alongside the certification, CPPI runs short intensive workshops for practising instructors and rehabilitation professionals: the Recovering Rehabilitation Pilates one-day certification (8 hours, seven 50-minute periods covering 37 movements and 14 theory points), a Prenatal Pilates specialist course, and a Small-props Pilates specialist course (16 hours, covering foam roller, circle, mini ball and BOSU)." },
       ],
     },
     ja: {
@@ -804,7 +836,7 @@ export const CONTENT = {
       blocks: [
         { h: "教育方式", p: "理論講義＋実技習得＋受講生相互の指導実習を繰り返す、レッスン実務中心の構成です。" },
         { h: "修了特典・国際資格証", p: "国際資格証の発行、L3正会員への昇級、修了講師名簿への掲載、活動連携の支援。" },
-        { h: "募集・受講料", p: "期別募集です。日程は告知および相談時に詳しくご案内します。" },
+        { h: "募集・受講料", p: "期別募集です。エッセンシャルコースの受講料は定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。開講日程・納付方法・受講料に含まれる項目は期別の告知と個別相談でご案内します。" },
         { h: "卒業生の実績", p: "これまでに56期以上を輩出。他アカデミーでマスター(指導講師)として活動する修了生も多数います。" },
       ],
     },
@@ -816,7 +848,7 @@ export const CONTENT = {
       blocks: [
         { h: "教学方式", p: "理论讲授＋实操掌握＋学员相互教学实习反复进行，以实际授课能力为核心。" },
         { h: "结业福利·国际证书", p: "颁发国际资格证书、升级为L3正会员、登载于结业教练名录、提供活动衔接支持。" },
-        { h: "招生·学费", p: "按期招生。日程通过公告与咨询详细告知。" },
+        { h: "招生·学费", p: "按期招生。Essential 课程学费标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。开课日程、缴费方式及学费包含项目将在各期公告与个别咨询中说明。" },
         { h: "毕业生成果", p: "迄今已培养56期以上。多位结业生在其他学院担任大师级导师。" },
       ],
     },
@@ -828,7 +860,7 @@ export const CONTENT = {
       blocks: [
         { h: "教學方式", p: "理論講授＋實作掌握＋學員相互教學實習反覆進行，以實際授課能力為核心。" },
         { h: "結業權益 · 國際證照", p: "核發國際證照、升級為 L3 正會員、登載於結業導師名錄、提供授課媒合支援。" },
-        { h: "招生 · 學費", p: "採梯次招生。詳細日程於公告與諮詢時說明。" },
+        { h: "招生 · 學費", p: "採梯次招生。Essential 課程學費標準價為420萬韓元，適用早鳥報名與折扣優惠時為400萬韓元。開課日程、繳費方式及學費包含項目將於各梯次公告與個別諮詢中說明。" },
         { h: "畢業生成果", p: "迄今已培育 56 期以上。多位結業學員於其他學院擔任大師級導師。" },
       ],
     },
@@ -2023,6 +2055,15 @@ export function jsonLD(lang, route) {
     pageNode.timeRequired = "PT115H";
     pageNode.numberOfCredits = 8;
     pageNode.educationalLevel = "Professional certification";
+    /* 수강료 - 정상가와 얼리버드가를 둘 다 내보낸다. 금액은 TUITION 상수가 단일 출처다. */
+    pageNode.offers = [
+      { "@type": "Offer", name: "List price", category: "Tuition",
+        price: TUITION.list, priceCurrency: TUITION.currency,
+        availability: "https://schema.org/InStock", url },
+      { "@type": "Offer", name: "Early-bird and discounted price", category: "Tuition",
+        price: TUITION.early, priceCurrency: TUITION.currency,
+        availability: "https://schema.org/LimitedAvailability", url },
+    ];
     pageNode.occupationalCategory = "Pilates instructor";
     pageNode.coursePrerequisites = "No prior Pilates qualification required. The curriculum begins from functional anatomy fundamentals.";
     pageNode.teaches = [
