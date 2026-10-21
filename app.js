@@ -151,7 +151,7 @@ const UI = {
     workshop: { ko: "전문 강사 워크숍", en: "Pro Instructor Workshop", zh: "专业教练工作坊", "zh-Hant": "專業教練工作坊", ja: "専門講師ワークショップ" },
     learn: { ko: "온라인 강의", en: "Online Lectures", zh: "在线课程", "zh-Hant": "線上課程", ja: "オンライン講義" },
     store: { ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", "zh-Hant": "電子書·教材商店", ja: "電子書籍·教材ストア" },
-    journal: { ko: "박은주의 필라테스 인문학", en: "Eun-Ju Park's Pilates Humanities", zh: "朴恩珠的普拉提人文学", "zh-Hant": "朴恩珠的皮拉提斯人文學", ja: "パク・ウンジュのピラティス人文学" },
+    journal: { ko: "칼럼 - 박은주의 필라테스 인문학", en: "Column - Eun-Ju Park's Pilates Humanities", zh: "专栏 - 朴恩珠的普拉提人文学", "zh-Hant": "專欄 - 朴恩珠的皮拉提斯人文學", ja: "コラム - パク・ウンジュのピラティス人文学" },
     guide: { ko: "필라테스 전문 지침서", en: "Pilates Pro Guidebooks", zh: "普拉提专业指南", "zh-Hant": "皮拉提斯專業指南", ja: "ピラティス専門指針書" },
     apply: { ko: "상담 · 신청", en: "Consultation", zh: "咨询 · 申请", "zh-Hant": "諮詢 · 申請", ja: "相談 · 申込" },
     support: { ko: "FAQ · 후기 · 앱 설치", en: "FAQ · Reviews · Install", zh: "FAQ · 评价 · 安装", "zh-Hant": "FAQ · 評價 · 安裝", ja: "FAQ · 口コミ · インストール" },
@@ -988,6 +988,10 @@ routes.home = () => `
     </div>
     <a class="btn ghost" href="#stories" style="margin-top:10px">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", "zh-Hant": "檢視全部評價", ja: "口コミをすべて見る" })}</a>
 
+    <!-- Row 5.7 : 칼럼 (인플루언스뉴스 연재) -->
+    <div class="sreveal" style="margin-top:18px"><div class="eyebrow">COLUMN</div><h2 class="sec">${L(COLUMN.name)}</h2></div>
+    <div class="sreveal">${COLUMN_LIST(2)}</div>
+
     <!-- Row 6 : 무료 상담 배너 -->
     <div class="card sreveal" style="background:linear-gradient(135deg,var(--acc),var(--sun));text-align:center;margin-top:16px;border:none">
       <div class="eyebrow" style="color:#7A4A12">FREE SESSION</div>
@@ -1296,6 +1300,7 @@ const COLUMN = {
 
 const COLUMN_UI = {
   list: { ko: "연재 목록", en: "Published columns", ja: "連載一覧", zh: "连载目录", "zh-Hant": "連載目錄" },
+  all: { ko: "칼럼 전체 보기", en: "See all columns", ja: "コラムをすべて見る", zh: "查看全部专栏", "zh-Hant": "檢視全部專欄" },
   korean: { ko: "", en: "The column is published in Korean on the publisher's site.",
     ja: "コラムは媒体サイトで韓国語で掲載されます。", zh: "专栏于媒体网站以韩语发表。",
     "zh-Hant": "專欄於媒體網站以韓語發表。" },
@@ -1303,18 +1308,23 @@ const COLUMN_UI = {
 
 /* 회차 목록 - 실제 앵커 태그로 내보낸다. CONTENT 의 문자열은 전부 이스케이프되므로
    거기에 URL 을 넣으면 평문이 되어 링크로 인식되지 않는다. */
-function COLUMN_LIST() {
+function COLUMN_LIST(limit) {
   if (!COLUMN.items.length) return "";
   const pub = L(COLUMN.publisher);
-  const note = L(COLUMN_UI.korean);
-  const rows = COLUMN.items.slice().sort((a, b) => b.no - a.no).map(it =>
+  const note = limit ? "" : L(COLUMN_UI.korean);
+  const sorted = COLUMN.items.slice().sort((a, b) => b.no - a.no);
+  const rows = (limit ? sorted.slice(0, limit) : sorted).map(it =>
     `<div class="card" style="margin-bottom:8px">`
     + `<div class="eyebrow">${esc(String(it.no).padStart(2, "0"))} · ${esc(it.date)} · ${esc(pub)}</div>`
     + `<b><a href="${it.url}" target="_blank" rel="noopener">${esc(it.title)}</a></b>`
     + `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(it.sub)}</p>`
     + `</div>`).join("");
-  return `<div class="eyebrow" style="margin-top:18px">${esc(L(COLUMN_UI.list))}</div>`
-    + rows + (note ? `<div class="note">${esc(note)}</div>` : "");
+  const heading = limit ? L(COLUMN.name) : L(COLUMN_UI.list);
+  const more = limit && sorted.length > limit
+    ? `<a class="btn ghost" href="#journal" style="margin-top:10px">${esc(L(COLUMN_UI.all))}</a>`
+    : "";
+  return `<div class="eyebrow" style="margin-top:18px">${esc(heading)}</div>`
+    + rows + more + (note ? `<div class="note">${esc(note)}</div>` : "");
 }
 
 routes.journal = () => `

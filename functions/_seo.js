@@ -344,11 +344,11 @@ export const UI = {
 };
 
 export const NAV = {
-  ko: [["협회 소개", "about"], ["파운더", "founder"], ["커리큘럼", "curriculum"], ["교육안내", "courses"], ["워크숍", "workshop"], ["마스터", "master"], ["후기", "stories"], ["글로벌", "global"], ["온라인 강의", "learn"], ["스토어", "store"]],
-  en: [["About", "about"], ["Founder", "founder"], ["Curriculum", "curriculum"], ["Certification", "courses"], ["Workshops", "workshop"], ["Masters", "master"], ["Stories", "stories"], ["Global", "global"], ["Lectures", "learn"], ["Store", "store"]],
-  ja: [["協会紹介", "about"], ["創立者", "founder"], ["カリキュラム", "curriculum"], ["教育案内", "courses"], ["ワークショップ", "workshop"], ["マスター", "master"], ["修了生の声", "stories"], ["グローバル", "global"], ["オンライン講義", "learn"], ["ストア", "store"]],
-  zh: [["协会介绍", "about"], ["创始人", "founder"], ["课程体系", "curriculum"], ["教育指南", "courses"], ["工作坊", "workshop"], ["大师导师", "master"], ["学员评价", "stories"], ["全球运营", "global"], ["在线课程", "learn"], ["商店", "store"]],
-  "zh-Hant": [["協會介紹", "about"], ["創辦人", "founder"], ["課程體系", "curriculum"], ["師資培訓", "courses"], ["工作坊", "workshop"], ["大師導師", "master"], ["學員評價", "stories"], ["全球據點", "global"], ["線上課程", "learn"], ["商店", "store"]],
+  ko: [["협회 소개", "about"], ["파운더", "founder"], ["칼럼", "journal"], ["커리큘럼", "curriculum"], ["교육안내", "courses"], ["워크숍", "workshop"], ["마스터", "master"], ["후기", "stories"], ["글로벌", "global"], ["온라인 강의", "learn"], ["스토어", "store"]],
+  en: [["About", "about"], ["Founder", "founder"], ["Column", "journal"], ["Curriculum", "curriculum"], ["Certification", "courses"], ["Workshops", "workshop"], ["Masters", "master"], ["Stories", "stories"], ["Global", "global"], ["Lectures", "learn"], ["Store", "store"]],
+  ja: [["協会紹介", "about"], ["創立者", "founder"], ["コラム", "journal"], ["カリキュラム", "curriculum"], ["教育案内", "courses"], ["ワークショップ", "workshop"], ["マスター", "master"], ["修了生の声", "stories"], ["グローバル", "global"], ["オンライン講義", "learn"], ["ストア", "store"]],
+  zh: [["协会介绍", "about"], ["创始人", "founder"], ["专栏", "journal"], ["课程体系", "curriculum"], ["教育指南", "courses"], ["工作坊", "workshop"], ["大师导师", "master"], ["学员评价", "stories"], ["全球运营", "global"], ["在线课程", "learn"], ["商店", "store"]],
+  "zh-Hant": [["協會介紹", "about"], ["創辦人", "founder"], ["專欄", "journal"], ["課程體系", "curriculum"], ["師資培訓", "courses"], ["工作坊", "workshop"], ["大師導師", "master"], ["學員評價", "stories"], ["全球據點", "global"], ["線上課程", "learn"], ["商店", "store"]],
 };
 
 /* 페이지별 대표 이미지 - 저장소에 이미 있는 자산을 사용한다.
@@ -2307,6 +2307,7 @@ export const COLUMN = {
 
 export const COLUMN_UI = {
   list: { ko: "연재 목록", en: "Published columns", ja: "連載一覧", zh: "连载目录", "zh-Hant": "連載目錄" },
+  all: { ko: "칼럼 전체 보기", en: "See all columns", ja: "コラムをすべて見る", zh: "查看全部专栏", "zh-Hant": "檢視全部專欄" },
   korean: { ko: "", en: "The column is published in Korean on the publisher's site.",
     ja: "コラムは媒体サイトで韓国語で掲載されます。", zh: "专栏于媒体网站以韩语发表。",
     "zh-Hant": "專欄於媒體網站以韓語發表。" },
@@ -2314,18 +2315,27 @@ export const COLUMN_UI = {
 
 /* 회차 목록 - 실제 앵커 태그로 내보낸다. CONTENT 의 문자열은 전부 이스케이프되므로
    거기에 URL 을 넣으면 평문이 되어 링크로 인식되지 않는다. */
-export function columnHTML(lang) {
+export function columnHTML(lang, limit) {
   if (!COLUMN.items.length) return "";
   const pub = COLUMN.publisher[lang] || COLUMN.publisher.en;
-  const note = COLUMN_UI.korean[lang] || "";
-  const rows = COLUMN.items.slice().sort((a, b) => b.no - a.no).map(it =>
+  const note = limit ? "" : (COLUMN_UI.korean[lang] || "");
+  const sorted = COLUMN.items.slice().sort((a, b) => b.no - a.no);
+  const rows = (limit ? sorted.slice(0, limit) : sorted).map(it =>
     `<div class="card" style="margin-bottom:8px">`
     + `<div class="eyebrow">${esc(String(it.no).padStart(2, "0"))} · ${esc(it.date)} · ${esc(pub)}</div>`
     + `<b><a href="${it.url}" target="_blank" rel="noopener">${esc(it.title)}</a></b>`
     + `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(it.sub)}</p>`
     + `</div>`).join("");
-  return `<div class="eyebrow" style="margin-top:18px">${esc(COLUMN_UI.list[lang] || COLUMN_UI.list.en)}</div>`
-    + rows + (note ? `<div class="note">${esc(note)}</div>` : "");
+  const heading = limit ? (COLUMN.name[lang] || COLUMN.name.en)
+                        : (COLUMN_UI.list[lang] || COLUMN_UI.list.en);
+  /* 홈처럼 일부만 보여줄 때는 칼럼 페이지로 가는 길을 반드시 둔다.
+     진입점이 햄버거 메뉴 한 곳뿐이면 사람이 찾지 못한다. */
+  const more = limit && sorted.length > limit
+    ? `<p style="margin-top:8px"><a href="${pathFor(lang, "journal")}">`
+      + `${esc(COLUMN_UI.all[lang] || COLUMN_UI.all.en)} →</a></p>`
+    : "";
+  return `<div class="eyebrow" style="margin-top:18px">${esc(heading)}</div>`
+    + rows + more + (note ? `<div class="note">${esc(note)}</div>` : "");
 }
 
 /* 칼럼 목록은 글이 하나라도 있어야 색인 가치가 있다.
@@ -2800,7 +2810,8 @@ export function ssrBody(lang, route) {
     ? blockHTML(CENTER_BLOCK[lang] || CENTER_BLOCK.en) : "";
   const specsB = blockHTML(SPECS[lang] || SPECS.en);
   /* 칼럼 회차 목록 - journal 라우트에만 붙인다. */
-  const columnB = route === "journal" ? columnHTML(lang) : "";
+  const columnB = route === "journal" ? columnHTML(lang)
+    : route === "home" ? columnHTML(lang, 2) : "";
   const faqItems = (FAQ[route] || {})[lang] || [];
   const faq = faqItems.length
     ? `<div class="eyebrow" style="margin-top:18px">${esc(UI.faq[lang])}</div>`
