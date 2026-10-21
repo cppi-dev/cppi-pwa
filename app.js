@@ -195,7 +195,7 @@ const UI = {
 const TICKER = [
   { ko: "박은주의 필라테스 인문학 - 인플루언스뉴스 주 2회 연재중", en: "Eun-Ju Park's Pilates Humanities - twice weekly in Influence News", zh: "朴恩珠的普拉提人文学 - Influence News 每周连载两次", "zh-Hant": "朴恩珠的皮拉提斯人文學 - Influence News 每週連載兩次", ja: "パク・ウンジュのピラティス人文学 - 週2回連載中" },
   { ko: "리커버링 재활필라테스 원데이 자격과정 모집중", en: "Recovering Rehab Pilates one-day Certification - Now Enrolling", zh: "康复普拉提单日资格课程招生中", "zh-Hant": "康復皮拉提斯單日資格課程招生中", ja: "リカバリングリハビリピラティス ワンデー資格課程 募集中" },
-  { ko: "CPPI 정규과정 모집중", en: "CPPI Certification - Now Enrolling", zh: "CPPI 正规课程招生中", "zh-Hant": "CPPI 正規課程招生中", ja: "CPPI 正規課程 募集中" },
+  { ko: "2026년 하반기 바디멀티 필라테스 상일동역점 모집중", en: "2026 H2 intake - BodyMulti Pilates, Sangil-dong Station - Now Enrolling", zh: "2026年下半年 BodyMulti 普拉提 上一洞站店 招生中", "zh-Hant": "2026年下半年 BodyMulti 皮拉提斯 上一洞站店 招生中", ja: "2026年下半期 ボディマルチ ピラティス 上一洞駅店 募集中" },
   { ko: "무료 온라인 상담 신청", en: "Free Online Consultation", zh: "免费在线咨询", "zh-Hant": "免費線上諮詢", ja: "無料オンライン相談" },
   { ko: "교재 미리보기 오픈", en: "Textbook Preview Open", zh: "教材预览开放", "zh-Hant": "教材預覽開放", ja: "教材プレビュー公開" },
   { ko: "韓 · 加 · 日 글로벌 운영", en: "Korea · Canada · Japan", zh: "韩·加·日全球运营", "zh-Hant": "韓·加·日全球運營", ja: "韓·加·日グローバル運営" },
