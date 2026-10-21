@@ -106,6 +106,20 @@ for (const lang of LANGS) {
 /* --- 3. 사이트맵 · 라우트 정합 -------------------------------------- */
 const locs = (m.sitemapXML().match(/<loc>/g) || []).length;
 
+/* 제목·설명 길이 - 네이버 서치어드바이저 권장(제목 40자 / 설명 80자).
+   넘으면 검색결과에서 뒷부분이 잘린다. 2026-10-21 지역 페이지를 만들면서
+   제목 66자 · 설명 125자를 내보낸 적이 있어 게이트로 막는다.
+   한국어 기준으로만 검사한다(네이버가 보는 축). */
+{
+  const T_MAX = 40, D_MAX = 80;
+  for (const r of ROUTES) {
+    const c = m.CONTENT[r].ko;
+    if (c.title.length > T_MAX) fail(`[길이] ${r}.ko 제목 ${c.title.length}자 - ${T_MAX}자 이내여야 한다`);
+    if (c.desc.length > D_MAX) fail(`[길이] ${r}.ko 설명 ${c.desc.length}자 - ${D_MAX}자 이내여야 한다`);
+  }
+  console.log(`제목·설명 길이 - 한국어 ${ROUTES.length}개 라우트 모두 ${T_MAX}/${D_MAX}자 이내`);
+}
+
 /* app.js 버전 - index.html 과 sw.js 가 같은 v 값을 가리켜야 한다.
    어긋나면 오프라인에서 스크립트를 못 찾거나, 배포해도 옛 app.js 가 계속 쓰인다. */
 {
