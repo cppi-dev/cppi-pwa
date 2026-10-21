@@ -917,7 +917,7 @@ routes.home = () => `
         <span class="xhero-scroll">${L({ ko: "스크롤하세요", en: "SCROLL TO EXPAND", zh: "向下滚动", "zh-Hant": "向下滾動", ja: "スクロール" })}</span>
       </div>
       <div class="xhero-end">
-        <p>${L({ ko: "분당서울대병원 척추·관절센터 임상 경험을 기반으로 설계된 국제 필라테스 강사 자격과정. 8대 커리큘럼, 1,300여 페이지의 출판교재로 증명합니다.", en: "An international Pilates instructor certification built on clinical experience from SNUH Bundang Spine & Joint Center. 8 core courses, 1,300+ pages of published textbooks.", zh: "以分堂首尔大学医院脊柱关节中心临床经验为基础设计的国际普拉提教练资格课程。8大课程体系，1300余页出版教材佐证。", "zh-Hant": "以分堂首爾大學醫院脊柱關節中心臨床經驗為基礎設計的國際皮拉提斯教練資格課程。8大課程體系，1300餘頁出版教材佐證。", ja: "盆唐ソウル大学病院脊椎·関節センターの臨床経験を基に設計された国際ピラティス指導者資格課程。8大カリキュラム、1,300ページ超の出版教材で証明します。" })}</p>
+        <p>${L({ ko: "분당서울대병원 척추·관절센터 임상 경험을 기반으로 설계된 국제 필라테스 강사 자격과정. 8대 커리큘럼, 9권 전권 1,617페이지의 출판교재로 증명합니다.", en: "An international Pilates instructor certification built on clinical experience from SNUH Bundang Spine & Joint Center. 8 core courses, 1,300+ pages of published textbooks.", zh: "以分堂首尔大学医院脊柱关节中心临床经验为基础设计的国际普拉提教练资格课程。8大课程体系，1300余页出版教材佐证。", "zh-Hant": "以分堂首爾大學醫院脊柱關節中心臨床經驗為基礎設計的國際皮拉提斯教練資格課程。8大課程體系，1300餘頁出版教材佐證。", ja: "盆唐ソウル大学病院脊椎·関節センターの臨床経験を基に設計された国際ピラティス指導者資格課程。8大カリキュラム、1,300ページ超の出版教材で証明します。" })}</p>
         <div class="xhero-cta">
           <a class="dpri" href="#why">${L({ ko: "왜 CPPI인가", en: "Why CPPI", zh: "为何选择CPPI", "zh-Hant": "為何選擇CPPI", ja: "なぜCPPIか" })}</a>
           <a class="dgh" href="#curriculum">${L({ ko: "정규과정 알아보기", en: "Explore the Curriculum", zh: "了解正规课程", "zh-Hant": "瞭解正規課程", ja: "正規課程を見る" })}</a>
@@ -1119,7 +1119,7 @@ routes.why = () => `
       <div class="why-stats">
         <div><b>2016</b><span>EST.</span></div>
         <div><b>8</b><span>${L({ ko: "정규 과목", en: "COURSES", zh: "科目", "zh-Hant": "科目", ja: "科目" })}</span></div>
-        <div><b>1,300+</b><span>${L({ ko: "교재 페이지", en: "TEXTBOOK PAGES", zh: "教材页数", "zh-Hant": "教材頁數", ja: "教材ページ" })}</span></div>
+        <div><b>1,617</b><span>${L({ ko: "교재 페이지", en: "TEXTBOOK PAGES", zh: "教材页数", "zh-Hant": "教材頁數", ja: "教材ページ" })}</span></div>
         <div><b>56+</b><span>${L({ ko: "수료 기수", en: "CLASSES", zh: "结业期数", "zh-Hant": "結業期數", ja: "修了期" })}</span></div>
         <div><b>3</b><span>${L({ ko: "운영 국가", en: "COUNTRIES", zh: "运营国家", "zh-Hant": "運營國家", ja: "運営国" })}</span></div>
       </div>
@@ -1172,7 +1172,7 @@ routes.about = () => `
       ${secHead("ABOUT CPPI", L({ ko: "감각이 아니라 근거로 가르칩니다", en: "We teach with evidence, not intuition", zh: "以循证教学，而非凭感觉", "zh-Hant": "以循證教學，而非憑感覺", ja: "感覚ではなく根拠で教えます" }), "한국필라테스교육협회 (CPPI Korea) · Certified Professional Pilates Instructor")}
     </div>
     <div class="card" style="margin-bottom:10px"><b>${L({ ko: "협회 개요", en: "Overview", zh: "协会概要", "zh-Hant": "協會概要", ja: "協会概要" })}</b>
-      <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "EST. 2016 · 2년 집중개발로 교과정 완성 · 한국-캐나다-일본 글로벌 운영. 8개 정규 과정, 총 1,300여 페이지의 출판교재(9권+부교재)로 교육합니다.", en: "EST. 2016 · Curriculum built over 2 years · Korea-Canada-Japan. 8 core courses taught with 1,300+ pages of published textbooks." }))}</p></div>
+      <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "EST. 2016 · 2년 집중개발로 교과정 완성 · 한국-캐나다-일본 글로벌 운영. 8개 정규 과정, 협회가 직접 집필·출판한 교재 9권 전권 1,617페이지로 교육합니다.", en: "EST. 2016 · Curriculum built over 2 years · Korea-Canada-Japan. 8 core courses taught with nine in-house textbooks totalling 1,617 pages." }))}</p></div>
     <div class="card" style="margin-bottom:10px"><b>${L({ ko: "동작 매뉴얼", en: "Movement Manual", zh: "动作手册", "zh-Hant": "動作手冊", ja: "動作マニュアル" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "매트 53 · 리포머 79 · 캐딜락 62 · 체어 28 · 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39 동작 + 배리에이션 · 모디피케이션 · 소도구 티칭.", en: "Mat 53 · Reformer 79 · Cadillac 62 · Chair 28 · Ladder Barrel 27 · Arc Barrel 29 · Spine Corrector 39 + variations and props." }))}</p></div>
     ${secHead("WHY CPPI", L({ ko: "타 단체와의 차별성", en: "What sets CPPI apart", zh: "与其他机构的差异", "zh-Hant": "與其他機構的差異", ja: "他団体との差別化" }))}
