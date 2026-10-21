@@ -131,6 +131,7 @@ const UI = {
   tabs: {
     home: { ko: "홈", en: "Home", zh: "首页", "zh-Hant": "首頁", ja: "ホーム" },
     courses: { ko: "교육", en: "Education", zh: "教育", "zh-Hant": "教育", ja: "教育" },
+    journal: { ko: "칼럼", en: "Column", zh: "专栏", "zh-Hant": "專欄", ja: "コラム" },
     learn: { ko: "강의", en: "Lectures", zh: "课程", "zh-Hant": "課程", ja: "講義" },
     store: { ko: "교재샵", en: "Book Shop", zh: "教材店", "zh-Hant": "教材店", ja: "教材ショップ" },
     my: { ko: "마이", en: "My", zh: "我的", "zh-Hant": "我的", ja: "マイ" },
@@ -470,7 +471,7 @@ function render() {
   const r = currentRoute();
   $("#view").innerHTML = (routes[r] || routes.home)();
   updateMeta(r);
-  const tabMap = { home: "home", why: "courses", learn: "learn", lecture: "learn", prep: "learn", courses: "courses", curriculum: "courses", workshop: "courses", master: "courses", store: "store", books: "store", ebooks: "store", guide: "store", checkout: "store", bank: "store", my: "my", login: "my", signup: "my" };
+  const tabMap = { home: "home", journal: "journal", why: "courses", learn: "learn", lecture: "learn", prep: "learn", courses: "courses", curriculum: "courses", workshop: "courses", master: "courses", store: "store", books: "store", ebooks: "store", guide: "store", checkout: "store", bank: "store", my: "my", login: "my", signup: "my" };
   document.querySelectorAll(".tabbar a").forEach(a => {
     a.textContent = L(UI.tabs[a.dataset.tab]);
     a.classList.toggle("on", a.dataset.tab === (tabMap[r] || ""));

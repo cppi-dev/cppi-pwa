@@ -124,6 +124,8 @@ nav.tabbar{position:fixed; left:0; right:0; bottom:0; z-index:50; background:#ff
 .tabbar .in{display:flex; max-width:760px; margin:0 auto; padding:8px 6px}
 .tabbar a{flex:1; text-align:center; margin:0 3px; padding:11px 2px; font-size:13.5px; font-weight:700; color:var(--ink2); text-decoration:none; line-height:1.2; border-radius:13px}
 .tabbar a.on{background:var(--pri); color:#fff; font-weight:800}
+/* 탭 6개 - 좁은 화면에서 라벨이 눌리지 않도록 줄인다 */
+@media(max-width:400px){.tabbar .in{padding:8px 4px}.tabbar a{font-size:12px; margin:0 2px; padding:11px 1px}}
 
 /* ---------- 공통 ---------- */
 section{padding:24px 0}
@@ -948,10 +950,11 @@ footer .sns a img{width:22px; height:22px; object-fit:contain}
 <!-- 뷰 컨테이너 -->
 <main id="view" class="wrap"></main>
 
-<!-- 하단 탭바: 홈 · 교육 · 강의 · 스토어 · 마이 -->
+<!-- 하단 탭바: 홈 · 교육 · 칼럼 · 강의 · 교재샵 · 마이 -->
 <nav class="tabbar"><div class="in">
   <a href="#home" data-tab="home">홈</a>
   <a href="#courses" data-tab="courses">교육</a>
+  <a href="#journal" data-tab="journal">칼럼</a>
   <a href="#learn" data-tab="learn">강의</a>
   <a href="#store" data-tab="store">스토어</a>
   <a href="#my" data-tab="my">마이</a>
