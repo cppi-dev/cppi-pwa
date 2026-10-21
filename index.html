@@ -1007,6 +1007,11 @@ footer .sns a img{width:22px; height:22px; object-fit:contain}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lenis/1.1.13/lenis.min.js"></script>
-<script src="app.js"></script>
+<!-- app.js 는 파일명에 해시가 없다. 주소가 같으면 브라우저가 캐시된 옛 파일을 재사용하고,
+     index.html 만 새로 받은 사용자는 새 마크업 + 옛 스크립트 상태가 된다.
+     (2026-10-21 하단탭 칼럼이 클릭은 되는데 글자가 안 나온 원인이 이것이었다.)
+     app.js 를 고치면 아래 v 값을 올린다. sw.js 의 APP_JS 와 반드시 같아야 하며
+     tools/schema-audit.mjs 가 두 값을 대조한다. -->
+<script src="app.js?v=26"></script>
 </body>
 </html>

@@ -106,6 +106,16 @@ for (const lang of LANGS) {
 /* --- 3. 사이트맵 · 라우트 정합 -------------------------------------- */
 const locs = (m.sitemapXML().match(/<loc>/g) || []).length;
 
+/* app.js 버전 - index.html 과 sw.js 가 같은 v 값을 가리켜야 한다.
+   어긋나면 오프라인에서 스크립트를 못 찾거나, 배포해도 옛 app.js 가 계속 쓰인다. */
+{
+  const htmlV = (fs.readFileSync("index.html", "utf8").match(/app\.js\?v=(\d+)/) || [])[1];
+  const swV = (fs.readFileSync("sw.js", "utf8").match(/app\.js\?v=(\d+)/) || [])[1];
+  if (!htmlV || !swV) fail(`[버전] app.js 버전 쿼리 누락 - index.html:${htmlV || "없음"} / sw.js:${swV || "없음"}`);
+  else if (htmlV !== swV) fail(`[버전] app.js 버전 불일치 - index.html:v${htmlV} / sw.js:v${swV}`);
+  else console.log(`app.js 버전 v${htmlV} - index.html 과 sw.js 일치`);
+}
+
 /* COLUMN 동기화 - functions/_seo.js 와 app.js 가 같은 회차 목록을 가져야 한다.
    어긋나면 크롤러와 사용자가 다른 목록을 본다. */
 {

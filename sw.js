@@ -1,6 +1,10 @@
 /* CPPI PWA Service Worker v4 — 전체 오프라인 캐싱 */
 const CACHE = "cppi-v25";
 
+/* index.html 의 <script src="app.js?v=NN"> 과 반드시 같은 값.
+   다르면 오프라인에서 프리캐시 주소와 실제 요청 주소가 어긋나 스크립트를 못 찾는다. */
+const APP_JS = "./app.js?v=26";
+
 /* 교재 미리보기 전체 (9권 × 13p) */
 const BOOK_SLUGS = ["anatomy", "principle", "mat", "reformer", "cadillac", "chair", "lbarrel", "abarrel", "scorrector"];
 const BOOK_IMGS = BOOK_SLUGS.flatMap(s => Array.from({ length: 13 }, (_, i) => `./books/${s}/p${String(i + 1).padStart(2, "0")}.jpg`));
@@ -13,7 +17,7 @@ const LECTIMG = ["lect_reg","lect_spine","lect_mt"].map(n => `./img/${n}.webp`);
 const MASTERSV = ["founder","minseo","cheongah","heejung","hwyhyang"].map(n => `./img/masters_v/${n}.webp`);
 const BOOKS3D = ["anatomy","principle","mat","reformer","cadillac","chair","lbarrel","analysis"].map(n => `./img/books3d/b_${n}.webp`);
 const CORE = [
-  "./", "./index.html", "./app.js", "./manifest.webmanifest",
+  "./", "./index.html", APP_JS, "./manifest.webmanifest",
   "./logo.png", "./logo_header.png", "./logo_light.png",
   "./hero1.mp4", "./hero-poster.jpg", "./frame1.jpg", "./frame2.jpg",
   "./icons/icon-192.png", "./icons/icon-512.png",
