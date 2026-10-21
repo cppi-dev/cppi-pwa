@@ -193,6 +193,7 @@ const UI = {
 };
 
 const TICKER = [
+  { ko: "박은주의 필라테스 인문학 - 인플루언스뉴스 주 2회 연재중", en: "Eun-Ju Park's Pilates Humanities - twice weekly in Influence News", zh: "朴恩珠的普拉提人文学 - Influence News 每周连载两次", "zh-Hant": "朴恩珠的皮拉提斯人文學 - Influence News 每週連載兩次", ja: "パク・ウンジュのピラティス人文学 - 週2回連載中" },
   { ko: "리커버링 재활필라테스 자격과정 모집중 - 8월 23일 개강", en: "Recovering Rehab Pilates Certification - Enrolling, starts Aug 23", zh: "康复普拉提资格课程招生中 - 8月23日开课", "zh-Hant": "康復皮拉提斯資格課程招生中 - 8月23日開課", ja: "リカバリングリハビリピラティス資格課程 募集中 - 8月23日開講" },
   { ko: "CPPI 정규과정 모집중", en: "CPPI Certification - Now Enrolling", zh: "CPPI 正规课程招生中", "zh-Hant": "CPPI 正規課程招生中", ja: "CPPI 正規課程 募集中" },
   { ko: "무료 온라인 상담 신청", en: "Free Online Consultation", zh: "免费在线咨询", "zh-Hant": "免費線上諮詢", ja: "無料オンライン相談" },
@@ -946,6 +947,15 @@ routes.home = () => `
       </a>
     </div>
 
+    <!-- Row 1.5 : 칼럼 (인플루언스뉴스 연재) - 파운더 카드 바로 다음.
+         아래쪽(후기 다음)에 두면 사람이 스크롤 끝까지 가야 만난다. -->
+    <div class="sreveal" style="margin-top:14px">
+      <div class="eyebrow">COLUMN · ${L(COLUMN.publisher)} ${L({ ko: "연재중", en: "running now", zh: "连载中", "zh-Hant": "連載中", ja: "連載中" })}</div>
+      <h2 class="sec" style="margin:4px 0 2px">${L(COLUMN.name)}</h2>
+      <p style="font-size:13px;color:var(--ink2);margin:0 0 10px">${L({ ko: "임상 10년과 필라테스 17년을 오간 CPPI 협회장 박은주의 칼럼입니다. 주 2회 연재됩니다.", en: "A column by Eun-Ju Park, president of CPPI, drawing on ten years of clinical practice and seventeen years in Pilates. Published twice a week.", zh: "CPPI协会长朴恩珠的专栏，每周连载两次。", "zh-Hant": "CPPI 協會長朴恩珠的專欄，每週連載兩次。", ja: "CPPI協会長パク・ウンジュのコラム。週2回連載されます。" })}</p>
+      ${COLUMN_LIST(2)}
+    </div>
+
     <!-- Row 2 : 퀵칩 4 + 앱설치 -->
     <div class="lay-quick">
       <a class="qchip t1" href="#about">${L({ ko: "협회<br>소개", en: "About<br>CPPI", zh: "协会<br>介绍", "zh-Hant": "協會<br>介紹", ja: "協会<br>紹介" })}</a>
@@ -987,10 +997,6 @@ routes.home = () => `
       ${[1, 4, 6, 8, 10].map(i => `<a href="#stories"><img src="reviews/r${i}.jpg" alt="${esc(L({ ko: "CPPI 필라테스 수료강사 후기", en: "CPPI Pilates graduate review", zh: "CPPI普拉提结业教练评价", "zh-Hant": "CPPI皮拉提斯結業教練評價", ja: "CPPIピラティス修了講師の口コミ" }))} ${i}" loading="lazy"></a>`).join("")}
     </div>
     <a class="btn ghost" href="#stories" style="margin-top:10px">${L({ ko: "후기 전체 보기", en: "See all reviews", zh: "查看全部评价", "zh-Hant": "檢視全部評價", ja: "口コミをすべて見る" })}</a>
-
-    <!-- Row 5.7 : 칼럼 (인플루언스뉴스 연재) -->
-    <div class="sreveal" style="margin-top:18px"><div class="eyebrow">COLUMN</div><h2 class="sec">${L(COLUMN.name)}</h2></div>
-    <div class="sreveal">${COLUMN_LIST(2)}</div>
 
     <!-- Row 6 : 무료 상담 배너 -->
     <div class="card sreveal" style="background:linear-gradient(135deg,var(--acc),var(--sun));text-align:center;margin-top:16px;border:none">
@@ -1319,11 +1325,12 @@ function COLUMN_LIST(limit) {
     + `<b><a href="${it.url}" target="_blank" rel="noopener">${esc(it.title)}</a></b>`
     + `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(it.sub)}</p>`
     + `</div>`).join("");
-  const heading = limit ? L(COLUMN.name) : L(COLUMN_UI.list);
+  /* 전면 배치에서는 바깥에 큰 제목이 이미 있다. 목록 소제목은 전체 목록에서만 쓴다. */
+  const heading = limit ? "" : L(COLUMN_UI.list);
   const more = limit && sorted.length > limit
     ? `<a class="btn ghost" href="#journal" style="margin-top:10px">${esc(L(COLUMN_UI.all))}</a>`
     : "";
-  return `<div class="eyebrow" style="margin-top:18px">${esc(heading)}</div>`
+  return (heading ? `<div class="eyebrow" style="margin-top:18px">${esc(heading)}</div>` : "")
     + rows + more + (note ? `<div class="note">${esc(note)}</div>` : "");
 }
 

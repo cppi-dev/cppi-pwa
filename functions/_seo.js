@@ -2307,6 +2307,9 @@ export const COLUMN = {
 
 export const COLUMN_UI = {
   list: { ko: "연재 목록", en: "Published columns", ja: "連載一覧", zh: "连载目录", "zh-Hant": "連載目錄" },
+  running: { ko: "인플루언스뉴스에 주 2회 연재 중입니다.",
+    en: "Running twice a week in Influence News.", ja: "インフルエンスニュースに週2回連載中です。",
+    zh: "于 Influence News 每周连载两次。", "zh-Hant": "於 Influence News 每週連載兩次。" },
   all: { ko: "칼럼 전체 보기", en: "See all columns", ja: "コラムをすべて見る", zh: "查看全部专栏", "zh-Hant": "檢視全部專欄" },
   korean: { ko: "", en: "The column is published in Korean on the publisher's site.",
     ja: "コラムは媒体サイトで韓国語で掲載されます。", zh: "专栏于媒体网站以韩语发表。",
@@ -2328,6 +2331,8 @@ export function columnHTML(lang, limit) {
     + `</div>`).join("");
   const heading = limit ? (COLUMN.name[lang] || COLUMN.name.en)
                         : (COLUMN_UI.list[lang] || COLUMN_UI.list.en);
+  const sub = limit ? `<p style="font-size:13px;color:var(--ink2);margin:2px 0 8px">`
+      + `${esc(COLUMN_UI.running[lang] || COLUMN_UI.running.en)}</p>` : "";
   /* 홈처럼 일부만 보여줄 때는 칼럼 페이지로 가는 길을 반드시 둔다.
      진입점이 햄버거 메뉴 한 곳뿐이면 사람이 찾지 못한다. */
   const more = limit && sorted.length > limit
@@ -2335,7 +2340,7 @@ export function columnHTML(lang, limit) {
       + `${esc(COLUMN_UI.all[lang] || COLUMN_UI.all.en)} →</a></p>`
     : "";
   return `<div class="eyebrow" style="margin-top:18px">${esc(heading)}</div>`
-    + rows + more + (note ? `<div class="note">${esc(note)}</div>` : "");
+    + sub + rows + more + (note ? `<div class="note">${esc(note)}</div>` : "");
 }
 
 /* 칼럼 목록은 글이 하나라도 있어야 색인 가치가 있다.
