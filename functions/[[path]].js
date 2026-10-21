@@ -89,7 +89,16 @@ export async function onRequest(context) {
     return moved301(u.toString());
   }
 
-  if (!segs.length) return context.next();            // "/" 는 정적 index.html
+  /* 루트("/") 도 SSR 을 태운다.
+     예전에는 정적 index.html 을 그대로 내보냈는데, 그러면 <main id="view"> 가 비어 있어
+     크롤러가 보는 한국어 홈 본문이 0 이 된다. /en/ /ja/ /zh/ 는 아래 분기에서
+     segs=["en"] -> route="home" 으로 이미 SSR 을 타고 있어 한국어 홈만 빠져 있었다.
+     셸을 못 읽으면 기존처럼 정적 파일로 폴백한다. */
+  if (!segs.length) {
+    const res = await respondApp(context, "ko", "home");
+    if (res) return res;
+    return context.next();
+  }
 
   /* 언어 접두어 분리 */
   let lang = "ko", prefix = "";
