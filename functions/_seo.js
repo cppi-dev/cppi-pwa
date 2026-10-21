@@ -355,7 +355,7 @@ export const NAV = {
    alt 는 검색·AI가 인물/주제를 연결하도록 영문 고유명을 함께 넣는다. */
 export const HERO = {
   home:       { src: "/img/hero_bg.jpg",          alt: { ko: "CPPI 한국 필라테스 교육협회 정규과정 교육 현장", en: "CPPI Korea Pilates Education Association instructor training", ja: "CPPI 韓国ピラティス教育協会の指導者養成", zh: "CPPI 韩国普拉提教育协会教练培训现场", "zh-Hant": "CPPI 韓國皮拉提斯教育協會師資培訓現場" } },
-  journal:    { src: "/img/founder_face.jpg",     alt: { ko: "CPPI 협회장 박은주 (Eun-Ju Park) 칼럼 - 박은주의 필라테스 라이프", en: "Column by Eun-Ju Park, president of CPPI Korea Pilates Education Association", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park) のコラム", zh: "CPPI协会长朴恩珠 (Eun-Ju Park) 专栏", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park) 專欄" } },
+  journal:    { src: "/img/founder_face.jpg",     alt: { ko: "CPPI 협회장 박은주 (Eun-Ju Park) 칼럼 - 박은주의 필라테스 인문학", en: "Column by Eun-Ju Park, president of CPPI Korea Pilates Education Association", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park) のコラム", zh: "CPPI协会长朴恩珠 (Eun-Ju Park) 专栏", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park) 專欄" } },
   why:        { src: "/img/founder_studio.jpg",   alt: { ko: "CPPI 창립자 박은주 (Eun-Ju Park) 교수의 임상 기반 필라테스 교육", en: "Evidence-based Pilates teaching by CPPI founder Eun-Ju Park", ja: "CPPI創立者 パク・ウンジュ (Eun-Ju Park) 教授の臨床に基づくピラティス教育", zh: "CPPI创始人朴恩珠 (Eun-Ju Park) 教授的临床循证普拉提教育", "zh-Hant": "CPPI 創辦人朴恩珠 (Eun-Ju Park) 教授的臨床實證皮拉提斯教育" } },
   books:      { src: "/img/covers_fan.jpg",      alt: { ko: "박은주 (Eun-Ju Park) 저 CPPI 필라테스 정규과정 교재 9권", en: "The nine CPPI Pilates course textbooks authored by Eun-Ju Park", ja: "パク・ウンジュ (Eun-Ju Park) 著 CPPIピラティス正規課程教材9巻", zh: "朴恩珠 (Eun-Ju Park) 著 CPPI普拉提正规课程教材9册", "zh-Hant": "朴恩珠 (Eun-Ju Park) 著 CPPI 皮拉提斯正規課程教材 9 冊" } },
   guide:      { src: "/img/lect_mt.webp",        alt: { ko: "CPPI 필라테스 무브먼트 테라피 부위별 전문 지침서", en: "CPPI Pilates Movement Therapy regional guidebooks", ja: "CPPIピラティス ムーブメントセラピー 部位別指針書", zh: "CPPI普拉提运动治疗部位别专业指南", "zh-Hant": "CPPI 皮拉提斯動作治療部位別專業指南" } },
@@ -1445,7 +1445,7 @@ export const CONTENT = {
     schema: { "@type": "CollectionPage" },
   },
   /* ------------------------------------------------------------------
-     칼럼 - 박은주의 필라테스 라이프
+     칼럼 - 박은주의 필라테스 인문학
      이 페이지는 목록이고, 개별 글은 CONTENT 에 "journal/{slug}" 키로 넣는다.
        예) "journal/first-post": { ko: {...}, en: {...}, ..., schema: { "@type": "Article" } }
      그렇게 하면 사이트맵 · hreflang · canonical · SSR 이 전부 자동으로 따라온다.
@@ -1458,58 +1458,58 @@ export const CONTENT = {
      ------------------------------------------------------------------ */
   journal: {
     ko: {
-      title: "박은주의 필라테스 라이프 | CPPI 한국 필라테스 교육협회",
+      title: "박은주의 필라테스 인문학 | CPPI 한국 필라테스 교육협회",
       desc: "움직임으로 몸과 마음의 균형을 세우다. 임상 10년과 필라테스 17년을 오간 CPPI 협회장 박은주가 바른 자세와 건강한 움직임을 삶의 지혜로 풀어내는 칼럼입니다.",
-      eyebrow: "COLUMN", h1: "박은주의 필라테스 라이프",
+      eyebrow: "COLUMN", h1: "박은주의 필라테스 인문학",
       lead: "움직임으로 몸과 마음의 균형을 세우다",
       blocks: [
-        { p: "신체의 중심이 잡혀야 바른 움직임이 나오듯, 삶에도 흔들리지 않는 중심이 필요합니다. 『박은주의 필라테스 라이프』는 단순한 운동 지도를 넘어, 바른 자세와 건강한 움직임이 어떻게 개인의 긍정적인 에너지와 성장으로 이어지는지 탐구합니다. 10년간의 임상 현장과 17년간의 필라테스 분야를 오가며 만난 수많은 사람들의 생생한 변화 과정을 바탕으로, 우리 일상 속에서 몸의 중심을 잡고 마음의 단단함을 채워나갈 수 있는 구체적인 삶의 지혜를 나눕니다." },
+        { h: "칼럼 소개", p: "신체의 중심이 잡혀야 바른 움직임이 나오듯, 삶에도 흔들리지 않는 중심이 필요합니다. 『박은주의 필라테스 인문학』는 단순한 운동 지도를 넘어, 바른 자세와 건강한 움직임이 어떻게 개인의 긍정적인 에너지와 성장으로 이어지는지 탐구합니다. 10년간의 임상 현장과 17년간의 필라테스 분야를 오가며 만난 수많은 사람들의 생생한 변화 과정을 바탕으로, 우리 일상 속에서 몸의 중심을 잡고 마음의 단단함을 채워나갈 수 있는 구체적인 삶의 지혜를 나눕니다." },
         { h: "글쓴이", p: "박은주. CPPI 한국필라테스교육협회 회장이자 리커버링 재활필라테스 공인 마스터입니다. 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추·관절센터에서 통증과 수술 후 회복을 다뤘고, 나사렛대학교 스포츠재활학과 겸임교수와 서경대학교 예술교육원 필라테스과정 원장을 역임했습니다." },
-        { h: "연재 안내", p: "칼럼은 순차적으로 공개됩니다. 새 글이 올라오면 이 페이지에 정리됩니다." },
+        { h: "연재 안내", p: "인플루언스뉴스에 주 2회(화·금) 연재됩니다. 새 글이 올라오면 이 페이지의 연재 목록에 추가됩니다. 원문은 인플루언스뉴스에서 읽을 수 있습니다." },
       ],
     },
     en: {
-      title: "Eun-Ju Park's Pilates Life | CPPI Korea Pilates Education Association",
+      title: "Eun-Ju Park's Pilates Humanities | CPPI Korea Pilates Education Association",
       desc: "Building balance in body and mind through movement. A column by CPPI president Eun-Ju Park, drawing on ten years of clinical practice and seventeen years in Pilates.",
-      eyebrow: "COLUMN", h1: "Eun-Ju Park's Pilates Life",
+      eyebrow: "COLUMN", h1: "Eun-Ju Park's Pilates Humanities",
       lead: "Building balance in body and mind through movement",
       blocks: [
-        { p: "Just as correct movement follows from a stable centre in the body, a life needs a centre that does not waver. Eun-Ju Park's Pilates Life goes beyond exercise instruction to explore how good posture and healthy movement translate into personal energy and growth. Drawing on the real changes witnessed in countless people across ten years of clinical practice and seventeen years in Pilates, it shares concrete, everyday wisdom for steadying the body's centre and building firmness of mind." },
+        { h: "About the column", p: "Just as correct movement follows from a stable centre in the body, a life needs a centre that does not waver. Eun-Ju Park's Pilates Humanities goes beyond exercise instruction to explore how good posture and healthy movement translate into personal energy and growth. Drawing on the real changes witnessed in countless people across ten years of clinical practice and seventeen years in Pilates, it shares concrete, everyday wisdom for steadying the body's centre and building firmness of mind." },
         { h: "About the author", p: "Eun-Ju Park is president of the Korea Pilates Education Association and a certified Recovering Rehabilitation Pilates master. She worked in anesthesiology and pain medicine at Seoul National University Bundang Hospital and at the Spine and Joint Center of the Korea Veterans Health Service, and served as adjunct professor of sports rehabilitation at Korea Nazarene University and director of the Pilates programme at Seokyeong University." },
-        { h: "About the series", p: "Columns are published in sequence. New pieces are collected on this page as they appear." },
+        { h: "About the series", p: "The column runs twice a week in Influence News, a Korean online newspaper. New pieces are added to the list on this page as they appear, and the full text is read on the publisher’s site." },
       ],
     },
     ja: {
-      title: "パク・ウンジュのピラティス・ライフ | CPPI 韓国ピラティス教育協会",
+      title: "パク・ウンジュのピラティス人文学 | CPPI 韓国ピラティス教育協会",
       desc: "動きで心と体の均衡を立てる。臨床10年とピラティス17年を行き来したCPPI協会長パク・ウンジュが、正しい姿勢と健やかな動きを人生の知恵として綴るコラムです。",
-      eyebrow: "COLUMN", h1: "パク・ウンジュのピラティス・ライフ",
+      eyebrow: "COLUMN", h1: "パク・ウンジュのピラティス人文学",
       lead: "動きで心と体の均衡を立てる",
       blocks: [
-        { p: "身体の中心が定まってこそ正しい動きが生まれるように、人生にも揺るがない中心が必要です。『パク・ウンジュのピラティス・ライフ』は単なる運動指導を超え、正しい姿勢と健やかな動きが個人の前向きなエネルギーと成長にどうつながるのかを探ります。臨床現場での10年とピラティス分野での17年を行き来しながら出会った数多くの人々の生きた変化の過程をもとに、日常の中で体の中心を据え、心の強さを満たしていくための具体的な生き方の知恵を分かち合います。" },
+        { h: "コラムについて", p: "身体の中心が定まってこそ正しい動きが生まれるように、人生にも揺るがない中心が必要です。『パク・ウンジュのピラティス人文学』は単なる運動指導を超え、正しい姿勢と健やかな動きが個人の前向きなエネルギーと成長にどうつながるのかを探ります。臨床現場での10年とピラティス分野での17年を行き来しながら出会った数多くの人々の生きた変化の過程をもとに、日常の中で体の中心を据え、心の強さを満たしていくための具体的な生き方の知恵を分かち合います。" },
         { h: "著者について", p: "パク・ウンジュ。CPPI韓国ピラティス教育協会の会長であり、リカバリング リハビリピラティス公認マスターです。盆唐ソウル大学病院麻酔痛症医学科と韓国報勲福祉公団の脊椎・関節センターで痛みと術後回復に携わり、ナザレ大学スポーツリハビリ学科の兼任教授、西京大学芸術教育院ピラティス課程の院長を歴任しました。" },
-        { h: "連載について", p: "コラムは順次公開されます。新しい記事が公開されるとこのページにまとめられます。" },
+        { h: "連載について", p: "インフルエンスニュースに週2回(火・金)連載されます。新しい記事が公開されるとこのページの連載一覧に追加されます。原文は媒体サイトでお読みいただけます。" },
       ],
     },
     zh: {
-      title: "朴恩珠的普拉提生活 | CPPI 韩国普拉提教育协会",
+      title: "朴恩珠的普拉提人文学 | CPPI 韩国普拉提教育协会",
       desc: "以动作建立身心平衡。历经十年临床与十七年普拉提的CPPI协会长朴恩珠，将正确体态与健康动作化为人生智慧的专栏。",
-      eyebrow: "COLUMN", h1: "朴恩珠的普拉提生活",
+      eyebrow: "COLUMN", h1: "朴恩珠的普拉提人文学",
       lead: "以动作建立身心平衡",
       blocks: [
-        { p: "正如身体的中心稳固才会有正确的动作，人生也需要一个不摇摆的中心。《朴恩珠的普拉提生活》超越单纯的运动指导，探讨正确体态与健康动作如何转化为个人的正向能量与成长。以在十年临床现场与十七年普拉提领域往来间遇见的无数人真实的改变历程为基础，分享在日常中稳住身体中心、充实内心坚韧的具体人生智慧。" },
+        { h: "专栏简介", p: "正如身体的中心稳固才会有正确的动作，人生也需要一个不摇摆的中心。《朴恩珠的普拉提人文学》超越单纯的运动指导，探讨正确体态与健康动作如何转化为个人的正向能量与成长。以在十年临床现场与十七年普拉提领域往来间遇见的无数人真实的改变历程为基础，分享在日常中稳住身体中心、充实内心坚韧的具体人生智慧。" },
         { h: "关于作者", p: "朴恩珠，CPPI韩国普拉提教育协会会长，Recovering康复普拉提认证大师。曾任职于盆唐首尔大学医院麻醉疼痛医学科与韩国报勋福祉公团脊柱·关节中心，处理疼痛与术后恢复；并曾任拿撒勒大学运动康复学科兼任教授、西京大学艺术教育院普拉提课程院长。" },
-        { h: "连载说明", p: "专栏将陆续发布。新文章上线后会汇整于本页。" },
+        { h: "连载说明", p: "专栏于 Influence News 每周连载两次(周二·周五)。新文章上线后会加入本页的连载目录，原文可在媒体网站阅读。" },
       ],
     },
     "zh-Hant": {
-      title: "朴恩珠的皮拉提斯生活 | CPPI 韓國皮拉提斯教育協會",
+      title: "朴恩珠的皮拉提斯人文學 | CPPI 韓國皮拉提斯教育協會",
       desc: "以動作建立身心平衡。歷經十年臨床與十七年皮拉提斯的 CPPI 協會長朴恩珠，將正確體態與健康動作化為人生智慧的專欄。",
-      eyebrow: "COLUMN", h1: "朴恩珠的皮拉提斯生活",
+      eyebrow: "COLUMN", h1: "朴恩珠的皮拉提斯人文學",
       lead: "以動作建立身心平衡",
       blocks: [
-        { p: "正如身體的中心穩固才會有正確的動作，人生也需要一個不搖擺的中心。《朴恩珠的皮拉提斯生活》超越單純的運動指導，探討正確體態與健康動作如何轉化為個人的正向能量與成長。以在十年臨床現場與十七年皮拉提斯領域往來間遇見的無數人真實的改變歷程為基礎，分享在日常中穩住身體中心、充實內心堅韌的具體人生智慧。" },
+        { h: "專欄簡介", p: "正如身體的中心穩固才會有正確的動作，人生也需要一個不搖擺的中心。《朴恩珠的皮拉提斯人文學》超越單純的運動指導，探討正確體態與健康動作如何轉化為個人的正向能量與成長。以在十年臨床現場與十七年皮拉提斯領域往來間遇見的無數人真實的改變歷程為基礎，分享在日常中穩住身體中心、充實內心堅韌的具體人生智慧。" },
         { h: "關於作者", p: "朴恩珠，CPPI 韓國皮拉提斯教育協會會長，Recovering 復健皮拉提斯認證大師。曾任職於盆唐首爾大學醫院麻醉疼痛醫學科與韓國報勳福祉公團脊椎·關節中心，處理疼痛與術後恢復；並曾任拿撒勒大學運動復健學科兼任教授、西京大學藝術教育院皮拉提斯課程院長。" },
-        { h: "連載說明", p: "專欄將陸續發布。新文章上線後會彙整於本頁。" },
+        { h: "連載說明", p: "專欄於 Influence News 每週連載兩次(週二·週五)。新文章上線後會加入本頁的連載目錄，原文可在媒體網站閱讀。" },
       ],
     },
     schema: { "@type": "CollectionPage" },
@@ -2273,11 +2273,67 @@ export const SUB_ROUTES = ROUTES.filter(r => r !== "home");
    검증 가능한 사실이 각 언어의 본문에 실제로 들어 있는지로 판단한다.
    앞으로 새 라우트를 만들 때 본문이 비어 있으면 여기에 넣어 두고,
    채운 뒤에 빼면 된다. */
+/* 인플루언스뉴스 연재 칼럼 - 원문 링크만 싣는다.
+   본문을 복제하면 도메인 권위가 높은 언론사가 중복 판정에서 이기고
+   CPPI 페이지가 색인에서 걸러진다. 확장판을 쓰기로 결정할 때까지 링크만 유지한다.
+   app.js 의 COLUMN 과 반드시 동일해야 하며 tools/schema-audit.mjs 가 대조한다. */
+export const COLUMN = {
+  name: {
+    ko: "박은주의 필라테스 인문학",
+    en: "Eun-Ju Park's Pilates Humanities",
+    ja: "パク・ウンジュのピラティス人文学",
+    zh: "朴恩珠的普拉提人文学",
+    "zh-Hant": "朴恩珠的皮拉提斯人文學",
+  },
+  publisher: {
+    ko: "인플루언스뉴스", en: "Influence News", ja: "インフルエンスニュース",
+    zh: "Influence News", "zh-Hant": "Influence News",
+  },
+  items: [
+    { no: 1, date: "2026-10-13",
+      title: "일상을 다시 짓는 일, 필라테스의 본질",
+      sub: "매트 위에서 무너진 삶의 중심을 다시 세우다",
+      url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21065" },
+    { no: 2, date: "2026-10-16",
+      title: "임상에서 삶으로 이어진 길, 의료인의 눈으로 짓는 움직임",
+      sub: "차트의 수치를 넘어 한 사람의 온전한 일상을 바라보다",
+      url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21066" },
+    { no: 3, date: "2026-10-20",
+      title: "몸과 일상 사이를 잇는 다리, 리커버링",
+      sub: "거대한 기구를 넘어 근막의 바다를 깨우는 일상의 회복 도구",
+      url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21068" },
+  ],
+};
+
+export const COLUMN_UI = {
+  list: { ko: "연재 목록", en: "Published columns", ja: "連載一覧", zh: "连载目录", "zh-Hant": "連載目錄" },
+  korean: { ko: "", en: "The column is published in Korean on the publisher's site.",
+    ja: "コラムは媒体サイトで韓国語で掲載されます。", zh: "专栏于媒体网站以韩语发表。",
+    "zh-Hant": "專欄於媒體網站以韓語發表。" },
+};
+
+/* 회차 목록 - 실제 앵커 태그로 내보낸다. CONTENT 의 문자열은 전부 이스케이프되므로
+   거기에 URL 을 넣으면 평문이 되어 링크로 인식되지 않는다. */
+export function columnHTML(lang) {
+  if (!COLUMN.items.length) return "";
+  const pub = COLUMN.publisher[lang] || COLUMN.publisher.en;
+  const note = COLUMN_UI.korean[lang] || "";
+  const rows = COLUMN.items.slice().sort((a, b) => b.no - a.no).map(it =>
+    `<div class="card" style="margin-bottom:8px">`
+    + `<div class="eyebrow">${esc(String(it.no).padStart(2, "0"))} · ${esc(it.date)} · ${esc(pub)}</div>`
+    + `<b><a href="${it.url}" target="_blank" rel="noopener">${esc(it.title)}</a></b>`
+    + `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(it.sub)}</p>`
+    + `</div>`).join("");
+  return `<div class="eyebrow" style="margin-top:18px">${esc(COLUMN_UI.list[lang] || COLUMN_UI.list.en)}</div>`
+    + rows + (note ? `<div class="note">${esc(note)}</div>` : "");
+}
+
 /* 칼럼 목록은 글이 하나라도 있어야 색인 가치가 있다.
    비어 있는 동안 noindex + 사이트맵 제외로 자동 격리하고,
    "journal/{slug}" 키의 글이 CONTENT 에 들어오면 자동으로 풀린다. */
 export const JOURNAL_POSTS = Object.keys(CONTENT).filter(r => r.startsWith("journal/"));
-export const THIN_ROUTES = JOURNAL_POSTS.length ? [] : ["journal"];
+/* 내부 글(journal/{slug})이 없어도 외부 매체 연재분이 있으면 목록으로서 색인 가치가 있다. */
+export const THIN_ROUTES = (JOURNAL_POSTS.length || COLUMN.items.length) ? [] : ["journal"];
 
 export function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
@@ -2410,6 +2466,22 @@ export function jsonLD(lang, route) {
     };
     pageNode.dateCreated = isoDateTime(PROFILE_CREATED);
     pageNode.dateModified = isoDateTime(LAST_MODIFIED);
+  }
+
+  /* 칼럼 목록 - 외부 매체 연재분을 ItemList 로 가리킨다.
+     우리가 발행하지 않은 기사를 NewsArticle 로 직접 마크업하지 않는다.
+     저작·발행 주체가 인플루언스뉴스이므로 소유를 주장하는 마크업은 부정확하다. */
+  if (route === "journal" && COLUMN.items.length) {
+    pageNode.mainEntity = {
+      "@type": "ItemList",
+      name: COLUMN.name[lang] || COLUMN.name.en,
+      numberOfItems: COLUMN.items.length,
+      itemListOrder: "https://schema.org/ItemListOrderDescending",
+      itemListElement: COLUMN.items.slice().sort((a, b) => b.no - a.no).map((it, i) => ({
+        "@type": "ListItem", position: i + 1, url: it.url, name: it.title,
+      })),
+    };
+    pageNode.about = { "@id": ORIGIN + "/#founder" };
   }
 
   /* 빵부스러기 - 홈 > 현재 페이지 */
@@ -2727,6 +2799,8 @@ export function ssrBody(lang, route) {
   const centerB = ["home", "about", "curriculum", "courses", "workshop", "global"].includes(route)
     ? blockHTML(CENTER_BLOCK[lang] || CENTER_BLOCK.en) : "";
   const specsB = blockHTML(SPECS[lang] || SPECS.en);
+  /* 칼럼 회차 목록 - journal 라우트에만 붙인다. */
+  const columnB = route === "journal" ? columnHTML(lang) : "";
   const faqItems = (FAQ[route] || {})[lang] || [];
   const faq = faqItems.length
     ? `<div class="eyebrow" style="margin-top:18px">${esc(UI.faq[lang])}</div>`
@@ -2739,6 +2813,7 @@ export function ssrBody(lang, route) {
   ${c.lead ? `<p style="color:var(--ink2);font-size:14px;margin-bottom:16px">${esc(c.lead)}</p>` : ""}
   ${hero ? `<img src="${hero.src}" alt="${esc(heroAlt)}" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">` : ""}
   ${blocks}
+  ${columnB}
   ${chooseB}
   ${centerB}
   ${faq}

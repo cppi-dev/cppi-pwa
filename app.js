@@ -151,7 +151,7 @@ const UI = {
     workshop: { ko: "전문 강사 워크숍", en: "Pro Instructor Workshop", zh: "专业教练工作坊", "zh-Hant": "專業教練工作坊", ja: "専門講師ワークショップ" },
     learn: { ko: "온라인 강의", en: "Online Lectures", zh: "在线课程", "zh-Hant": "線上課程", ja: "オンライン講義" },
     store: { ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", "zh-Hant": "電子書·教材商店", ja: "電子書籍·教材ストア" },
-    journal: { ko: "박은주의 필라테스 라이프", en: "Eun-Ju Park's Pilates Life", zh: "朴恩珠的普拉提生活", "zh-Hant": "朴恩珠的皮拉提斯生活", ja: "パク・ウンジュのピラティス・ライフ" },
+    journal: { ko: "박은주의 필라테스 인문학", en: "Eun-Ju Park's Pilates Humanities", zh: "朴恩珠的普拉提人文学", "zh-Hant": "朴恩珠的皮拉提斯人文學", ja: "パク・ウンジュのピラティス人文学" },
     guide: { ko: "필라테스 전문 지침서", en: "Pilates Pro Guidebooks", zh: "普拉提专业指南", "zh-Hant": "皮拉提斯專業指南", ja: "ピラティス専門指針書" },
     apply: { ko: "상담 · 신청", en: "Consultation", zh: "咨询 · 申请", "zh-Hant": "諮詢 · 申請", ja: "相談 · 申込" },
     support: { ko: "FAQ · 후기 · 앱 설치", en: "FAQ · Reviews · Install", zh: "FAQ · 评价 · 安装", "zh-Hant": "FAQ · 評價 · 安裝", ja: "FAQ · 口コミ · インストール" },
@@ -1260,19 +1260,74 @@ function pickMaster(i) {
   d.classList.remove("pop"); void d.offsetWidth; d.classList.add("pop");
 }
 
-/* 칼럼 - 박은주의 필라테스 라이프.
+/* 칼럼 - 박은주의 필라테스 인문학.
    글은 서버 CONTENT 의 "journal/{slug}" 키로 관리한다. 여기는 목록 화면이다. */
+/* 인플루언스뉴스 연재 칼럼 - 원문 링크만 싣는다.
+   본문을 복제하면 도메인 권위가 높은 언론사가 중복 판정에서 이기고
+   CPPI 페이지가 색인에서 걸러진다. 확장판을 쓰기로 결정할 때까지 링크만 유지한다.
+   functions/_seo.js 의 COLUMN 과 반드시 동일해야 하며 tools/schema-audit.mjs 가 대조한다. */
+const COLUMN = {
+  name: {
+    ko: "박은주의 필라테스 인문학",
+    en: "Eun-Ju Park's Pilates Humanities",
+    ja: "パク・ウンジュのピラティス人文学",
+    zh: "朴恩珠的普拉提人文学",
+    "zh-Hant": "朴恩珠的皮拉提斯人文學",
+  },
+  publisher: {
+    ko: "인플루언스뉴스", en: "Influence News", ja: "インフルエンスニュース",
+    zh: "Influence News", "zh-Hant": "Influence News",
+  },
+  items: [
+    { no: 1, date: "2026-10-13",
+      title: "일상을 다시 짓는 일, 필라테스의 본질",
+      sub: "매트 위에서 무너진 삶의 중심을 다시 세우다",
+      url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21065" },
+    { no: 2, date: "2026-10-16",
+      title: "임상에서 삶으로 이어진 길, 의료인의 눈으로 짓는 움직임",
+      sub: "차트의 수치를 넘어 한 사람의 온전한 일상을 바라보다",
+      url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21066" },
+    { no: 3, date: "2026-10-20",
+      title: "몸과 일상 사이를 잇는 다리, 리커버링",
+      sub: "거대한 기구를 넘어 근막의 바다를 깨우는 일상의 회복 도구",
+      url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21068" },
+  ],
+};
+
+const COLUMN_UI = {
+  list: { ko: "연재 목록", en: "Published columns", ja: "連載一覧", zh: "连载目录", "zh-Hant": "連載目錄" },
+  korean: { ko: "", en: "The column is published in Korean on the publisher's site.",
+    ja: "コラムは媒体サイトで韓国語で掲載されます。", zh: "专栏于媒体网站以韩语发表。",
+    "zh-Hant": "專欄於媒體網站以韓語發表。" },
+};
+
+/* 회차 목록 - 실제 앵커 태그로 내보낸다. CONTENT 의 문자열은 전부 이스케이프되므로
+   거기에 URL 을 넣으면 평문이 되어 링크로 인식되지 않는다. */
+function COLUMN_LIST() {
+  if (!COLUMN.items.length) return "";
+  const pub = L(COLUMN.publisher);
+  const note = L(COLUMN_UI.korean);
+  const rows = COLUMN.items.slice().sort((a, b) => b.no - a.no).map(it =>
+    `<div class="card" style="margin-bottom:8px">`
+    + `<div class="eyebrow">${esc(String(it.no).padStart(2, "0"))} · ${esc(it.date)} · ${esc(pub)}</div>`
+    + `<b><a href="${it.url}" target="_blank" rel="noopener">${esc(it.title)}</a></b>`
+    + `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(it.sub)}</p>`
+    + `</div>`).join("");
+  return `<div class="eyebrow" style="margin-top:18px">${esc(L(COLUMN_UI.list))}</div>`
+    + rows + (note ? `<div class="note">${esc(note)}</div>` : "");
+}
+
 routes.journal = () => `
   <section>
-    ${secHead("COLUMN", L({ ko: "박은주의 필라테스 라이프", en: "Eun-Ju Park's Pilates Life", zh: "朴恩珠的普拉提生活", "zh-Hant": "朴恩珠的皮拉提斯生活", ja: "パク・ウンジュのピラティス・ライフ" }), L({ ko: "움직임으로 몸과 마음의 균형을 세우다", en: "Building balance in body and mind through movement", zh: "以动作建立身心平衡", "zh-Hant": "以動作建立身心平衡", ja: "動きで心と体の均衡を立てる" }))}
+    ${secHead("COLUMN", L({ ko: "박은주의 필라테스 인문학", en: "Eun-Ju Park's Pilates Humanities", zh: "朴恩珠的普拉提人文学", "zh-Hant": "朴恩珠的皮拉提斯人文學", ja: "パク・ウンジュのピラティス人文学" }), L({ ko: "움직임으로 몸과 마음의 균형을 세우다", en: "Building balance in body and mind through movement", zh: "以动作建立身心平衡", "zh-Hant": "以動作建立身心平衡", ja: "動きで心と体の均衡を立てる" }))}
     <img src="img/founder_face.jpg" alt="${esc(L({ ko: "CPPI 협회장 박은주 (Eun-Ju Park)", en: "Eun-Ju Park, president of CPPI Korea", zh: "CPPI协会长朴恩珠 (Eun-Ju Park)", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park)", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park)" }))}" loading="lazy" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">
     <div class="card" style="margin-bottom:10px">
       <p style="font-size:13.5px;line-height:1.85;color:var(--ink2)">${L({
-        ko: "신체의 중심이 잡혀야 바른 움직임이 나오듯, 삶에도 흔들리지 않는 중심이 필요합니다. 『박은주의 필라테스 라이프』는 단순한 운동 지도를 넘어, 바른 자세와 건강한 움직임이 어떻게 개인의 긍정적인 에너지와 성장으로 이어지는지 탐구합니다. 10년간의 임상 현장과 17년간의 필라테스 분야를 오가며 만난 수많은 사람들의 생생한 변화 과정을 바탕으로, 우리 일상 속에서 몸의 중심을 잡고 마음의 단단함을 채워나갈 수 있는 구체적인 삶의 지혜를 나눕니다.",
-        en: "Just as correct movement follows from a stable centre in the body, a life needs a centre that does not waver. Eun-Ju Park's Pilates Life goes beyond exercise instruction to explore how good posture and healthy movement translate into personal energy and growth. Drawing on the real changes witnessed in countless people across ten years of clinical practice and seventeen years in Pilates, it shares concrete, everyday wisdom for steadying the body's centre and building firmness of mind.",
-        ja: "身体の中心が定まってこそ正しい動きが生まれるように、人生にも揺るがない中心が必要です。『パク・ウンジュのピラティス・ライフ』は単なる運動指導を超え、正しい姿勢と健やかな動きが個人の前向きなエネルギーと成長にどうつながるのかを探ります。臨床現場での10年とピラティス分野での17年を行き来しながら出会った数多くの人々の生きた変化の過程をもとに、日常の中で体の中心を据え、心の強さを満たしていくための具体的な生き方の知恵を分かち合います。",
-        zh: "正如身体的中心稳固才会有正确的动作，人生也需要一个不摇摆的中心。《朴恩珠的普拉提生活》超越单纯的运动指导，探讨正确体态与健康动作如何转化为个人的正向能量与成长。以在十年临床现场与十七年普拉提领域往来间遇见的无数人真实的改变历程为基础，分享在日常中稳住身体中心、充实内心坚韧的具体人生智慧。",
-        "zh-Hant": "正如身體的中心穩固才會有正確的動作，人生也需要一個不搖擺的中心。《朴恩珠的皮拉提斯生活》超越單純的運動指導，探討正確體態與健康動作如何轉化為個人的正向能量與成長。以在十年臨床現場與十七年皮拉提斯領域往來間遇見的無數人真實的改變歷程為基礎，分享在日常中穩住身體中心、充實內心堅韌的具體人生智慧。",
+        ko: "신체의 중심이 잡혀야 바른 움직임이 나오듯, 삶에도 흔들리지 않는 중심이 필요합니다. 『박은주의 필라테스 인문학』는 단순한 운동 지도를 넘어, 바른 자세와 건강한 움직임이 어떻게 개인의 긍정적인 에너지와 성장으로 이어지는지 탐구합니다. 10년간의 임상 현장과 17년간의 필라테스 분야를 오가며 만난 수많은 사람들의 생생한 변화 과정을 바탕으로, 우리 일상 속에서 몸의 중심을 잡고 마음의 단단함을 채워나갈 수 있는 구체적인 삶의 지혜를 나눕니다.",
+        en: "Just as correct movement follows from a stable centre in the body, a life needs a centre that does not waver. Eun-Ju Park's Pilates Humanities goes beyond exercise instruction to explore how good posture and healthy movement translate into personal energy and growth. Drawing on the real changes witnessed in countless people across ten years of clinical practice and seventeen years in Pilates, it shares concrete, everyday wisdom for steadying the body's centre and building firmness of mind.",
+        ja: "身体の中心が定まってこそ正しい動きが生まれるように、人生にも揺るがない中心が必要です。『パク・ウンジュのピラティス人文学』は単なる運動指導を超え、正しい姿勢と健やかな動きが個人の前向きなエネルギーと成長にどうつながるのかを探ります。臨床現場での10年とピラティス分野での17年を行き来しながら出会った数多くの人々の生きた変化の過程をもとに、日常の中で体の中心を据え、心の強さを満たしていくための具体的な生き方の知恵を分かち合います。",
+        zh: "正如身体的中心稳固才会有正确的动作，人生也需要一个不摇摆的中心。《朴恩珠的普拉提人文学》超越单纯的运动指导，探讨正确体态与健康动作如何转化为个人的正向能量与成长。以在十年临床现场与十七年普拉提领域往来间遇见的无数人真实的改变历程为基础，分享在日常中稳住身体中心、充实内心坚韧的具体人生智慧。",
+        "zh-Hant": "正如身體的中心穩固才會有正確的動作，人生也需要一個不搖擺的中心。《朴恩珠的皮拉提斯人文學》超越單純的運動指導，探討正確體態與健康動作如何轉化為個人的正向能量與成長。以在十年臨床現場與十七年皮拉提斯領域往來間遇見的無數人真實的改變歷程為基礎，分享在日常中穩住身體中心、充實內心堅韌的具體人生智慧。",
       })}</p>
     </div>
     <div class="card" style="margin-bottom:10px">
@@ -1286,9 +1341,10 @@ routes.journal = () => `
       })}</p>
       <a class="btn ghost small" href="#founder" style="margin-top:8px">${L({ ko: "파운더 프로필 보기", en: "Founder profile", zh: "查看创始人简介", "zh-Hant": "檢視創辦人簡介", ja: "創立者プロフィール" })}</a>
     </div>
+    ${COLUMN_LIST()}
     <div class="card">
       <b>${L({ ko: "연재 안내", en: "About the series", zh: "连载说明", "zh-Hant": "連載說明", ja: "連載について" })}</b>
-      <p style="font-size:13px;color:var(--ink2);margin-top:5px">${L({ ko: "칼럼은 순차적으로 공개됩니다. 새 글이 올라오면 이 화면에 정리됩니다.", en: "Columns are published in sequence. New pieces are collected here as they appear.", zh: "专栏将陆续发布，新文章上线后会汇整于此。", "zh-Hant": "專欄將陸續發布，新文章上線後會彙整於此。", ja: "コラムは順次公開されます。新しい記事はこの画面にまとめられます。" })}</p>
+      <p style="font-size:13px;color:var(--ink2);margin-top:5px">${L({ ko: "인플루언스뉴스에 주 2회(화·금) 연재됩니다. 새 글이 올라오면 위 연재 목록에 추가됩니다.", en: "The column runs twice a week in Influence News. New pieces are added to the list above as they appear.", zh: "专栏于 Influence News 每周连载两次(周二·周五)。新文章上线后会加入上方连载目录，原文可在媒体网站阅读。", "zh-Hant": "專欄於 Influence News 每週連載兩次(週二·週五)。新文章上線後會加入上方連載目錄，原文可在媒體網站閱讀。", ja: "インフルエンスニュースに週2回(火・金)連載されます。新しい記事が公開されると上の連載一覧に追加されます。原文は媒体サイトでお読みいただけます。" })}</p>
     </div>
   </section>`;
 

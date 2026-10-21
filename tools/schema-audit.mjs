@@ -105,6 +105,19 @@ for (const lang of LANGS) {
 
 /* --- 3. 사이트맵 · 라우트 정합 -------------------------------------- */
 const locs = (m.sitemapXML().match(/<loc>/g) || []).length;
+
+/* COLUMN 동기화 - functions/_seo.js 와 app.js 가 같은 회차 목록을 가져야 한다.
+   어긋나면 크롤러와 사용자가 다른 목록을 본다. */
+{
+  const appSrc = fs.readFileSync("app.js", "utf8");
+  const appUrls = [...appSrc.matchAll(/influencenews\.co\.kr[^"']*/g)].map(x => x[0]).sort();
+  const seoUrls = m.COLUMN.items.map(it => it.url.replace(/^https?:\/\/www\./, "")).sort();
+  if (appUrls.length !== seoUrls.length || appUrls.join("|") !== seoUrls.join("|")) {
+    fail(`[칼럼] COLUMN 불일치 - _seo.js ${seoUrls.length}건 / app.js ${appUrls.length}건. 두 파일의 회차 목록이 같아야 한다`);
+  } else {
+    console.log(`칼럼 회차 ${seoUrls.length}건 - _seo.js 와 app.js 일치`);
+  }
+}
 const expected = (ROUTES.length - (m.THIN_ROUTES || []).length) * LANGS.length;
 if (locs !== expected) fail(`[사이트맵] URL ${locs}개 - 기대값 ${expected}개 (라우트 ${ROUTES.length} × 언어 ${LANGS.length} - THIN ${(m.THIN_ROUTES||[]).length})`);
 
