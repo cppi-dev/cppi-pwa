@@ -2833,18 +2833,29 @@ export function ssrBody(lang, route) {
       + faqItems.map(([q, a]) => `<div class="card" style="margin-bottom:8px"><b>${esc(q)}</b>`
         + `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(a)}</p></div>`).join("")
     : "";
+  /* 칼럼 페이지만 배치가 다르다.
+     읽으러 온 사람이 가장 먼저 찾는 것은 회차 목록이므로 목록을 맨 위로
+     올리고, 소개문과 글쓴이를 그 뒤에, 인물 사진을 맨 아래로 내린다.
+     사진이 위에 있으면 첫 화면이 전부 사진에 먹혀 목록이 보이지 않았다.
+     앱 화면(app.js routes.journal)도 같은 순서로 맞춰 두었다. */
+  const isJournal = route === "journal";
+  const heroImg = hero
+    ? `<img src="${hero.src}" alt="${esc(heroAlt)}" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">`
+    : "";
+
   return `<section data-ssr="1">
   <div class="eyebrow">${esc(c.eyebrow)}</div>
   <h1 style="font-size:26px;line-height:1.3;margin:6px 0 10px">${esc(c.h1)}</h1>
   ${c.lead ? `<p style="color:var(--ink2);font-size:14px;margin-bottom:16px">${esc(c.lead)}</p>` : ""}
-  ${hero ? `<img src="${hero.src}" alt="${esc(heroAlt)}" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">` : ""}
-  ${blocks}
-  ${columnB}
+  ${isJournal ? "" : heroImg}
+  ${isJournal ? columnB : blocks}
+  ${isJournal ? blocks : columnB}
   ${chooseB}
   ${centerB}
   ${faq}
   ${specsB}
   ${c.note ? `<div class="note">${esc(c.note)}</div>` : ""}
+  ${isJournal ? heroImg : ""}
 </section>`;
 }
 

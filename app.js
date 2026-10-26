@@ -1342,7 +1342,7 @@ function COLUMN_LIST(limit) {
 routes.journal = () => `
   <section>
     ${secHead("COLUMN", L({ ko: "박은주의 필라테스 인문학", en: "Eun-Ju Park's Pilates Humanities", zh: "朴恩珠的普拉提人文学", "zh-Hant": "朴恩珠的皮拉提斯人文學", ja: "パク・ウンジュのピラティス人文学" }), L({ ko: "움직임으로 몸과 마음의 균형을 세우다", en: "Building balance in body and mind through movement", zh: "以动作建立身心平衡", "zh-Hant": "以動作建立身心平衡", ja: "動きで心と体の均衡を立てる" }))}
-    <img src="img/founder_face.jpg" alt="${esc(L({ ko: "CPPI 협회장 박은주 (Eun-Ju Park)", en: "Eun-Ju Park, president of CPPI Korea", zh: "CPPI协会长朴恩珠 (Eun-Ju Park)", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park)", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park)" }))}" loading="lazy" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">
+    ${COLUMN_LIST()}
     <div class="card" style="margin-bottom:10px">
       <p style="font-size:13.5px;line-height:1.85;color:var(--ink2)">${L({
         ko: "신체의 중심이 잡혀야 바른 움직임이 나오듯, 삶에도 흔들리지 않는 중심이 필요합니다. 『박은주의 필라테스 인문학』는 단순한 운동 지도를 넘어, 바른 자세와 건강한 움직임이 어떻게 개인의 긍정적인 에너지와 성장으로 이어지는지 탐구합니다. 10년간의 임상 현장과 17년간의 필라테스 분야를 오가며 만난 수많은 사람들의 생생한 변화 과정을 바탕으로, 우리 일상 속에서 몸의 중심을 잡고 마음의 단단함을 채워나갈 수 있는 구체적인 삶의 지혜를 나눕니다.",
@@ -1363,11 +1363,11 @@ routes.journal = () => `
       })}</p>
       <a class="btn ghost small" href="#founder" style="margin-top:8px">${L({ ko: "파운더 프로필 보기", en: "Founder profile", zh: "查看创始人简介", "zh-Hant": "檢視創辦人簡介", ja: "創立者プロフィール" })}</a>
     </div>
-    ${COLUMN_LIST()}
     <div class="card">
       <b>${L({ ko: "연재 안내", en: "About the series", zh: "连载说明", "zh-Hant": "連載說明", ja: "連載について" })}</b>
       <p style="font-size:13px;color:var(--ink2);margin-top:5px">${L({ ko: "인플루언스뉴스에 주 2회(화·금) 연재됩니다. 새 글이 올라오면 위 연재 목록에 추가됩니다.", en: "The column runs twice a week in Influence News. New pieces are added to the list above as they appear.", zh: "专栏于 Influence News 每周连载两次(周二·周五)。新文章上线后会加入上方连载目录，原文可在媒体网站阅读。", "zh-Hant": "專欄於 Influence News 每週連載兩次(週二·週五)。新文章上線後會加入上方連載目錄，原文可在媒體網站閱讀。", ja: "インフルエンスニュースに週2回(火・金)連載されます。新しい記事が公開されると上の連載一覧に追加されます。原文は媒体サイトでお読みいただけます。" })}</p>
     </div>
+    <img src="img/founder_face.jpg" alt="${esc(L({ ko: "CPPI 협회장 박은주 (Eun-Ju Park)", en: "Eun-Ju Park, president of CPPI Korea", zh: "CPPI协会长朴恩珠 (Eun-Ju Park)", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park)", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park)" }))}" loading="lazy" style="width:100%;height:auto;border-radius:14px;margin-bottom:14px">
   </section>`;
 
 routes.master = () => `
