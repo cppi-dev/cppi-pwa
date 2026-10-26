@@ -1302,6 +1302,10 @@ const COLUMN = {
       title: "몸과 일상 사이를 잇는 다리, 리커버링",
       sub: "거대한 기구를 넘어 근막의 바다를 깨우는 일상의 회복 도구",
       url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21068" },
+    { no: 4, date: "2026-10-23",
+      title: "'숨'을 다시 배우는 일",
+      sub: "호흡의 정해진 원칙보다 중요한 것은 내 몸의 움직임에 집중하는 일",
+      url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21069" },
   ],
 };
 
