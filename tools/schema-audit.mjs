@@ -142,6 +142,31 @@ const locs = (m.sitemapXML().match(/<loc>/g) || []).length;
     console.log(`칼럼 회차 ${seoUrls.length}건 - _seo.js 와 app.js 일치`);
   }
 }
+
+/* 교육안내 FAQ 동기화 - functions/_seo.js 의 FAQ.courses 는 FAQPage 스키마로
+   나가고, app.js 의 COURSES_FAQ 는 사람이 보는 아코디언으로 나간다.
+   어긋나면 스키마에만 있고 화면에는 없는 Q&A 가 생긴다. 구글·네이버가
+   "화면에 보이지 않는 FAQ" 로 판정하면 리치 결과에서 빠진다. */
+{
+  const appSrc = fs.readFileSync("app.js", "utf8");
+  const order = ["ko", "en", "ja", "zh", "zh-Hant"];
+  const lines = [];
+  for (const lg of order) {
+    const arr = (m.FAQ.courses || {})[lg];
+    if (!arr) continue;
+    lines.push("  " + (lg.includes("-") ? JSON.stringify(lg) : lg) + ": [");
+    for (const [q, a] of arr) lines.push("    [" + JSON.stringify(q) + ", " + JSON.stringify(a) + "],");
+    lines.push("  ],");
+  }
+  const want = "const COURSES_FAQ = {\n" + lines.join("\n") + "\n};";
+  const koN = ((m.FAQ.courses || {}).ko || []).length;
+  if (!appSrc.includes(want)) {
+    fail(`[FAQ] COURSES_FAQ 불일치 - app.js 의 COURSES_FAQ 가 _seo.js 의 FAQ.courses 와 다르다. `
+       + `tools/gen-courses-faq.mjs 로 다시 생성해 app.js 에 붙여넣어야 한다`);
+  } else {
+    console.log(`교육안내 FAQ ${koN}문항 - _seo.js 와 app.js 일치`);
+  }
+}
 const expected = (ROUTES.length - (m.THIN_ROUTES || []).length) * LANGS.length;
 if (locs !== expected) fail(`[사이트맵] URL ${locs}개 - 기대값 ${expected}개 (라우트 ${ROUTES.length} × 언어 ${LANGS.length} - THIN ${(m.THIN_ROUTES||[]).length})`);
 

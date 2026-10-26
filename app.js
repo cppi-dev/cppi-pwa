@@ -262,6 +262,61 @@ const MASTERS = [
   { n: { ko: "김휘향", en: "Hwy-hyang KIM" }, img: "masters/hwyhyang.jpg" },
 ];
 
+/* 교육안내 페이지 FAQ - functions/_seo.js 의 FAQ.courses 와 같은 내용이다.
+   SSR 은 FAQ.courses 로 FAQPage 스키마까지 내보내는데 앱 화면에는 이 질문이
+   없어서, 사람은 못 보고 크롤러만 보는 내용이 되어 있었다. 양쪽을 맞춘다.
+   한쪽만 고치면 tools/schema-audit.mjs 의 동기화 검사에서 걸린다. */
+const COURSES_FAQ = {
+  ko: [
+    ["필라테스가 처음인데 강사 자격과정을 들을 수 있나요?", "가능합니다. 기능해부학 기초부터 단계적으로 설계되어 있어 비전공 입문자도 따라올 수 있습니다. 실제 수료생 중 상당수가 타 분야에서 전향한 분들입니다."],
+    ["에센셜 코스 수강료는 얼마인가요?", "정상가 420만원입니다. 얼리버드 신청과 할인 혜택이 적용되면 400만원입니다. 납부 방법과 수강료에 포함되는 항목은 기수별 공지와 개별 상담에서 안내드립니다."],
+    ["전체 과정은 몇 시간인가요?", "8개 정규 과목을 합쳐 약 110~120시간입니다. 기능해부학 10시간, 기본원리 10시간, 체형 분석 및 움직임 평가 5시간, 매트 25시간, 리포머 20~25시간, 캐딜락 20~25시간, 스태빌리티 체어 10시간, 래더바렐 및 바렐 시리즈 10시간으로 구성됩니다. 운영은 주당 8~10시간, 약 15주 전후이며 주차별 시간은 기수 인원과 진도에 따라 변동합니다."],
+    ["온라인 강의만으로 수료할 수 있나요?", "온라인 강의는 복습과 보조 학습용입니다. 정규 수료에는 오프라인 실기와 티칭 평가가 포함됩니다."],
+    ["수료하면 어떤 자격이 주어지나요?", "국제자격증이 발급되고 L3 정회원으로 승급되며, 수료강사 명단에 등재되어 활동 연계 지원을 받습니다."],
+    ["해외에서도 수강할 수 있나요?", "한국(분당·서울·김포), 캐나다(밴쿠버), 일본(도쿄)에서 운영합니다. 그 외 지역은 이메일로 문의해 주시면 일정을 안내드립니다."],
+    ["평일에도 수강할 수 있나요?", "평일반은 협회 부설 필라티크 운동연구소(분당)에서 화·목으로 운영하고, 주말반은 서울 강동과 김포 호스팅 센터에서 토·일로 운영합니다. 두 반 모두 주당 8~10시간, 약 15주 전후입니다."],
+    ["인원이 많으면 교육 시간이 줄어드나요?", "줄지 않습니다. CPPI는 1인당 지도 시간을 교육 패턴으로 고정해 두었습니다. 마스터 강사의 전체 지도, 개인별 동작 복습 지도, 조별 상호 티칭 실습(마스터가 조를 돌며 개별 지도)을 과목마다 반복하기 때문에 한 사람이 받는 지도 시간은 인원이 늘어도 유지되고, 대신 총 교육시간이 길어집니다."],
+    ["필라테스 강사 보수는 어떻게 계산되나요?", "시간당으로 계산됩니다. 경력 1~2년 이상 기준으로 통상 시간당 3만~3만5천원 선입니다. 그룹 수업은 수업 인원에 따라 가산되는 경우가 있고, 개인 레슨은 교정·재활 관련 자격과 교육 수료 커리어를 근거로 사업자와 협상합니다. 1일 6시간 이상 근무한다면 월 근무일수에 따라 수입 폭이 크게 달라집니다. 일반 직장과 가장 다른 점은 금액이 아니라 시간 운용입니다. 오전 근무, 오후 근무, 필요에 따른 변동을 스스로 선택할 수 있습니다. 위 수치는 업계 통상 범위이며 개인 역량과 근무 조건에 따라 달라집니다. 협회는 특정 수입을 보장하지 않습니다."],
+    ["수료 후 취업이나 활동 연계가 되나요?", "수료강사 명단에 등재되고 L3 정회원으로 승급된 뒤 제휴 스튜디오와 교육센터를 통한 연계가 이어집니다. 서울 강동의 바디멀티 필라테스는 아카데미를 함께 운영하는 CPPI 공식 호스팅 센터이고, 일본에서는 코코랑스와 연계해 현지 활동 경로를 운영합니다. 연계는 기회 제공이며 채용을 보장하는 절차는 아닙니다. 수료 시점의 실기·티칭 역량이 실제 배치의 기준이 됩니다."],
+  ],
+  en: [
+    ["Can I take the certification without a Pilates background?", "Yes. The course is built up from functional anatomy fundamentals, so beginners without a related degree can follow it. Many graduates moved into Pilates from other fields."],
+    ["How much is the Essential course?", "KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts. Payment methods and what the fee covers are confirmed in each cohort announcement and in individual consultation."],
+    ["How many hours is the full certification?", "Roughly 110-120 hours across eight core subjects: Functional Pilates Anatomy 10h, Basic Principles 10h, posture and movement analysis 5h, Mat 25h, Reformer 20-25h, Cadillac 20-25h, Stability Chair 10h, Ladder Barrel and Barrel series 10h."],
+    ["Can I complete the certification online only?", "Online lectures are for review and supplementary study. Certification requires in-person practical work and a teaching assessment."],
+    ["What do I receive on completion?", "An international certificate, an upgrade to L3 membership, a listing in the graduate instructor directory, and support in finding teaching work."],
+    ["Are there weekday classes?", "The weekday class runs on Tuesdays and Thursdays at Pilatique Movement Lab in Bundang, the association's own facility. Weekend classes run on Saturdays and Sundays at the Gangdong and Gimpo hosting centers. Both run 8 to 10 hours a week over roughly 15 weeks."],
+    ["Do teaching hours shrink when the cohort is larger?", "No. CPPI fixes the coaching time each student receives. Every subject repeats master-led instruction, individual movement review, and peer teaching practice with the master rotating between groups, so one person's coaching time holds as the cohort grows - the total course hours grow instead."],
+    ["How is instructor pay calculated?", "By the hour. With one to two years of experience the usual range is KRW 30,000 to 35,000 an hour. Group classes may add by headcount, and private sessions are negotiated with the operator on the strength of corrective and rehabilitation credentials and completed training. Working six or more hours a day, monthly income varies widely with the number of working days. What differs most from salaried work is not the figure but control of the hours - morning, afternoon, or a shifting schedule is your own choice. These are prevailing market figures, not a guarantee; actual pay depends on individual capability and working conditions."],
+    ["Is there placement support after certification?", "After listing in the graduate directory and the upgrade to L3 full membership, placement runs through partner studios and education centers. BodyMulti Pilates in Gangdong, Seoul is an official CPPI hosting center that also runs its own academy, and in Japan the association works with Cocolance on local placement. Placement support opens opportunities; it is not a hiring guarantee. Practical and teaching competence at completion determines actual placement."],
+    ["Can I study from outside Korea?", "CPPI runs courses in Korea (Bundang, Seoul, Gimpo), Canada (Vancouver) and Japan (Tokyo). For other regions, please email us and we will share the schedule."],
+  ],
+  ja: [
+    ["ピラティス未経験でも指導者資格課程を受講できますか。", "受講できます。機能解剖学の基礎から段階的に設計されているため、他分野からの入門者でも無理なく進められます。修了生にも他業種からの転向者が多くいます。"],
+    ["エッセンシャルコースの受講料はいくらですか。", "定価420万ウォンです。アーリーバード申込および割引適用時は400万ウォンになります。納付方法と受講料に含まれる項目は期別の告知と個別相談でご案内します。"],
+    ["全課程は何時間ですか。", "8つの正規科目で合計およそ110~120時間です。機能解剖学10時間、基本原理10時間、体型分析および動作評価5時間、マット25時間、リフォーマー20~25時間、キャデラック20~25時間、スタビリティチェア10時間、ラダーバレルおよびバレルシリーズ10時間で構成されます。"],
+    ["オンライン講義だけで修了できますか。", "オンライン講義は復習と補助学習用です。正規修了には対面での実技と指導評価が含まれます。"],
+    ["修了するとどのような資格が得られますか。", "国際資格証が発行され、L3正会員へ昇級し、修了講師名簿に掲載されて活動の連携支援を受けられます。"],
+    ["海外からでも受講できますか。", "韓国(盆唐・ソウル・金浦)、カナダ(バンクーバー)、日本(東京)で運営しています。その他の地域はメールでお問い合わせいただければ日程をご案内します。"],
+  ],
+  zh: [
+    ["没有普拉提基础，可以报读教练资格课程吗？", "可以。课程自功能解剖学基础起循序设计，非相关专业的入门者也能跟上。结业学员中有相当比例是从其他行业转型而来。"],
+    ["Essential 课程学费是多少？", "标准价为420万韩元。适用早鸟报名与折扣优惠时为400万韩元。缴费方式与学费包含项目将在各期公告与个别咨询中说明。"],
+    ["完整课程共多少课时？", "八门正规科目合计约110~120小时：功能解剖学10小时、基本原理10小时、体型分析与动作评估5小时、垫上25小时、核心床20~25小时、凯迪拉克20~25小时、稳踏椅10小时、梯桶及桶系列10小时。"],
+    ["只上在线课程可以结业吗？", "在线课程用于复习与辅助学习。正式结业须包含线下实操与教学考核。"],
+    ["结业后可获得什么资格？", "颁发国际资格证书、升级为L3正会员、登载于结业教练名录，并提供后续活动衔接支持。"],
+    ["在海外可以报读吗？", "CPPI在韩国(盆唐·首尔·金浦)、加拿大(温哥华)、日本(东京)开课。其他地区请邮件咨询，我们会提供日程安排。"],
+  ],
+  "zh-Hant": [
+    ["沒有皮拉提斯基礎，可以報名師資培訓課程嗎？", "可以。課程自功能解剖學基礎起循序設計，非相關科系的入門者也能跟上。結業學員中有相當比例是從其他行業轉職而來。"],
+    ["Essential 課程學費是多少？", "標準價為420萬韓元。適用早鳥報名與折扣優惠時為400萬韓元。繳費方式與學費包含項目將於各梯次公告與個別諮詢中說明。"],
+    ["完整課程共多少時數？", "八門正規科目合計約110~120小時：功能解剖學10小時、基本原理10小時、體態分析與動作評估5小時、墊上25小時、核心床20~25小時、凱迪拉克20~25小時、穩踏椅10小時、梯桶及桶系列10小時。"],
+    ["只上線上課程可以結業嗎？", "線上課程用於複習與輔助學習。正式結業須包含實體實作與教學考核。"],
+    ["結業後可取得什麼證照？", "核發國際證照、升級為 L3 正會員、登載於結業導師名錄，並提供後續授課媒合支援。"],
+    ["在台灣、香港、新加坡也能報名嗎？", "CPPI 目前在韓國(盆唐·首爾·金浦)、加拿大(溫哥華)、日本(東京)開課。台灣、香港、新加坡的學員請先以電子郵件洽詢，我們會提供梯次與行程安排。"],
+  ],
+};
+
 const FAQS = [
   { q: { ko: "필라테스가 처음인데 정규과정을 들을 수 있나요?", en: "I'm new to Pilates. Can I take the course?", zh: "我是新手，能上正规课程吗？", "zh-Hant": "我是新手，能上正規課程嗎？", ja: "初心者でも正規課程を受けられますか？" },
     a: { ko: "네. 기능해부학 기초부터 단계적으로 설계되어 비전공 입문자도 따라올 수 있습니다.", en: "Yes. It builds step-by-step from anatomy basics.", zh: "可以。课程从解剖学基础循序渐进。", "zh-Hant": "可以。課程從解剖學基礎循序漸進。", ja: "はい。解剖学の基礎から段階的に学べます。" } },
@@ -1486,17 +1541,12 @@ routes.courses = () => `
       <div class="card accent"><b>${L({ ko: "졸업생 성과", en: "Graduate Outcomes", zh: "毕业生成果", "zh-Hant": "畢業生成果", ja: "卒業生の成果" })}</b><p>${br(L({ ko: "타 아카데미에서 마스터(교육강사)로 활동하는 수료생 다수 배출 - 56기+ 명단은 수료강사 명단에서.", en: "Many graduates now teach as masters at other academies - see the graduates page." }))}</p></div>
     </div>
 
-    <div class="card" style="margin:12px 0">
-      <b>${L({ ko: "수료 후 활동과 보수 구조", en: "After certification - how pay works" })}</b>
-      <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "필라테스 강사 보수는 시간당으로 계산됩니다. 경력 1~2년 이상 기준으로 통상 시간당 3만~3만5천원 선이며, 그룹 수업은 수업 인원에 따라 가산되는 경우가 있고 개인 레슨은 교정 · 재활 자격과 교육 수료 커리어를 근거로 사업자와 협상합니다.\n1일 6시간 이상 근무한다면 월 근무일수에 따라 수입 폭이 크게 달라집니다. 일반 직장과 가장 다른 점은 금액이 아니라 시간 운용입니다. 오전 근무, 오후 근무, 필요에 따른 변동을 스스로 선택할 수 있습니다.", en: "Instructor pay is calculated by the hour. With one to two years of experience the usual range is KRW 30,000-35,000 an hour; group classes may add by headcount, and private sessions are negotiated with the operator on the strength of corrective and rehabilitation credentials. What differs most from salaried work is not the figure but control of the hours." }))}</p>
-      <p class="note" style="margin-top:8px">${L({ ko: "위 수치는 업계 통상 범위이며 개인 역량과 근무 조건에 따라 달라집니다. 협회는 특정 수입을 보장하지 않습니다.", en: "These are prevailing market figures, not a guarantee. Actual pay depends on individual capability and working conditions." })}</p>
-    </div>
 
-    <div class="card" style="margin:12px 0;background:var(--tint2)">
-      <b>${L({ ko: "활동 연계 네트워크", en: "Placement network" })}</b>
-      <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${br(L({ ko: "수료강사 명단 등재와 L3 정회원 승급 이후 제휴 스튜디오 · 교육센터를 통한 활동 연계가 이어집니다. 서울 강동의 바디멀티 필라테스는 아카데미를 함께 운영하는 CPPI 공식 호스팅 센터이고, 일본에서는 코코랑스와 연계해 현지 활동 경로를 운영합니다.", en: "After listing in the graduate directory and the upgrade to L3 full membership, placement runs through partner studios and education centers. BodyMulti Pilates in Gangdong, Seoul is an official CPPI hosting center that also runs its own academy, and in Japan the association works with Cocolance on local placement." }))}</p>
-      <p class="note" style="margin-top:8px">${L({ ko: "연계는 기회 제공이며 채용을 보장하는 절차는 아닙니다. 수료 시점의 실기 · 티칭 역량이 실제 배치의 기준이 됩니다.", en: "Placement support opens opportunities; it is not a hiring guarantee. Practical and teaching competence at completion determines actual placement." })}</p>
-    </div>
+    ${secHead("FAQ", L({ ko: "자주 묻는 질문", en: "FAQ", zh: "常见问题", "zh-Hant": "常見問題", ja: "よくある質問" }))}
+    <div class="faq">${(COURSES_FAQ[LANG] || COURSES_FAQ.en).map(([q, ans]) => `<div class="q">
+      <div class="top" onclick="this.parentElement.classList.toggle('open')"><h4>${esc(q)}</h4><span style="color:var(--pri)">+</span></div>
+      <div class="a">${esc(ans)}</div></div>`).join("")}</div>
+    <div style="height:14px"></div>
 
     <a class="btn pri" href="#apply">${L(UI.btn.consult)}</a>
   </section>`;
