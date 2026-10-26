@@ -3,7 +3,7 @@ const CACHE = "cppi-v25";
 
 /* index.html 의 <script src="app.js?v=NN"> 과 반드시 같은 값.
    다르면 오프라인에서 프리캐시 주소와 실제 요청 주소가 어긋나 스크립트를 못 찾는다. */
-const APP_JS = "./app.js?v=26";
+const APP_JS = "./app.js?v=27";
 
 /* 교재 미리보기 전체 (9권 × 13p) */
 const BOOK_SLUGS = ["anatomy", "principle", "mat", "reformer", "cadillac", "chair", "lbarrel", "abarrel", "scorrector"];
