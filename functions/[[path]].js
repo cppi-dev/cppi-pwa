@@ -78,7 +78,26 @@ export async function onRequest(context) {
 
   const segs = url.pathname.split("/").filter(Boolean);
   if (segs[0] === "api") return context.next();       // 회원·결제 API
-  if (segs.length && segs[segs.length - 1].includes(".")) return context.next(); // 정적 자산
+  /* 정적 자산만 Pages 핸들러로 넘긴다.
+     예전에는 점이 들어간 모든 경로를 그대로 넘겼다. 그러면 /schema.sql 처럼
+     실제 파일이 없는 주소가 404 가 아니라 앱 셸을 200 으로 반환했다.
+     아무 확장자나 붙인 주소가 홈과 같은 내용의 중복 페이지(soft 404)로
+     색인 가능해지고, 봇이 훑는 .sql .bak .env .zip .php 류가 전부
+     살아 있는 주소처럼 보였다.
+     아래 목록은 저장소에 실제로 존재하는 확장자(js json webmanifest html
+     txt ico png jpg webp mp4)에 폰트·영상·문서 여유분을 더한 것이다.
+     목록에 없는 확장자는 아래 정상 경로 판정을 거쳐 404 로 끝난다.
+     /sitemap.xml 은 functions/sitemap.xml.js 가 먼저 처리하므로 영향이 없다. */
+  const ASSET_EXT = new Set(["js", "mjs", "css", "map", "json", "webmanifest",
+    "html", "htm", "txt", "xml", "ico", "png", "jpg", "jpeg", "webp", "avif",
+    "gif", "svg", "bmp", "mp4", "webm", "mov", "m4v", "mp3", "wav", "ogg",
+    "woff", "woff2", "ttf", "otf", "eot", "pdf"]);
+  if (segs.length && segs[segs.length - 1].includes(".")) {
+    const lastSeg = segs[segs.length - 1];
+    const ext = lastSeg.slice(lastSeg.lastIndexOf(".") + 1).toLowerCase();
+    if (ASSET_EXT.has(ext)) return context.next();   // 실제 정적 자산
+    return notFound(404);                            // 자산인 척하는 쓰레기 주소
+  }
 
   /* 2) 구 ?lang= 파라미터 -> 경로로 301 */
   const q = (url.searchParams.get("lang") || "").toLowerCase();
