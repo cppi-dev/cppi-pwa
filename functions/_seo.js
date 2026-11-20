@@ -2495,7 +2495,7 @@ export function langFromSeg(seg) {
 function blockHTML(b) {
   let out = `<div class="blk">`;
   if (b.h) out += `<h2>${esc(b.h)}</h2>`;
-  if (b.p) out += `<p>${esc(b.p)}</p>`;
+  if (b.p) out += splitSent(b.p).map(x => `<p>${esc(x)}</p>`).join("");
   if (b.list) out += `<ul>${b.list.map(li => `<li>${esc(li)}</li>`).join("")}</ul>`;
   out += `</div>`;
   return out;
@@ -2855,7 +2855,7 @@ footer .social{margin-top:8px;display:flex;gap:12px;justify-content:center}
 <main>
   <div class="eyebrow">${esc(c.eyebrow)}</div>
   <h1>${esc(c.h1)}</h1>
-  ${c.lead ? `<p class="lead">${esc(c.lead)}</p>` : ""}
+  ${c.lead ? splitSent(c.lead).map(x => `<p class="lead">${esc(x)}</p>`).join("") : ""}
   ${heroHTML}
   ${(c.blocks || []).map(blockHTML).join("")}
   ${c.note ? `<div class="note">${esc(c.note)}</div>` : ""}
@@ -2976,6 +2976,17 @@ function centerGalleryHTML(key, name) {
   return out + `</div>`;
 }
 
+/* 문장 단위 문단 나누기 - 마침표 뒤에 다음 문장이 바로 이어 붙으면
+   글이 벽처럼 읽힌다. 한 문장을 한 문단으로 끊는다.
+   숫자 목록(1. 2.)과 약어(reg. 201-)는 쪼개지지 않도록 앞뒤 조건을 좁혔다. */
+function splitSent(t) {
+  return String(t == null ? "" : t)
+    .replace(/([가-힣)\]"”])\.\s+(?=\S)/g, "$1.\u0000")
+    .replace(/([。！？])\s*(?=\S)/g, "$1\u0000")
+    .replace(/([a-z0-9)\]"”])\.\s+(?=[A-Z"“(])/g, "$1.\u0000")
+    .split("\u0000").map(x => x.trim()).filter(Boolean);
+}
+
 export function ssrBody(lang, route) {
   const entry = CONTENT[route];
   const c = entry[lang] || entry.en;
@@ -2984,7 +2995,7 @@ export function ssrBody(lang, route) {
   const blocks = centerGalleryHTML(route, c.h1) + (c.blocks || []).map(b => {
     let out = `<div class="card" style="margin-bottom:10px">`;
     if (b.h) out += `<b>${esc(b.h)}</b>`;
-    if (b.p) out += `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(b.p)}</p>`;
+    if (b.p) out += splitSent(b.p).map(x => `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(x)}</p>`).join("");
     if (b.list) out += `<ul style="font-size:13.5px;color:var(--ink2);margin:6px 0 0;padding-left:18px;line-height:1.9">`
       + b.list.map(li => `<li>${esc(li)}</li>`).join("") + `</ul>`;
     return out + `</div>`;

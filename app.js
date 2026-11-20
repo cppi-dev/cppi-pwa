@@ -866,7 +866,18 @@ const chapterBand = (no, title, sub) => `
     <div class="cband-track"><span>${Array(3).fill(`${esc(title)} <em>/</em> ${esc(sub)} <em>/</em> `).join("")}</span></div>
     <div class="cband-no">${esc(no)}</div>
   </div>`;
-const secHead = (eye, h, lead) => `<div class="eyebrow">${eye}</div><h2 class="sec">${h}</h2>${lead ? `<p class="lead">${lead}</p>` : ""}`;
+/* 문장 단위 문단 나누기 - 마침표 뒤에 다음 문장이 바로 이어 붙으면
+   글이 벽처럼 읽힌다. 한 문장을 한 문단으로 끊는다.
+   숫자 목록(1. 2.)과 약어(reg. 201-)는 쪼개지지 않도록 앞뒤 조건을 좁혔다. */
+function splitSent(t) {
+  return String(t == null ? "" : t)
+    .replace(/([가-힣)\]"”])\.\s+(?=\S)/g, "$1.\u0000")
+    .replace(/([。！？])\s*(?=\S)/g, "$1\u0000")
+    .replace(/([a-z0-9)\]"”])\.\s+(?=[A-Z"“(])/g, "$1.\u0000")
+    .split("\u0000").map(x => x.trim()).filter(Boolean);
+}
+
+const secHead = (eye, h, lead) => `<div class="eyebrow">${eye}</div><h2 class="sec">${h}</h2>` + (lead ? splitSent(lead).map(x => `<p class="lead">${x}</p>`).join("") : "");
 
 /* ---------- 데스크톱 전용 에디토리얼 홈 (1024px+) ----------
    모바일 카드 대시보드(.mhome)는 그대로 두고, 넓은 화면에서만 이 레이아웃으로 대체.
@@ -1280,7 +1291,7 @@ routes.why = () => `
     <div class="why-hero">
       <div class="why-eyebrow">WHY CPPI</div>
       <h1>${L({ ko: "왜 근거인가", en: "Why evidence", zh: "为何强调循证", "zh-Hant": "為何強調循證", ja: "なぜ根拠なのか" })}</h1>
-      <p>${L({ ko: "필라테스 강사 자격과정은 많습니다. 우리가 다르다고 말하려면, 그 근거를 먼저 보여야 한다고 생각했습니다.", en: "There are many Pilates certifications. If we claim to be different, we should show the evidence first.", zh: "普拉提教练课程很多。若要说我们不同，就该先拿出依据。", "zh-Hant": "皮拉提斯教練課程很多。若要說我們不同，就該先拿出依據。", ja: "ピラティス指導者資格は数多くあります。違うと言うなら、まず根拠を示すべきだと考えました。" })}</p>
+      ${splitSent(L({ ko: "필라테스 강사 자격과정은 많습니다. 우리가 다르다고 말하려면, 그 근거를 먼저 보여야 한다고 생각했습니다.", en: "There are many Pilates certifications. If we claim to be different, we should show the evidence first.", zh: "普拉提教练课程很多。若要说我们不同，就该先拿出依据。", "zh-Hant": "皮拉提斯教練課程很多。若要說我們不同，就該先拿出依據。", ja: "ピラティス指導者資格は数多くあります。違うと言うなら、まず根拠を示すべきだと考えました。" })).map(x => `<p>${x}</p>`).join("")}
       <div class="why-stats">
         <div><b>2016</b><span>EST.</span></div>
         <div><b>8</b><span>${L({ ko: "정규 과목", en: "COURSES", zh: "科目", "zh-Hant": "科目", ja: "科目" })}</span></div>
@@ -1903,7 +1914,7 @@ function regionPage(key) {
   const blocks = centerGalleryHTML(key, c.h1) + (c.blocks || []).map(b => {
     let out = `<div class="card" style="margin-bottom:10px">`;
     if (b.h) out += `<b>${esc(b.h)}</b>`;
-    if (b.p) out += `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(b.p)}</p>`;
+    if (b.p) out += splitSent(b.p).map(x => `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(x)}</p>`).join("");
     if (b.list) out += `<ul style="font-size:13.5px;color:var(--ink2);margin:6px 0 0;padding-left:18px;line-height:1.9">`
       + b.list.map(li => `<li>${esc(li)}</li>`).join("") + `</ul>`;
     return out + `</div>`;
@@ -1943,7 +1954,7 @@ routes.host = () => {
   const blocks = (c.blocks || []).map(b => {
     let out = `<div class="card" style="margin-bottom:10px">`;
     if (b.h) out += `<b>${esc(b.h)}</b>`;
-    if (b.p) out += `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(b.p)}</p>`;
+    if (b.p) out += splitSent(b.p).map(x => `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(x)}</p>`).join("");
     if (b.list) out += `<ul style="font-size:13.5px;color:var(--ink2);margin:6px 0 0;padding-left:18px;line-height:1.9">`
       + b.list.map(li => `<li>${esc(li)}</li>`).join("") + `</ul>`;
     return out + `</div>`;
@@ -2004,7 +2015,7 @@ routes.certification = () => {
   const blocks = (c.blocks || []).map(b => {
     let out = `<div class="card" style="margin-bottom:10px">`;
     if (b.h) out += `<b>${esc(b.h)}</b>`;
-    if (b.p) out += `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(b.p)}</p>`;
+    if (b.p) out += splitSent(b.p).map(x => `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(x)}</p>`).join("");
     if (b.list) out += `<ul style="font-size:13.5px;color:var(--ink2);margin:6px 0 0;padding-left:18px;line-height:1.9">`
       + b.list.map(li => `<li>${esc(li)}</li>`).join("") + `</ul>`;
     return out + `</div>`;
@@ -2044,7 +2055,7 @@ routes.recovering = () => {
   const blocks = (c.blocks || []).map(b => {
     let out = `<div class="card" style="margin-bottom:10px">`;
     if (b.h) out += `<b>${esc(b.h)}</b>`;
-    if (b.p) out += `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(b.p)}</p>`;
+    if (b.p) out += splitSent(b.p).map(x => `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(x)}</p>`).join("");
     if (b.list) out += `<ul style="font-size:13.5px;color:var(--ink2);margin:6px 0 0;padding-left:18px;line-height:1.9">`
       + b.list.map(li => `<li>${esc(li)}</li>`).join("") + `</ul>`;
     return out + `</div>`;
