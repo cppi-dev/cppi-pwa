@@ -104,6 +104,15 @@ function initAnalytics() {
     };
     document.head.appendChild(s);
   }
+  /* 문의 채널 클릭 - 링크마다 핸들러를 달지 않고 한 곳에서 위임 처리한다.
+     화면을 다시 그려도 핸들러가 날아가지 않는다. */
+  document.addEventListener("click", (e) => {
+    const a = e.target && e.target.closest && e.target.closest("a");
+    if (!a) return;
+    const h = a.getAttribute("href") || "";
+    if (h.startsWith("tel:")) trackEvent("contact_click", { channel: "tel" });
+    else if (h.includes("talk.naver.com")) trackEvent("contact_click", { channel: "naver_talk" });
+  }, true);
 }
 
 /* 경로 이동을 가상 페이지뷰로 보낸다. 앱이 화면만 갈아끼우므로
@@ -117,6 +126,23 @@ function trackPage(route) {
     });
   }
   if (WCS_ID && window.wcs && window.wcs_do) { window.wcs_add.wa = WCS_ID; window.wcs_do(); }
+}
+
+/* 전환 이벤트 - GA4 와 네이버 애널리틱스 양쪽으로 보낸다.
+   GA4 에서는 관리 > 이벤트에서 이 이름을 '주요 이벤트' 로 표시해 둔다.
+   네이버 cnv 유형: 1 회원가입 / 2 신청·예약 / 3 장바구니 / 4 기타 / 5 구매
+   측정이 실패해도 화면 동작은 막지 않는다. */
+function trackEvent(name, params = {}, naverConv = null) {
+  try {
+    if (GA4_ID && window.gtag) gtag("event", name, params);
+    if (WCS_ID && naverConv && window.wcs && window.wcs_do) {
+      window.wcs_add = window.wcs_add || {};
+      window.wcs_add.wa = WCS_ID;
+      window._nasa = window._nasa || {};
+      window._nasa.cnv = window.wcs.cnv(String(naverConv.type), String(naverConv.value || 0));
+      window.wcs_do(window._nasa);
+    }
+  } catch (_) { /* 측정 실패는 무시한다 */ }
 }
 
 const NAVER_TALK = "https://talk.naver.com/profile/c/cppi"; // 네이버 톡톡 상담
@@ -2597,6 +2623,10 @@ function doCheckout() {
   const rec = { id: "CP" + Date.now().toString().slice(-8), email, buyer, item: item.name, type: orderType, method: methodKo, status: "입금 확인중", payer: "", at: new Date().toISOString().slice(0, 16).replace("T", " ") };
   const orders = APP.orders; orders.push(rec); APP.orders = orders; // 로컬 캐시(즉시 표시)
   if (SERVER) { apiPost("order", { item: item.name, type: orderType, method: methodKo, buyer, email, amount, price: item.price || 0, shipFee, ship }).catch(() => {}); }
+  trackEvent("order_submit", {
+    transaction_id: rec.id, item_name: item.name, item_category: orderType,
+    value: amount, currency: "KRW", method: methodKo,
+  }, { type: 5, value: amount });
   store.set("cppi_cart", null);
   if (method === "bank") go("bank"); else { toast("OK"); go(u ? "my" : "home"); }
 }
@@ -2668,7 +2698,11 @@ function submitLead(e) {
      예전에는 여기서 mailto: 를 열어 메일 앱(아웃룩)을 강제로 띄웠는데,
      방문자 입장에서 앱이 갑자기 뜨는 것은 이탈 요인이라 제거했다. */
   if (SERVER) apiPost("lead", lead).catch(() => {});
-  toast(L({ ko: "신청이 접수되었습니다! 24시간 내 연락드립니다.", en: "Received! We'll reach out within 24h.", zh: "已收到！24小时内联系您。", "zh-Hant": "已收到！24小時內聯絡您。", ja: "受付けました！24時間以内にご連絡します。" }));
+  trackEvent("lead_submit", {
+    interest: lead.interest || "", region: lead.region || "",
+    source: lead.utmSource || lead.ref || "direct",
+  }, { type: 2, value: 0 });
+  toast(L({ ko: "신청이 접수되었습니다. 확인하는 대로 연락드리겠습니다.", en: "Received. We'll be in touch shortly.", zh: "已收到。确认后将尽快与您联系。", "zh-Hant": "已收到。確認後將盡快與您聯絡。", ja: "受付けました。確認次第ご連絡いたします。" }));
   e.target.reset();
   return false;
 }
