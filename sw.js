@@ -1,5 +1,5 @@
 /* CPPI PWA Service Worker v4 — 전체 오프라인 캐싱 */
-const CACHE = "cppi-v25";
+const CACHE = "cppi-v26";
 
 /* index.html 의 <script src="app.js?v=NN"> 과 반드시 같은 값.
    다르면 오프라인에서 프리캐시 주소와 실제 요청 주소가 어긋나 스크립트를 못 찾는다. */

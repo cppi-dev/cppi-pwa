@@ -74,6 +74,31 @@ export const PROFILE_CREATED = "2026-08-18T10:50:53+09:00";
    (2) 검증 가능한 수치는 AI 답변 인용의 핵심 입력값이다.
    (3) 가격 비공개는 상담 1순위 질문을 수강료로 고정시켜 전환 대화를 늦춘다.
    금액 변경 시 이 상수만 고치면 스키마와 본문 양쪽에 반영된다. */
+/* 낱권 판매 교재 - app.js 의 BOOKS 와 가격·페이지가 반드시 일치해야 한다.
+   화면에 없는 가격을 구조화 데이터로 내보내면 구글 Product 리치결과 자격이 박탈되므로
+   가격을 바꿀 때는 app.js 의 BOOKS 와 이 배열을 같이 고친다.
+   기능해부학·기본원리는 정규과정 수강생 제공분이라 여기에 넣지 않는다. */
+export const BOOK_SALE = [
+  { slug: "mat",        pages: 160, price: 37000, img: "/covers/mat.jpg",           t: { ko: "필라테스 더 매트", en: "Pilates Mat", ja: "ピラティス・ザ・マット", zh: "垫上普拉提", "zh-Hant": "墊上皮拉提斯" } },
+  { slug: "reformer",   pages: 306, price: 56000, img: "/covers/reformer.jpg",      t: { ko: "리포머", en: "Reformer", ja: "リフォーマー", zh: "核心床", "zh-Hant": "核心床" } },
+  { slug: "cadillac",   pages: 368, price: 65000, img: "/covers/cadillac.jpg",      t: { ko: "캐딜락", en: "Cadillac", ja: "キャデラック", zh: "凯迪拉克床", "zh-Hant": "凱迪拉克床" } },
+  { slug: "chair",      pages: 202, price: 42000, img: "/covers/chair.jpg",         t: { ko: "스태빌리티 체어", en: "Stability Chair", ja: "スタビリティチェア", zh: "稳踏椅", "zh-Hant": "穩踏椅" } },
+  { slug: "lbarrel",    pages: 76,  price: 27000, img: "/covers/lbarrel.jpg",       t: { ko: "래더 바렐", en: "Ladder Barrel", ja: "ラダーバレル", zh: "梯桶", "zh-Hant": "梯桶" } },
+  { slug: "abarrel",    pages: 79,  price: 27000, img: "/books/abarrel/p01.jpg",    t: { ko: "아크 바렐", en: "Arc Barrel", ja: "アークバレル", zh: "弧形桶", "zh-Hant": "弧形桶" } },
+  { slug: "scorrector", pages: 108, price: 33000, img: "/books/scorrector/p01.jpg", t: { ko: "스파인 코렉터", en: "Spine Corrector", ja: "スパインコレクター", zh: "脊柱矫正器", "zh-Hant": "脊柱矯正器" } },
+];
+export const BOOK_SET_LD = { count: 7, price: 236000, sum: 287000, pages: 1299 };
+
+/* 라우트별 최종 수정일 - 사이트맵 lastmod 로 나간다.
+   해당 라우트의 내용을 실제로 고쳤을 때만 올린다. 없는 라우트는 LAST_MODIFIED 를 쓴다.
+   임의로 전체를 오늘 날짜로 올리면 크롤러에 허위 신호가 되므로 하지 않는다. */
+export const ROUTE_UPDATED = {
+  books: "2026-11-20",
+  certification: "2026-11-20",
+  recovering: "2026-11-20",
+  journal: "2026-10-27",
+};
+
 export const TUITION = { currency: "KRW", list: 4200000, early: 4000000 };
 
 /* 구글은 ProfilePage 의 dateCreated/dateModified 를 Date 가 아니라 DateTime 으로 요구한다.
@@ -344,11 +369,11 @@ export const UI = {
 };
 
 export const NAV = {
-  ko: [["협회 소개", "about"], ["파운더", "founder"], ["칼럼", "journal"], ["커리큘럼", "curriculum"], ["교육안내", "courses"], ["워크숍", "workshop"], ["마스터", "master"], ["후기", "stories"], ["글로벌", "global"], ["온라인 강의", "learn"], ["스토어", "store"]],
-  en: [["About", "about"], ["Founder", "founder"], ["Column", "journal"], ["Curriculum", "curriculum"], ["Certification", "courses"], ["Workshops", "workshop"], ["Masters", "master"], ["Stories", "stories"], ["Global", "global"], ["Lectures", "learn"], ["Store", "store"]],
-  ja: [["協会紹介", "about"], ["創立者", "founder"], ["コラム", "journal"], ["カリキュラム", "curriculum"], ["教育案内", "courses"], ["ワークショップ", "workshop"], ["マスター", "master"], ["修了生の声", "stories"], ["グローバル", "global"], ["オンライン講義", "learn"], ["ストア", "store"]],
-  zh: [["协会介绍", "about"], ["创始人", "founder"], ["专栏", "journal"], ["课程体系", "curriculum"], ["教育指南", "courses"], ["工作坊", "workshop"], ["大师导师", "master"], ["学员评价", "stories"], ["全球运营", "global"], ["在线课程", "learn"], ["商店", "store"]],
-  "zh-Hant": [["協會介紹", "about"], ["創辦人", "founder"], ["專欄", "journal"], ["課程體系", "curriculum"], ["師資培訓", "courses"], ["工作坊", "workshop"], ["大師導師", "master"], ["學員評價", "stories"], ["全球據點", "global"], ["線上課程", "learn"], ["商店", "store"]],
+  ko: [["협회 소개", "about"], ["자격증 가이드", "certification"], ["파운더", "founder"], ["칼럼", "journal"], ["커리큘럼", "curriculum"], ["교육안내", "courses"], ["워크숍", "workshop"], ["마스터", "master"], ["후기", "stories"], ["글로벌", "global"], ["온라인 강의", "learn"], ["스토어", "store"]],
+  en: [["About", "about"], ["How to choose", "certification"], ["Founder", "founder"], ["Column", "journal"], ["Curriculum", "curriculum"], ["Certification", "courses"], ["Workshops", "workshop"], ["Masters", "master"], ["Stories", "stories"], ["Global", "global"], ["Lectures", "learn"], ["Store", "store"]],
+  ja: [["協会紹介", "about"], ["資格の選び方", "certification"], ["創立者", "founder"], ["コラム", "journal"], ["カリキュラム", "curriculum"], ["教育案内", "courses"], ["ワークショップ", "workshop"], ["マスター", "master"], ["修了生の声", "stories"], ["グローバル", "global"], ["オンライン講義", "learn"], ["ストア", "store"]],
+  zh: [["协会介绍", "about"], ["如何选择", "certification"], ["创始人", "founder"], ["专栏", "journal"], ["课程体系", "curriculum"], ["教育指南", "courses"], ["工作坊", "workshop"], ["大师导师", "master"], ["学员评价", "stories"], ["全球运营", "global"], ["在线课程", "learn"], ["商店", "store"]],
+  "zh-Hant": [["協會介紹", "about"], ["如何選擇", "certification"], ["創辦人", "founder"], ["專欄", "journal"], ["課程體系", "curriculum"], ["師資培訓", "courses"], ["工作坊", "workshop"], ["大師導師", "master"], ["學員評價", "stories"], ["全球據點", "global"], ["線上課程", "learn"], ["商店", "store"]],
 };
 
 /* 페이지별 대표 이미지 - 저장소에 이미 있는 자산을 사용한다.
@@ -374,6 +399,20 @@ export const HERO = {
 /* 페이지별 FAQ - 화면에 실제로 노출되는 내용만 FAQPage 스키마로 내보낸다.
    (구글 구조화 데이터 정책: 페이지에 보이지 않는 Q&A 를 스키마에 넣으면 위반) */
 export const FAQ = {
+  recovering: {
+    ko: [["리커버링 자격증은 어떻게 취득하나요?", "리커버링 재활 필라테스 원데이 과정은 자격과정으로 운영됩니다. 하루 8시간 과정이며 발급 조건과 절차는 과정 신청 시 안내드립니다."], ["정규 자격과정을 수료하지 않아도 들을 수 있나요?", "단독 원데이 과정이라 CPPI 정규과정 수료 여부와 관계없이 신청할 수 있습니다. 다만 사전 요건은 과정별로 다르므로 문의 시 확인해 주세요."], ["리커버링은 다른 소도구와 무엇이 다른가요?", "탄성으로 저항을 주는 도구가 아니라 압박·보조·균형 세 원리로 척추에 감각 피드백을 주는 도구입니다. 6-TOP은 압박점, 2-EDGE는 회전 가이드, 4-CURVE는 굴곡·신전 가이드 역할을 합니다."], ["하루에 무엇을 배우나요?", "7교시 50분씩 총 8시간 동안 시그니처 동작 37개와 이론 14개 주제를 다룹니다. 9가지 적용 원리와 13가지 시그니처 동작 체계가 중심입니다."], ["리커버링 필라테스 자격증과 정규 강사 자격증은 어떻게 다른가요?", "정규 자격증은 8개 과목 약 110~120시간의 에센셜 코스를 마치고 받는 필라테스 강사 자격증입니다. 리커버링 필라테스 자격증은 하루 8시간 단독 과정으로, 정규 자격증을 대체하지 않는 심화 과정입니다."]],
+    en: [["How do I obtain the Recovering credential?", "The Recovering rehabilitation Pilates one-day course is run as a certification course. It takes eight hours, and the issuing conditions and process are confirmed at registration."], ["Can I take it without completing the main certification?", "Yes. It is a standalone one-day course, open regardless of CPPI certification status, though prerequisites vary by course and are confirmed on enquiry."], ["How does Recovering differ from other small props?", "It is not an elastic resistance tool. It gives the spine sensory feedback through compression, assist and balance: the 6-TOP provides compression points, the 2-EDGE guides rotation, the 4-CURVE guides flexion and extension."], ["What is covered in the day?", "Seven periods of 50 minutes across eight hours, covering 37 signature movements and 14 theory topics, organised around nine applied principles and a 13-part movement system."]],
+    ja: [["リカバリング資格はどのように取得しますか?", "リカバリング リハビリピラティス ワンデー課程は資格課程として運営されます。1日8時間で、発行条件と手続きは申込時にご案内します。"], ["正規資格課程を修了していなくても受講できますか?", "単独のワンデー課程のため、CPPI正規課程の修了有無に関わらずお申し込みいただけます。事前要件は課程ごとに異なるためお問い合わせください。"], ["リカバリングは他の小道具と何が違いますか?", "弾性で抵抗を与える道具ではなく、圧迫・補助・バランスの3原理で脊柱に感覚フィードバックを与える道具です。6-TOPは圧迫点、2-EDGEは回旋ガイド、4-CURVEは屈曲・伸展ガイドです。"], ["1日で何を学びますか?", "50分×7コマ、計8時間でシグネチャー動作37種と理論14項目を扱います。9つの適用原理と13種の動作体系が中心です。"]],
+    zh: [["如何取得 Recovering 资格?", "Recovering 康复普拉提一日课程以资格课程形式运营，共8小时，发证条件与流程于报名时告知。"], ["未修完正规资格课程也能参加吗?", "可以。此为独立一日课程，不限是否已修完 CPPI 正规课程，但先修要求依课程而异，请咨询确认。"], ["Recovering 与其他小器械有何不同?", "它并非以弹性提供阻力，而是以压迫·辅助·平衡三原理为脊柱提供感觉反馈。6-TOP 为压迫点，2-EDGE 为旋转导引，4-CURVE 为屈伸导引。"], ["一天学些什么?", "7节×50分钟共8小时，涵盖招牌动作37个与理论14项，以九项应用原理与13项动作体系为核心。"]],
+    "zh-Hant": [["如何取得 Recovering 證照?", "Recovering 復健皮拉提斯一日課程以證照課程形式營運，共 8 小時，發證條件與流程於報名時告知。"], ["未修完正規證照課程也能參加嗎?", "可以。此為獨立一日課程，不限是否已修完 CPPI 正規課程，但先修要求依課程而異，請諮詢確認。"], ["Recovering 與其他小器械有何不同?", "它並非以彈性提供阻力，而是以壓迫·輔助·平衡三原理為脊椎提供感覺回饋。6-TOP 為壓迫點，2-EDGE 為旋轉導引，4-CURVE 為屈伸導引。"], ["一天學些什麼?", "7 節×50 分鐘共 8 小時，涵蓋招牌動作 37 個與理論 14 項，以九項應用原理與 13 項動作體系為核心。"]]
+  },
+  certification: {
+    ko: [["필라테스 강사 자격증은 보통 얼마나 걸리나요?", "총 교육 시간보다 주당 수강 시간이 기간을 결정합니다. CPPI 에센셜 코스는 8개 과목 약 110~120시간이고, 주 8~10시간 기준 약 15주 전후입니다."], ["비전공자도 필라테스 강사 자격증을 딸 수 있나요?", "에센셜 코스는 비전공 입문자를 전제로 설계된 과정입니다. 전공이나 선수 경력이 요구되지 않으며, 평가는 본인의 운동 수행 능력이 아니라 타인의 움직임을 읽고 조정하는 능력을 봅니다."], ["필라테스 강사 자격증을 온라인으로만 딸 수 있나요?", "이론 과목은 온라인 수강이 가능하지만 기구 실습과 티칭 실습은 대면이 필요합니다. CPPI는 온라인 강의를 복습용으로 제공하고 자격 검정은 대면으로 진행합니다."], ["필라테스 강사 자격증 비용은 어떻게 구성되나요?", "수강료, 교재비, 검정비로 나뉩니다. CPPI 에센셜 코스 수강료는 정상가 420만원이고 얼리버드 신청과 할인 적용 시 400만원입니다."]],
+    en: [["How long does a Pilates instructor certification take?", "Weekly hours decide the duration more than the total. The CPPI Essential course is eight subjects and roughly 110 to 120 hours, about 15 weeks at 8 to 10 hours a week."], ["Can I qualify without a related degree?", "Yes. The Essential course is designed for entrants without a related degree or athletic background, and assessment is about reading and adjusting other people's movement rather than your own performance."], ["Can a Pilates certification be completed entirely online?", "Theory subjects can be taken online, but apparatus work and teaching practice need to be in person. CPPI provides online lectures for revision and holds the certification assessment in person."], ["How is the cost structured?", "It divides into tuition, textbooks and assessment fees. CPPI Essential tuition is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts."]],
+    ja: [["ピラティス指導者資格はどのくらいかかりますか?", "総時間より週あたりの時間が期間を決めます。CPPIエッセンシャルコースは8科目およそ110~120時間で、週8~10時間を基準に約15週前後です。"], ["未経験でも資格を取得できますか?", "エッセンシャルコースは未経験者を前提に設計された課程です。専攻や競技経歴は求められず、評価は本人の運動能力ではなく他者の動きを読んで調整する力を見ます。"], ["オンラインのみで資格を取得できますか?", "理論科目はオンライン受講が可能ですが、器具実習とティーチング実習は対面が必要です。CPPIはオンライン講義を復習用に提供し、資格検定は対面で行います。"], ["費用はどのように構成されますか?", "受講料、教材費、検定料に分かれます。CPPIエッセンシャルコースの受講料は定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。"]],
+    zh: [["普拉提教练资格课程通常需要多久?", "期间由每周时数而非总时数决定。CPPI Essential 课程为八门科目约110~120小时，以每周8~10小时计约15周前后。"], ["没有相关专业也能取得资格吗?", "可以。Essential 课程以零基础入门者为前提设计，不要求专业背景或运动经历，评估着重于读取并调整他人动作的能力。"], ["可以完全线上取得资格吗?", "理论科目可线上修读，但器械实操与教学实习需面授。CPPI 将线上课程作为复习用途提供，资格检定以面授进行。"], ["费用如何构成?", "分为学费、教材费与检定费。CPPI Essential 课程学费标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。"]],
+    "zh-Hant": [["皮拉提斯師資證照課程通常需要多久?", "期間由每週時數而非總時數決定。CPPI Essential 課程為八門科目約 110~120 小時，以每週 8~10 小時計約 15 週前後。"], ["沒有相關科系也能取得證照嗎?", "可以。Essential 課程以零基礎入門者為前提設計，不要求科系背景或運動經歷，評估著重於讀取並調整他人動作的能力。"], ["可以完全線上取得證照嗎?", "理論科目可線上修讀，但器械實作與教學實習需面授。CPPI 將線上課程作為複習用途提供，資格檢定以面授進行。"], ["費用如何構成?", "分為學費、教材費與檢定費。CPPI Essential 課程學費標準價為 420 萬韓元，適用早鳥報名與折扣優惠時為 400 萬韓元。"]]
+  },
   courses: {
     ko: [
       ["필라테스가 처음인데 강사 자격과정을 들을 수 있나요?", "가능합니다. 기능해부학 기초부터 단계적으로 설계되어 있어 비전공 입문자도 따라올 수 있습니다. 실제 수료생 중 상당수가 타 분야에서 전향한 분들입니다."],
@@ -638,8 +677,8 @@ export const CONTENT = {
      언어별 실제 홈 경로(/en/ /ja/ /zh/ /zh-hant/)를 만들어 정합성을 맞춘다. */
   home: {
     ko: {
-      title: "재활 기반 국제 필라테스 강사 자격과정 | CPPI 한국필라테스교육협회",
-      desc: "기능해부학과 티칭 실습 중심의 국제 필라테스 강사 자격과정. 2016년 설립, 56기 이상 배출, 한국·캐나다·일본 운영.",
+      title: "필라테스 강사 자격증 - 재활 기반 국제 자격과정 | CPPI 한국필라테스교육협회",
+      desc: "기능해부학과 티칭 실습 중심의 재활 필라테스 강사 자격증 과정. 비전공 입문자 강사반부터 현직 강사 심화까지. 2016년 설립, 56기 이상 배출.",
       eyebrow: "CPPI KOREA", h1: "감각이 아니라, 근거로 가르칩니다",
       lead: "기능해부학과 임상 근거 위에 설계된 국제 필라테스 강사 자격과정입니다.",
       blocks: [
@@ -845,8 +884,8 @@ export const CONTENT = {
 
   curriculum: {
     ko: {
-      title: "정규과정 에센셜 커리큘럼 | CPPI 한국 필라테스 교육협회",
-      desc: "기능해부학과 의학적 근거 위에 설계된 CPPI 정규과정 8대 커리큘럼 - 매트·리포머·캐딜락·체어·바렐 시리즈 상세 안내.",
+      title: "필라테스 강사 자격증 커리큘럼 8과목 | CPPI 한국 필라테스 교육협회",
+      desc: "기능해부학과 의학적 근거 위에 설계된 필라테스 강사 자격증 과정 8개 과목 - 매트·리포머·캐딜락·체어·바렐 시리즈를 과목별로 안내합니다.",
       eyebrow: "CURRICULUM", h1: "CPPI 정규과정 에센셜 커리큘럼",
       lead: "모든 과정은 기능해부학과 의학적 근거 위에 설계되었습니다.",
       blocks: [
@@ -897,8 +936,8 @@ export const CONTENT = {
 
   courses: {
     ko: {
-      title: "교육 안내 - 필라테스 강사 자격과정 | CPPI 한국 필라테스 교육협회",
-      desc: "이론+실기+티칭실습 중심의 CPPI 국제 필라테스 강사 자격과정 안내. 마스터 강사진, 수료 혜택, 모집 정보.",
+      title: "필라테스 강사 자격증 과정 안내 | CPPI 한국 필라테스 교육협회",
+      desc: "이론+실기+티칭실습 중심의 CPPI 국제 필라테스 강사 자격증 과정. 비전공 입문자를 위한 필라테스 강사반부터 현직 강사 심화 과정까지 안내합니다.",
       eyebrow: "CERTIFICATION", h1: "CPPI 필라테스 교육안내",
       lead: "이론 · 실기 · 티칭 실습을 반복하는 실무 중심 자격과정입니다.",
       blocks: [
@@ -974,8 +1013,8 @@ export const CONTENT = {
 
   workshop: {
     ko: {
-      title: "전문 강사 워크숍 | CPPI 한국 필라테스 교육협회",
-      desc: "현직 강사·재활 종사자를 위한 단기 심화 실습 워크숍 - 리커버링 재활, 임산부, 소도구 필라테스 과정.",
+      title: "리커버링 재활 필라테스 자격증 · 전문 강사 워크숍 | CPPI",
+      desc: "리커버링 재활 필라테스 원데이 자격과정 8시간, 임산부·소도구 전문가 과정. 현직 강사와 재활 종사자를 위한 단기 심화 워크숍입니다.",
       eyebrow: "WORKSHOP", h1: "전문 강사 워크숍",
       lead: "현직 강사 · 재활 종사자를 위한 단기 심화 실습.",
       blocks: [{ h: "운영 워크숍", list: ["'리커버링 재활 필라테스' 원데이 자격과정 - 8시간", "임산부 필라테스 전문가 과정", "소도구 필라테스 전문가 과정 - 16시간 (폼롤러 · 써클 · 미니볼 · BOSU)"] }],
@@ -1261,7 +1300,7 @@ export const CONTENT = {
      ------------------------------------------------------------------ */
   why: {
     ko: {
-      title: "왜 CPPI인가 - 근거로 검증하는 필라테스 강사 자격과정",
+      title: "왜 CPPI인가 - 근거로 검증하는 필라테스 강사 자격증 과정",
       desc: "임상에서 출발한 커리큘럼, 317개 동작 매뉴얼, 과목마다 반복하는 티칭 실습. 근거를 항목으로 공개합니다.",
       eyebrow: "WHY CPPI", h1: "왜 근거인가",
       lead: "필라테스 강사 자격과정은 많습니다. 우리가 다르다고 말하려면 그 근거를 먼저 보여야 한다고 생각했습니다. CPPI가 내세우는 네 가지를 확인 가능한 형태로 적었습니다.",
@@ -1327,63 +1366,89 @@ export const CONTENT = {
     },
     schema: { "@type": "AboutPage" },
   },
+  /* 자격증 선택 가이드 - "필라테스 강사 자격증" 계열 검색어와
+     생성형 AI 질의("~ 추천해줘")의 착지점. 지금까지 이 질문에 답하는 전용
+     페이지가 없어 홈이 대신 노출되고 클릭으로 이어지지 않았다.
+     경쟁 기관의 수치를 단정하지 않고 "무엇을 확인할 것인가" 형식으로 쓴다.
+     app.js 의 CERT_GUIDE 와 내용이 같아야 한다. 다르면 클로킹이 된다. */
+  certification: {
+    schema: { "@type": "WebPage" },
+    ko: {"title": "필라테스 강사 자격증 선택 기준 | CPPI 한국필라테스교육협회", "desc": "필라테스 강사 자격증을 고르기 전 확인할 7가지. 교육 시간, 교재, 실습 비중, 평가 방식, 수료 후 지원. 비전공 입문자와 경력 전환자 기준으로 정리했습니다.", "eyebrow": "CERTIFICATION GUIDE", "h1": "필라테스 강사 자격증, 무엇을 보고 고르나", "lead": "자격과정을 처음 알아보는 분들이 가장 많이 묻는 순서대로 정리했습니다. 각 항목에 CPPI 기준도 함께 적었습니다.", "blocks": [{"h": "과정을 고르기 전 확인할 7가지", "list": ["총 교육 시간 - 몇 시간을 어떤 간격으로 이수하는지", "과목 구성 - 해부학과 체형 평가가 별도 과목으로 있는지", "교재 - 출판된 교재가 있는지, 강의 슬라이드만 있는지", "실습 비중 - 기구별 실습 시간이 명시돼 있는지", "평가 방식 - 수료 기준과 재응시 규정이 공개돼 있는지", "운영 주체 - 발급 기관의 등록 정보가 확인되는지", "수료 이후 - 보수교육과 활동 연계가 제도로 있는지"]}, {"h": "비용과 기간은 어떻게 구성되나", "p": "자격과정 비용은 수강료, 교재비, 검정비로 나뉩니다. 공고에 총액만 있고 항목 구분이 없으면 등록 전에 확인하시는 편이 좋습니다. 기간은 총 시간보다 주당 시간이 결정합니다. 같은 110시간이라도 주 8시간이면 약 15주, 주 4시간이면 약 30주가 걸립니다. CPPI 에센셜 코스는 8개 과목 약 110~120시간이며, 주 8~10시간 기준 약 15주 전후입니다. 수강료는 정상가 420만원, 얼리버드 신청과 할인 적용 시 400만원입니다."}, {"h": "온라인으로 되는 부분과 안 되는 부분", "p": "이론 과목은 온라인 수강이 가능합니다. 기능해부학과 기본원리처럼 개념을 익히는 과목이 여기에 해당합니다. 반면 기구 실습과 티칭 실습은 대면이 필요합니다. 리포머나 캐딜락은 기구가 있어야 하고, 티칭은 눈앞의 몸을 읽고 조정하는 훈련이라 화면으로 대체되지 않습니다. 온라인만으로 자격을 발급하는 과정이 있다면 실기 평가를 어떤 방식으로 하는지 확인하시는 편이 좋습니다. CPPI는 온라인 강의를 복습용으로 제공하고, 자격 검정은 대면으로 진행합니다."}, {"h": "비전공자와 경력 전환자가 자주 묻는 것", "list": ["전공이 없어도 되나 - 에센셜 코스는 비전공 입문자를 전제로 설계된 과정입니다", "운동을 잘해야 하나 - 본인의 운동 수행 능력보다 타인의 움직임을 읽는 능력을 평가합니다", "나이 제한이 있나 - 정해진 상한은 없습니다", "육아 중에도 가능한가 - 평일반과 주말반이 센터별로 다르게 운영됩니다", "수료하면 바로 강의할 수 있나 - 수료강사 명단 등재와 활동 연계를 제도로 운영합니다"]}, {"h": "CPPI는 이 기준에서 어디에 있나", "list": ["총 교육 시간 - 8개 과목 약 110~120시간", "교재 - 출판교재 9권 전권 1,617페이지", "동작 매뉴얼 - 317개 (매트 53 · 리포머 79 · 캐딜락 62 · 체어 28 · 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39)", "운영 주체 - 한국필라테스교육협회 (고유번호 201-82-74381, 비영리, 2016년 설립)", "운영 센터 - 서울 강동 · 분당 · 김포", "수료 현황 - 56기 이상"]}]},
+    en: {"title": "Choosing a Pilates instructor certification | CPPI Korea", "desc": "Seven things to check before choosing a Pilates instructor certification: contact hours, textbooks, practical ratio, assessment and support after graduation.", "eyebrow": "CERTIFICATION GUIDE", "h1": "How to choose a Pilates instructor certification", "lead": "Ordered by what people ask most often when they first look into certification. CPPI's own figures are given against each item.", "blocks": [{"h": "Seven things to check first", "list": ["Total contact hours, and how they are spread out", "Subject structure - whether anatomy and postural assessment are separate subjects", "Textbooks - whether published texts exist, or only lecture slides", "Practical ratio - whether apparatus hours are stated", "Assessment - whether completion criteria and re-sit rules are published", "The awarding body - whether its registration can be verified", "After graduation - whether continuing education and placement exist as a system"]}, {"h": "How cost and duration are structured", "p": "Certification cost divides into tuition, textbooks and assessment fees. If an announcement gives only a total with no breakdown, it is worth asking before enrolling. Duration is decided by weekly hours rather than total hours: the same 110 hours is about 15 weeks at 8 hours a week, and about 30 weeks at 4. The CPPI Essential course is eight subjects and roughly 110 to 120 hours, about 15 weeks at 8 to 10 hours a week. Tuition is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts."}, {"h": "What works online and what does not", "p": "Theory subjects work online - functional anatomy and basic principles, where the task is to learn concepts. Apparatus work and teaching practice need to be in person. A Reformer or Cadillac has to be present, and teaching is the skill of reading and adjusting the body in front of you, which a screen does not replace. If a course awards a qualification entirely online, it is worth asking how the practical assessment is conducted. CPPI provides online lectures for revision and holds the certification assessment in person."}, {"h": "What career changers ask most", "list": ["Do I need a related degree - the Essential course is designed for entrants without one", "Do I need to be athletic - assessment is about reading other people's movement, not your own performance", "Is there an age limit - there is no upper limit", "Can I study while raising children - weekday and weekend groups run differently by center", "Can I teach straight after graduating - graduates are listed in the directory and supported into placement"]}, {"h": "Where CPPI stands against these items", "list": ["Contact hours - eight subjects, roughly 110 to 120 hours", "Textbooks - nine published volumes, 1,617 pages in total", "Movement manual - 317 documented movements (Mat 53, Reformer 79, Cadillac 62, Chair 28, Ladder Barrel 27, Arc Barrel 29, Spine Corrector 39)", "Awarding body - Korea Pilates Education Association (reg. 201-82-74381, non-profit, established 2016)", "Centers - Gangdong in Seoul, Bundang, Gimpo", "Graduates - 56+ certified classes"]}]},
+    ja: {"title": "ピラティス指導者資格の選び方 | CPPI 韓国ピラティス教育協会", "desc": "ピラティス指導者資格を選ぶ前に確認する7項目。総時間、教材、実技の割合、評価方法、修了後の支援。未経験者とキャリア転換者向けに整理しました。", "eyebrow": "CERTIFICATION GUIDE", "h1": "ピラティス指導者資格、何を見て選ぶか", "lead": "資格課程を初めて調べる方が最も多く尋ねる順に整理しました。各項目にCPPIの数値も併記しています。", "blocks": [{"h": "課程を選ぶ前に確認する7項目", "list": ["総教育時間 - 何時間をどの間隔で履修するか", "科目構成 - 解剖学と体型評価が独立した科目としてあるか", "教材 - 出版された教材があるか、講義スライドのみか", "実技の割合 - 器具別の実習時間が明記されているか", "評価方法 - 修了基準と再受験規定が公開されているか", "運営主体 - 発行機関の登録情報が確認できるか", "修了後 - 継続教育と活動連携が制度としてあるか"]}, {"h": "費用と期間の構成", "p": "資格課程の費用は受講料、教材費、検定料に分かれます。総額のみで内訳がない場合は、登録前に確認されることをお勧めします。期間は総時間よりも週あたりの時間が決めます。同じ110時間でも週8時間なら約15週、週4時間なら約30週かかります。CPPIエッセンシャルコースは8科目およそ110~120時間で、週8~10時間を基準に約15週前後です。受講料は定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。"}, {"h": "オンラインで可能な部分とそうでない部分", "p": "理論科目はオンライン受講が可能です。機能解剖学や基本原理のように概念を習得する科目がこれにあたります。一方、器具実習とティーチング実習は対面が必要です。リフォーマーやキャデラックは器具がなければならず、ティーチングは目の前の身体を読んで調整する訓練のため画面では代替できません。オンラインのみで資格を発行する課程がある場合、実技評価をどのように行うか確認されることをお勧めします。CPPIはオンライン講義を復習用に提供し、資格検定は対面で行います。"}, {"h": "未経験者とキャリア転換者からの質問", "list": ["専攻がなくてもよいか - エッセンシャルコースは未経験者を前提に設計された課程です", "運動が得意である必要があるか - 本人の運動能力より他者の動きを読む力を評価します", "年齢制限はあるか - 上限は定めていません", "育児中でも可能か - 平日クラスと週末クラスがセンターごとに異なります", "修了後すぐ指導できるか - 修了講師名簿への登載と活動連携を制度として運営しています"]}, {"h": "この基準から見たCPPI", "list": ["総教育時間 - 8科目およそ110~120時間", "教材 - 出版教材9巻 全巻1,617ページ", "動作マニュアル - 317種 (マット53・リフォーマー79・キャデラック62・チェア28・ラダーバレル27・アークバレル29・スパインコレクター39)", "運営主体 - 韓国ピラティス教育協会 (固有番号 201-82-74381、非営利、2016年設立)", "運営センター - ソウル江東・盆唐・金浦", "修了実績 - 56期以上"]}]},
+    zh: {"title": "如何选择普拉提教练资格课程 | CPPI 韩国普拉提教育协会", "desc": "选择普拉提教练资格课程前应确认的七项：总课时、教材、实操比例、评估方式、结业后支持。面向零基础入门者与转职人士整理。", "eyebrow": "CERTIFICATION GUIDE", "h1": "普拉提教练资格，该看什么来选", "lead": "按初次了解资格课程者最常提出的顺序整理，并在每一项附上CPPI的实际数据。", "blocks": [{"h": "选择课程前应确认的七项", "list": ["总教育时数 - 共多少小时、以何种间隔修读", "科目构成 - 解剖学与体态评估是否为独立科目", "教材 - 是否有正式出版教材，还是仅有讲义幻灯片", "实操比例 - 各器械实习时数是否明示", "评估方式 - 结业标准与重考规定是否公开", "运营主体 - 发证机构的登记信息是否可核实", "结业之后 - 是否有继续教育与就业衔接制度"]}, {"h": "费用与期间的构成", "p": "资格课程费用分为学费、教材费与检定费。若公告仅有总额而无明细，建议在报名前确认。期间由每周时数而非总时数决定：同样110小时，每周8小时约需15周，每周4小时约需30周。CPPI Essential 课程为八门科目约110~120小时，以每周8~10小时计约15周前后。学费标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。"}, {"h": "线上可行与不可行的部分", "p": "理论科目可线上修读，功能解剖学与基本原理等以掌握概念为主的科目属于此类。器械实操与教学实习则需面授。核心床与凯迪拉克必须有器械，而教学是读取并调整眼前身体的训练，无法以屏幕替代。若有课程完全以线上发证，建议确认其实操评估如何进行。CPPI 将线上课程作为复习用途提供，资格检定以面授进行。"}, {"h": "零基础与转职者最常问的问题", "list": ["没有相关专业可以吗 - Essential 课程以零基础入门者为前提设计", "运动能力要很好吗 - 评估的是读取他人动作的能力，而非自身运动表现", "有年龄限制吗 - 未设上限", "育儿期间可以修读吗 - 平日班与周末班依中心不同而运营", "结业后能立即授课吗 - 设有结业教练名单登载与活动衔接制度"]}, {"h": "以这些标准看CPPI", "list": ["总教育时数 - 八门科目约110~120小时", "教材 - 出版教材九卷 全书1,617页", "动作手册 - 317个 (垫上53·核心床79·凯迪拉克62·稳踏椅28·梯桶27·弧形桶29·脊柱矫正器39)", "运营主体 - 韩国普拉提教育协会 (登记号 201-82-74381，非营利，2016年创立)", "运营中心 - 首尔江东·盆唐·金浦", "结业情况 - 56期以上"]}]},
+    "zh-Hant": {"title": "如何選擇皮拉提斯師資證照課程 | CPPI 韓國皮拉提斯教育協會", "desc": "選擇皮拉提斯師資證照課程前應確認的七項：總時數、教材、實作比例、評估方式、結業後支援。為零基礎入門者與轉職者整理。", "eyebrow": "CERTIFICATION GUIDE", "h1": "皮拉提斯師資證照，該看什麼來選", "lead": "依初次了解證照課程者最常提出的順序整理，並於每一項附上 CPPI 的實際數據。", "blocks": [{"h": "選擇課程前應確認的七項", "list": ["總教育時數 - 共多少小時、以何種間隔修讀", "科目構成 - 解剖學與體態評估是否為獨立科目", "教材 - 是否有正式出版教材，或僅有講義投影片", "實作比例 - 各器械實習時數是否明示", "評估方式 - 結業標準與重考規定是否公開", "營運主體 - 發證機構的登記資訊是否可查證", "結業之後 - 是否有繼續教育與就業銜接制度"]}, {"h": "費用與期間的構成", "p": "證照課程費用分為學費、教材費與檢定費。若公告僅有總額而無明細，建議於報名前確認。期間由每週時數而非總時數決定：同樣 110 小時，每週 8 小時約需 15 週，每週 4 小時約需 30 週。CPPI Essential 課程為八門科目約 110~120 小時，以每週 8~10 小時計約 15 週前後。學費標準價為 420 萬韓元，適用早鳥報名與折扣優惠時為 400 萬韓元。"}, {"h": "線上可行與不可行的部分", "p": "理論科目可線上修讀，功能解剖學與基本原理等以掌握概念為主的科目屬於此類。器械實作與教學實習則需面授。核心床與凱迪拉克必須有器械，而教學是讀取並調整眼前身體的訓練，無法以螢幕替代。若有課程完全以線上發證，建議確認其實作評估如何進行。CPPI 將線上課程作為複習用途提供，資格檢定以面授進行。"}, {"h": "零基礎與轉職者最常問的問題", "list": ["沒有相關科系可以嗎 - Essential 課程以零基礎入門者為前提設計", "運動能力要很好嗎 - 評估的是讀取他人動作的能力，而非自身運動表現", "有年齡限制嗎 - 未設上限", "育兒期間可以修讀嗎 - 平日班與週末班依中心不同而營運", "結業後能立即授課嗎 - 設有結業導師名單登載與活動銜接制度"]}, {"h": "以這些標準看 CPPI", "list": ["總教育時數 - 八門科目約 110~120 小時", "教材 - 出版教材九卷 全書 1,617 頁", "動作手冊 - 317 個 (墊上 53·核心床 79·凱迪拉克 62·穩踏椅 28·梯桶 27·弧形桶 29·脊椎矯正器 39)", "營運主體 - 韓國皮拉提斯教育協會 (登記號 201-82-74381，非營利，2016 年創立)", "營運中心 - 首爾江東·盆唐·金浦", "結業情況 - 56 期以上"]}]},
+  },
+  /* 리커버링 전용 페이지 - "리커버링 자격증", "리커버링 필라테스 자격증" 계열 검색어의
+     착지점. 지금까지 리커버링은 9개 라우트에 흩어져 있을 뿐 전용 페이지가 없어
+     그 검색어로 들어올 자리가 없었다. 수치는 기존 본문에 있던 사실만 쓴다.
+     근거 수준에 대한 단서(자체 체계임)는 반드시 유지할 것.
+     app.js 의 REC_GUIDE 와 내용이 같아야 한다. 다르면 클로킹이 된다. */
+  recovering: {
+    schema: { "@type": "WebPage" },
+    ko: {"title": "리커버링 재활 필라테스 자격증 - 원데이 과정 | CPPI 한국필라테스교육협회", "desc": "리커버링 재활 필라테스 원데이 자격증 과정. 8시간 7교시, 동작 37개와 이론 14개. 압박·보조·균형 세 원리로 척추에 감각 피드백을 주는 도구를 다룹니다.", "eyebrow": "RECOVERING", "h1": "리커버링 재활 필라테스 원데이 자격과정", "lead": "CPPI의 시그니처 프로그램입니다. 현직 강사와 재활 종사자를 대상으로 하루 8시간 단독 과정으로 운영합니다.", "blocks": [{"h": "리커버링이란 무엇인가", "p": "리커버링(Recovering)은 CPPI가 운영하는 소도구이자 프로그램 이름입니다. 탄성으로 저항을 주는 도구가 아니라, 압박(Compression) · 보조(Assist) · 균형(Balance) 세 가지 원리로 척추에 감각 피드백을 주는 3D 도구로 정의합니다. 6-TOP은 압박점, 2-EDGE는 회전 가이드, 4-CURVE는 굴곡과 신전 가이드 역할을 합니다."}, {"h": "원데이 자격과정 구성", "list": ["교육 시간 - 8시간 (7교시 × 50분)", "실기 - 시그니처 동작 37개", "이론 - 14개 주제", "적용 원리 - 9가지", "시그니처 동작 체계 - 13가지", "운영 형태 - 단독 원데이 과정, 정규과정 수료 여부와 무관"]}, {"h": "무엇을 배우나", "p": "축성 신장과 감압, 항회전과 요추 분절 안정화, 나선·사선 근막 사슬의 교차 활성화, 요추 안정과 흉추 가동성의 분리, 관절 중심화, 방산 법칙, 고유수용감각 증폭 등 아홉 가지 원리를 다룹니다. 각 동작은 목적, 세팅, 동작 순서, 보상작용과 중재, 적용 근막 라인, 기능적 의미, 핵심 큐라는 표준 포맷으로 문서화되어 있어 현장에서 그대로 꺼내 쓸 수 있습니다."}, {"h": "리커버링 필라테스 자격증은 누가, 어떻게 받나", "list": ["대상 - 현직 필라테스 강사, 재활 종사자", "사전 요건 - 과정별로 다르며 문의 시 안내", "자격 - 원데이 과정은 자격과정으로 운영되며 발급 조건과 절차는 신청 시 안내", "교육 주관 - CPPI 한국필라테스교육협회 (고유번호 201-82-74381, 비영리)", "지도 - 박은주 (2022년 RECOVERING Master Trainer 자격 취득)"]}, {"h": "근거에 대하여", "p": "리커버링의 생체역학 프레임워크(닫힌 사슬, 축성 신장, 항회전, 나선 근막 사슬, 관절 중심화, 고유수용감각 등)는 CPPI가 현장 교육을 위해 정리한 자체 체계입니다. 개별 항목이 무작위 대조시험이나 메타분석으로 검증된 수준인지는 별도의 문헌 검토가 필요합니다. 과정에서는 그 구분을 명확히 하고 가르칩니다."}]},
+    en: {"title": "Recovering rehabilitation Pilates certification - one-day course | CPPI", "desc": "The Recovering rehabilitation Pilates one-day certification: 8 hours across 7 periods, 37 movements and 14 theory topics, built on compression, assist and balance.", "eyebrow": "RECOVERING", "h1": "Recovering rehabilitation Pilates - one-day certification", "lead": "CPPI's signature programme, run as a standalone eight-hour course for practising instructors and rehabilitation professionals.", "blocks": [{"h": "What Recovering is", "p": "Recovering is both an apparatus and a programme run by CPPI. It is not an elastic resistance tool: it is defined as a three-dimensional device that gives the spine sensory feedback through three principles - compression, assist and balance. The 6-TOP provides compression points, the 2-EDGE guides rotation, and the 4-CURVE guides flexion and extension."}, {"h": "Course structure", "list": ["Duration - 8 hours (7 periods of 50 minutes)", "Practical - 37 signature movements", "Theory - 14 topics", "Applied principles - 9", "Signature movement system - 13", "Format - standalone one-day course, open regardless of CPPI certification status"]}, {"h": "What is covered", "p": "Nine principles are taught: axial elongation and decompression, anti-rotation and segmental lumbar stability, crossed activation of spiral and oblique fascial chains, separating lumbar stability from thoracic mobility, joint centration, the law of irradiation, and proprioceptive amplification among them. Every movement is documented in one standard format - purpose, setup, sequence, compensations and interventions, fascial lines involved, functional meaning, and key cues - so it can be taken straight into the studio."}, {"h": "Who it is for, and the credential", "list": ["For - practising Pilates instructors and rehabilitation professionals", "Prerequisites - vary by course; confirmed on enquiry", "Credential - the one-day course is run as a certification course; issuing conditions and process are confirmed at registration", "Provider - CPPI Korea Pilates Education Association (reg. 201-82-74381, non-profit)", "Taught by - Eun-Ju Park, RECOVERING Master Trainer since 2022"]}, {"h": "On the evidence", "p": "The biomechanical framework behind Recovering - closed chain, axial elongation, anti-rotation, spiral fascial chains, joint centration, proprioception - is a system CPPI assembled for teaching in the studio. Whether each individual claim has been verified at the level of randomised controlled trials or meta-analysis would require a separate literature review. The course states that distinction explicitly."}]},
+    ja: {"title": "リカバリング リハビリピラティス資格 - ワンデー課程 | CPPI 韓国ピラティス教育協会", "desc": "リカバリング リハビリピラティス ワンデー資格課程。8時間7コマ、動作37種と理論14項目。圧迫・補助・バランスの3原理で脊柱に感覚フィードバックを与える道具を扱います。", "eyebrow": "RECOVERING", "h1": "リカバリング リハビリピラティス ワンデー資格課程", "lead": "CPPIのシグネチャープログラムです。現役講師とリハビリ従事者を対象に、1日8時間の単独課程として運営します。", "blocks": [{"h": "リカバリングとは", "p": "リカバリング(Recovering)はCPPIが運営する小道具であり、プログラム名でもあります。弾性で抵抗を与える道具ではなく、圧迫(Compression)・補助(Assist)・バランス(Balance)の3原理で脊柱に感覚フィードバックを与える3D道具と定義します。6-TOPは圧迫点、2-EDGEは回旋ガイド、4-CURVEは屈曲・伸展ガイドの役割を果たします。"}, {"h": "ワンデー資格課程の構成", "list": ["教育時間 - 8時間 (7コマ × 50分)", "実技 - シグネチャー動作37種", "理論 - 14項目", "適用原理 - 9種", "シグネチャー動作体系 - 13種", "形式 - 単独ワンデー課程。正規課程の修了有無を問いません"]}, {"h": "学ぶ内容", "p": "軸性伸長と減圧、抗回旋と腰椎分節安定化、螺旋・斜め筋膜連鎖の交差活性化、腰椎安定と胸椎可動性の分離、関節中心化、放散の法則、固有受容感覚の増幅など9つの原理を扱います。各動作は目的・セッティング・動作順序・代償と介入・適用筋膜ライン・機能的意味・キューという標準フォーマットで文書化されています。"}, {"h": "対象と資格", "list": ["対象 - 現役ピラティス講師、リハビリ従事者", "事前要件 - 課程ごとに異なり、お問い合わせ時にご案内", "資格 - ワンデー課程は資格課程として運営し、発行条件と手続きは申込時にご案内", "教育主管 - CPPI 韓国ピラティス教育協会 (固有番号 201-82-74381、非営利)", "指導 - パク・ウンジュ (2022年 RECOVERING Master Trainer 取得)"]}, {"h": "根拠について", "p": "リカバリングの生体力学的フレームワーク(閉鎖連鎖、軸性伸長、抗回旋、螺旋筋膜連鎖、関節中心化、固有受容感覚など)は、CPPIが現場教育のために整理した独自の体系です。個々の項目がランダム化比較試験やメタ分析で検証された水準かどうかは、別途の文献検討が必要です。課程ではその区別を明示して教えます。"}]},
+    zh: {"title": "Recovering 康复普拉提资格 - 一日课程 | CPPI 韩国普拉提教育协会", "desc": "Recovering 康复普拉提一日资格课程。8小时7节课，动作37个与理论14项。以压迫·辅助·平衡三原理为脊柱提供感觉反馈。", "eyebrow": "RECOVERING", "h1": "Recovering 康复普拉提一日资格课程", "lead": "CPPI 的招牌课程。面向在职教练与康复从业者，以一日8小时的独立课程形式运营。", "blocks": [{"h": "什么是 Recovering", "p": "Recovering 既是 CPPI 运营的小器械，也是课程名称。它并非以弹性提供阻力的工具，而是以压迫(Compression)·辅助(Assist)·平衡(Balance)三项原理为脊柱提供感觉反馈的立体器械。6-TOP 为压迫点，2-EDGE 为旋转导引，4-CURVE 为屈曲与伸展导引。"}, {"h": "一日资格课程构成", "list": ["教育时数 - 8小时 (7节 × 50分钟)", "实操 - 招牌动作37个", "理论 - 14项", "应用原理 - 9项", "招牌动作体系 - 13项", "形式 - 独立一日课程，不限是否已修完正规课程"]}, {"h": "学习内容", "p": "涵盖轴向延长与减压、抗旋转与腰椎分节稳定、螺旋与斜向筋膜链交叉激活、腰椎稳定与胸椎活动度的分离、关节中心化、放散法则、本体感觉放大等九项原理。每个动作均以目的、设置、动作顺序、代偿与介入、所涉筋膜线、功能意义、关键提示的标准格式记录。"}, {"h": "适合谁，资格如何", "list": ["对象 - 在职普拉提教练、康复从业者", "先修要求 - 依课程而异，咨询时告知", "资格 - 一日课程以资格课程形式运营，发证条件与流程于报名时告知", "教育主办 - CPPI 韩国普拉提教育协会 (登记号 201-82-74381，非营利)", "授课 - 朴恩珠 (2022年取得 RECOVERING Master Trainer)"]}, {"h": "关于循证", "p": "Recovering 的生物力学框架(闭链、轴向延长、抗旋转、螺旋筋膜链、关节中心化、本体感觉等)是 CPPI 为现场教学整理的自有体系。各项是否已达随机对照试验或荟萃分析的验证水平，需另行文献检视。课程中会明确区分说明。"}]},
+    "zh-Hant": {"title": "Recovering 復健皮拉提斯證照 - 一日課程 | CPPI 韓國皮拉提斯教育協會", "desc": "Recovering 復健皮拉提斯一日證照課程。8 小時 7 節課，動作 37 個與理論 14 項。以壓迫·輔助·平衡三原理為脊椎提供感覺回饋。", "eyebrow": "RECOVERING", "h1": "Recovering 復健皮拉提斯一日證照課程", "lead": "CPPI 的招牌課程。面向在職導師與復健從業者，以一日 8 小時的獨立課程形式營運。", "blocks": [{"h": "什麼是 Recovering", "p": "Recovering 既是 CPPI 營運的小器械，也是課程名稱。它並非以彈性提供阻力的工具，而是以壓迫(Compression)·輔助(Assist)·平衡(Balance)三項原理為脊椎提供感覺回饋的立體器械。6-TOP 為壓迫點，2-EDGE 為旋轉導引，4-CURVE 為屈曲與伸展導引。"}, {"h": "一日證照課程構成", "list": ["教育時數 - 8 小時 (7 節 × 50 分鐘)", "實作 - 招牌動作 37 個", "理論 - 14 項", "應用原理 - 9 項", "招牌動作體系 - 13 項", "形式 - 獨立一日課程，不限是否已修完正規課程"]}, {"h": "學習內容", "p": "涵蓋軸向延長與減壓、抗旋轉與腰椎分節穩定、螺旋與斜向筋膜鏈交叉活化、腰椎穩定與胸椎活動度的分離、關節中心化、放散法則、本體感覺放大等九項原理。每個動作均以目的、設置、動作順序、代償與介入、所涉筋膜線、功能意義、關鍵提示的標準格式記錄。"}, {"h": "適合誰，證照如何", "list": ["對象 - 在職皮拉提斯導師、復健從業者", "先修要求 - 依課程而異，諮詢時告知", "證照 - 一日課程以證照課程形式營運，發證條件與流程於報名時告知", "教育主辦 - CPPI 韓國皮拉提斯教育協會 (登記號 201-82-74381，非營利)", "授課 - 朴恩珠 (2022 年取得 RECOVERING Master Trainer)"]}, {"h": "關於實證", "p": "Recovering 的生物力學框架(閉鏈、軸向延長、抗旋轉、螺旋筋膜鏈、關節中心化、本體感覺等)是 CPPI 為現場教學整理的自有體系。各項是否已達隨機對照試驗或統合分析的驗證水準，需另行文獻檢視。課程中會明確區分說明。"}]},
+  },
   books: {
     ko: {
       title: "정규과정 교재 9권 - 과목별 구매 | CPPI 한국필라테스교육협회",
-      desc: "박은주 저 CPPI 정규과정 교재 9권 전권 1,617페이지. 기능해부학 238p, 리포머 306p, 캐딜락 368p 등 과목별 구매.",
+      desc: "박은주 저 CPPI 정규과정 교재. 기구 교재 7권 낱권 판매 - 캐딜락 368p 65,000원, 리포머 306p 56,000원, 매트 160p 37,000원. 7권 세트 236,000원.",
       eyebrow: "TEXTBOOKS", h1: "정규과정 교재 9권",
       lead: "CPPI 정규과정에서 실제로 사용하는 출판 교재입니다. 저자는 협회장 박은주이며, 필요한 과목만 따로 구매할 수 있습니다.",
       blocks: [
-        { h: "교재 목록", list: ["필라테스 기능해부학 - 238p", "필라테스 기본원리 - 80p", "필라테스 더 매트 - 160p", "리포머 - 306p", "캐딜락 - 368p", "스태빌리티 체어 - 202p", "래더 바렐 - 76p", "아크 바렐 - 79p", "스파인 코렉터 - 108p"] },
-        { h: "구매 전 확인", p: "모든 교재는 목차와 본문 10페이지를 미리 볼 수 있습니다. 표지를 누르면 미리보기가 열립니다. 실물 교재는 배송되며, 세트 구매와 해외 배송은 상담으로 안내드립니다." },
+        { h: "교재 목록과 가격", list: ["필라테스 기능해부학 - 238p · 정규과정 수강생 제공, 낱권 판매 안 함", "필라테스 기본원리 - 80p · 정규과정 수강생 제공, 낱권 판매 안 함", "필라테스 더 매트 - 160p · 37,000원", "리포머 - 306p · 56,000원", "캐딜락 - 368p · 65,000원", "스태빌리티 체어 - 202p · 42,000원", "래더 바렐 - 76p · 27,000원", "아크 바렐 - 79p · 27,000원", "스파인 코렉터 - 108p · 33,000원", "기구 교재 7권 세트 - 236,000원 (낱권 합계 287,000원 대비 18% 할인)"] },
+        { h: "구매 전 확인", p: "모든 교재는 목차와 본문 10페이지를 미리 볼 수 있습니다. 표지를 누르면 미리보기가 열립니다. 종이책은 택배로 배송되며 배송비는 2,500원입니다. 7권 세트도 한 상자로 나가므로 배송비는 같습니다. 해외 배송은 상담으로 안내드립니다." },
         { h: "교재가 왜 중요한가", p: "자격과정을 고를 때 확인해야 할 항목 중 하나가 교재입니다. 강의 슬라이드만 있는 과정과 출판된 텍스트가 있는 과정은 복습 가능성이 다릅니다. CPPI 교재는 수료 이후 현장에서 참조하는 자료로 쓰입니다." },
         { h: "소도구 교재", p: "정규과정 교재 외에 소도구 교재 4권이 있습니다. 폼롤러 164p, 서클 136p, 미니볼 178p, BOSU 160p로 구성됩니다." },
       ],
     },
     en: {
       title: "The nine core textbooks - buy by subject | CPPI Korea Pilates Education Association",
-      desc: "Nine published CPPI Pilates textbooks by Eun-Ju Park. Functional Anatomy 238pp, Reformer 306pp, Cadillac 368pp and more, sold by subject. Preview the contents and ten pages of the body text.",
+      desc: "Nine CPPI Pilates textbooks by Eun-Ju Park. Seven apparatus volumes sold individually - Cadillac 368pp KRW 65,000, Reformer 306pp KRW 56,000, Mat 160pp KRW 37,000. Seven-volume set KRW 236,000.",
       eyebrow: "TEXTBOOKS", h1: "The nine core textbooks",
       lead: "These are the published books actually used in the CPPI certification. They are written by association president Eun-Ju Park, and you can buy only the subjects you need.",
       blocks: [
-        { h: "Titles", list: ["Anatomy of Movement - 238pp", "Basic Principle - 80pp", "Pilates Mat - 160pp", "Reformer - 306pp", "Cadillac - 368pp", "Stability Chair - 202pp", "Ladder Barrel - 76pp", "Arc Barrel - 79pp", "Spine Corrector - 108pp"] },
-        { h: "Before you order", p: "Every title lets you preview the table of contents and ten pages of the body text. Tap a cover to open the preview. Printed books are shipped; for set purchases and international shipping, please contact us." },
+        { h: "Titles and prices", list: ["Anatomy of Movement - 238pp, included with the course, not sold separately", "Basic Principle - 80pp, included with the course, not sold separately", "Pilates Mat - 160pp, KRW 37,000", "Reformer - 306pp, KRW 56,000", "Cadillac - 368pp, KRW 65,000", "Stability Chair - 202pp, KRW 42,000", "Ladder Barrel - 76pp, KRW 27,000", "Arc Barrel - 79pp, KRW 27,000", "Spine Corrector - 108pp, KRW 33,000", "Seven-volume apparatus set - KRW 236,000 (18% off the KRW 287,000 individual total)"] },
+        { h: "Before you order", p: "Every title lets you preview the table of contents and ten pages of the body text. Tap a cover to open the preview. Printed books ship for a flat KRW 2,500, and the seven-volume set ships in one box for the same fee. For international shipping, please contact us." },
         { h: "Why the textbook matters", p: "A textbook is one of the things worth checking when you compare certifications. A course backed only by slides and a course backed by published text differ in how well you can revise. CPPI graduates keep using these books as a reference in the studio." },
         { h: "Small-props volumes", p: "Beyond the nine core titles there are four small-props volumes: foam roller 164pp, circle 136pp, mini ball 178pp and BOSU 160pp." },
       ],
     },
     ja: {
       title: "正規課程教材9巻 - 科目別購入 | CPPI 韓国ピラティス教育協会",
-      desc: "パク・ウンジュ著 CPPIピラティス正規課程教材9巻。機能解剖学238p、リフォーマー306p、キャデラック368pなど科目別の実物教材。目次と本文10ページを試し読みできます。",
+      desc: "パク・ウンジュ著 CPPIピラティス正規課程教材。器具教材7巻を単品販売 - キャデラック368p 65,000ウォン、リフォーマー306p 56,000ウォン、マット160p 37,000ウォン。7巻セット236,000ウォン。",
       eyebrow: "TEXTBOOKS", h1: "正規課程教材 9巻",
       lead: "CPPI正規課程で実際に使用している出版教材です。著者は協会長パク・ウンジュで、必要な科目だけを個別に購入できます。",
       blocks: [
-        { h: "教材一覧", list: ["ピラティス機能解剖学 - 238p", "ピラティス基本原理 - 80p", "ピラティス・ザ・マット - 160p", "リフォーマー - 306p", "キャデラック - 368p", "スタビリティチェア - 202p", "ラダーバレル - 76p", "アークバレル - 79p", "スパインコレクター - 108p"] },
-        { h: "ご注文前に", p: "すべての教材で目次と本文10ページを試し読みできます。表紙をタップするとプレビューが開きます。実物教材は配送となり、セット購入と海外配送はご相談ください。" },
+        { h: "教材一覧と価格", list: ["ピラティス機能解剖学 - 238p · 受講生提供、単品販売なし", "ピラティス基本原理 - 80p · 受講生提供、単品販売なし", "ピラティス・ザ・マット - 160p · 37,000ウォン", "リフォーマー - 306p · 56,000ウォン", "キャデラック - 368p · 65,000ウォン", "スタビリティチェア - 202p · 42,000ウォン", "ラダーバレル - 76p · 27,000ウォン", "アークバレル - 79p · 27,000ウォン", "スパインコレクター - 108p · 33,000ウォン", "器具教材7巻セット - 236,000ウォン (単品合計287,000ウォンより18%割引)"] },
+        { h: "ご注文前に", p: "すべての教材で目次と本文10ページを試し読みできます。表紙をタップするとプレビューが開きます。紙の書籍を宅配でお届けし、送料は2,500ウォンです。7巻セットも1箱で発送するため送料は同じです。海外配送はご相談ください。" },
         { h: "教材がなぜ重要か", p: "資格課程を選ぶ際に確認したい項目のひとつが教材です。講義スライドだけの課程と、出版されたテキストがある課程では復習のしやすさが違います。CPPI教材は修了後も現場で参照する資料として使われています。" },
         { h: "小道具教材", p: "正規課程教材のほかに小道具教材が4巻あります。フォームローラー164p、サークル136p、ミニボール178p、BOSU 160pです。" },
       ],
     },
     zh: {
       title: "正规课程教材9册 - 按科目购买 | CPPI 韩国普拉提教育协会",
-      desc: "朴恩珠著 CPPI普拉提正规课程教材9册。功能解剖学238页、核心床306页、凯迪拉克368页等按科目提供实体教材。可试阅目录与正文10页。",
+      desc: "朴恩珠著 CPPI普拉提正规课程教材。器械教材7册单独销售 - 凯迪拉克368页65,000韩元、核心床306页56,000韩元、垫上160页37,000韩元。七册套装236,000韩元。",
       eyebrow: "TEXTBOOKS", h1: "正规课程教材 9册",
       lead: "这是CPPI正规课程实际使用的出版教材。著者为协会长朴恩珠，可只购买所需科目。",
       blocks: [
-        { h: "教材目录", list: ["普拉提功能解剖学 - 238页", "普拉提基本原理 - 80页", "垫上普拉提 - 160页", "核心床 Reformer - 306页", "凯迪拉克 Cadillac - 368页", "稳踏椅 Stability Chair - 202页", "梯桶 Ladder Barrel - 76页", "弧形桶 Arc Barrel - 79页", "脊柱矫正器 Spine Corrector - 108页"] },
-        { h: "购买前确认", p: "所有教材均可试阅目录与正文10页，点击封面即可打开预览。实体教材将配送到府，整套购买与海外配送请咨询。" },
+        { h: "教材目录与价格", list: ["普拉提功能解剖学 - 238页 · 随课程提供，不单独销售", "普拉提基本原理 - 80页 · 随课程提供，不单独销售", "垫上普拉提 - 160页 · 37,000韩元", "核心床 Reformer - 306页 · 56,000韩元", "凯迪拉克 Cadillac - 368页 · 65,000韩元", "稳踏椅 Stability Chair - 202页 · 42,000韩元", "梯桶 Ladder Barrel - 76页 · 27,000韩元", "弧形桶 Arc Barrel - 79页 · 27,000韩元", "脊柱矫正器 Spine Corrector - 108页 · 33,000韩元", "器械教材七册套装 - 236,000韩元 (较单册合计287,000韩元优惠18%)"] },
+        { h: "购买前确认", p: "所有教材均可试阅目录与正文10页，点击封面即可打开预览。纸质书配送运费为2,500韩元，七册套装一箱发出，运费相同。海外配送请咨询。" },
         { h: "教材为何重要", p: "挑选资格课程时，教材是应当核查的项目之一。只有讲义幻灯片的课程与拥有正式出版教材的课程，在复习可行性上并不相同。CPPI教材在结业后仍作为现场参考资料使用。" },
         { h: "小器械教材", p: "除正规课程教材外另有小器械教材4册：泡沫轴164页、圈136页、迷你球178页、BOSU 160页。" },
       ],
     },
     "zh-Hant": {
       title: "正規課程教材 9 冊 - 依科目購買 | CPPI 韓國皮拉提斯教育協會",
-      desc: "朴恩珠著 CPPI 皮拉提斯正規課程教材 9 冊。功能解剖學 238 頁、核心床 306 頁、凱迪拉克 368 頁等依科目提供實體教材。可試閱目錄與正文 10 頁。",
+      desc: "朴恩珠著 CPPI 皮拉提斯正規課程教材。器械教材 7 冊單獨銷售 - 凱迪拉克 368 頁 65,000 韓元、核心床 306 頁 56,000 韓元、墊上 160 頁 37,000 韓元。七冊套裝 236,000 韓元。",
       eyebrow: "TEXTBOOKS", h1: "正規課程教材 9 冊",
       lead: "這是 CPPI 正規課程實際使用的出版教材。著者為協會長朴恩珠，可只購買所需科目。",
       blocks: [
-        { h: "教材目錄", list: ["皮拉提斯功能解剖學 - 238 頁", "皮拉提斯基本原理 - 80 頁", "墊上皮拉提斯 - 160 頁", "核心床 Reformer - 306 頁", "凱迪拉克 Cadillac - 368 頁", "穩踏椅 Stability Chair - 202 頁", "梯桶 Ladder Barrel - 76 頁", "弧形桶 Arc Barrel - 79 頁", "脊椎矯正器 Spine Corrector - 108 頁"] },
-        { h: "購買前確認", p: "所有教材皆可試閱目錄與正文 10 頁，點擊封面即可開啟預覽。實體教材將配送到府，整套購買與海外配送請洽詢。" },
+        { h: "教材目錄與價格", list: ["皮拉提斯功能解剖學 - 238 頁 · 隨課程提供，不單獨銷售", "皮拉提斯基本原理 - 80 頁 · 隨課程提供，不單獨銷售", "墊上皮拉提斯 - 160 頁 · 37,000 韓元", "核心床 Reformer - 306 頁 · 56,000 韓元", "凱迪拉克 Cadillac - 368 頁 · 65,000 韓元", "穩踏椅 Stability Chair - 202 頁 · 42,000 韓元", "梯桶 Ladder Barrel - 76 頁 · 27,000 韓元", "弧形桶 Arc Barrel - 79 頁 · 27,000 韓元", "脊椎矯正器 Spine Corrector - 108 頁 · 33,000 韓元", "器械教材七冊套裝 - 236,000 韓元 (較單冊合計 287,000 韓元優惠 18%)"] },
+        { h: "購買前確認", p: "所有教材皆可試閱目錄與正文 10 頁，點擊封面即可開啟預覽。紙本書配送運費為 2,500 韓元，七冊套裝一箱寄出，運費相同。海外配送請洽詢。" },
         { h: "教材為何重要", p: "挑選證照課程時，教材是應當查核的項目之一。只有講義投影片的課程與擁有正式出版教材的課程，在複習可行性上並不相同。CPPI 教材在結業後仍作為現場參考資料使用。" },
         { h: "小器材教材", p: "除正規課程教材外另有小器材教材 4 冊：滾筒 164 頁、圈 136 頁、迷你球 178 頁、BOSU 160 頁。" },
       ],
@@ -1525,7 +1590,7 @@ export const CONTENT = {
   },
   gimpo: {
     ko: {
-      title: "김포 필라테스 강사 자격과정 - CPPI 김포 교육센터",
+      title: "김포 필라테스 강사 자격증 과정 - CPPI 김포 교육센터",
       desc: "경기 김포시 김포한강11로 133 운양동 · 운양 웰니스웨이 필라테스. 에센셜·CMPI 코스. 수강료 420만원(얼리버드 400만원).",
       eyebrow: "GIMPO", h1: "김포 교육센터 - 운양 웰니스웨이 필라테스",
       lead: "김포 운양동·김포한강신도시 생활권에서 CPPI 필라테스 강사 자격과정을 받을 수 있는 공식 호스팅 센터입니다.",
@@ -1595,7 +1660,7 @@ export const CONTENT = {
   },
   bundang: {
     ko: {
-      title: "분당 필라테스 강사 자격과정 - CPPI 분당 교육센터",
+      title: "분당 필라테스 강사 자격증 과정 - CPPI 분당 교육센터",
       desc: "경기 성남 분당구 · 협회 부설시설 필라티크 운동연구소. 에센셜·CMPI 코스. 수강료 420만원(얼리버드 400만원).",
       eyebrow: "BUNDANG", h1: "분당 교육센터 - 필라티크 운동연구소",
       lead: "CPPI 한국필라테스교육협회의 부설시설입니다. 분당·성남·정자동 생활권에서 자격과정과 자격 검정을 함께 운영합니다.",
@@ -1665,7 +1730,7 @@ export const CONTENT = {
   },
   gangdong: {
     ko: {
-      title: "강동 필라테스 강사 자격과정 - CPPI 서울 교육센터",
+      title: "강동 필라테스 강사 자격증 과정 - CPPI 서울 교육센터",
       desc: "서울 강동구 고덕로83길 14 · 바디멀티 상일동역점. 에센셜·CMPI 코스. 수강료 420만원(얼리버드 400만원).",
       eyebrow: "SEOUL GANGDONG", h1: "강동 교육센터 - 바디멀티 필라테스 상일동역점",
       lead: "서울 강동·고덕·상일동 생활권에서 CPPI 필라테스 강사 자격과정을 받을 수 있는 공식 호스팅 센터입니다.",
@@ -2056,9 +2121,9 @@ const EXTRA_BLOCKS_3 = {
   store: {
     ko: [
       { h: "무엇을 파는가", p: "CPPI 스토어는 세 가지를 취급합니다. 첫째는 정규과정에서 실제로 쓰는 출판 교재 9권으로, 실물 배송 상품입니다. 둘째는 부위별 전문 지침서인 무브먼트 테라피 4종으로, PDF 전자책입니다. 셋째는 온라인 강의 수강권으로, 결제 확인 후 시청 링크가 제공됩니다. 세 가지는 배송 여부와 환불 조건이 서로 다르므로 구매 전에 구분해 주세요." },
-      { h: "구매 절차", p: "상품을 고르면 주문 정보를 입력하고 결제수단을 선택합니다. 회원은 저장된 정보로, 비회원은 이름 · 연락처 · 이메일을 입력해 주문할 수 있습니다. 계좌이체를 선택하면 입금 계좌 안내 화면으로 이동하고, 입금이 확인되면 주문 상태가 '완료'로 바뀌면서 전자책 열람 권한과 온라인 강의 수강권이 부여됩니다. 실물 교재는 이 시점부터 배송이 시작됩니다." },
+      { h: "구매 절차", p: "상품을 고르면 주문 정보를 입력하고 결제수단을 선택합니다. 회원은 저장된 정보로, 비회원은 이름 · 연락처 · 이메일을 입력해 주문할 수 있습니다. 계좌이체를 선택하면 입금 계좌 안내 화면으로 이동하고, 입금이 확인되면 주문 상태가 '완료'로 바뀌면서 전자책 열람 권한과 온라인 강의 수강권이 부여됩니다. 종이책은 이 시점부터 배송이 시작됩니다." },
       { h: "판매 · 결제 주체", p: "CPPI 한국필라테스교육협회(고유번호 201-82-74381)는 교육과 강의를 주관하는 비영리 단체입니다. 상품 판매와 결제, 환불, 고객응대는 사업 대행사인 씨앤티파트너스(C&T Partners, 사업자등록번호 842-09-02365)가 담당합니다. 결제 관련 문의는 씨앤티파트너스로 연결됩니다." },
-      { h: "환불 기준", p: "실물 교재는 배송 전이면 취소할 수 있습니다. 전자책과 온라인 강의 수강권은 디지털 상품이므로 열람을 시작한 뒤에는 환불이 어렵습니다. 전자책에는 구매자 이메일이 워터마크로 삽입됩니다. 정규 자격과정과 워크숍의 환불 규정은 과정별로 다르므로 신청 시 별도로 안내드립니다." },
+      { h: "환불 기준", p: "종이책은 배송 전이면 취소할 수 있습니다. 전자책과 온라인 강의 수강권은 디지털 상품이므로 열람을 시작한 뒤에는 환불이 어렵습니다. 전자책에는 구매자 이메일이 워터마크로 삽입됩니다. 정규 자격과정과 워크숍의 환불 규정은 과정별로 다르므로 신청 시 별도로 안내드립니다." },
     ],
     en: [
       { h: "What we sell", p: "The CPPI store carries three kinds of item. First, the nine published textbooks actually used in the certification - these are physical books that ship. Second, the four Movement Therapy guidebooks covering specific body regions - these are PDF e-books. Third, online lecture access, for which a viewing link is issued once payment is confirmed. Shipping and refund terms differ across the three, so please note which one you are buying." },
@@ -2609,6 +2674,55 @@ export function jsonLD(lang, route) {
     });
   }
 
+  /* 교재 상품 - /books 화면에 실제로 표시되는 가격만 내보낸다.
+     Book 과 Product 를 함께 선언해 페이지 수(검증 가능한 스펙)와 가격을 동시에 넘긴다.
+     권별 @id 앵커를 주므로 라우트를 늘리지 않고도 9권이 개별 상품으로 인식된다. */
+  if (route === "books") {
+    const BU = {
+      ko:         ["쪽", "CPPI 정규과정 교재", "기구 교재 7권 세트"],
+      en:         ["pp", "CPPI certification textbook", "Seven-volume apparatus set"],
+      ja:         ["ページ", "CPPI正規課程教材", "器具教材7巻セット"],
+      zh:         ["页", "CPPI正规课程教材", "器械教材七册套装"],
+      "zh-Hant":  ["頁", "CPPI 正規課程教材", "器械教材七冊套裝"],
+    };
+    const u = BU[lang] || BU.en;
+    /* 배송비는 app.js 의 SHIP 과 같은 값을 쓴다. 한쪽만 고치면 화면과 검색결과가 달라진다. */
+    const offerOf = (price, id) => ({
+      "@type": "Offer", price: String(price), priceCurrency: "KRW",
+      availability: "https://schema.org/InStock", url: id,
+      seller: { "@id": ORIGIN + "/#org" },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: { "@type": "MonetaryAmount", value: "2500", currency: "KRW" },
+        shippingDestination: { "@type": "DefinedRegion", addressCountry: "KR" },
+      },
+    });
+    for (const b of BOOK_SALE) {
+      const bid = url + "#" + b.slug;
+      graph.push({
+        "@type": ["Book", "Product"], "@id": bid,
+        name: b.t[lang] || b.t.en,
+        description: `${u[1]} - ${b.pages}${u[0]}`,
+        image: ORIGIN + b.img,
+        numberOfPages: b.pages,
+        inLanguage: "ko",
+        author: { "@id": ORIGIN + "/#founder" },
+        publisher: { "@id": ORIGIN + "/#org" },
+        isPartOf: { "@id": url + "#page" },
+        offers: offerOf(b.price, bid),
+      });
+    }
+    graph.push({
+      "@type": "Product", "@id": url + "#set",
+      name: u[2],
+      description: `${u[1]} - ${BOOK_SET_LD.count} / ${BOOK_SET_LD.pages}${u[0]}`,
+      image: ORIGIN + "/covers/cadillac.jpg",
+      brand: { "@id": ORIGIN + "/#org" },
+      isPartOf: { "@id": url + "#page" },
+      offers: offerOf(BOOK_SET_LD.price, url + "#set"),
+    });
+  }
+
   return { "@context": "https://schema.org", "@graph": graph };
 }
 
@@ -2752,8 +2866,9 @@ export function sitemapXML() {
         HREFLANG[l].map(code =>
           `    <xhtml:link rel="alternate" hreflang="${code}" href="${ORIGIN + pathFor(l, route)}"/>`)
       ).join("\n");
+      const lastmod = ROUTE_UPDATED[route] || LAST_MODIFIED.slice(0, 10);
       urls.push(
-        `  <url><loc>${ORIGIN + pathFor(lang, route)}</loc>\n${alt}\n` +
+        `  <url><loc>${ORIGIN + pathFor(lang, route)}</loc>\n    <lastmod>${lastmod}</lastmod>\n${alt}\n` +
         `    <xhtml:link rel="alternate" hreflang="x-default" href="${ORIGIN + pathFor("en", route)}"/>\n` +
         `  </url>`
       );
@@ -2791,7 +2906,7 @@ export const APP_LANGS = ["ko", "en", "ja", "zh", "zh-Hant"];
 
 /* 앱이 가진 전체 라우트. SEO 콘텐츠가 없는 화면(/my, /checkout 등)도
    새로고침·직접접속에서 404 가 나지 않도록 앱 셸을 돌려주기 위해 필요하다. */
-export const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","master","journal",
+export const APP_ROUTES = ["home","about","founder","curriculum","courses","certification","recovering","workshop","master","journal",
   "stories","global","learn","store","why","gangdong","bundang","gimpo","lecture","prep","books","ebooks","guide","checkout",
   "bank","apply","support","members","my","login","signup","admin"];
 

@@ -29,6 +29,7 @@ const pubUser = (u) => u ? { id: u.id, nameKo: u.nameKo, nameEn: u.nameEn, email
      RESEND_KEY   : Resend API 키
      MAIL_FROM    : 발신 주소 (예: CPPI <no-reply@cppipilates.com>) - 도메인 인증 필요
      NOTIFY_TO    : 상담신청 알림을 받을 주소 (예: allmovements@naver.com)
+     ORDER_NOTIFY_TO : 주문 알림을 받을 주소. 없으면 NOTIFY_TO, 그것도 없으면 아래 기본값
 ------------------------------------------------------------------ */
 async function sendMail(env, { to, subject, html, replyTo }) {
   if (!env.RESEND_KEY) return { skipped: "no-key" };
@@ -125,8 +126,58 @@ export async function onRequest(context) {
     if (path === "order" && request.method === "POST") {
       const em = (meRow?.email || body.email || "guest").toLowerCase();
       const id = "CP" + Date.now().toString().slice(-8);
-      await DB.prepare("INSERT INTO orders(oid,email,buyer,item,type,method,status,payer,at) VALUES(?,?,?,?,?,?,?,?,?)")
-        .bind(id, em, body.buyer || meRow?.nameKo || "", body.item || "", body.type || "", body.method || "", "입금 확인중", "", new Date().toISOString().slice(0, 16).replace("T", " ")).run();
+      const at = new Date().toISOString().slice(0, 16).replace("T", " ");
+      const buyer = body.buyer || meRow?.nameKo || "";
+      const sh = body.ship || null;
+      /* 배송지 컬럼이 아직 없는 D1 에서도 주문 접수는 성공해야 한다.
+         컬럼 추가 전에는 기존 형태로 저장하고, 배송지는 알림 메일에 남는다.
+         컬럼 추가 SQL:
+           ALTER TABLE orders ADD COLUMN amount INTEGER DEFAULT 0;
+           ALTER TABLE orders ADD COLUMN ship_fee INTEGER DEFAULT 0;
+           ALTER TABLE orders ADD COLUMN recv_name TEXT DEFAULT '';
+           ALTER TABLE orders ADD COLUMN recv_phone TEXT DEFAULT '';
+           ALTER TABLE orders ADD COLUMN zip TEXT DEFAULT '';
+           ALTER TABLE orders ADD COLUMN addr1 TEXT DEFAULT '';
+           ALTER TABLE orders ADD COLUMN addr2 TEXT DEFAULT '';
+           ALTER TABLE orders ADD COLUMN ship_memo TEXT DEFAULT ''; */
+      try {
+        await DB.prepare("INSERT INTO orders(oid,email,buyer,item,type,method,status,payer,at,amount,ship_fee,recv_name,recv_phone,zip,addr1,addr2,ship_memo) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
+          .bind(id, em, buyer, body.item || "", body.type || "", body.method || "", "입금 확인중", "", at,
+                body.amount || 0, body.shipFee || 0,
+                sh?.name || "", sh?.phone || "", sh?.zip || "", sh?.addr1 || "", sh?.addr2 || "", sh?.memo || "").run();
+      } catch (_) {
+        await DB.prepare("INSERT INTO orders(oid,email,buyer,item,type,method,status,payer,at) VALUES(?,?,?,?,?,?,?,?,?)")
+          .bind(id, em, buyer, body.item || "", body.type || "", body.method || "", "입금 확인중", "", at).run();
+      }
+      /* 주문 알림 메일 - 실패해도 주문 접수는 성공으로 처리한다 */
+      const won = (n) => Number(n || 0).toLocaleString("en-US") + "원";
+      const row = (k, v) => `<tr><td style="padding:5px 10px;color:#6E5B50;white-space:nowrap">${k}</td><td style="padding:5px 10px;font-weight:600">${v}</td></tr>`;
+      context.waitUntil(sendMail(env, {
+        to: env.ORDER_NOTIFY_TO || env.NOTIFY_TO || "luvsinn@gmail.com",
+        subject: `[CPPI 주문] ${id} · ${body.item || ""}`,
+        replyTo: em.includes("@") ? em : undefined,
+        html: `<div style="font-family:system-ui,-apple-system,'Malgun Gothic',sans-serif;max-width:560px">
+          <h2 style="font-size:17px;margin:0 0 12px">주문이 접수되었습니다</h2>
+          <table style="border-collapse:collapse;font-size:14px;width:100%">
+            ${row("주문번호", id)}
+            ${row("상품", body.item || "-")}
+            ${row("상품 금액", won(body.price))}
+            ${row("배송비", won(body.shipFee))}
+            ${row("합계", won(body.amount))}
+            ${row("결제수단", body.method || "-")}
+            ${row("주문자", `${buyer} (${em})`)}
+            ${row("접수시각", at)}
+          </table>
+          ${sh ? `<h3 style="font-size:15px;margin:18px 0 8px">배송지</h3>
+          <table style="border-collapse:collapse;font-size:14px;width:100%">
+            ${row("받는 분", sh.name || "-")}
+            ${row("연락처", sh.phone || "-")}
+            ${row("주소", `(${sh.zip || ""}) ${sh.addr1 || ""} ${sh.addr2 || ""}`)}
+            ${row("요청사항", sh.memo || "-")}
+          </table>` : `<p style="font-size:13px;color:#6E5B50;margin-top:14px">실물 배송이 없는 주문입니다.</p>`}
+          <p style="color:#6E5B50;font-size:13px;margin-top:18px">입금 확인 후 상태를 변경해 주세요.</p>
+        </div>`,
+      }).catch(() => {}));
       return json({ id });
     }
     /* ---- 수강 권한 (결제 완료된 항목만) ---- */

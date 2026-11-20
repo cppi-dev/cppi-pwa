@@ -80,9 +80,14 @@ const heroSrc = () => HEROS[Math.floor(Math.random() * HEROS.length)];
    서버가 본문을 먼저 렌더한 뒤 그 위에서 앱이 부팅하는 구조로 바꾼다.
    기존에 뿌린 #주소로 들어와도 같은 화면을 보여 주고 경로 주소로 정규화한다.
    번체(/zh-hant/)는 앱 UI가 아직 번체를 갖고 있지 않아 정적 페이지로만 서빙한다. */
-const APP_ROUTES = ["home","about","founder","curriculum","courses","workshop","master","stories","journal",
+/* 앱이 인식하는 경로. 여기에 없는 경로로 들어오면 parseLoc 이 home 으로 되돌린다.
+   functions/_seo.js 의 APP_ROUTES 와 같아야 한다. 한쪽에만 넣으면
+   서버는 그 페이지를 내려주는데 앱이 홈으로 바꿔버려, 검색으로 들어온 사람이
+   홈을 보게 되고 크롤러와 사람이 다른 화면을 받는다. */
+const APP_ROUTES = ["home","about","founder","curriculum","courses","certification","recovering","workshop","master","stories","journal",
   "global","learn","store","why","lecture","prep","books","ebooks","guide","checkout","bank",
-  "apply","support","members","my","login","signup","admin"];
+  "apply","support","members","my","login","signup","admin",
+  "gangdong","bundang","gimpo"];
 const PATH_LANG = { en: "en", ja: "ja", zh: "zh", "zh-hant": "zh-Hant" };
 /* 언어 코드 -> URL 세그먼트 (번체는 소문자 경로 /zh-hant/ 를 쓴다) */
 const LANG_SEG = { ko: "", en: "en", ja: "ja", zh: "zh", "zh-Hant": "zh-hant" };
@@ -226,14 +231,24 @@ const CURRICULUM = [
 const BOOKS = [
   { slug: "anatomy",    t: { ko: "필라테스 기능해부학", en: "Anatomy of Movement", zh: "功能解剖学", "zh-Hant": "功能解剖學", ja: "機能解剖学" }, pages: 238 },
   { slug: "principle",  t: { ko: "필라테스 기본원리", en: "Basic Principle", zh: "基本原理", "zh-Hant": "基本原理", ja: "基本原理" }, pages: 80 },
-  { slug: "mat",        t: { ko: "필라테스 더 매트", en: "Pilates Mat", zh: "垫上普拉提", "zh-Hant": "墊上皮拉提斯", ja: "ピラティス・マット" }, pages: 160 },
-  { slug: "reformer",   t: { ko: "리포머", en: "Reformer", zh: "核心床", "zh-Hant": "核心床", ja: "リフォーマー" }, pages: 306 },
-  { slug: "cadillac",   t: { ko: "캐딜락", en: "Cadillac", zh: "凯迪拉克床", "zh-Hant": "凱迪拉克床", ja: "キャデラック" }, pages: 368 },
-  { slug: "chair",      t: { ko: "스태빌리티 체어", en: "Stability Chair", zh: "稳踏椅", "zh-Hant": "穩踏椅", ja: "スタビリティチェア" }, pages: 202 },
-  { slug: "lbarrel",    t: { ko: "래더 바렐", en: "Ladder Barrel", zh: "梯桶", "zh-Hant": "梯桶", ja: "ラダーバレル" }, pages: 76 },
-  { slug: "abarrel",    t: { ko: "아크 바렐", en: "Arc Barrel", zh: "弧形桶", "zh-Hant": "弧形桶", ja: "アークバレル" }, pages: 79 },
-  { slug: "scorrector", t: { ko: "스파인 코렉터", en: "Spine Corrector", zh: "脊柱矫正器", "zh-Hant": "脊柱矯正器", ja: "スパインコレクター" }, pages: 108 },
+  { slug: "mat",        t: { ko: "필라테스 더 매트", en: "Pilates Mat", zh: "垫上普拉提", "zh-Hant": "墊上皮拉提斯", ja: "ピラティス・マット" }, pages: 160, price: 37000 },
+  { slug: "reformer",   t: { ko: "리포머", en: "Reformer", zh: "核心床", "zh-Hant": "核心床", ja: "リフォーマー" }, pages: 306, price: 56000 },
+  { slug: "cadillac",   t: { ko: "캐딜락", en: "Cadillac", zh: "凯迪拉克床", "zh-Hant": "凱迪拉克床", ja: "キャデラック" }, pages: 368, price: 65000 },
+  { slug: "chair",      t: { ko: "스태빌리티 체어", en: "Stability Chair", zh: "稳踏椅", "zh-Hant": "穩踏椅", ja: "スタビリティチェア" }, pages: 202, price: 42000 },
+  { slug: "lbarrel",    t: { ko: "래더 바렐", en: "Ladder Barrel", zh: "梯桶", "zh-Hant": "梯桶", ja: "ラダーバレル" }, pages: 76, price: 27000 },
+  { slug: "abarrel",    t: { ko: "아크 바렐", en: "Arc Barrel", zh: "弧形桶", "zh-Hant": "弧形桶", ja: "アークバレル" }, pages: 79, price: 27000 },
+  { slug: "scorrector", t: { ko: "스파인 코렉터", en: "Spine Corrector", zh: "脊柱矫正器", "zh-Hant": "脊柱矯正器", ja: "スパインコレクター" }, pages: 108, price: 33000 },
 ];
+/* 교재 가격 - 정규과정 교재 9권 중 해부학·기본원리를 제외한 7권만 낱권 판매한다.
+   가격이 없는 권은 수강생 제공분이므로 화면에서도 판매 UI 를 띄우지 않는다. */
+const BOOK_SET = { count: 7, price: 236000, sum: 287000, off: 18 };
+/* 배송비 - 종이책에만 붙는다. 세트는 7권이라도 한 박스로 나가므로 1건으로 계산한다.
+   권당 요금을 세트에 그대로 곱하면 실제 택배비보다 크게 과청구된다. */
+const SHIP = { book: 2500, set: 2500 };
+const shipFeeOf = (it) => !it || !it.physical ? 0 : (it.type === "bookset" ? SHIP.set : SHIP.book);
+const WON = (n) => { const v = n.toLocaleString("en-US");
+  return L({ ko: `${v}원`, en: `KRW ${v}`, zh: `${v}韩元`, "zh-Hant": `${v}韓元`, ja: `${v}ウォン` }); };
+
 const PV_COUNT = 13;
 const COVER = (slug) => (["anatomy", "principle", "mat", "reformer", "cadillac", "chair", "lbarrel"].includes(slug) ? `covers/${slug}.jpg` : `books/${slug}/p01.jpg`);
 
@@ -522,9 +537,25 @@ function updateMeta(r) {
   set('meta[property="og:description"]', "content", desc);
 }
 
+/* 페이지 주제목은 h1 이어야 한다. 서버가 내려준 본문에는 h1 이 있지만
+   앱이 #view 를 통째로 교체하면서 h2 만 남아, 렌더링 후 DOM 에 h1 이 사라진다.
+   구글은 자바스크립트 실행 후 화면을 평가하므로 그 상태에서 h1 이 없는 셈이 된다.
+   첫 번째 제목 하나만 h1 으로 바꾼다. class 를 그대로 물려주므로 보이는 모양은 같다. */
+function promoteH1() {
+  const v = document.getElementById("view");
+  if (!v || document.querySelector("h1")) return;
+  const h2 = v.querySelector("h2");
+  if (!h2) return;
+  const h1 = document.createElement("h1");
+  h1.className = h2.className;
+  h1.innerHTML = h2.innerHTML;
+  h2.replaceWith(h1);
+}
+
 function render() {
   const r = currentRoute();
   $("#view").innerHTML = (routes[r] || routes.home)();
+  promoteH1();
   updateMeta(r);
   const tabMap = { home: "home", journal: "journal", why: "courses", learn: "learn", lecture: "learn", prep: "learn", courses: "courses", curriculum: "courses", workshop: "courses", master: "courses", store: "store", books: "store", ebooks: "store", guide: "store", checkout: "store", bank: "store", my: "my", login: "my", signup: "my" };
   document.querySelectorAll(".tabbar a").forEach(a => {
@@ -1800,17 +1831,104 @@ routes.gangdong = () => regionPage("gangdong");
 routes.bundang = () => regionPage("bundang");
 routes.gimpo = () => regionPage("gimpo");
 
+/* 자격증 선택 가이드 - functions/_seo.js 의 CONTENT.certification 과 내용이 같아야 한다.
+   서버가 먼저 같은 본문을 내려주고 앱이 그 자리를 대체하는 구조이므로,
+   한쪽만 고치면 사람과 크롤러가 다른 내용을 보게 된다. */
+const CERT_GUIDE = {"ko": {"title": "필라테스 강사 자격증 선택 기준 | CPPI 한국필라테스교육협회", "desc": "필라테스 강사 자격증을 고르기 전 확인할 7가지. 교육 시간, 교재, 실습 비중, 평가 방식, 수료 후 지원. 비전공 입문자와 경력 전환자 기준으로 정리했습니다.", "eyebrow": "CERTIFICATION GUIDE", "h1": "필라테스 강사 자격증, 무엇을 보고 고르나", "lead": "자격과정을 처음 알아보는 분들이 가장 많이 묻는 순서대로 정리했습니다. 각 항목에 CPPI 기준도 함께 적었습니다.", "blocks": [{"h": "과정을 고르기 전 확인할 7가지", "list": ["총 교육 시간 - 몇 시간을 어떤 간격으로 이수하는지", "과목 구성 - 해부학과 체형 평가가 별도 과목으로 있는지", "교재 - 출판된 교재가 있는지, 강의 슬라이드만 있는지", "실습 비중 - 기구별 실습 시간이 명시돼 있는지", "평가 방식 - 수료 기준과 재응시 규정이 공개돼 있는지", "운영 주체 - 발급 기관의 등록 정보가 확인되는지", "수료 이후 - 보수교육과 활동 연계가 제도로 있는지"]}, {"h": "비용과 기간은 어떻게 구성되나", "p": "자격과정 비용은 수강료, 교재비, 검정비로 나뉩니다. 공고에 총액만 있고 항목 구분이 없으면 등록 전에 확인하시는 편이 좋습니다. 기간은 총 시간보다 주당 시간이 결정합니다. 같은 110시간이라도 주 8시간이면 약 15주, 주 4시간이면 약 30주가 걸립니다. CPPI 에센셜 코스는 8개 과목 약 110~120시간이며, 주 8~10시간 기준 약 15주 전후입니다. 수강료는 정상가 420만원, 얼리버드 신청과 할인 적용 시 400만원입니다."}, {"h": "온라인으로 되는 부분과 안 되는 부분", "p": "이론 과목은 온라인 수강이 가능합니다. 기능해부학과 기본원리처럼 개념을 익히는 과목이 여기에 해당합니다. 반면 기구 실습과 티칭 실습은 대면이 필요합니다. 리포머나 캐딜락은 기구가 있어야 하고, 티칭은 눈앞의 몸을 읽고 조정하는 훈련이라 화면으로 대체되지 않습니다. 온라인만으로 자격을 발급하는 과정이 있다면 실기 평가를 어떤 방식으로 하는지 확인하시는 편이 좋습니다. CPPI는 온라인 강의를 복습용으로 제공하고, 자격 검정은 대면으로 진행합니다."}, {"h": "비전공자와 경력 전환자가 자주 묻는 것", "list": ["전공이 없어도 되나 - 에센셜 코스는 비전공 입문자를 전제로 설계된 과정입니다", "운동을 잘해야 하나 - 본인의 운동 수행 능력보다 타인의 움직임을 읽는 능력을 평가합니다", "나이 제한이 있나 - 정해진 상한은 없습니다", "육아 중에도 가능한가 - 평일반과 주말반이 센터별로 다르게 운영됩니다", "수료하면 바로 강의할 수 있나 - 수료강사 명단 등재와 활동 연계를 제도로 운영합니다"]}, {"h": "CPPI는 이 기준에서 어디에 있나", "list": ["총 교육 시간 - 8개 과목 약 110~120시간", "교재 - 출판교재 9권 전권 1,617페이지", "동작 매뉴얼 - 317개 (매트 53 · 리포머 79 · 캐딜락 62 · 체어 28 · 래더바렐 27 · 아크바렐 29 · 스파인코렉터 39)", "운영 주체 - 한국필라테스교육협회 (고유번호 201-82-74381, 비영리, 2016년 설립)", "운영 센터 - 서울 강동 · 분당 · 김포", "수료 현황 - 56기 이상"]}]}, "en": {"title": "How to choose a Pilates instructor certification | CPPI Korea", "desc": "Seven things to check before choosing a Pilates instructor certification: contact hours, textbooks, practical ratio, assessment, and post-graduation support. Written for career changers and students without a related degree.", "eyebrow": "CERTIFICATION GUIDE", "h1": "How to choose a Pilates instructor certification", "lead": "Ordered by what people ask most often when they first look into certification. CPPI's own figures are given against each item.", "blocks": [{"h": "Seven things to check first", "list": ["Total contact hours, and how they are spread out", "Subject structure - whether anatomy and postural assessment are separate subjects", "Textbooks - whether published texts exist, or only lecture slides", "Practical ratio - whether apparatus hours are stated", "Assessment - whether completion criteria and re-sit rules are published", "The awarding body - whether its registration can be verified", "After graduation - whether continuing education and placement exist as a system"]}, {"h": "How cost and duration are structured", "p": "Certification cost divides into tuition, textbooks and assessment fees. If an announcement gives only a total with no breakdown, it is worth asking before enrolling. Duration is decided by weekly hours rather than total hours: the same 110 hours is about 15 weeks at 8 hours a week, and about 30 weeks at 4. The CPPI Essential course is eight subjects and roughly 110 to 120 hours, about 15 weeks at 8 to 10 hours a week. Tuition is KRW 4,200,000 at list price, or KRW 4,000,000 with early-bird registration and applicable discounts."}, {"h": "What works online and what does not", "p": "Theory subjects work online - functional anatomy and basic principles, where the task is to learn concepts. Apparatus work and teaching practice need to be in person. A Reformer or Cadillac has to be present, and teaching is the skill of reading and adjusting the body in front of you, which a screen does not replace. If a course awards a qualification entirely online, it is worth asking how the practical assessment is conducted. CPPI provides online lectures for revision and holds the certification assessment in person."}, {"h": "What career changers ask most", "list": ["Do I need a related degree - the Essential course is designed for entrants without one", "Do I need to be athletic - assessment is about reading other people's movement, not your own performance", "Is there an age limit - there is no upper limit", "Can I study while raising children - weekday and weekend groups run differently by center", "Can I teach straight after graduating - graduates are listed in the directory and supported into placement"]}, {"h": "Where CPPI stands against these items", "list": ["Contact hours - eight subjects, roughly 110 to 120 hours", "Textbooks - nine published volumes, 1,617 pages in total", "Movement manual - 317 documented movements (Mat 53, Reformer 79, Cadillac 62, Chair 28, Ladder Barrel 27, Arc Barrel 29, Spine Corrector 39)", "Awarding body - Korea Pilates Education Association (reg. 201-82-74381, non-profit, established 2016)", "Centers - Gangdong in Seoul, Bundang, Gimpo", "Graduates - 56+ certified classes"]}]}, "ja": {"title": "ピラティス指導者資格の選び方 | CPPI 韓国ピラティス教育協会", "desc": "ピラティス指導者資格を選ぶ前に確認する7項目。総時間、教材、実技の割合、評価方法、修了後の支援。未経験者とキャリア転換者向けに整理しました。", "eyebrow": "CERTIFICATION GUIDE", "h1": "ピラティス指導者資格、何を見て選ぶか", "lead": "資格課程を初めて調べる方が最も多く尋ねる順に整理しました。各項目にCPPIの数値も併記しています。", "blocks": [{"h": "課程を選ぶ前に確認する7項目", "list": ["総教育時間 - 何時間をどの間隔で履修するか", "科目構成 - 解剖学と体型評価が独立した科目としてあるか", "教材 - 出版された教材があるか、講義スライドのみか", "実技の割合 - 器具別の実習時間が明記されているか", "評価方法 - 修了基準と再受験規定が公開されているか", "運営主体 - 発行機関の登録情報が確認できるか", "修了後 - 継続教育と活動連携が制度としてあるか"]}, {"h": "費用と期間の構成", "p": "資格課程の費用は受講料、教材費、検定料に分かれます。総額のみで内訳がない場合は、登録前に確認されることをお勧めします。期間は総時間よりも週あたりの時間が決めます。同じ110時間でも週8時間なら約15週、週4時間なら約30週かかります。CPPIエッセンシャルコースは8科目およそ110~120時間で、週8~10時間を基準に約15週前後です。受講料は定価420万ウォン、アーリーバード申込および割引適用時は400万ウォンです。"}, {"h": "オンラインで可能な部分とそうでない部分", "p": "理論科目はオンライン受講が可能です。機能解剖学や基本原理のように概念を習得する科目がこれにあたります。一方、器具実習とティーチング実習は対面が必要です。リフォーマーやキャデラックは器具がなければならず、ティーチングは目の前の身体を読んで調整する訓練のため画面では代替できません。オンラインのみで資格を発行する課程がある場合、実技評価をどのように行うか確認されることをお勧めします。CPPIはオンライン講義を復習用に提供し、資格検定は対面で行います。"}, {"h": "未経験者とキャリア転換者からの質問", "list": ["専攻がなくてもよいか - エッセンシャルコースは未経験者を前提に設計された課程です", "運動が得意である必要があるか - 本人の運動能力より他者の動きを読む力を評価します", "年齢制限はあるか - 上限は定めていません", "育児中でも可能か - 平日クラスと週末クラスがセンターごとに異なります", "修了後すぐ指導できるか - 修了講師名簿への登載と活動連携を制度として運営しています"]}, {"h": "この基準から見たCPPI", "list": ["総教育時間 - 8科目およそ110~120時間", "教材 - 出版教材9巻 全巻1,617ページ", "動作マニュアル - 317種 (マット53・リフォーマー79・キャデラック62・チェア28・ラダーバレル27・アークバレル29・スパインコレクター39)", "運営主体 - 韓国ピラティス教育協会 (固有番号 201-82-74381、非営利、2016年設立)", "運営センター - ソウル江東・盆唐・金浦", "修了実績 - 56期以上"]}]}, "zh": {"title": "如何选择普拉提教练资格课程 | CPPI 韩国普拉提教育协会", "desc": "选择普拉提教练资格课程前应确认的七项：总课时、教材、实操比例、评估方式、结业后支持。面向零基础入门者与转职人士整理。", "eyebrow": "CERTIFICATION GUIDE", "h1": "普拉提教练资格，该看什么来选", "lead": "按初次了解资格课程者最常提出的顺序整理，并在每一项附上CPPI的实际数据。", "blocks": [{"h": "选择课程前应确认的七项", "list": ["总教育时数 - 共多少小时、以何种间隔修读", "科目构成 - 解剖学与体态评估是否为独立科目", "教材 - 是否有正式出版教材，还是仅有讲义幻灯片", "实操比例 - 各器械实习时数是否明示", "评估方式 - 结业标准与重考规定是否公开", "运营主体 - 发证机构的登记信息是否可核实", "结业之后 - 是否有继续教育与就业衔接制度"]}, {"h": "费用与期间的构成", "p": "资格课程费用分为学费、教材费与检定费。若公告仅有总额而无明细，建议在报名前确认。期间由每周时数而非总时数决定：同样110小时，每周8小时约需15周，每周4小时约需30周。CPPI Essential 课程为八门科目约110~120小时，以每周8~10小时计约15周前后。学费标准价为420万韩元，适用早鸟报名与折扣优惠时为400万韩元。"}, {"h": "线上可行与不可行的部分", "p": "理论科目可线上修读，功能解剖学与基本原理等以掌握概念为主的科目属于此类。器械实操与教学实习则需面授。核心床与凯迪拉克必须有器械，而教学是读取并调整眼前身体的训练，无法以屏幕替代。若有课程完全以线上发证，建议确认其实操评估如何进行。CPPI 将线上课程作为复习用途提供，资格检定以面授进行。"}, {"h": "零基础与转职者最常问的问题", "list": ["没有相关专业可以吗 - Essential 课程以零基础入门者为前提设计", "运动能力要很好吗 - 评估的是读取他人动作的能力，而非自身运动表现", "有年龄限制吗 - 未设上限", "育儿期间可以修读吗 - 平日班与周末班依中心不同而运营", "结业后能立即授课吗 - 设有结业教练名单登载与活动衔接制度"]}, {"h": "以这些标准看CPPI", "list": ["总教育时数 - 八门科目约110~120小时", "教材 - 出版教材九卷 全书1,617页", "动作手册 - 317个 (垫上53·核心床79·凯迪拉克62·稳踏椅28·梯桶27·弧形桶29·脊柱矫正器39)", "运营主体 - 韩国普拉提教育协会 (登记号 201-82-74381，非营利，2016年创立)", "运营中心 - 首尔江东·盆唐·金浦", "结业情况 - 56期以上"]}]}, "zh-Hant": {"title": "如何選擇皮拉提斯師資證照課程 | CPPI 韓國皮拉提斯教育協會", "desc": "選擇皮拉提斯師資證照課程前應確認的七項：總時數、教材、實作比例、評估方式、結業後支援。為零基礎入門者與轉職者整理。", "eyebrow": "CERTIFICATION GUIDE", "h1": "皮拉提斯師資證照，該看什麼來選", "lead": "依初次了解證照課程者最常提出的順序整理，並於每一項附上 CPPI 的實際數據。", "blocks": [{"h": "選擇課程前應確認的七項", "list": ["總教育時數 - 共多少小時、以何種間隔修讀", "科目構成 - 解剖學與體態評估是否為獨立科目", "教材 - 是否有正式出版教材，或僅有講義投影片", "實作比例 - 各器械實習時數是否明示", "評估方式 - 結業標準與重考規定是否公開", "營運主體 - 發證機構的登記資訊是否可查證", "結業之後 - 是否有繼續教育與就業銜接制度"]}, {"h": "費用與期間的構成", "p": "證照課程費用分為學費、教材費與檢定費。若公告僅有總額而無明細，建議於報名前確認。期間由每週時數而非總時數決定：同樣 110 小時，每週 8 小時約需 15 週，每週 4 小時約需 30 週。CPPI Essential 課程為八門科目約 110~120 小時，以每週 8~10 小時計約 15 週前後。學費標準價為 420 萬韓元，適用早鳥報名與折扣優惠時為 400 萬韓元。"}, {"h": "線上可行與不可行的部分", "p": "理論科目可線上修讀，功能解剖學與基本原理等以掌握概念為主的科目屬於此類。器械實作與教學實習則需面授。核心床與凱迪拉克必須有器械，而教學是讀取並調整眼前身體的訓練，無法以螢幕替代。若有課程完全以線上發證，建議確認其實作評估如何進行。CPPI 將線上課程作為複習用途提供，資格檢定以面授進行。"}, {"h": "零基礎與轉職者最常問的問題", "list": ["沒有相關科系可以嗎 - Essential 課程以零基礎入門者為前提設計", "運動能力要很好嗎 - 評估的是讀取他人動作的能力，而非自身運動表現", "有年齡限制嗎 - 未設上限", "育兒期間可以修讀嗎 - 平日班與週末班依中心不同而營運", "結業後能立即授課嗎 - 設有結業導師名單登載與活動銜接制度"]}, {"h": "以這些標準看 CPPI", "list": ["總教育時數 - 八門科目約 110~120 小時", "教材 - 出版教材九卷 全書 1,617 頁", "動作手冊 - 317 個 (墊上 53·核心床 79·凱迪拉克 62·穩踏椅 28·梯桶 27·弧形桶 29·脊椎矯正器 39)", "營運主體 - 韓國皮拉提斯教育協會 (登記號 201-82-74381，非營利，2016 年創立)", "營運中心 - 首爾江東·盆唐·金浦", "結業情況 - 56 期以上"]}]}};
+
+routes.certification = () => {
+  const c = L(CERT_GUIDE);
+  const blocks = (c.blocks || []).map(b => {
+    let out = `<div class="card" style="margin-bottom:10px">`;
+    if (b.h) out += `<b>${esc(b.h)}</b>`;
+    if (b.p) out += `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(b.p)}</p>`;
+    if (b.list) out += `<ul style="font-size:13.5px;color:var(--ink2);margin:6px 0 0;padding-left:18px;line-height:1.9">`
+      + b.list.map(li => `<li>${esc(li)}</li>`).join("") + `</ul>`;
+    return out + `</div>`;
+  }).join("");
+  return `
+  <section>
+    ${secHead("CERTIFICATION GUIDE", c.h1, c.lead)}
+    ${blocks}
+    <div class="card" style="margin-bottom:10px">
+      <b>${L({ ko: "다음 단계", en: "Next step", zh: "下一步", "zh-Hant": "下一步", ja: "次のステップ" })}</b>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn ghost small" href="/courses">${L(UI.menu.courses)}</a>
+        <a class="btn ghost small" href="/curriculum">${L(UI.menu.curriculum)}</a>
+        <a class="btn ghost small" href="/books">${L({ ko: "교재 보기", en: "Textbooks", zh: "查看教材", "zh-Hant": "查看教材", ja: "教材を見る" })}</a>
+      </div>
+    </div>
+  </section>`;
+};
+
+/* 교육안내 페이지 하단에 자격증 가이드 링크를 덧붙인다.
+   기존 routes.courses 를 감싸기만 하므로 원래 화면 구성은 그대로다. */
+const _coursesBase = routes.courses;
+routes.courses = () => _coursesBase() + `
+  <section>
+    <div class="card" style="margin-bottom:10px">
+      <b>${L({ ko: "자격과정을 처음 알아보신다면", en: "New to certification?", zh: "初次了解资格课程?", "zh-Hant": "初次了解證照課程?", ja: "資格課程をはじめて調べる方へ" })}</b>
+      <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${L({ ko: "과정을 고르기 전 확인할 7가지를 정리했습니다.", en: "Seven things to check before choosing a course.", zh: "整理了选择课程前应确认的七项。", "zh-Hant": "整理了選擇課程前應確認的七項。", ja: "課程を選ぶ前に確認する7項目をまとめました。" })}</p>
+      <div style="margin-top:10px"><a class="btn ghost small" href="/certification">${L({ ko: "자격증 선택 기준 보기", en: "How to choose", zh: "如何选择", "zh-Hant": "如何選擇", ja: "資格の選び方" })}</a></div>
+    </div>
+  </section>`;
+
+/* 리커버링 전용 페이지 - functions/_seo.js 의 CONTENT.recovering 과 내용이 같아야 한다. */
+const REC_GUIDE = {"ko": {"title": "리커버링 재활 필라테스 자격증 - 원데이 과정 | CPPI 한국필라테스교육협회", "desc": "리커버링 재활 필라테스 원데이 자격증 과정. 8시간 7교시, 동작 37개와 이론 14개. 압박·보조·균형 세 원리로 척추에 감각 피드백을 주는 도구를 다룹니다.", "eyebrow": "RECOVERING", "h1": "리커버링 재활 필라테스 원데이 자격과정", "lead": "CPPI의 시그니처 프로그램입니다. 현직 강사와 재활 종사자를 대상으로 하루 8시간 단독 과정으로 운영합니다.", "blocks": [{"h": "리커버링이란 무엇인가", "p": "리커버링(Recovering)은 CPPI가 운영하는 소도구이자 프로그램 이름입니다. 탄성으로 저항을 주는 도구가 아니라, 압박(Compression) · 보조(Assist) · 균형(Balance) 세 가지 원리로 척추에 감각 피드백을 주는 3D 도구로 정의합니다. 6-TOP은 압박점, 2-EDGE는 회전 가이드, 4-CURVE는 굴곡과 신전 가이드 역할을 합니다."}, {"h": "원데이 자격과정 구성", "list": ["교육 시간 - 8시간 (7교시 × 50분)", "실기 - 시그니처 동작 37개", "이론 - 14개 주제", "적용 원리 - 9가지", "시그니처 동작 체계 - 13가지", "운영 형태 - 단독 원데이 과정, 정규과정 수료 여부와 무관"]}, {"h": "무엇을 배우나", "p": "축성 신장과 감압, 항회전과 요추 분절 안정화, 나선·사선 근막 사슬의 교차 활성화, 요추 안정과 흉추 가동성의 분리, 관절 중심화, 방산 법칙, 고유수용감각 증폭 등 아홉 가지 원리를 다룹니다. 각 동작은 목적, 세팅, 동작 순서, 보상작용과 중재, 적용 근막 라인, 기능적 의미, 핵심 큐라는 표준 포맷으로 문서화되어 있어 현장에서 그대로 꺼내 쓸 수 있습니다."}, {"h": "누가 듣나, 자격은 어떻게 되나", "list": ["대상 - 현직 필라테스 강사, 재활 종사자", "사전 요건 - 과정별로 다르며 문의 시 안내", "자격 - 원데이 과정은 자격과정으로 운영되며 발급 조건과 절차는 신청 시 안내", "교육 주관 - CPPI 한국필라테스교육협회 (고유번호 201-82-74381, 비영리)", "지도 - 박은주 (2022년 RECOVERING Master Trainer 자격 취득)"]}, {"h": "근거에 대하여", "p": "리커버링의 생체역학 프레임워크(닫힌 사슬, 축성 신장, 항회전, 나선 근막 사슬, 관절 중심화, 고유수용감각 등)는 CPPI가 현장 교육을 위해 정리한 자체 체계입니다. 개별 항목이 무작위 대조시험이나 메타분석으로 검증된 수준인지는 별도의 문헌 검토가 필요합니다. 과정에서는 그 구분을 명확히 하고 가르칩니다."}]}, "en": {"title": "Recovering rehabilitation Pilates certification - one-day course | CPPI", "desc": "The Recovering rehabilitation Pilates one-day certification: 8 hours across 7 periods, 37 movements and 14 theory topics, built on compression, assist and balance.", "eyebrow": "RECOVERING", "h1": "Recovering rehabilitation Pilates - one-day certification", "lead": "CPPI's signature programme, run as a standalone eight-hour course for practising instructors and rehabilitation professionals.", "blocks": [{"h": "What Recovering is", "p": "Recovering is both an apparatus and a programme run by CPPI. It is not an elastic resistance tool: it is defined as a three-dimensional device that gives the spine sensory feedback through three principles - compression, assist and balance. The 6-TOP provides compression points, the 2-EDGE guides rotation, and the 4-CURVE guides flexion and extension."}, {"h": "Course structure", "list": ["Duration - 8 hours (7 periods of 50 minutes)", "Practical - 37 signature movements", "Theory - 14 topics", "Applied principles - 9", "Signature movement system - 13", "Format - standalone one-day course, open regardless of CPPI certification status"]}, {"h": "What is covered", "p": "Nine principles are taught: axial elongation and decompression, anti-rotation and segmental lumbar stability, crossed activation of spiral and oblique fascial chains, separating lumbar stability from thoracic mobility, joint centration, the law of irradiation, and proprioceptive amplification among them. Every movement is documented in one standard format - purpose, setup, sequence, compensations and interventions, fascial lines involved, functional meaning, and key cues - so it can be taken straight into the studio."}, {"h": "Who it is for, and the credential", "list": ["For - practising Pilates instructors and rehabilitation professionals", "Prerequisites - vary by course; confirmed on enquiry", "Credential - the one-day course is run as a certification course; issuing conditions and process are confirmed at registration", "Provider - CPPI Korea Pilates Education Association (reg. 201-82-74381, non-profit)", "Taught by - Eun-Ju Park, RECOVERING Master Trainer since 2022"]}, {"h": "On the evidence", "p": "The biomechanical framework behind Recovering - closed chain, axial elongation, anti-rotation, spiral fascial chains, joint centration, proprioception - is a system CPPI assembled for teaching in the studio. Whether each individual claim has been verified at the level of randomised controlled trials or meta-analysis would require a separate literature review. The course states that distinction explicitly."}]}, "ja": {"title": "リカバリング リハビリピラティス資格 - ワンデー課程 | CPPI 韓国ピラティス教育協会", "desc": "リカバリング リハビリピラティス ワンデー資格課程。8時間7コマ、動作37種と理論14項目。圧迫・補助・バランスの3原理で脊柱に感覚フィードバックを与える道具を扱います。", "eyebrow": "RECOVERING", "h1": "リカバリング リハビリピラティス ワンデー資格課程", "lead": "CPPIのシグネチャープログラムです。現役講師とリハビリ従事者を対象に、1日8時間の単独課程として運営します。", "blocks": [{"h": "リカバリングとは", "p": "リカバリング(Recovering)はCPPIが運営する小道具であり、プログラム名でもあります。弾性で抵抗を与える道具ではなく、圧迫(Compression)・補助(Assist)・バランス(Balance)の3原理で脊柱に感覚フィードバックを与える3D道具と定義します。6-TOPは圧迫点、2-EDGEは回旋ガイド、4-CURVEは屈曲・伸展ガイドの役割を果たします。"}, {"h": "ワンデー資格課程の構成", "list": ["教育時間 - 8時間 (7コマ × 50分)", "実技 - シグネチャー動作37種", "理論 - 14項目", "適用原理 - 9種", "シグネチャー動作体系 - 13種", "形式 - 単独ワンデー課程。正規課程の修了有無を問いません"]}, {"h": "学ぶ内容", "p": "軸性伸長と減圧、抗回旋と腰椎分節安定化、螺旋・斜め筋膜連鎖の交差活性化、腰椎安定と胸椎可動性の分離、関節中心化、放散の法則、固有受容感覚の増幅など9つの原理を扱います。各動作は目的・セッティング・動作順序・代償と介入・適用筋膜ライン・機能的意味・キューという標準フォーマットで文書化されています。"}, {"h": "対象と資格", "list": ["対象 - 現役ピラティス講師、リハビリ従事者", "事前要件 - 課程ごとに異なり、お問い合わせ時にご案内", "資格 - ワンデー課程は資格課程として運営し、発行条件と手続きは申込時にご案内", "教育主管 - CPPI 韓国ピラティス教育協会 (固有番号 201-82-74381、非営利)", "指導 - パク・ウンジュ (2022年 RECOVERING Master Trainer 取得)"]}, {"h": "根拠について", "p": "リカバリングの生体力学的フレームワーク(閉鎖連鎖、軸性伸長、抗回旋、螺旋筋膜連鎖、関節中心化、固有受容感覚など)は、CPPIが現場教育のために整理した独自の体系です。個々の項目がランダム化比較試験やメタ分析で検証された水準かどうかは、別途の文献検討が必要です。課程ではその区別を明示して教えます。"}]}, "zh": {"title": "Recovering 康复普拉提资格 - 一日课程 | CPPI 韩国普拉提教育协会", "desc": "Recovering 康复普拉提一日资格课程。8小时7节课，动作37个与理论14项。以压迫·辅助·平衡三原理为脊柱提供感觉反馈。", "eyebrow": "RECOVERING", "h1": "Recovering 康复普拉提一日资格课程", "lead": "CPPI 的招牌课程。面向在职教练与康复从业者，以一日8小时的独立课程形式运营。", "blocks": [{"h": "什么是 Recovering", "p": "Recovering 既是 CPPI 运营的小器械，也是课程名称。它并非以弹性提供阻力的工具，而是以压迫(Compression)·辅助(Assist)·平衡(Balance)三项原理为脊柱提供感觉反馈的立体器械。6-TOP 为压迫点，2-EDGE 为旋转导引，4-CURVE 为屈曲与伸展导引。"}, {"h": "一日资格课程构成", "list": ["教育时数 - 8小时 (7节 × 50分钟)", "实操 - 招牌动作37个", "理论 - 14项", "应用原理 - 9项", "招牌动作体系 - 13项", "形式 - 独立一日课程，不限是否已修完正规课程"]}, {"h": "学习内容", "p": "涵盖轴向延长与减压、抗旋转与腰椎分节稳定、螺旋与斜向筋膜链交叉激活、腰椎稳定与胸椎活动度的分离、关节中心化、放散法则、本体感觉放大等九项原理。每个动作均以目的、设置、动作顺序、代偿与介入、所涉筋膜线、功能意义、关键提示的标准格式记录。"}, {"h": "适合谁，资格如何", "list": ["对象 - 在职普拉提教练、康复从业者", "先修要求 - 依课程而异，咨询时告知", "资格 - 一日课程以资格课程形式运营，发证条件与流程于报名时告知", "教育主办 - CPPI 韩国普拉提教育协会 (登记号 201-82-74381，非营利)", "授课 - 朴恩珠 (2022年取得 RECOVERING Master Trainer)"]}, {"h": "关于循证", "p": "Recovering 的生物力学框架(闭链、轴向延长、抗旋转、螺旋筋膜链、关节中心化、本体感觉等)是 CPPI 为现场教学整理的自有体系。各项是否已达随机对照试验或荟萃分析的验证水平，需另行文献检视。课程中会明确区分说明。"}]}, "zh-Hant": {"title": "Recovering 復健皮拉提斯證照 - 一日課程 | CPPI 韓國皮拉提斯教育協會", "desc": "Recovering 復健皮拉提斯一日證照課程。8 小時 7 節課，動作 37 個與理論 14 項。以壓迫·輔助·平衡三原理為脊椎提供感覺回饋。", "eyebrow": "RECOVERING", "h1": "Recovering 復健皮拉提斯一日證照課程", "lead": "CPPI 的招牌課程。面向在職導師與復健從業者，以一日 8 小時的獨立課程形式營運。", "blocks": [{"h": "什麼是 Recovering", "p": "Recovering 既是 CPPI 營運的小器械，也是課程名稱。它並非以彈性提供阻力的工具，而是以壓迫(Compression)·輔助(Assist)·平衡(Balance)三項原理為脊椎提供感覺回饋的立體器械。6-TOP 為壓迫點，2-EDGE 為旋轉導引，4-CURVE 為屈曲與伸展導引。"}, {"h": "一日證照課程構成", "list": ["教育時數 - 8 小時 (7 節 × 50 分鐘)", "實作 - 招牌動作 37 個", "理論 - 14 項", "應用原理 - 9 項", "招牌動作體系 - 13 項", "形式 - 獨立一日課程，不限是否已修完正規課程"]}, {"h": "學習內容", "p": "涵蓋軸向延長與減壓、抗旋轉與腰椎分節穩定、螺旋與斜向筋膜鏈交叉活化、腰椎穩定與胸椎活動度的分離、關節中心化、放散法則、本體感覺放大等九項原理。每個動作均以目的、設置、動作順序、代償與介入、所涉筋膜線、功能意義、關鍵提示的標準格式記錄。"}, {"h": "適合誰，證照如何", "list": ["對象 - 在職皮拉提斯導師、復健從業者", "先修要求 - 依課程而異，諮詢時告知", "證照 - 一日課程以證照課程形式營運，發證條件與流程於報名時告知", "教育主辦 - CPPI 韓國皮拉提斯教育協會 (登記號 201-82-74381，非營利)", "授課 - 朴恩珠 (2022 年取得 RECOVERING Master Trainer)"]}, {"h": "關於實證", "p": "Recovering 的生物力學框架(閉鏈、軸向延長、抗旋轉、螺旋筋膜鏈、關節中心化、本體感覺等)是 CPPI 為現場教學整理的自有體系。各項是否已達隨機對照試驗或統合分析的驗證水準，需另行文獻檢視。課程中會明確區分說明。"}]}};
+
+routes.recovering = () => {
+  const c = L(REC_GUIDE);
+  const blocks = (c.blocks || []).map(b => {
+    let out = `<div class="card" style="margin-bottom:10px">`;
+    if (b.h) out += `<b>${esc(b.h)}</b>`;
+    if (b.p) out += `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(b.p)}</p>`;
+    if (b.list) out += `<ul style="font-size:13.5px;color:var(--ink2);margin:6px 0 0;padding-left:18px;line-height:1.9">`
+      + b.list.map(li => `<li>${esc(li)}</li>`).join("") + `</ul>`;
+    return out + `</div>`;
+  }).join("");
+  return `
+  <section>
+    ${secHead("RECOVERING", c.h1, c.lead)}
+    ${blocks}
+    <div class="card" style="margin-bottom:10px">
+      <b>${L({ ko: "다음 단계", en: "Next step", zh: "下一步", "zh-Hant": "下一步", ja: "次のステップ" })}</b>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn ghost small" href="/workshop">${L(UI.menu.workshop)}</a>
+        <a class="btn ghost small" href="/courses">${L(UI.menu.courses)}</a>
+        <a class="btn ghost small" href="/founder">${L(UI.menu.founder)}</a>
+      </div>
+    </div>
+  </section>`;
+};
+
+/* 워크숍 페이지에서 리커버링 전용 페이지로 가는 내부 링크. 기존 함수를 감싸기만 한다. */
+const _workshopBase = routes.workshop;
+routes.workshop = () => _workshopBase() + `
+  <section>
+    <div class="card" style="margin-bottom:10px;background:var(--sunt);border-color:var(--sun)">
+      <b>${L({ ko: "리커버링 재활 필라테스 원데이 자격과정", en: "Recovering rehabilitation Pilates - one-day certification", zh: "Recovering 康复普拉提一日资格课程", "zh-Hant": "Recovering 復健皮拉提斯一日證照課程", ja: "リカバリング リハビリピラティス ワンデー資格課程" })}</b>
+      <p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${L({ ko: "8시간 7교시, 동작 37개와 이론 14개. 구성과 자격 발급 조건을 따로 정리했습니다.", en: "Eight hours over seven periods, 37 movements and 14 theory topics - set out in full on its own page.", zh: "8小时7节课，动作37个与理论14项，另有专页详述。", "zh-Hant": "8 小時 7 節課，動作 37 個與理論 14 項，另有專頁詳述。", ja: "8時間7コマ、動作37種と理論14項目。構成と資格条件を別ページにまとめました。" })}</p>
+      <div style="margin-top:10px"><a class="btn acc small" href="/recovering">${L({ ko: "리커버링 자세히 보기", en: "See Recovering", zh: "查看 Recovering", "zh-Hant": "查看 Recovering", ja: "リカバリングを見る" })}</a></div>
+    </div>
+  </section>`;
+
 routes.books = () => `
   <section>
-    ${secHead("TEXTBOOKS", L({ ko: "정규과정 교재 - 과목별 구매", en: "Printed Textbooks by Subject", zh: "正规课程教材 - 按科目购买", "zh-Hant": "正規課程教材 - 按科目購買", ja: "正規課程教材 - 科目別購入" }), L({ ko: "실물 교재 · 배송. 미리보기로 목차를 확인한 뒤 주문하세요.", en: "Physical books, shipped. Preview the contents before ordering.", zh: "实体教材·配送。请先预览再订购。", "zh-Hant": "實體教材·配送。請先預覽再訂購。", ja: "実物教材·配送。目次を確認してご注文ください。" }))}
+    ${secHead("TEXTBOOKS", L({ ko: "정규과정 교재 - 과목별 구매", en: "Printed Textbooks by Subject", zh: "正规课程教材 - 按科目购买", "zh-Hant": "正規課程教材 - 按科目購買", ja: "正規課程教材 - 科目別購入" }), L({ ko: "종이책 · 택배 배송. 미리보기로 목차를 확인한 뒤 주문하세요.", en: "Printed books, shipped. Preview the contents before ordering.", zh: "纸质书·快递配送。请先预览再订购。", "zh-Hant": "紙本書·宅配。請先預覽再訂購。", ja: "紙の書籍·宅配。目次を確認してご注文ください。" }))}
     ${BOOKS.map((b, i) => `<div class="shoprow">
       <img src="${COVER(b.slug)}" alt="${esc(L(b.t))} - ${esc(L({ ko: "CPPI 필라테스 교재 표지 (저자 박은주 Eun-Ju Park)", en: "CPPI Pilates textbook cover by Eun-Ju Park", zh: "CPPI普拉提教材封面(著者 朴恩珠 Eun-Ju Park)", "zh-Hant": "CPPI皮拉提斯教材封面(著者 朴恩珠 Eun-Ju Park)", ja: "CPPIピラティス教材表紙(著者 パク・ウンジュ Eun-Ju Park)" }))}" loading="lazy" onclick="openViewer(${i})">
-      <div class="tx"><h4>${esc(L(b.t))}</h4><div class="m">${b.pages}p · ${L({ ko: "가격 문의", en: "Price on request", zh: "价格咨询", "zh-Hant": "價格諮詢", ja: "価格お問い合わせ" })}</div></div>
+      <div class="tx"><h4>${esc(L(b.t))}</h4><div class="m">${b.pages}p · ${b.price ? WON(b.price) : L({ ko: "낱권 판매 안 함", en: "Not sold separately", zh: "不单独销售", "zh-Hant": "不單獨銷售", ja: "単品販売なし" })}</div></div>
       <div class="ops">
         <button class="btn ghost small" onclick="openViewer(${i})">${L(UI.btn.preview)}</button>
-        <button class="btn acc small" onclick="buyItem('book',${i})">${L(UI.btn.buyInq)}</button>
+        ${b.price ? `<button class="btn acc small" onclick="buyItem('book',${i})">${L(UI.btn.buyInq)}</button>` : ""}
       </div></div>`).join("")}
-    <div class="note">${L({ ko: "세트 구매 · 해외 배송은 상담으로 안내드립니다.", en: "Set purchase and international shipping via consultation.", zh: "整套购买·海外配送请咨询。", "zh-Hant": "整套購買·海外配送請諮詢。", ja: "セット購入·海外配送はご相談ください。" })} ${CONTACT.tel}</div>
+    <div class="card" style="margin-bottom:10px;background:var(--sunt);border-color:var(--sun)">
+      <b>${L({ ko: "기구 교재 7권 세트", en: "Seven-volume apparatus set", zh: "器械教材七册套装", "zh-Hant": "器械教材七冊套裝", ja: "器具教材7巻セット" })}</b>
+      <p style="font-size:13.5px;margin-top:4px">${BOOK_SET.sum ? `1,299p · ${WON(BOOK_SET.price)} · ${L({ ko: "쪽당", en: "per page", zh: "每页", "zh-Hant": "每頁", ja: "1ページあたり" })} ${WON(Math.round(BOOK_SET.price / 1299))}` : ""}</p>
+      <p style="font-size:12.5px;color:var(--ink2);margin-top:2px">${L({ ko: `낱권 합계 ${WON(BOOK_SET.sum)} 대비 ${BOOK_SET.off}% 할인`, en: `${BOOK_SET.off}% off the ${WON(BOOK_SET.sum)} individual total`, zh: `较单册合计 ${WON(BOOK_SET.sum)} 优惠 ${BOOK_SET.off}%`, "zh-Hant": `較單冊合計 ${WON(BOOK_SET.sum)} 優惠 ${BOOK_SET.off}%`, ja: `単品合計 ${WON(BOOK_SET.sum)} より ${BOOK_SET.off}% 割引` })}</p>
+      <div style="margin-top:10px"><button class="btn acc small" onclick="buyItem('bookset',0)">${L(UI.btn.buyInq)}</button></div>
+    </div>
+    <div class="note">${L({ ko: `기구 교재 7권 세트 ${WON(BOOK_SET.price)} - 낱권 합계 ${WON(BOOK_SET.sum)} 대비 ${BOOK_SET.off}% 할인. 배송비는 ${WON(SHIP.book)}이며 7권 세트도 한 상자로 나가 같습니다. 기능해부학과 기본원리는 정규과정 수강생에게 제공되며 낱권 판매하지 않습니다. 해외 배송은 상담으로 안내드립니다.`, en: `Seven-volume apparatus set ${WON(BOOK_SET.price)} - ${BOOK_SET.off}% off the ${WON(BOOK_SET.sum)} individual total. Shipping is ${WON(SHIP.book)} and the seven-volume set ships in one box for the same fee. Anatomy and Basic Principle come with the course and are not sold separately. International shipping via consultation.`, zh: `器械教材七卷套装 ${WON(BOOK_SET.price)} - 较单册合计 ${WON(BOOK_SET.sum)} 优惠 ${BOOK_SET.off}%。运费为 ${WON(SHIP.book)}，七册套装一箱发出，运费相同。功能解剖学与基本原理随课程提供，不单独销售。海外配送请咨询。`, "zh-Hant": `器械教材七卷套裝 ${WON(BOOK_SET.price)} - 較單冊合計 ${WON(BOOK_SET.sum)} 優惠 ${BOOK_SET.off}%。運費為 ${WON(SHIP.book)}，七冊套裝一箱寄出，運費相同。功能解剖學與基本原理隨課程提供，不單獨銷售。海外配送請諮詢。`, ja: `器具教材7巻セット ${WON(BOOK_SET.price)} - 単品合計 ${WON(BOOK_SET.sum)} より ${BOOK_SET.off}% 割引。送料は ${WON(SHIP.book)} で、7巻セットも1箱で発送するため同額です。機能解剖学と基本原理は受講生提供のため単品販売はありません。海外配送はご相談ください。` })} ${CONTACT.tel}</div>
   </section>`;
 
 routes.guide = () => `
@@ -1839,7 +1957,26 @@ routes.checkout = () => {
     ${secHead("CHECKOUT", L({ ko: "주문 · 결제", en: "Order & Payment", zh: "订单·支付", "zh-Hant": "訂單·支付", ja: "注文·決済" }))}
     <div class="card" style="margin-bottom:10px"><b>${L({ ko: "주문 상품", en: "Item", zh: "商品", "zh-Hant": "商品", ja: "商品" })}</b>
       <p style="font-size:14px;margin-top:5px">${esc(item.name)}</p>
-      <p style="font-size:12.5px;color:var(--ink2)">${L({ ko: "금액: 상담 후 안내 (가격 확정 전)", en: "Price: guided after consultation", zh: "金额：咨询后告知", "zh-Hant": "金額：諮詢後告知", ja: "金額：相談後にご案内" })}</p></div>
+      ${item.price ? `<p style="font-size:12.5px;color:var(--ink2)">${L({ ko: "상품 금액", en: "Item", zh: "商品金额", "zh-Hant": "商品金額", ja: "商品金額" })} ${WON(item.price)}</p>
+      ${item.physical ? `<p style="font-size:12.5px;color:var(--ink2)">${L({ ko: "배송비", en: "Shipping", zh: "运费", "zh-Hant": "運費", ja: "送料" })} ${WON(shipFeeOf(item))}</p>` : ""}
+      <p style="font-size:14.5px;font-weight:800;margin-top:4px">${L({ ko: "합계", en: "Total", zh: "合计", "zh-Hant": "合計", ja: "合計" })} ${WON(item.price + shipFeeOf(item))}</p>`
+      : `<p style="font-size:12.5px;color:var(--ink2)">${L({ ko: "금액: 상담 후 안내", en: "Price: guided after consultation", zh: "金额：咨询后告知", "zh-Hant": "金額：諮詢後告知", ja: "金額：相談後にご案内" })}</p>`}</div>
+    ${item.physical ? `<div class="form card" style="margin-bottom:10px">
+      <b>${L({ ko: "배송지 정보", en: "Delivery address", zh: "收货信息", "zh-Hant": "收貨資訊", ja: "配送先情報" })}</b>
+      <label>${L({ ko: "받는 분 *", en: "Recipient *", zh: "收件人 *", "zh-Hant": "收件人 *", ja: "お届け先氏名 *" })}</label><input id="rcName" required>
+      <label>${L({ ko: "연락처 *", en: "Phone *", zh: "联系电话 *", "zh-Hant": "聯絡電話 *", ja: "電話番号 *" })}</label><input id="rcPhone" required>
+      <label>${L({ ko: "우편번호 *", en: "Postal code *", zh: "邮政编码 *", "zh-Hant": "郵遞區號 *", ja: "郵便番号 *" })}</label><input id="rcZip" required>
+      <label>${L({ ko: "주소 *", en: "Address *", zh: "地址 *", "zh-Hant": "地址 *", ja: "住所 *" })}</label><input id="rcAddr1" required>
+      <label>${L({ ko: "상세주소", en: "Address line 2", zh: "详细地址", "zh-Hant": "詳細地址", ja: "建物名·部屋番号" })}</label><input id="rcAddr2">
+      <label>${L({ ko: "배송 요청사항", en: "Delivery note", zh: "配送备注", "zh-Hant": "配送備註", ja: "配送のご要望" })}</label><input id="rcMemo">
+      <p style="font-size:12px;color:var(--ink2);margin-top:10px">
+        <label style="display:flex;gap:6px;align-items:flex-start;font-size:12px">
+          <input type="checkbox" id="rcAgree" style="width:auto;margin-top:2px">
+          <span>${L({ ko: "배송을 위한 개인정보(이름·연락처·주소) 수집 및 이용에 동의합니다. 수집한 정보는 배송 완료 후 관련 법령이 정한 기간까지 보관 후 파기합니다.", en: "I agree to the collection and use of my name, phone number and address for delivery. The data is kept for the period required by law after delivery and then destroyed.", zh: "同意为配送目的收集并使用姓名、联系方式与地址。配送完成后依法定期限保管后销毁。", "zh-Hant": "同意為配送目的收集並使用姓名、聯絡方式與地址。配送完成後依法定期限保管後銷毀。", ja: "配送のための個人情報(氏名·連絡先·住所)の収集および利用に同意します。配送完了後、法令の定める期間保管のうえ破棄します。" })}</span>
+        </label>
+      </p>
+      <p style="font-size:12px;color:var(--ink2);margin-top:6px">${L({ ko: "종이책은 신청 후 영업일 기준으로 순차 배송됩니다. 해외 배송은 상담으로 안내드립니다.", en: "Printed books ship in order on business days. International shipping is arranged through consultation.", zh: "纸质书将按工作日顺序发货。海外配送请咨询。", "zh-Hant": "紙本書將按工作日順序發貨。海外配送請諮詢。", ja: "紙の書籍は営業日順に発送します。海外配送はご相談ください。" })}</p>
+    </div>` : ""}
     ${u ? "" : `<div class="form card" style="margin-bottom:10px">
       <b>${L({ ko: "비회원 주문 정보", en: "Guest Order Info", zh: "非会员订单信息", "zh-Hant": "非會員訂單資訊", ja: "非会員注文情報" })}</b>
       <label>${L({ ko: "이름 *", en: "Name *", zh: "姓名 *", "zh-Hant": "姓名 *", ja: "お名前 *" })}</label><input id="gName" required>
@@ -2356,12 +2493,18 @@ function vwMove(d) {
 
 /* 구매 · 결제 */
 function buyItem(type, idx) {
-  let name;
-  if (type === "book") name = L(BOOKS[idx].t) + " - " + L({ ko: "실물 교재", en: "Printed book", zh: "实体教材", "zh-Hant": "實體教材", ja: "実物教材" });
+  let name, price = 0, physical = false;
+  if (type === "bookset") {
+    name = L({ ko: "기구 교재 7권 세트 - 종이책", en: "Seven-volume apparatus set - printed books", zh: "器械教材七册套装 - 纸质书", "zh-Hant": "器械教材七冊套裝 - 紙本書", ja: "器具教材7巻セット - 紙の書籍" });
+    price = BOOK_SET.price; physical = true;
+    store.set("cppi_cart", { type, idx: 0, name, price, physical, key: "bookset" });
+    go("checkout"); render(); return;
+  }
+  if (type === "book") { name = L(BOOKS[idx].t) + " - " + L({ ko: "종이책", en: "Printed book", zh: "纸质书", "zh-Hant": "紙本書", ja: "紙の書籍" }); price = BOOKS[idx].price || 0; physical = true; }
   else if (type === "ebook") name = L(GUIDEBOOKS[idx].t) + " - " + L({ ko: "전자책 PDF (워크숍 50% 할인 혜택)", en: "E-book PDF (50% workshop discount)", zh: "电子书PDF(工作坊5折)", "zh-Hant": "電子書PDF(工作坊5折)", ja: "電子書籍PDF(WS50%割引)" });
   else if (type === "lecture-mt") name = L(LECT_MT[idx].t) + " - " + L({ ko: "온라인 강의 수강권", en: "Online lecture access", zh: "在线课程券", "zh-Hant": "線上課程券", ja: "オンライン受講券" });
   else name = L({ ko: "척추 필라테스 어프로치 - 온라인 강의 수강권 (3강)", en: "Spine Approach - lecture access (3 lessons)", zh: "脊柱方法 - 课程券(3讲)", "zh-Hant": "脊柱方法 - 課程券(3講)", ja: "脊柱アプローチ - 受講券(3講)" });
-  store.set("cppi_cart", { type, idx, name, key: `${type}#${idx}` });
+  store.set("cppi_cart", { type, idx, name, price, physical, key: `${type}#${idx}` });
   go("checkout"); render();
 }
 function doCheckout() {
@@ -2380,11 +2523,24 @@ function doCheckout() {
     if (!payUrl) { toast(L({ ko: "간편결제는 오픈 준비중입니다. 계좌이체를 이용해 주세요.", en: "Easy pay is coming soon - please use bank transfer.", zh: "快捷支付即将开通，请用银行转账。", "zh-Hant": "快捷支付即將開通，請用銀行轉賬。", ja: "簡単決済は準備中です。振込をご利用ください。" })); return; }
     window.open(payUrl, "_blank");
   }
+  let ship = null;
+  if (item.physical) {
+    const g = (id) => ($("#" + id)?.value || "").trim();
+    ship = { name: g("rcName"), phone: g("rcPhone"), zip: g("rcZip"), addr1: g("rcAddr1"), addr2: g("rcAddr2"), memo: g("rcMemo") };
+    if (!ship.name || !ship.phone || !ship.zip || !ship.addr1) {
+      toast(L({ ko: "배송지 정보를 입력해 주세요.", en: "Please fill in the delivery address.", zh: "请填写收货信息。", "zh-Hant": "請填寫收貨資訊。", ja: "配送先情報をご入力ください。" })); return;
+    }
+    if (!$("#rcAgree")?.checked) {
+      toast(L({ ko: "개인정보 수집·이용에 동의해 주세요.", en: "Please agree to the collection of your delivery details.", zh: "请同意个人信息收集与使用。", "zh-Hant": "請同意個人資訊收集與使用。", ja: "個人情報の収集·利用にご同意ください。" })); return;
+    }
+  }
+  const shipFee = shipFeeOf(item);
+  const amount = (item.price || 0) + shipFee;
   const methodKo = method === "bank" ? "계좌이체" : method === "naver" ? "네이버페이" : "카카오페이";
   const orderType = item.key || item.type;
   const rec = { id: "CP" + Date.now().toString().slice(-8), email, buyer, item: item.name, type: orderType, method: methodKo, status: "입금 확인중", payer: "", at: new Date().toISOString().slice(0, 16).replace("T", " ") };
   const orders = APP.orders; orders.push(rec); APP.orders = orders; // 로컬 캐시(즉시 표시)
-  if (SERVER) { apiPost("order", { item: item.name, type: orderType, method: methodKo, buyer, email }).catch(() => {}); }
+  if (SERVER) { apiPost("order", { item: item.name, type: orderType, method: methodKo, buyer, email, amount, price: item.price || 0, shipFee, ship }).catch(() => {}); }
   store.set("cppi_cart", null);
   if (method === "bank") go("bank"); else { toast("OK"); go(u ? "my" : "home"); }
 }

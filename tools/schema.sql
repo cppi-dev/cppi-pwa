@@ -65,3 +65,20 @@ CREATE TABLE IF NOT EXISTS subscribers (
   at TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_subs_status ON subscribers(status);
+
+/* ------------------------------------------------------------------
+   주문 배송 정보 - 교재 낱권 판매를 열면서 추가한다.
+   새로 만드는 DB 는 위 CREATE TABLE 에 이미 없으므로 아래를 한 번 실행한다.
+   이미 운영 중인 D1 에서도 같은 SQL 을 한 번만 실행하면 된다.
+   코드(functions/api/[[path]].js)는 컬럼이 없어도 주문이 접수되도록
+   try/catch 로 처리하므로, 실행 전후 모두 사이트는 정상 동작한다.
+     npx wrangler d1 execute cppi-db --remote --file=tools/schema.sql
+------------------------------------------------------------------ */
+ALTER TABLE orders ADD COLUMN amount     INTEGER DEFAULT 0;
+ALTER TABLE orders ADD COLUMN ship_fee   INTEGER DEFAULT 0;
+ALTER TABLE orders ADD COLUMN recv_name  TEXT DEFAULT '';
+ALTER TABLE orders ADD COLUMN recv_phone TEXT DEFAULT '';
+ALTER TABLE orders ADD COLUMN zip        TEXT DEFAULT '';
+ALTER TABLE orders ADD COLUMN addr1      TEXT DEFAULT '';
+ALTER TABLE orders ADD COLUMN addr2      TEXT DEFAULT '';
+ALTER TABLE orders ADD COLUMN ship_memo  TEXT DEFAULT '';
