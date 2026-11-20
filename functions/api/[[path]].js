@@ -230,7 +230,7 @@ export async function onRequest(context) {
               <p style="font-size:13.5px;margin:6px 0 0">이 메일에 그대로 답장하셔도 됩니다.</p>
             </div>
             <p style="font-size:12px;color:#9A8B80;margin:18px 0 0;border-top:1px solid #EFE7E0;padding-top:12px">
-              CPPI 한국필라테스교육협회 · 고유번호 201-82-74381 (비영리)<br>
+              CPPI 한국필라테스교육협회 · 고유번호 201-82-74381<br>
               결제 · 환불 · 고객응대는 교육사업 대행사 씨앤티파트너스(C&amp;T Partners)가 담당합니다.
             </p>
           </div>`,
@@ -310,7 +310,7 @@ export async function onRequest(context) {
             <p style="font-size:13.5px;margin:6px 0 0">이 메일에 그대로 답장하셔도 됩니다.</p>
           </div>
           <p style="font-size:12px;color:#9A8B80;margin:18px 0 0;border-top:1px solid #EFE7E0;padding-top:12px">
-            CPPI 한국필라테스교육협회 · 고유번호 201-82-74381 (비영리)
+            CPPI 한국필라테스교육협회 · 고유번호 201-82-74381
           </p>
         </div>`,
       }).catch(() => {}));
