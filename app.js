@@ -1072,6 +1072,7 @@ routes.home = () => `
         <video id="xheroVid" src="${HEROS[0]}" poster="hero-poster.jpg" muted playsinline preload="none" data-lazy="hero"></video>
         <div class="xhero-veil"></div>
       </div>
+      <h1 class="xhero-kw">${L({ ko: "재활 기반 필라테스 강사 자격증 과정", en: "Rehabilitation-based Pilates instructor certification", zh: "康复基础普拉提教练资格课程", "zh-Hant": "康復基礎皮拉提斯師資證照課程", ja: "リハビリ基盤のピラティス指導者資格課程" })}</h1>
       <div class="xhero-title">
         <span class="xhero-w1">${L({ ko: "감각이 아니라,", en: "We teach with", zh: "以循证教学，", "zh-Hant": "以循證教學，", ja: "感覚ではなく、" })}</span>
         <span class="xhero-w2">${L({ ko: "근거로 가르칩니다", en: "evidence, not intuition", zh: "而非凭感觉", "zh-Hant": "而非憑感覺", ja: "根拠で教えます" })}</span>
@@ -1104,7 +1105,7 @@ routes.home = () => `
         </div>
       </a>
       <a class="hcard sm" href="#founder">
-        <img src="img/founder_face.jpg" alt="박은주 교수" style="object-position:top">
+        <img src="img/founder_face.jpg" alt="박은주 교수 - CPPI 재활 필라테스 강사 자격증 과정 지도" style="object-position:top">
         <div class="hov">
           <b>${L({ ko: "파운더", en: "Founder", zh: "创始人", "zh-Hant": "創始人", ja: "創立者" })}</b>
           <span>${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" })}</span>
@@ -1175,7 +1176,7 @@ routes.home = () => `
 routes.global = () => `
   <section>
     ${secHead("GLOBAL", L(UI.menu.global), L({ ko: "CPPI는 한국 - 캐나다 - 일본에서 교육을 운영합니다.", en: "CPPI operates in Korea, Canada and Japan.", zh: "CPPI在韩国、加拿大和日本开展教育。", "zh-Hant": "CPPI在韓國、加拿大和日本開展教育。", ja: "CPPIは韓国・カナダ・日本で教育を運営しています。" }))}
-    <img src="img/global_map.jpg" alt="Global" style="border-radius:14px;margin-bottom:12px">
+    <img src="img/global_map.jpg" alt="CPPI 국제 필라테스 강사 자격증 - 한국·캐나다·일본 교육 운영" style="border-radius:14px;margin-bottom:12px">
     <div class="global-grid">
     <div class="card" style="margin-bottom:9px"><b>${L({ ko: "대한민국 KOREA", en: "KOREA", zh: "韩国 KOREA", "zh-Hant": "韓國 KOREA", ja: "韓国 KOREA" })}</b>
       <p style="font-size:13.5px;color:var(--ink2);margin-top:5px">${L({ ko: "분당 · 서울 · 김포 교육센터 운영.", en: "Education centers in Bundang, Seoul and Gimpo.", zh: "运营盆唐、首尔、金浦教育中心。", "zh-Hant": "運營盆唐、首爾、金浦教育中心。", ja: "盆唐・ソウル・金浦の教育センターを運営。" })}<br>${L({ ko: "정규과정 · 워크숍 · 자격검정 진행.", en: "Certification courses, workshops and assessments.", zh: "进行正规课程·工作坊·资格检定。", "zh-Hant": "進行正規課程·工作坊·資格檢定。", ja: "正規課程・ワークショップ・検定を実施。" })}</p></div>
@@ -1192,7 +1193,7 @@ routes.stories = () => `
   <section>
     ${secHead("STORIES", L(UI.menu.stories), L({ ko: "CPPI와 함께 성장한 수료강사들의 생생한 이야기입니다.", en: "Real stories from CPPI graduates.", zh: "与CPPI共同成长的结业教练心声。", "zh-Hant": "與CPPI共同成長的結業教練心聲。", ja: "CPPIと共に成長した修了講師のリアルな声。" }))}
     <div class="grid2 reviews-grid">
-      ${Array.from({ length: REVIEW_IMGS }, (_, i) => `<img src="reviews/r${i + 1}.jpg" alt="CPPI graduate review ${i + 1}" loading="lazy" style="border-radius:12px;border:1px solid var(--line)">`).join("")}
+      ${Array.from({ length: REVIEW_IMGS }, (_, i) => `<img src="reviews/r${i + 1}.jpg" alt="CPPI 필라테스 강사 자격증 수료생 후기 ${i + 1}" loading="lazy" style="border-radius:12px;border:1px solid var(--line)">`).join("")}
     </div>
     <div style="height:18px"></div>
     ${secHead("MEMBERS", L(UI.menu.members))}
@@ -1325,7 +1326,7 @@ routes.why = () => `
 routes.about = () => `
   <section>
     <div class="dsplit dreveal">
-      <img src="img/founder_studio.jpg" alt="CPPI 교육 현장">
+      <img src="img/founder_studio.jpg" alt="CPPI 필라테스 강사 자격증 과정 교육 현장">
       <div class="dtxt">
         <div class="eyebrow">ABOUT CPPI</div>
         <h1>${L({ ko: "감각이 아니라,<br>근거로 가르칩니다", en: "We teach with<br>evidence, not intuition", zh: "以循证教学，<br>而非凭感觉", "zh-Hant": "以循證教學，<br>而非憑感覺", ja: "感覚ではなく、<br>根拠で教えます" })}</h1>
@@ -1362,7 +1363,7 @@ const FOUNDER_CERTS = ["STOTT PILATES : IMP / IR / ICCB / AMP / AR / RMR1", "ISP
 routes.founder = () => `
   <section>
     <div class="dsplit dreveal">
-      <img src="img/founder_photo.jpg" alt="박은주 교수">
+      <img src="img/founder_photo.jpg" alt="박은주 교수 - CPPI 재활 필라테스 강사 자격증 과정 지도">
       <div class="dtxt">
         <div class="eyebrow">FOUNDER</div>
         <h1>${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" })}</h1>
@@ -1370,7 +1371,7 @@ routes.founder = () => `
     </div>
     <div class="monly">
       ${secHead("FOUNDER", L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" }))}
-      <img src="img/founder_photo.jpg" alt="박은주 교수" style="border-radius:14px;margin-bottom:12px">
+      <img src="img/founder_photo.jpg" alt="박은주 교수 - CPPI 재활 필라테스 강사 자격증 과정 지도" style="border-radius:14px;margin-bottom:12px">
     </div>
     <div class="card" style="margin-bottom:10px;background:var(--tint)">
       <b>${L({ ko: "왜 '진짜'는 흉내 낼 수 없는가", en: "Why the real thing can't be imitated", zh: "为何'真材实料'无法模仿", "zh-Hant": "為何'真材實料'無法模仿", ja: "なぜ「本物」は真似できないのか" })}</b>
@@ -1634,7 +1635,7 @@ routes.courses = () => `
     <img src="img/courses_banner.jpg" alt="CPPI" style="border-radius:14px;margin-bottom:12px">
 
     <a class="card" href="#founder" style="display:flex;gap:14px;align-items:center;text-decoration:none;margin-bottom:10px">
-      <img src="img/founder_face.jpg" alt="박은주 교수" style="width:88px;height:110px;object-fit:cover;object-position:top;border-radius:12px">
+      <img src="img/founder_face.jpg" alt="박은주 교수 - CPPI 재활 필라테스 강사 자격증 과정 지도" style="width:88px;height:110px;object-fit:cover;object-position:top;border-radius:12px">
       <div><div class="eyebrow" style="margin-bottom:2px">FOUNDER · ${L({ ko: "대표 마스터", en: "Lead Master", zh: "首席大师", "zh-Hant": "首席大師", ja: "代表マスター" })}</div>
       <b style="font-size:15.5px">${L({ ko: "박은주 교수", en: "Prof. Eun-Ju Park", zh: "朴恩珠教授", "zh-Hant": "朴恩珠教授", ja: "パク・ウンジュ教授" })}</b>
       <div style="font-size:13px;color:var(--ink2);margin-top:3px">${L({ ko: "분당서울대병원 · 척추&관절센터 임상 / 나사렛대 강단 - 프로필 전체 보기 →", en: "Clinical and academic profile - view full →", zh: "临床与大学履历 - 查看全部 →", "zh-Hant": "臨床與大學履歷 - 檢視全部 →", ja: "臨床·大学経歴 - 全プロフィール →" })}</div></div>
@@ -1654,7 +1655,7 @@ routes.courses = () => `
       <p style="font-size:13px;color:var(--ink2);margin-top:4px">${L({ ko: "현직 강사 · 재활 종사자를 위한 단기 심화 실습 →", en: "Short intensive practice for active instructors →", zh: "面向在职教练的短期深化实操 →", "zh-Hant": "面向在職教練的短期深化實操 →", ja: "現役講師向けの短期深化実習 →" })}</p>
     </a>
 
-    <img src="img/cert_real.jpg" alt="CPPI Certificate" class="cert-shot" loading="lazy">
+    <img src="img/cert_real.jpg" alt="CPPI 국제 필라테스 강사 자격증 발급 샘플" class="cert-shot" loading="lazy">
 
     <div class="card" style="margin:12px 0;background:var(--tint)">
       <b>${L({ ko: "총 교육시간이 인원에 따라 늘어납니다", en: "Total hours grow with cohort size" })}</b>
@@ -1687,7 +1688,7 @@ routes.courses = () => `
 routes.workshop = () => `
   <section>
     ${secHead("WORKSHOP", L(UI.menu.workshop), L({ ko: "현직 강사 · 재활 종사자를 위한 단기 심화 실습.", en: "Short intensive practice for active instructors and rehab professionals.", zh: "面向在职教练·康复从业者的短期深化实操。", "zh-Hant": "面向在職教練·康復從業者的短期深化實操。", ja: "現役講師·リハビリ従事者向けの短期深化実習。" }))}
-    <img src="img/workshop_banner.jpg" alt="workshop" style="border-radius:14px;margin-bottom:12px;object-fit:contain;width:100%;background:#fff">
+    <img src="img/workshop_banner.jpg" alt="CPPI 재활 필라테스 전문 강사 워크숍 현장" style="border-radius:14px;margin-bottom:12px;object-fit:contain;width:100%;background:#fff">
     ${[
       { t: { ko: "'리커버링 재활 필라테스' 자격과정", en: "'Recovering Rehab Pilates' Certification" }, m: { ko: "8시간(hrs)", en: "8 hrs" } },
       { t: { ko: "임산부 필라테스 전문가 과정", en: "Prenatal Pilates Specialist Course" }, m: { ko: "전문가 과정", en: "Specialist course" } },
@@ -1884,12 +1885,15 @@ const REGION_PAGES = {
 /* 교육센터 실내 사진 - 센터 라우트에만 붙는다. 파일은 /centers 에 둔다.
    한 센터당 4장, 4:3 으로 미리 잘라 두어 레이아웃이 흔들리지 않는다. */
 const CENTER_PHOTOS = { gangdong: 4, bundang: 4, gimpo: 4 };
+/* 사진 순서에 맞춘 설명 - 검색 유입이 가능한 이미지에만 쓴다.
+   키워드 나열이 아니라 "무엇이 찍혔는지" 를 적는다. */
+const CENTER_ALT = ["교육 공간", "기구 실습 공간", "필라테스 강사 자격증 과정 수업 현장", "내부 전경"];
 function centerGalleryHTML(key, name) {
   const n = CENTER_PHOTOS[key];
   if (!n) return "";
   let out = `<div class="cgal">`;
   for (let i = 1; i <= n; i++)
-    out += `<img src="centers/${key}${i}.webp" alt="${esc(name)} ${i}" width="900" height="675" loading="lazy" decoding="async">`;
+    out += `<img src="centers/${key}${i}.webp" alt="${esc(name)} ${CENTER_ALT[i - 1]}" width="900" height="675" loading="lazy" decoding="async">`;
   return out + `</div>`;
 }
 
