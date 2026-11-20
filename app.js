@@ -82,7 +82,7 @@ const adminPw = () => sessionStorage.getItem("cppi_adminpw") || "";
    경로가 바뀔 때마다 render() 가 가상 페이지뷰를 보낸다.
 ------------------------------------------------------------------ */
 const GA4_ID = "G-XQ3T577CMR";
-const WCS_ID = "";
+const WCS_ID = "2dffd56f23c44e";
 
 function initAnalytics() {
   if (GA4_ID && !window.gtag) {
@@ -96,11 +96,11 @@ function initAnalytics() {
   }
   if (WCS_ID && !window.wcs_add) {
     const s = document.createElement("script");
-    s.async = true; s.src = "//wcs.naver.net/wcslog.js";
+    s.async = true; s.src = "//wcs.pstatic.net/wcslog.js";
     s.onload = () => {
       window.wcs_add = window.wcs_add || {};
       window.wcs_add.wa = WCS_ID;
-      if (window.wcs) { window.wcs.inflow("cppipilates.com"); window.wcs_do(); }
+      if (window.wcs) { window.wcs.inflow(); window.wcs_do(); }
     };
     document.head.appendChild(s);
   }
