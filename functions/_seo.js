@@ -50,6 +50,11 @@ export const CONTACT = {
   instagram: "https://www.instagram.com/cppi.pilates",
   youtube: "https://www.youtube.com/@cppi.pilates",
   liinks: "https://liinks.co/cppi",
+  /* sameAs 에 함께 묶는 공식 채널. AI 와 검색엔진이 협회를 하나의 엔터티로
+     인식하려면 모든 공식 채널 주소가 한자리에 선언돼 있어야 한다. */
+  naverBlog: "https://blog.naver.com/cppi-pilates",
+  naverPlace: "https://map.naver.com/p/entry/place/2006580582",
+  naverTalk: "https://talk.naver.com/profile/c/cppi",
   LINE_URL: "", // 예: "https://line.me/R/ti/p/@cppi"  ← 계정 주소 확인 후 입력
 };
 
@@ -2656,7 +2661,7 @@ export function jsonLD(lang, route) {
         email: CONTACT.email, telephone: CONTACT.tel,
         availableLanguage: ["Korean", "English", "Japanese", "Chinese"],
       },
-      sameAs: [CONTACT.instagram, CONTACT.youtube, CONTACT.liinks].filter(Boolean),
+      sameAs: [CONTACT.instagram, CONTACT.youtube, CONTACT.liinks, CONTACT.naverBlog, CONTACT.naverPlace, CONTACT.naverTalk].filter(Boolean),
     },
     {
       "@type": "Person", "@id": ORIGIN + "/#founder",
@@ -2670,7 +2675,7 @@ export function jsonLD(lang, route) {
       knowsLanguage: ["ko", "en"],
       url: ORIGIN + pathFor(lang, "founder"),
       mainEntityOfPage: ORIGIN + pathFor(lang, "founder"),
-      sameAs: [CONTACT.instagram, CONTACT.youtube].filter(Boolean),
+      sameAs: [CONTACT.instagram, CONTACT.youtube, CONTACT.naverBlog, CONTACT.naverPlace].filter(Boolean),
     },
     { "@type": "BreadcrumbList", "@id": url + "#breadcrumb", itemListElement: crumbs },
     pageNode,
