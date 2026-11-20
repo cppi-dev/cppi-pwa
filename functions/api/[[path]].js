@@ -276,7 +276,7 @@ export async function onRequest(context) {
       context.waitUntil(sendMail(env, {
         to: env.NOTIFY_TO || "allmovements@naver.com",
         replyTo: body.email,
-        subject: `[CPPI 상담신청] ${body.name} · ${body.interest || ""}`,
+        subject: `${String(body.interest || "").startsWith("교육센터 제휴") ? "[CPPI 제휴문의]" : "[CPPI 상담신청]"} ${body.name} · ${body.interest || ""}`,
         html: `<div style="font-family:sans-serif;line-height:1.8">
           <h2 style="color:#F15A22;margin:0 0 12px">새 상담 신청</h2>
           <table style="border-collapse:collapse;font-size:14px">
