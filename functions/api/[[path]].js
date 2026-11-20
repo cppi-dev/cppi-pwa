@@ -220,7 +220,7 @@ export async function onRequest(context) {
               ${row("주소", `(${esc(sh.zip)}) ${esc(sh.addr1)} ${esc(sh.addr2)}`)}
               ${row("요청사항", esc(sh.memo) || "-")}
             </table>
-            <p style="font-size:13.5px;color:#6E5B50;margin:12px 0 0">입금이 확인되면 발송해 드립니다. 발송 시 따로 안내드립니다.</p>` :
+            <p style="font-size:13.5px;color:#6E5B50;margin:12px 0 0">입금 확인 후 영업일 기준 5일 이내에 발송해 드립니다. 발송 시 따로 안내드립니다.</p>` :
             `<p style="font-size:13.5px;color:#6E5B50;margin:16px 0 0">입금이 확인되면 열람 권한이 부여됩니다.</p>`}
             <div style="${box}">
               <p style="font-size:14px;margin:0 0 8px"><b>문의</b></p>

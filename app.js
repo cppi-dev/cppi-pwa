@@ -2031,7 +2031,7 @@ routes.checkout = () => {
           <span>${L({ ko: "배송을 위한 개인정보(이름·연락처·주소) 수집 및 이용에 동의합니다. 수집한 정보는 배송 완료 후 관련 법령이 정한 기간까지 보관 후 파기합니다.", en: "I agree to the collection and use of my name, phone number and address for delivery. The data is kept for the period required by law after delivery and then destroyed.", zh: "同意为配送目的收集并使用姓名、联系方式与地址。配送完成后依法定期限保管后销毁。", "zh-Hant": "同意為配送目的收集並使用姓名、聯絡方式與地址。配送完成後依法定期限保管後銷毀。", ja: "配送のための個人情報(氏名·連絡先·住所)の収集および利用に同意します。配送完了後、法令の定める期間保管のうえ破棄します。" })}</span>
         </label>
       </p>
-      <p style="font-size:12px;color:var(--ink2);margin-top:6px">${L({ ko: "종이책은 신청 후 영업일 기준으로 순차 배송됩니다. 해외 배송은 상담으로 안내드립니다.", en: "Printed books ship in order on business days. International shipping is arranged through consultation.", zh: "纸质书将按工作日顺序发货。海外配送请咨询。", "zh-Hant": "紙本書將按工作日順序發貨。海外配送請諮詢。", ja: "紙の書籍は営業日順に発送します。海外配送はご相談ください。" })}</p>
+      <p style="font-size:12px;color:var(--ink2);margin-top:6px">${L({ ko: "종이책은 입금 확인 후 영업일 기준 5일 이내에 발송됩니다. 해외 배송은 상담으로 안내드립니다.", en: "Printed books ship in order on business days. International shipping is arranged through consultation.", zh: "纸质书将按工作日顺序发货。海外配送请咨询。", "zh-Hant": "紙本書將按工作日順序發貨。海外配送請諮詢。", ja: "紙の書籍は営業日順に発送します。海外配送はご相談ください。" })}</p>
     </div>` : ""}
     ${u ? "" : `<div class="form card" style="margin-bottom:10px">
       <b>${L({ ko: "비회원 주문 정보", en: "Guest Order Info", zh: "非会员订单信息", "zh-Hant": "非會員訂單資訊", ja: "非会員注文情報" })}</b>
