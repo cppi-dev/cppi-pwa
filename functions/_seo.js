@@ -87,7 +87,7 @@ export const BOOK_SALE = [
   { slug: "abarrel",    pages: 79,  price: 27000, img: "/books/abarrel/p01.jpg",    t: { ko: "아크 바렐", en: "Arc Barrel", ja: "アークバレル", zh: "弧形桶", "zh-Hant": "弧形桶" } },
   { slug: "scorrector", pages: 108, price: 33000, img: "/books/scorrector/p01.jpg", t: { ko: "스파인 코렉터", en: "Spine Corrector", ja: "スパインコレクター", zh: "脊柱矫正器", "zh-Hant": "脊柱矯正器" } },
 ];
-export const BOOK_SET_LD = { count: 7, price: 236000, sum: 287000, pages: 1299 };
+export const BOOK_SET_LD = { count: 7, price: 244000, sum: 287000, pages: 1299 };
 
 /* 라우트별 최종 수정일 - 사이트맵 lastmod 로 나간다.
    해당 라우트의 내용을 실제로 고쳤을 때만 올린다. 없는 라우트는 LAST_MODIFIED 를 쓴다.
@@ -1395,11 +1395,11 @@ export const CONTENT = {
   books: {
     ko: {
       title: "필라테스 자격증 교재 9권 - 과목별 구매 | CPPI",
-      desc: "박은주 저 필라테스 강사 교재 9권. 기구 교재 7권 낱권 판매 - 캐딜락 65,000원, 리포머 56,000원. 7권 세트 236,000원.",
+      desc: "박은주 저 필라테스 강사 교재 9권. 기구 교재 7권 낱권 판매 - 캐딜락 65,000원, 리포머 56,000원. 7권 세트 244,000원.",
       eyebrow: "TEXTBOOKS", h1: "필라테스 강사 자격증 교재 9권",
       lead: "CPPI 필라테스 강사 자격증 과정에서 실제로 사용하는 출판 교재입니다. 저자는 협회장 박은주이며, 필요한 과목만 따로 구매할 수 있습니다.",
       blocks: [
-        { h: "교재 목록과 가격", list: ["필라테스 기능해부학 - 238p · 정규과정 수강생 제공, 낱권 판매 안 함", "필라테스 기본원리 - 80p · 정규과정 수강생 제공, 낱권 판매 안 함", "필라테스 더 매트 - 160p · 37,000원", "리포머 - 306p · 56,000원", "캐딜락 - 368p · 65,000원", "스태빌리티 체어 - 202p · 42,000원", "래더 바렐 - 76p · 27,000원", "아크 바렐 - 79p · 27,000원", "스파인 코렉터 - 108p · 33,000원", "기구 교재 7권 세트 - 236,000원 (낱권 합계 287,000원 대비 18% 할인)"] },
+        { h: "교재 목록과 가격", list: ["필라테스 기능해부학 - 238p · 정규과정 수강생 제공, 낱권 판매 안 함", "필라테스 기본원리 - 80p · 정규과정 수강생 제공, 낱권 판매 안 함", "필라테스 더 매트 - 160p · 37,000원", "리포머 - 306p · 56,000원", "캐딜락 - 368p · 65,000원", "스태빌리티 체어 - 202p · 42,000원", "래더 바렐 - 76p · 27,000원", "아크 바렐 - 79p · 27,000원", "스파인 코렉터 - 108p · 33,000원", "기구 교재 7권 세트 - 244,000원 (낱권 합계 287,000원 대비 15% 할인)"] },
         { h: "구매 전 확인", p: "모든 교재는 목차와 본문 10페이지를 미리 볼 수 있습니다. 표지를 누르면 미리보기가 열립니다. 종이책은 택배로 배송되며 배송비는 2,500원입니다. 7권 세트도 한 상자로 나가므로 배송비는 같습니다. 해외 배송은 상담으로 안내드립니다." },
         { h: "필라테스 자격증 교재를 왜 확인해야 하나", p: "필라테스 자격증 교재는 과정을 고를 때 확인해야 할 항목 중 하나입니다. 강의 슬라이드만 있는 과정과 출판된 텍스트가 있는 과정은 복습 가능성이 다릅니다. CPPI 교재는 수료 이후 현장에서 참조하는 자료로 쓰입니다." },
         { h: "소도구 교재", p: "정규과정 교재 외에 소도구 교재 4권이 있습니다. 폼롤러 164p, 서클 136p, 미니볼 178p, BOSU 160p로 구성됩니다." },
@@ -1407,11 +1407,11 @@ export const CONTENT = {
     },
     en: {
       title: "The nine core textbooks - buy by subject | CPPI Korea Pilates Education Association",
-      desc: "Nine CPPI Pilates textbooks by Eun-Ju Park. Seven apparatus volumes sold individually - Cadillac 368pp KRW 65,000, Reformer 306pp KRW 56,000, Mat 160pp KRW 37,000. Seven-volume set KRW 236,000.",
+      desc: "Nine CPPI Pilates textbooks by Eun-Ju Park. Seven apparatus volumes sold individually - Cadillac 368pp KRW 65,000, Reformer 306pp KRW 56,000, Mat 160pp KRW 37,000. Seven-volume set KRW 244,000.",
       eyebrow: "TEXTBOOKS", h1: "The nine core textbooks",
       lead: "These are the published books actually used in the CPPI certification. They are written by association president Eun-Ju Park, and you can buy only the subjects you need.",
       blocks: [
-        { h: "Titles and prices", list: ["Anatomy of Movement - 238pp, included with the course, not sold separately", "Basic Principle - 80pp, included with the course, not sold separately", "Pilates Mat - 160pp, KRW 37,000", "Reformer - 306pp, KRW 56,000", "Cadillac - 368pp, KRW 65,000", "Stability Chair - 202pp, KRW 42,000", "Ladder Barrel - 76pp, KRW 27,000", "Arc Barrel - 79pp, KRW 27,000", "Spine Corrector - 108pp, KRW 33,000", "Seven-volume apparatus set - KRW 236,000 (18% off the KRW 287,000 individual total)"] },
+        { h: "Titles and prices", list: ["Anatomy of Movement - 238pp, included with the course, not sold separately", "Basic Principle - 80pp, included with the course, not sold separately", "Pilates Mat - 160pp, KRW 37,000", "Reformer - 306pp, KRW 56,000", "Cadillac - 368pp, KRW 65,000", "Stability Chair - 202pp, KRW 42,000", "Ladder Barrel - 76pp, KRW 27,000", "Arc Barrel - 79pp, KRW 27,000", "Spine Corrector - 108pp, KRW 33,000", "Seven-volume apparatus set - KRW 244,000 (15% off the KRW 287,000 individual total)"] },
         { h: "Before you order", p: "Every title lets you preview the table of contents and ten pages of the body text. Tap a cover to open the preview. Printed books ship for a flat KRW 2,500, and the seven-volume set ships in one box for the same fee. For international shipping, please contact us." },
         { h: "Why the textbook matters", p: "A textbook is one of the things worth checking when you compare certifications. A course backed only by slides and a course backed by published text differ in how well you can revise. CPPI graduates keep using these books as a reference in the studio." },
         { h: "Small-props volumes", p: "Beyond the nine core titles there are four small-props volumes: foam roller 164pp, circle 136pp, mini ball 178pp and BOSU 160pp." },
@@ -1419,11 +1419,11 @@ export const CONTENT = {
     },
     ja: {
       title: "正規課程教材9巻 - 科目別購入 | CPPI 韓国ピラティス教育協会",
-      desc: "パク・ウンジュ著 CPPIピラティス正規課程教材。器具教材7巻を単品販売 - キャデラック368p 65,000ウォン、リフォーマー306p 56,000ウォン、マット160p 37,000ウォン。7巻セット236,000ウォン。",
+      desc: "パク・ウンジュ著 CPPIピラティス正規課程教材。器具教材7巻を単品販売 - キャデラック368p 65,000ウォン、リフォーマー306p 56,000ウォン、マット160p 37,000ウォン。7巻セット244,000ウォン。",
       eyebrow: "TEXTBOOKS", h1: "正規課程教材 9巻",
       lead: "CPPI正規課程で実際に使用している出版教材です。著者は協会長パク・ウンジュで、必要な科目だけを個別に購入できます。",
       blocks: [
-        { h: "教材一覧と価格", list: ["ピラティス機能解剖学 - 238p · 受講生提供、単品販売なし", "ピラティス基本原理 - 80p · 受講生提供、単品販売なし", "ピラティス・ザ・マット - 160p · 37,000ウォン", "リフォーマー - 306p · 56,000ウォン", "キャデラック - 368p · 65,000ウォン", "スタビリティチェア - 202p · 42,000ウォン", "ラダーバレル - 76p · 27,000ウォン", "アークバレル - 79p · 27,000ウォン", "スパインコレクター - 108p · 33,000ウォン", "器具教材7巻セット - 236,000ウォン (単品合計287,000ウォンより18%割引)"] },
+        { h: "教材一覧と価格", list: ["ピラティス機能解剖学 - 238p · 受講生提供、単品販売なし", "ピラティス基本原理 - 80p · 受講生提供、単品販売なし", "ピラティス・ザ・マット - 160p · 37,000ウォン", "リフォーマー - 306p · 56,000ウォン", "キャデラック - 368p · 65,000ウォン", "スタビリティチェア - 202p · 42,000ウォン", "ラダーバレル - 76p · 27,000ウォン", "アークバレル - 79p · 27,000ウォン", "スパインコレクター - 108p · 33,000ウォン", "器具教材7巻セット - 244,000ウォン (単品合計287,000ウォンより15%割引)"] },
         { h: "ご注文前に", p: "すべての教材で目次と本文10ページを試し読みできます。表紙をタップするとプレビューが開きます。紙の書籍を宅配でお届けし、送料は2,500ウォンです。7巻セットも1箱で発送するため送料は同じです。海外配送はご相談ください。" },
         { h: "教材がなぜ重要か", p: "資格課程を選ぶ際に確認したい項目のひとつが教材です。講義スライドだけの課程と、出版されたテキストがある課程では復習のしやすさが違います。CPPI教材は修了後も現場で参照する資料として使われています。" },
         { h: "小道具教材", p: "正規課程教材のほかに小道具教材が4巻あります。フォームローラー164p、サークル136p、ミニボール178p、BOSU 160pです。" },
@@ -1431,11 +1431,11 @@ export const CONTENT = {
     },
     zh: {
       title: "正规课程教材9册 - 按科目购买 | CPPI 韩国普拉提教育协会",
-      desc: "朴恩珠著 CPPI普拉提正规课程教材。器械教材7册单独销售 - 凯迪拉克368页65,000韩元、核心床306页56,000韩元、垫上160页37,000韩元。七册套装236,000韩元。",
+      desc: "朴恩珠著 CPPI普拉提正规课程教材。器械教材7册单独销售 - 凯迪拉克368页65,000韩元、核心床306页56,000韩元、垫上160页37,000韩元。七册套装244,000韩元。",
       eyebrow: "TEXTBOOKS", h1: "正规课程教材 9册",
       lead: "这是CPPI正规课程实际使用的出版教材。著者为协会长朴恩珠，可只购买所需科目。",
       blocks: [
-        { h: "教材目录与价格", list: ["普拉提功能解剖学 - 238页 · 随课程提供，不单独销售", "普拉提基本原理 - 80页 · 随课程提供，不单独销售", "垫上普拉提 - 160页 · 37,000韩元", "核心床 Reformer - 306页 · 56,000韩元", "凯迪拉克 Cadillac - 368页 · 65,000韩元", "稳踏椅 Stability Chair - 202页 · 42,000韩元", "梯桶 Ladder Barrel - 76页 · 27,000韩元", "弧形桶 Arc Barrel - 79页 · 27,000韩元", "脊柱矫正器 Spine Corrector - 108页 · 33,000韩元", "器械教材七册套装 - 236,000韩元 (较单册合计287,000韩元优惠18%)"] },
+        { h: "教材目录与价格", list: ["普拉提功能解剖学 - 238页 · 随课程提供，不单独销售", "普拉提基本原理 - 80页 · 随课程提供，不单独销售", "垫上普拉提 - 160页 · 37,000韩元", "核心床 Reformer - 306页 · 56,000韩元", "凯迪拉克 Cadillac - 368页 · 65,000韩元", "稳踏椅 Stability Chair - 202页 · 42,000韩元", "梯桶 Ladder Barrel - 76页 · 27,000韩元", "弧形桶 Arc Barrel - 79页 · 27,000韩元", "脊柱矫正器 Spine Corrector - 108页 · 33,000韩元", "器械教材七册套装 - 244,000韩元 (较单册合计287,000韩元优惠15%)"] },
         { h: "购买前确认", p: "所有教材均可试阅目录与正文10页，点击封面即可打开预览。纸质书配送运费为2,500韩元，七册套装一箱发出，运费相同。海外配送请咨询。" },
         { h: "教材为何重要", p: "挑选资格课程时，教材是应当核查的项目之一。只有讲义幻灯片的课程与拥有正式出版教材的课程，在复习可行性上并不相同。CPPI教材在结业后仍作为现场参考资料使用。" },
         { h: "小器械教材", p: "除正规课程教材外另有小器械教材4册：泡沫轴164页、圈136页、迷你球178页、BOSU 160页。" },
@@ -1443,11 +1443,11 @@ export const CONTENT = {
     },
     "zh-Hant": {
       title: "正規課程教材 9 冊 - 依科目購買 | CPPI 韓國皮拉提斯教育協會",
-      desc: "朴恩珠著 CPPI 皮拉提斯正規課程教材。器械教材 7 冊單獨銷售 - 凱迪拉克 368 頁 65,000 韓元、核心床 306 頁 56,000 韓元、墊上 160 頁 37,000 韓元。七冊套裝 236,000 韓元。",
+      desc: "朴恩珠著 CPPI 皮拉提斯正規課程教材。器械教材 7 冊單獨銷售 - 凱迪拉克 368 頁 65,000 韓元、核心床 306 頁 56,000 韓元、墊上 160 頁 37,000 韓元。七冊套裝 244,000 韓元。",
       eyebrow: "TEXTBOOKS", h1: "正規課程教材 9 冊",
       lead: "這是 CPPI 正規課程實際使用的出版教材。著者為協會長朴恩珠，可只購買所需科目。",
       blocks: [
-        { h: "教材目錄與價格", list: ["皮拉提斯功能解剖學 - 238 頁 · 隨課程提供，不單獨銷售", "皮拉提斯基本原理 - 80 頁 · 隨課程提供，不單獨銷售", "墊上皮拉提斯 - 160 頁 · 37,000 韓元", "核心床 Reformer - 306 頁 · 56,000 韓元", "凱迪拉克 Cadillac - 368 頁 · 65,000 韓元", "穩踏椅 Stability Chair - 202 頁 · 42,000 韓元", "梯桶 Ladder Barrel - 76 頁 · 27,000 韓元", "弧形桶 Arc Barrel - 79 頁 · 27,000 韓元", "脊椎矯正器 Spine Corrector - 108 頁 · 33,000 韓元", "器械教材七冊套裝 - 236,000 韓元 (較單冊合計 287,000 韓元優惠 18%)"] },
+        { h: "教材目錄與價格", list: ["皮拉提斯功能解剖學 - 238 頁 · 隨課程提供，不單獨銷售", "皮拉提斯基本原理 - 80 頁 · 隨課程提供，不單獨銷售", "墊上皮拉提斯 - 160 頁 · 37,000 韓元", "核心床 Reformer - 306 頁 · 56,000 韓元", "凱迪拉克 Cadillac - 368 頁 · 65,000 韓元", "穩踏椅 Stability Chair - 202 頁 · 42,000 韓元", "梯桶 Ladder Barrel - 76 頁 · 27,000 韓元", "弧形桶 Arc Barrel - 79 頁 · 27,000 韓元", "脊椎矯正器 Spine Corrector - 108 頁 · 33,000 韓元", "器械教材七冊套裝 - 244,000 韓元 (較單冊合計 287,000 韓元優惠 15%)"] },
         { h: "購買前確認", p: "所有教材皆可試閱目錄與正文 10 頁，點擊封面即可開啟預覽。紙本書配送運費為 2,500 韓元，七冊套裝一箱寄出，運費相同。海外配送請洽詢。" },
         { h: "教材為何重要", p: "挑選證照課程時，教材是應當查核的項目之一。只有講義投影片的課程與擁有正式出版教材的課程，在複習可行性上並不相同。CPPI 教材在結業後仍作為現場參考資料使用。" },
         { h: "小器材教材", p: "除正規課程教材外另有小器材教材 4 冊：滾筒 164 頁、圈 136 頁、迷你球 178 頁、BOSU 160 頁。" },
