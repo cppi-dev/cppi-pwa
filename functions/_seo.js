@@ -2946,12 +2946,24 @@ ${LANGS.filter(l => l !== lang).map(l => `<meta property="og:locale:alternate" c
 
 /* #view 안에 먼저 들어갈 본문. 앱이 부팅하면 같은 자리를 인터랙티브 화면이 대체한다.
    앱의 기존 클래스(.eyebrow/.card/.note)를 그대로 써서 첫 화면이 이질적이지 않게 한다. */
+/* 교육센터 실내 사진 - 센터 라우트에만 붙는다. 파일은 /centers 에 둔다.
+   한 센터당 4장, 4:3 으로 미리 잘라 두어 레이아웃이 흔들리지 않는다. */
+const CENTER_PHOTOS = { gangdong: 4, bundang: 4, gimpo: 4 };
+function centerGalleryHTML(key, name) {
+  const n = CENTER_PHOTOS[key];
+  if (!n) return "";
+  let out = `<div class="cgal">`;
+  for (let i = 1; i <= n; i++)
+    out += `<img src="centers/${key}${i}.webp" alt="${esc(name)} ${i}" width="900" height="675" loading="lazy" decoding="async">`;
+  return out + `</div>`;
+}
+
 export function ssrBody(lang, route) {
   const entry = CONTENT[route];
   const c = entry[lang] || entry.en;
   const hero = HERO[route];
   const heroAlt = hero ? (hero.alt[lang] || hero.alt.en) : SITE_NAME[lang];
-  const blocks = (c.blocks || []).map(b => {
+  const blocks = centerGalleryHTML(route, c.h1) + (c.blocks || []).map(b => {
     let out = `<div class="card" style="margin-bottom:10px">`;
     if (b.h) out += `<b>${esc(b.h)}</b>`;
     if (b.p) out += `<p style="font-size:13.5px;color:var(--ink2);margin-top:6px">${esc(b.p)}</p>`;
