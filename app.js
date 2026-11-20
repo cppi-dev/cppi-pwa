@@ -1412,6 +1412,10 @@ const COLUMN = {
       title: "병상이 운동 기구가 되기까지",
       sub: "포로수용소의 병상에서 시작된 캐딜락, 움직임의 가능성을 넓히다",
       url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21076" },
+    { no: 10, date: "2026-11-13",
+      title: "손의 기억",
+      sub: "백 마디 설명보다 따뜻한 손길 하나, 몸의 감각을 깨우는 핸즈온",
+      url: "https://www.influencenews.co.kr/news/articleView.html?idxno=21077" },
   ],
 };
 
