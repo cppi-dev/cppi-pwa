@@ -1051,7 +1051,7 @@ function rosterHTML() {
   </div>
   <div class="card" id="cohortPanel" style="margin-top:12px">
     <b id="cohortTitle">${L({ ko: "기수를 선택하세요", en: "Select a class", zh: "请选择期数", "zh-Hant": "請選擇期數", ja: "期を選択してください" })}</b>
-    <p id="cohortNames" style="font-size:14px;line-height:2;color:var(--ink2);margin-top:6px">${L({ ko: "기수 버튼을 누르면 수료 강사 명단이 표시됩니다.", en: "Tap a class button to see its graduates.", zh: "点击期数按钮显示结业教练名单。", "zh-Hant": "點選期數按鈕顯示結業教練名單。", ja: "期のボタンを押すと修了講師名簿が表示されます。" })}</p>
+    <p id="cohortNames" style="font-size:14px;line-height:2;color:var(--ink2);margin-top:6px">${L({ ko: "", en: "", zh: "", "zh-Hant": "", ja: "" })}</p>
   </div>`;
 }
 function showCohort(i) {
@@ -2107,7 +2107,7 @@ routes.bank = () => {
 
 routes.members = () => `
   <section>
-    ${secHead("MEMBERS", "CPPI Members - " + L({ ko: "수료 강사", en: "Graduates", zh: "结业教练", "zh-Hant": "結業教練", ja: "修了講師" }), L({ ko: "기수 버튼을 누르면 해당 기수의 수료 강사 명단이 표시됩니다. (공식 등록 기준 · 2017~)", en: "Tap a class button to see its graduates. (Official registry, since 2017)", zh: "点击期数按钮显示该期结业教练名单。", "zh-Hant": "點選期數按鈕顯示該期結業教練名單。", ja: "期のボタンで修了講師名簿を表示。" }))}
+    ${secHead("MEMBERS", "CPPI Members - " + L({ ko: "수료 강사", en: "Graduates", zh: "结业教练", "zh-Hant": "結業教練", ja: "修了講師" }), L({ ko: "공식 등록 기준 · 2017~", en: "Official registry, since 2017", zh: "官方登记基准 · 2017~", "zh-Hant": "官方登記基準 · 2017~", ja: "公式登録基準 · 2017~" }))}
     ${rosterHTML()}
     <div class="note">"Patience and persistence are vital qualities in the ultimate successful accomplishment of any worthwhile endeavor." - Joseph Pilates<br>${L({ ko: "명단 등재 · 수정 요청", en: "Listing requests", zh: "名单登载·修改申请", "zh-Hant": "名單登載·修改申請", ja: "掲載·修正依頼" })}: ${CONTACT.mail}</div>
   </section>`;
