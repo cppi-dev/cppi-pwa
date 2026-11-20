@@ -68,6 +68,57 @@ function renderSellerInfo() {
    서버(Cloudflare 환경변수 ADMIN_PASS)가 검증하고, 입력값은 이 탭의 세션에만 잠시 보관한다.
    탭을 닫으면 사라지며, 새로고침해도 다시 입력할 필요는 없다. */
 const adminPw = () => sessionStorage.getItem("cppi_adminpw") || "";
+/* ------------------------------------------------------------------
+   방문 측정 - ID 를 넣기 전에는 아무 것도 로드하지 않는다.
+   빈 값일 때 스크립트를 넣으면 콘솔 오류만 남고 집계는 되지 않으므로,
+   발급받은 ID 를 아래 두 줄에 채우는 것으로 측정이 시작된다.
+
+     GA4_ID   : Google Analytics 4 측정 ID (G- 로 시작)
+                analytics.google.com -> 관리 -> 데이터 스트림 -> 웹 에서 발급
+     WCS_ID   : 네이버 애널리틱스 인증 ID
+                analytics.naver.com -> 사이트 등록 후 발급
+
+   앱이 부팅한 뒤 로드하므로 크롤러 방문은 집계에 섞이지 않는다.
+   경로가 바뀔 때마다 render() 가 가상 페이지뷰를 보낸다.
+------------------------------------------------------------------ */
+const GA4_ID = "";
+const WCS_ID = "";
+
+function initAnalytics() {
+  if (GA4_ID && !window.gtag) {
+    const s = document.createElement("script");
+    s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA4_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    gtag("js", new Date());
+    gtag("config", GA4_ID, { send_page_view: false });
+  }
+  if (WCS_ID && !window.wcs_add) {
+    const s = document.createElement("script");
+    s.async = true; s.src = "//wcs.naver.net/wcslog.js";
+    s.onload = () => {
+      window.wcs_add = window.wcs_add || {};
+      window.wcs_add.wa = WCS_ID;
+      if (window.wcs) { window.wcs.inflow("cppipilates.com"); window.wcs_do(); }
+    };
+    document.head.appendChild(s);
+  }
+}
+
+/* 경로 이동을 가상 페이지뷰로 보낸다. 앱이 화면만 갈아끼우므로
+   이 호출이 없으면 첫 진입 한 번만 집계되고 이후 이동은 잡히지 않는다. */
+function trackPage(route) {
+  if (GA4_ID && window.gtag) {
+    gtag("event", "page_view", {
+      page_title: document.title,
+      page_location: location.href,
+      page_path: "/" + (route === "home" ? "" : route),
+    });
+  }
+  if (WCS_ID && window.wcs && window.wcs_do) { window.wcs_add.wa = WCS_ID; window.wcs_do(); }
+}
+
 const NAVER_TALK = "https://talk.naver.com/profile/c/cppi"; // 네이버 톡톡 상담
 /* 히어로 영상: 접속 시마다 랜덤 재생 */
 const HEROS = ["hero1.mp4", "hero2.mp4", "hero3.mp4"];
@@ -571,6 +622,7 @@ function render() {
   if (SERVER && me() && (r === "learn" || r === "lecture")) loadEntitlements().then(() => { if (currentRoute() === r) $("#view").innerHTML = (routes[r] || routes.home)(); });
   requestAnimationFrame(() => requestAnimationFrame(initDesktopFX));
   initHqMap();
+  trackPage(r);
   if (r === "admin" && sessionStorage.getItem("cppi_admin") === "1") nlRefresh();
 }
 
@@ -2767,6 +2819,8 @@ function installApp() {
   else toast(L({ ko: 'iPhone: 공유 → "홈 화면에 추가" · Android: 메뉴 → 앱 설치', en: 'iPhone: Share → "Add to Home Screen" · Android: Menu → Install', zh: 'iPhone：分享→添加到主屏幕 · Android：菜单→安装', "zh-Hant": 'iPhone：分享→新增到主螢幕 · Android：選單→安裝', ja: 'iPhone：共有→ホーム画面に追加 · Android：メニュー→インストール' }));
 }
 window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredPrompt = e; });
+initAnalytics();
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 }
