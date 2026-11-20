@@ -1914,7 +1914,7 @@ routes.workshop = () => _workshopBase() + `
 
 routes.books = () => `
   <section>
-    ${secHead("TEXTBOOKS", L({ ko: "정규과정 교재 - 과목별 구매", en: "Printed Textbooks by Subject", zh: "正规课程教材 - 按科目购买", "zh-Hant": "正規課程教材 - 按科目購買", ja: "正規課程教材 - 科目別購入" }), L({ ko: "종이책 · 택배 배송. 미리보기로 목차를 확인한 뒤 주문하세요.", en: "Printed books, shipped. Preview the contents before ordering.", zh: "纸质书·快递配送。请先预览再订购。", "zh-Hant": "紙本書·宅配。請先預覽再訂購。", ja: "紙の書籍·宅配。目次を確認してご注文ください。" }))}
+    ${secHead("TEXTBOOKS", L({ ko: "필라테스 강사 자격증 교재 - 과목별 구매", en: "Printed Textbooks by Subject", zh: "正规课程教材 - 按科目购买", "zh-Hant": "正規課程教材 - 按科目購買", ja: "正規課程教材 - 科目別購入" }), L({ ko: "종이책 · 택배 배송. 미리보기로 목차를 확인한 뒤 주문하세요.", en: "Printed books, shipped. Preview the contents before ordering.", zh: "纸质书·快递配送。请先预览再订购。", "zh-Hant": "紙本書·宅配。請先預覽再訂購。", ja: "紙の書籍·宅配。目次を確認してご注文ください。" }))}
     ${BOOKS.map((b, i) => `<div class="shoprow">
       <img src="${COVER(b.slug)}" alt="${esc(L(b.t))} - ${esc(L({ ko: "CPPI 필라테스 교재 표지 (저자 박은주 Eun-Ju Park)", en: "CPPI Pilates textbook cover by Eun-Ju Park", zh: "CPPI普拉提教材封面(著者 朴恩珠 Eun-Ju Park)", "zh-Hant": "CPPI皮拉提斯教材封面(著者 朴恩珠 Eun-Ju Park)", ja: "CPPIピラティス教材表紙(著者 パク・ウンジュ Eun-Ju Park)" }))}" loading="lazy" onclick="openViewer(${i})">
       <div class="tx"><h4>${esc(L(b.t))}</h4><div class="m">${b.pages}p · ${b.price ? WON(b.price) : L({ ko: "낱권 판매 안 함", en: "Not sold separately", zh: "不单独销售", "zh-Hant": "不單獨銷售", ja: "単品販売なし" })}</div></div>
