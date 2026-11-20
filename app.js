@@ -81,7 +81,7 @@ const adminPw = () => sessionStorage.getItem("cppi_adminpw") || "";
    앱이 부팅한 뒤 로드하므로 크롤러 방문은 집계에 섞이지 않는다.
    경로가 바뀔 때마다 render() 가 가상 페이지뷰를 보낸다.
 ------------------------------------------------------------------ */
-const GA4_ID = "";
+const GA4_ID = "G-XQ3T577CMR";
 const WCS_ID = "";
 
 function initAnalytics() {
