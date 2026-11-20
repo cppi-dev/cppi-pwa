@@ -22,6 +22,10 @@ const setSid = (t) => ({ "set-cookie": `cppi_sid=${t}; Path=/; HttpOnly; Secure;
 const clrSid = { "set-cookie": "cppi_sid=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0" };
 const pubUser = (u) => u ? { id: u.id, nameKo: u.nameKo, nameEn: u.nameEn, email: u.email, phone: u.phone, grade: u.grade } : null;
 
+/* 주문 확인 메일에 쓰는 값 - app.js 의 BANK / NAVER_TALK 과 같은 값을 유지할 것 */
+const BANK = { name: "우리은행", num: "1002-836-066783", holder: "김형석 (씨앤티파트너스 C&T Partners)" };
+const NAVER_TALK = "https://talk.naver.com/profile/c/cppi";
+
 /* ------------------------------------------------------------------
    메일 발송 - Resend API
    Cloudflare Workers 는 SMTP 를 쓸 수 없어 HTTP API 방식을 쓴다.
@@ -178,6 +182,58 @@ export async function onRequest(context) {
           <p style="color:#6E5B50;font-size:13px;margin-top:18px">입금 확인 후 상태를 변경해 주세요.</p>
         </div>`,
       }).catch(() => {}));
+
+      /* 주문자 확인 메일 - 접수 내역과 입금 안내를 보낸다.
+         발송에 실패해도 주문 접수는 성공으로 처리한다.
+         답장은 협회 메일함으로 가도록 replyTo 를 지정한다. */
+      if (em.includes("@")) {
+        const isBank = /bank|계좌|이체/i.test(String(body.method || ""));
+        const box = "background:#FBF7F3;border:1px solid #E6DAD0;border-radius:10px;padding:16px;margin:18px 0";
+        context.waitUntil(sendMail(env, {
+          to: em,
+          replyTo: env.NOTIFY_TO || "allmovements@naver.com",
+          subject: `[CPPI] 주문이 접수되었습니다 · ${id}`,
+          html: `<div style="font-family:system-ui,-apple-system,'Malgun Gothic',sans-serif;max-width:560px;margin:0 auto;color:#2E2622;line-height:1.7">
+            <p style="font-size:12.5px;color:#6E5B50;margin:0 0 6px">CPPI 한국필라테스교육협회</p>
+            <h2 style="font-size:19px;margin:0 0 14px">주문이 접수되었습니다</h2>
+            <p style="font-size:14px;margin:0 0 16px">${esc(buyer) || "고객"}님, 주문해 주셔서 감사합니다.</p>
+            <table style="border-collapse:collapse;font-size:14px;width:100%">
+              ${row("주문번호", id)}
+              ${row("상품", esc(body.item) || "-")}
+              ${row("상품 금액", won(body.price))}
+              ${row("배송비", won(body.shipFee))}
+              ${row("합계", `<span style="font-size:16px">${won(body.amount)}</span>`)}
+              ${row("결제수단", esc(body.method) || "-")}
+              ${row("접수시각", at)}
+            </table>
+            ${isBank ? `<div style="${box}">
+              <h3 style="font-size:15px;margin:0 0 10px">입금 계좌</h3>
+              <p style="font-size:16px;font-weight:700;margin:0 0 4px">${BANK.name} ${BANK.num}</p>
+              <p style="font-size:13px;color:#6E5B50;margin:0 0 12px">예금주 ${esc(BANK.holder)}</p>
+              <p style="font-size:14px;margin:0">입금하실 금액 <b>${won(body.amount)}</b></p>
+              <p style="font-size:13px;color:#6E5B50;margin:10px 0 0">입금자명이 주문자명과 다르면 확인이 늦어질 수 있습니다. 다른 이름으로 입금하실 경우 네이버 톡톡으로 알려 주십시오.</p>
+            </div>` : ""}
+            ${sh ? `<h3 style="font-size:15px;margin:18px 0 8px">배송지</h3>
+            <table style="border-collapse:collapse;font-size:14px;width:100%">
+              ${row("받는 분", esc(sh.name) || "-")}
+              ${row("연락처", esc(sh.phone) || "-")}
+              ${row("주소", `(${esc(sh.zip)}) ${esc(sh.addr1)} ${esc(sh.addr2)}`)}
+              ${row("요청사항", esc(sh.memo) || "-")}
+            </table>
+            <p style="font-size:13.5px;color:#6E5B50;margin:12px 0 0">입금이 확인되면 발송해 드립니다. 발송 시 따로 안내드립니다.</p>` :
+            `<p style="font-size:13.5px;color:#6E5B50;margin:16px 0 0">입금이 확인되면 열람 권한이 부여됩니다.</p>`}
+            <div style="${box}">
+              <p style="font-size:14px;margin:0 0 8px"><b>문의</b></p>
+              <p style="font-size:13.5px;margin:0">네이버 톡톡으로 주시면 가장 빠릅니다 - <a href="${NAVER_TALK}" style="color:#F15A22">talk.naver.com/profile/c/cppi</a></p>
+              <p style="font-size:13.5px;margin:6px 0 0">이 메일에 그대로 답장하셔도 됩니다.</p>
+            </div>
+            <p style="font-size:12px;color:#9A8B80;margin:18px 0 0;border-top:1px solid #EFE7E0;padding-top:12px">
+              CPPI 한국필라테스교육협회 · 고유번호 201-82-74381 (비영리)<br>
+              결제 · 환불 · 고객응대는 교육사업 대행사 씨앤티파트너스(C&amp;T Partners)가 담당합니다.
+            </p>
+          </div>`,
+        }).catch(() => {}));
+      }
       return json({ id });
     }
     /* ---- 수강 권한 (결제 완료된 항목만) ---- */
@@ -238,12 +294,21 @@ export async function onRequest(context) {
       /* 신청자에게 접수 확인 메일 */
       if (body.email) context.waitUntil(sendMail(env, {
         to: body.email,
+        replyTo: env.NOTIFY_TO || "allmovements@naver.com",
         subject: "[CPPI] 상담 신청이 접수되었습니다",
-        html: `<div style="font-family:sans-serif;line-height:1.8">
-          <h2 style="color:#F15A22;margin:0 0 12px">상담 신청이 접수되었습니다</h2>
-          <p>${esc(body.name)} 님, CPPI 한국필라테스교육협회입니다.<br>
-          신청해 주신 <b>${esc(body.interest)}</b> 관련 상담은 24시간 내에 연락드리겠습니다.</p>
-          <p style="color:#6E5B50;font-size:14px">문의 010-4894-4292 · allmovements@naver.com</p>
+        html: `<div style="font-family:system-ui,-apple-system,'Malgun Gothic',sans-serif;max-width:560px;margin:0 auto;color:#2E2622;line-height:1.7">
+          <p style="font-size:12.5px;color:#6E5B50;margin:0 0 6px">CPPI 한국필라테스교육협회</p>
+          <h2 style="font-size:19px;margin:0 0 14px">상담 신청이 접수되었습니다</h2>
+          <p style="font-size:14px;margin:0 0 16px">${esc(body.name)} 님, 신청해 주셔서 감사합니다.<br>
+          <b>${esc(body.interest)}</b> 관련 상담은 확인하는 대로 연락드리겠습니다.</p>
+          <div style="background:#FBF7F3;border:1px solid #E6DAD0;border-radius:10px;padding:16px;margin:18px 0">
+            <p style="font-size:14px;margin:0 0 8px"><b>먼저 궁금하신 점이 있으시면</b></p>
+            <p style="font-size:13.5px;margin:0">네이버 톡톡으로 바로 물어보실 수 있습니다 - <a href="${NAVER_TALK}" style="color:#F15A22">talk.naver.com/profile/c/cppi</a></p>
+            <p style="font-size:13.5px;margin:6px 0 0">이 메일에 그대로 답장하셔도 됩니다.</p>
+          </div>
+          <p style="font-size:12px;color:#9A8B80;margin:18px 0 0;border-top:1px solid #EFE7E0;padding-top:12px">
+            CPPI 한국필라테스교육협회 · 고유번호 201-82-74381 (비영리)
+          </p>
         </div>`,
       }).catch(() => {}));
 
