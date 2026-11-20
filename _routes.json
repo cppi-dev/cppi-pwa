@@ -4,7 +4,15 @@
     "/*"
   ],
   "exclude": [
-    "/books/*",
+    "/books/abarrel/*",
+    "/books/anatomy/*",
+    "/books/cadillac/*",
+    "/books/chair/*",
+    "/books/lbarrel/*",
+    "/books/mat/*",
+    "/books/principle/*",
+    "/books/reformer/*",
+    "/books/scorrector/*",
     "/covers/*",
     "/icons/*",
     "/img/*",
