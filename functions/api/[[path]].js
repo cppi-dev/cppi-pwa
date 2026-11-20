@@ -25,6 +25,7 @@ const pubUser = (u) => u ? { id: u.id, nameKo: u.nameKo, nameEn: u.nameEn, email
 /* 주문 확인 메일에 쓰는 값 - app.js 의 BANK / NAVER_TALK 과 같은 값을 유지할 것 */
 const BANK = { name: "우리은행", num: "1002-836-066783", holder: "김형석 (씨앤티파트너스 C&T Partners)" };
 const NAVER_TALK = "https://talk.naver.com/profile/c/cppi";
+const TEL = "010-4894-4292";
 
 /* ------------------------------------------------------------------
    메일 발송 - Resend API
@@ -224,7 +225,8 @@ export async function onRequest(context) {
             `<p style="font-size:13.5px;color:#6E5B50;margin:16px 0 0">입금이 확인되면 열람 권한이 부여됩니다.</p>`}
             <div style="${box}">
               <p style="font-size:14px;margin:0 0 8px"><b>문의</b></p>
-              <p style="font-size:13.5px;margin:0">네이버 톡톡으로 주시면 가장 빠릅니다 - <a href="${NAVER_TALK}" style="color:#F15A22">talk.naver.com/profile/c/cppi</a></p>
+              <p style="font-size:13.5px;margin:0">네이버 톡톡 - <a href="${NAVER_TALK}" style="color:#F15A22">talk.naver.com/profile/c/cppi</a></p>
+              <p style="font-size:13.5px;margin:4px 0 0">전화 - <a href="tel:${TEL.replace(/-/g, "")}" style="color:#F15A22">${TEL}</a></p>
               <p style="font-size:13.5px;margin:6px 0 0">이 메일에 그대로 답장하셔도 됩니다.</p>
             </div>
             <p style="font-size:12px;color:#9A8B80;margin:18px 0 0;border-top:1px solid #EFE7E0;padding-top:12px">
@@ -303,7 +305,8 @@ export async function onRequest(context) {
           <b>${esc(body.interest)}</b> 관련 상담은 확인하는 대로 연락드리겠습니다.</p>
           <div style="background:#FBF7F3;border:1px solid #E6DAD0;border-radius:10px;padding:16px;margin:18px 0">
             <p style="font-size:14px;margin:0 0 8px"><b>먼저 궁금하신 점이 있으시면</b></p>
-            <p style="font-size:13.5px;margin:0">네이버 톡톡으로 바로 물어보실 수 있습니다 - <a href="${NAVER_TALK}" style="color:#F15A22">talk.naver.com/profile/c/cppi</a></p>
+            <p style="font-size:13.5px;margin:0">네이버 톡톡 - <a href="${NAVER_TALK}" style="color:#F15A22">talk.naver.com/profile/c/cppi</a></p>
+            <p style="font-size:13.5px;margin:4px 0 0">전화 - <a href="tel:${TEL.replace(/-/g, "")}" style="color:#F15A22">${TEL}</a></p>
             <p style="font-size:13.5px;margin:6px 0 0">이 메일에 그대로 답장하셔도 됩니다.</p>
           </div>
           <p style="font-size:12px;color:#9A8B80;margin:18px 0 0;border-top:1px solid #EFE7E0;padding-top:12px">
