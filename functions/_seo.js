@@ -385,7 +385,7 @@ export const NAV = {
    alt 는 검색·AI가 인물/주제를 연결하도록 영문 고유명을 함께 넣는다. */
 export const HERO = {
   home:       { src: "/img/hero_bg.jpg",          alt: { ko: "CPPI 한국 필라테스 교육협회 정규과정 교육 현장", en: "CPPI Korea Pilates Education Association instructor training", ja: "CPPI 韓国ピラティス教育協会の指導者養成", zh: "CPPI 韩国普拉提教育协会教练培训现场", "zh-Hant": "CPPI 韓國皮拉提斯教育協會師資培訓現場" } },
-  journal:    { src: "/img/founder_face.jpg",     alt: { ko: "CPPI 협회장 박은주 (Eun-Ju Park) 칼럼 - 박은주의 필라테스 인문학", en: "Column by Eun-Ju Park, president of CPPI Korea Pilates Education Association", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park) のコラム", zh: "CPPI协会长朴恩珠 (Eun-Ju Park) 专栏", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park) 專欄" } },
+  journal:    { src: "/img/founder_face.jpg",     alt: { ko: "CPPI 협회장 박은주 (Eun-Ju Park) 칼럼 - 필라테스 인문학", en: "Column by Eun-Ju Park, president of CPPI Korea Pilates Education Association", ja: "CPPI協会長 パク・ウンジュ (Eun-Ju Park) のコラム", zh: "CPPI协会长朴恩珠 (Eun-Ju Park) 专栏", "zh-Hant": "CPPI 協會長朴恩珠 (Eun-Ju Park) 專欄" } },
   why:        { src: "/img/founder_studio.jpg",   alt: { ko: "CPPI 창립자 박은주 (Eun-Ju Park) 교수의 임상 기반 필라테스 교육", en: "Evidence-based Pilates teaching by CPPI founder Eun-Ju Park", ja: "CPPI創立者 パク・ウンジュ (Eun-Ju Park) 教授の臨床に基づくピラティス教育", zh: "CPPI创始人朴恩珠 (Eun-Ju Park) 教授的临床循证普拉提教育", "zh-Hant": "CPPI 創辦人朴恩珠 (Eun-Ju Park) 教授的臨床實證皮拉提斯教育" } },
   books:      { src: "/img/covers_fan.jpg",      alt: { ko: "박은주 (Eun-Ju Park) 저 CPPI 필라테스 정규과정 교재 9권", en: "The nine CPPI Pilates course textbooks authored by Eun-Ju Park", ja: "パク・ウンジュ (Eun-Ju Park) 著 CPPIピラティス正規課程教材9巻", zh: "朴恩珠 (Eun-Ju Park) 著 CPPI普拉提正规课程教材9册", "zh-Hant": "朴恩珠 (Eun-Ju Park) 著 CPPI 皮拉提斯正規課程教材 9 冊" } },
   guide:      { src: "/img/lect_mt.webp",        alt: { ko: "CPPI 필라테스 무브먼트 테라피 부위별 전문 지침서", en: "CPPI Pilates Movement Therapy regional guidebooks", ja: "CPPIピラティス ムーブメントセラピー 部位別指針書", zh: "CPPI普拉提运动治疗部位别专业指南", "zh-Hant": "CPPI 皮拉提斯動作治療部位別專業指南" } },
@@ -1534,7 +1534,7 @@ export const CONTENT = {
     schema: { "@type": "CollectionPage" },
   },
   /* ------------------------------------------------------------------
-     칼럼 - 박은주의 필라테스 인문학
+     칼럼 - 필라테스 인문학
      이 페이지는 목록이고, 개별 글은 CONTENT 에 "journal/{slug}" 키로 넣는다.
        예) "journal/first-post": { ko: {...}, en: {...}, ..., schema: { "@type": "Article" } }
      그렇게 하면 사이트맵 · hreflang · canonical · SSR 이 전부 자동으로 따라온다.

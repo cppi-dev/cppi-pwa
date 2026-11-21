@@ -234,7 +234,7 @@ const UI = {
     workshop: { ko: "전문 강사 워크숍", en: "Pro Instructor Workshop", zh: "专业教练工作坊", "zh-Hant": "專業教練工作坊", ja: "専門講師ワークショップ" },
     learn: { ko: "온라인 강의", en: "Online Lectures", zh: "在线课程", "zh-Hant": "線上課程", ja: "オンライン講義" },
     store: { ko: "전자책 · 교재 스토어", en: "E-book & Textbook Store", zh: "电子书·教材商店", "zh-Hant": "電子書·教材商店", ja: "電子書籍·教材ストア" },
-    journal: { ko: "칼럼 - 박은주의 필라테스 인문학", en: "Column - Eun-Ju Park's Pilates Humanities", zh: "专栏 - 朴恩珠的普拉提人文学", "zh-Hant": "專欄 - 朴恩珠的皮拉提斯人文學", ja: "コラム - パク・ウンジュのピラティス人文学" },
+    journal: { ko: "칼럼 - 필라테스 인문학", en: "Column - Eun-Ju Park's Pilates Humanities", zh: "专栏 - 朴恩珠的普拉提人文学", "zh-Hant": "專欄 - 朴恩珠的皮拉提斯人文學", ja: "コラム - パク・ウンジュのピラティス人文学" },
     guide: { ko: "필라테스 전문 지침서", en: "Pilates Pro Guidebooks", zh: "普拉提专业指南", "zh-Hant": "皮拉提斯專業指南", ja: "ピラティス専門指針書" },
     apply: { ko: "상담 · 신청", en: "Consultation", zh: "咨询 · 申请", "zh-Hant": "諮詢 · 申請", ja: "相談 · 申込" },
     support: { ko: "FAQ · 후기 · 앱 설치", en: "FAQ · Reviews · Install", zh: "FAQ · 评价 · 安装", "zh-Hant": "FAQ · 評價 · 安裝", ja: "FAQ · 口コミ · インストール" },
@@ -276,7 +276,7 @@ const UI = {
 };
 
 const TICKER = [
-  { ko: "박은주의 필라테스 인문학 - 인플루언스뉴스 주 2회 연재중", en: "Eun-Ju Park's Pilates Humanities - twice weekly in Influence News", zh: "朴恩珠的普拉提人文学 - Influence News 每周连载两次", "zh-Hant": "朴恩珠的皮拉提斯人文學 - Influence News 每週連載兩次", ja: "パク・ウンジュのピラティス人文学 - 週2回連載中" },
+  { ko: "칼럼 - 필라테스 인문학", en: "Eun-Ju Park's Pilates Humanities - twice weekly in Influence News", zh: "朴恩珠的普拉提人文学 - Influence News 每周连载两次", "zh-Hant": "朴恩珠的皮拉提斯人文學 - Influence News 每週連載兩次", ja: "パク・ウンジュのピラティス人文学 - 週2回連載中" },
   { ko: "리커버링 재활필라테스 자격과정 모집중", en: "Recovering Rehab Pilates Certification - Now Enrolling", zh: "康复普拉提单日资格课程招生中", "zh-Hant": "康復皮拉提斯單日資格課程招生中", ja: "リカバリングリハビリピラティス 資格課程 募集中" },
   { ko: "2026년 하반기 바디멀티 필라테스 상일동역점 모집중", en: "2026 H2 intake - BodyMulti Pilates, Sangil-dong Station - Now Enrolling", zh: "2026年下半年 BodyMulti 普拉提 上一洞站店 招生中", "zh-Hant": "2026年下半年 BodyMulti 皮拉提斯 上一洞站店 招生中", ja: "2026年下半期 ボディマルチ ピラティス 上一洞駅店 募集中" },
   { ko: "무료 온라인 상담 신청", en: "Free Online Consultation", zh: "免费在线咨询", "zh-Hant": "免費線上諮詢", ja: "無料オンライン相談" },
@@ -1267,7 +1267,7 @@ const WHY_PILLARS = [
   {
     no: "04",
     tag: "AFTER",
-    img: "img/convention.jpg",
+    img: "img/why_after.webp",
     name: { ko: "수료 이후가 있습니다", en: "There is life after graduation", zh: "结业之后仍有路", "zh-Hant": "結業之後仍有路", ja: "修了後があります" },
     lede: {
       ko: "자격증 발급으로 끝나는 과정이 많습니다. CPPI는 수료강사 명단에 등재되고, 워크숍으로 재교육을 이어가며, 일부는 타 아카데미에서 교육강사로 활동합니다. 한국·캐나다·일본에서 운영되는 국제 자격입니다.",
@@ -1447,7 +1447,7 @@ function pickMaster(i) {
   d.classList.remove("pop"); void d.offsetWidth; d.classList.add("pop");
 }
 
-/* 칼럼 - 박은주의 필라테스 인문학.
+/* 칼럼 - 필라테스 인문학.
    글은 서버 CONTENT 의 "journal/{slug}" 키로 관리한다. 여기는 목록 화면이다. */
 /* 인플루언스뉴스 연재 칼럼 - 원문 링크만 싣는다.
    본문을 복제하면 도메인 권위가 높은 언론사가 중복 판정에서 이기고
@@ -2918,6 +2918,11 @@ function renderSheet() {
     <a href="#curriculum" onclick="closeSheet()">${L(UI.menu.curriculum)}</a>
     <a href="#workshop" onclick="closeSheet()">${L(UI.menu.workshop)}</a>
     <a href="#learn" onclick="closeSheet()">${L(UI.menu.learn)}</a>
+    <h3>${L({ ko: "교육센터", en: "Centers", zh: "教育中心", "zh-Hant": "教育中心", ja: "教育センター" })}</h3>
+    <a href="#gangdong" onclick="closeSheet()">${L({ ko: "서울 강동 · 바디멀티 상일동역점", en: "Seoul Gangdong · BodyMulti", zh: "首尔江东 · BodyMulti", "zh-Hant": "首爾江東 · BodyMulti", ja: "ソウル江東 · ボディマルチ" })}</a>
+    <a href="#bundang" onclick="closeSheet()">${L({ ko: "분당 · 필라티크 운동연구소", en: "Bundang · Pilatique Lab", zh: "盆唐 · Pilatique", "zh-Hant": "盆唐 · Pilatique", ja: "盆唐 · ピラティーク" })}</a>
+    <a href="#gimpo" onclick="closeSheet()">${L({ ko: "김포 · 운양 웰니스웨이 필라테스", en: "Gimpo · Wellness Way", zh: "金浦 · Wellness Way", "zh-Hant": "金浦 · Wellness Way", ja: "金浦 · ウェルネスウェイ" })}</a>
+    <a href="#host" onclick="closeSheet()">${L({ ko: "교육센터 제휴 문의", en: "Become a hosting center", zh: "教育中心合作", "zh-Hant": "教育中心合作", ja: "教育センター提携" })}</a>
     <h3>${L(UI.menu.hUse)}</h3>
     <a href="#store" onclick="closeSheet()">${L(UI.menu.store)}</a>
     <a href="#guide" onclick="closeSheet()">${L(UI.menu.guide)}</a>
