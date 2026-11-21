@@ -1005,11 +1005,11 @@ function desktopHome() {
 
     <section class="ed-quadtile">
       <a class="ed-tile sreveal" href="#learn">
-        <img src="frame1.jpg" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", "zh-Hant": "CPPI線上皮拉提斯課程 - 正規課程·脊柱·運動治療複習影片", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}">
+        <img src="img/home_learn.webp" style="object-position:30% 45%" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", "zh-Hant": "CPPI線上皮拉提斯課程 - 正規課程·脊柱·運動治療複習影片", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}">
         <div class="ov"><div class="ed-eyebrow light">ONLINE LECTURES</div><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", "zh-Hant": "正規·脊柱·治療", ja: "正規·脊柱·セラピー" })}</span></div>
       </a>
-      <a class="ed-tile fit sreveal" href="#store">
-        <img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 출판교재 - 박은주(Eun-Ju Park) 저 필라테스 기능해부학 교재", en: "CPPI published textbook - Functional Pilates Anatomy by Eun-Ju Park", zh: "CPPI出版教材 - 朴恩珠(Eun-Ju Park)著《普拉提功能解剖学》", "zh-Hant": "CPPI出版教材 - 朴恩珠(Eun-Ju Park)著《皮拉提斯功能解剖學》", ja: "CPPI出版教材 - パク・ウンジュ(Eun-Ju Park)著『機能解剖学ピラティス』" }))}">
+      <a class="ed-tile sreveal" href="#store">
+        <img src="img/shop_books_tall.webp" alt="${esc(L({ ko: "CPPI 출판교재 - 박은주(Eun-Ju Park) 저 필라테스 교재 9권 전집", en: "CPPI published textbooks - the complete 9-volume Pilates series by Eun-Ju Park", zh: "CPPI出版教材 - 朴恩珠(Eun-Ju Park)著普拉提教材9册全集", "zh-Hant": "CPPI出版教材 - 朴恩珠(Eun-Ju Park)著皮拉提斯教材9冊全集", ja: "CPPI出版教材 - パク・ウンジュ(Eun-Ju Park)著 ピラティス教材 全9巻" }))}">
         <div class="ov"><div class="ed-eyebrow light">E-BOOK STORE</div><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기", en: "Books · E-books · Pass · Preview", zh: "教材·电子书·课程券·预览", "zh-Hant": "教材·電子書·課程券·預覽", ja: "教材·電子書籍·受講券·プレビュー" })}</span></div>
       </a>
     
@@ -1018,7 +1018,7 @@ function desktopHome() {
         <div class="ov"><div class="ed-eyebrow light">WORKSHOP</div><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", "zh-Hant": "康復·孕產·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div>
       </a>
       <a class="ed-tile sreveal" href="#members">
-        <img src="img/members.jpg" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", "zh-Hant": "CPPI結業教練會員 - 已培養56期以上的皮拉提斯指導者網路", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 18%">
+        <img src="img/members_face.webp" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", "zh-Hant": "CPPI結業教練會員 - 已培養56期以上的皮拉提斯指導者網路", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 34%">
         <div class="ov"><div class="ed-eyebrow light">MEMBERS</div><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", "zh-Hant": "會員名單", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", "zh-Hant": "結業56期+名單", ja: "修了56期+名簿" })}</span></div>
       </a>
     
@@ -1158,14 +1158,14 @@ routes.home = () => `
 
     <!-- Row 4 : 온라인 강의 + 스토어 -->
     <div class="grid2 sreveal" style="margin-top:12px">
-      <a class="card imgcard" href="#learn"><img src="frame1.jpg" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", "zh-Hant": "CPPI線上皮拉提斯課程 - 正規課程·脊柱·運動治療複習影片", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}"><div class="cap"><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", "zh-Hant": "正規·脊柱·治療", ja: "正規·脊柱·セラピー" })}</span></div></a>
-      <a class="card imgcard" href="#store"><img src="img/books3d/b_anatomy.webp" alt="${esc(L({ ko: "CPPI 필라테스 교재 - 박은주(Eun-Ju Park) 저 출판교재 9권 시리즈", en: "CPPI Pilates textbooks - 9-volume series authored by Eun-Ju Park", zh: "CPPI普拉提教材 - 朴恩珠(Eun-Ju Park)著9册系列", "zh-Hant": "CPPI皮拉提斯教材 - 朴恩珠(Eun-Ju Park)著9冊系列", ja: "CPPIピラティス教材 - パク・ウンジュ(Eun-Ju Park)著 全9巻シリーズ" }))}" style="object-fit:contain;background:linear-gradient(160deg,#FFF3E6,#FFE6D2);padding:10px"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", "zh-Hant": "教材·電子書·課程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
+      <a class="card imgcard" href="#learn"><img src="img/home_learn.webp" alt="${esc(L({ ko: "CPPI 온라인 필라테스 강의 - 정규과정·척추·무브먼트 테라피 복습 영상", en: "CPPI online Pilates lectures - certification, spine and movement therapy review videos", zh: "CPPI在线普拉提课程 - 正规课程·脊柱·运动治疗复习视频", "zh-Hant": "CPPI線上皮拉提斯課程 - 正規課程·脊柱·運動治療複習影片", ja: "CPPIオンラインピラティス講義 - 正規課程·脊柱·ムーブメントセラピー復習動画" }))}"><div class="cap"><b>${L(UI.menu.learn)}</b><span>${L({ ko: "정규 · 척추 · 테라피", en: "Cert · Spine · Therapy", zh: "正规·脊柱·治疗", "zh-Hant": "正規·脊柱·治療", ja: "正規·脊柱·セラピー" })}</span></div></a>
+      <a class="card imgcard" href="#store"><img src="img/shop_books.webp" alt="${esc(L({ ko: "CPPI 필라테스 교재 - 박은주(Eun-Ju Park) 저 출판교재 9권 시리즈", en: "CPPI Pilates textbooks - 9-volume series authored by Eun-Ju Park", zh: "CPPI普拉提教材 - 朴恩珠(Eun-Ju Park)著9册系列", "zh-Hant": "CPPI皮拉提斯教材 - 朴恩珠(Eun-Ju Park)著9冊系列", ja: "CPPIピラティス教材 - パク・ウンジュ(Eun-Ju Park)著 全9巻シリーズ" }))}" style="object-position:50% 46%"><div class="cap"><b>${L(UI.tabs.store)}</b><span>${L({ ko: "실물교재 · 전자책 · 수강권 · 미리보기 →", en: "Books · E-books · Pass →", zh: "教材·电子书·课程券 →", "zh-Hant": "教材·電子書·課程券 →", ja: "教材·電子書籍·受講券 →" })}</span></div></a>
     </div>
 
     <!-- Row 5 : 전문 강사 워크숍 + 멤버스 -->
     <div class="grid2 sreveal" style="margin-top:12px">
       <a class="card imgcard" href="#workshop"><img src="img/workshop_banner.jpg" alt="${esc(L({ ko: "CPPI 전문 강사 워크숍 현장 - 리커버링 재활·임산부·소도구 필라테스 실습", en: "CPPI professional instructor workshop - recovering rehab, prenatal and small-props Pilates practicum", zh: "CPPI专业教练工作坊现场 - 康复·孕产·小工具普拉提实操", "zh-Hant": "CPPI專業教練工作坊現場 - 康復·孕產·小工具皮拉提斯實操", ja: "CPPI専門講師ワークショップ - リカバリング·マタニティ·小道具ピラティス実習" }))}" style="object-position:50% 24%"><div class="cap"><b>${L(UI.menu.workshop)}</b><span>${L({ ko: "리커버링 · 임산부 · 소도구", en: "Recovering · Prenatal · Props", zh: "康复·孕产·小工具", "zh-Hant": "康復·孕產·小工具", ja: "リカバリング·マタニティ·小道具" })}</span></div></a>
-      <a class="card imgcard" href="#members"><img src="img/members.jpg" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", "zh-Hant": "CPPI結業教練會員 - 已培養56期以上的皮拉提斯指導者網路", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 18%"><div class="cap"><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", "zh-Hant": "會員名單", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", "zh-Hant": "結業56期+名單", ja: "修了56期+名簿" })}</span></div></a>
+      <a class="card imgcard" href="#members"><img src="img/members_face.webp" alt="${esc(L({ ko: "CPPI 수료강사 멤버스 - 56기 이상 배출된 필라테스 지도자 네트워크", en: "CPPI graduate members - a network of Pilates instructors across 56+ certified classes", zh: "CPPI结业教练会员 - 已培养56期以上的普拉提指导者网络", "zh-Hant": "CPPI結業教練會員 - 已培養56期以上的皮拉提斯指導者網路", ja: "CPPI修了講師メンバーズ - 56期以上を輩出したピラティス指導者ネットワーク" }))}" style="object-position:50% 34%"><div class="cap"><b>${L({ ko: "멤버스", en: "Members", zh: "会员名单", "zh-Hant": "會員名單", ja: "メンバーズ" })}</b><span>${L({ ko: "수료강사 56기+ 명단", en: "56+ classes directory", zh: "结业56期+名单", "zh-Hant": "結業56期+名單", ja: "修了56期+名簿" })}</span></div></a>
     </div>
 
     <!-- Row 5.5 : 수료강사 후기 (CPPI 자체 후기 카드) -->

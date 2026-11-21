@@ -394,7 +394,7 @@ export const HERO = {
   curriculum: { src: "/img/curriculum_banner.jpg", alt: { ko: "CPPI 정규과정 8대 커리큘럼 교재", en: "The eight core courses of the CPPI Pilates certification", ja: "CPPI正規課程 8大カリキュラム教材", zh: "CPPI正规课程八大体系教材", "zh-Hant": "CPPI 正規課程八大體系教材" } },
   courses:    { src: "/img/courses_banner.jpg",   alt: { ko: "CPPI 필라테스 강사 자격과정 티칭 실습", en: "Peer teaching practice in the CPPI Pilates instructor certification", ja: "CPPIピラティス指導者資格課程の指導実習", zh: "CPPI普拉提教练资格课程教学实习", "zh-Hant": "CPPI 皮拉提斯師資培訓課程教學實習" } },
   workshop:   { src: "/img/workshop_banner.jpg",  alt: { ko: "CPPI 전문 강사 워크숍 실습", en: "CPPI professional instructor workshop", ja: "CPPI専門講師ワークショップ", zh: "CPPI专业教练工作坊", "zh-Hant": "CPPI 專業導師工作坊" } },
-  master:     { src: "/img/members.jpg",          alt: { ko: "CPPI 마스터 인스트럭터", en: "CPPI master instructors", ja: "CPPIマスターインストラクター", zh: "CPPI大师级导师", "zh-Hant": "CPPI 大師級導師" } },
+  master:     { src: "/img/members_face.webp",    alt: { ko: "CPPI 마스터 인스트럭터", en: "CPPI master instructors", ja: "CPPIマスターインストラクター", zh: "CPPI大师级导师", "zh-Hant": "CPPI 大師級導師" } },
   stories:    { src: "/img/convention.jpg",       alt: { ko: "CPPI 수료강사 컨벤션", en: "CPPI graduate instructors at a convention", ja: "CPPI修了講師のコンベンション", zh: "CPPI结业教练大会", "zh-Hant": "CPPI 結業導師大會" } },
   global:     { src: "/img/global_map.jpg",       alt: { ko: "CPPI 한국 · 캐나다 · 일본 운영 지도", en: "CPPI operations in Korea, Canada and Japan", ja: "CPPI 韓国・カナダ・日本の運営マップ", zh: "CPPI 韩国·加拿大·日本运营地图", "zh-Hant": "CPPI 韓國·加拿大·日本營運地圖" } },
   learn:      { src: "/img/lect_spine.webp",      alt: { ko: "CPPI 척추 필라테스 어프로치 온라인 강의", en: "CPPI Pilates Approach for Spine online lecture", ja: "CPPI 脊柱ピラティスアプローチ オンライン講義", zh: "CPPI 脊柱普拉提方法在线课程", "zh-Hant": "CPPI 脊椎皮拉提斯課程線上教學" } },
