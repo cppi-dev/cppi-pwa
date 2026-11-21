@@ -1220,7 +1220,7 @@ const WHY_PILLARS = [
   {
     no: "01",
     tag: "CLINICAL",
-    img: "img/founder_studio.jpg",
+    img: "img/why_clinical.webp",
     name: { ko: "임상에서 왔습니다", en: "It came from the clinic", zh: "源自临床", "zh-Hant": "源自臨床", ja: "臨床から来ました" },
     lede: {
       ko: "필라테스 교육의 대부분은 동작 체계에서 출발합니다. CPPI는 병원에서 출발했습니다. 창립자는 분당서울대병원 마취통증의학과와 한국보훈복지공단 척추&관절센터에서 통증과 수술 후 회복을 직접 다뤘고, 그 경험이 커리큘럼의 뼈대가 되었습니다.",
@@ -1236,7 +1236,7 @@ const WHY_PILLARS = [
   {
     no: "02",
     tag: "ANATOMY",
-    img: "img/curriculum_banner.jpg",
+    img: "img/why_anatomy.webp",
     name: { ko: "동작을 외우지 않습니다", en: "We do not memorize movements", zh: "不靠死记动作", "zh-Hant": "不靠死記動作", ja: "動作を暗記しません" },
     lede: {
       ko: "같은 동작도 대상이 달라지면 다른 운동이 됩니다. 임신 중인 수강생, 수술 후 6주차 회원, 어깨 가동범위가 제한된 시니어에게 같은 큐잉을 줄 수는 없습니다. CPPI는 기능해부학에서 시작해 배리에이션과 모디피케이션까지 가르칩니다.",
@@ -1252,7 +1252,7 @@ const WHY_PILLARS = [
   {
     no: "03",
     tag: "TEACHING",
-    img: "img/courses_banner.jpg",
+    img: "img/why_teaching.webp",
     name: { ko: "가르치는 법을 배웁니다", en: "You learn how to teach", zh: "学习如何教学", "zh-Hant": "學習如何教學", ja: "教え方を学びます" },
     lede: {
       ko: "동작을 할 줄 아는 것과 가르칠 줄 아는 것은 다른 능력입니다. CPPI 정규과정은 이론 강의 후 반드시 교육생 상호 인스트럭팅을 반복합니다. 수료 시점에 이미 레슨을 해본 사람이 되어 나갑니다.",
