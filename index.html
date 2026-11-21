@@ -492,10 +492,11 @@ p.lead:last-of-type{margin-bottom:14px}
   font-weight:800; font-size:clamp(34px,7.6vw,64px); line-height:1.08; color:var(--wd);
   letter-spacing:-.03em; word-break:keep-all;
 }
-.why-hero p{margin:24px auto 0; max-width:600px; font-size:15px; line-height:1.9; color:#6B4A10; font-weight:500}
+.why-hero p{margin:22px auto 0; max-width:680px; font-size:16.5px; line-height:1.85; color:#6B4A10; font-weight:500}
+.why-hero p+p{margin-top:10px}
 .why-stats{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; max-width:960px; margin:46px auto 0; border-top:1px solid rgba(26,19,16,.2); padding-top:26px}
 .why-stats b{display:block; font-weight:800; font-size:clamp(18px,3.2vw,30px); color:var(--wd); line-height:1; letter-spacing:-.02em}
-.why-stats span{display:block; font-size:10.5px; letter-spacing:.14em; color:#7A4A12; margin-top:8px; font-weight:700}
+.why-stats span{display:block; font-size:11.5px; letter-spacing:.05em; white-space:nowrap; color:#7A4A12; margin-top:8px; font-weight:700}
 
 /* 기둥 - 밝은/어두운 교차 */
 .why-pillar{padding:78px 22px 84px}
@@ -505,12 +506,12 @@ p.lead:last-of-type{margin-bottom:14px}
 .why-pillar-head{display:flex; align-items:flex-start; gap:16px; margin-bottom:30px}
 .why-no{font-weight:800; font-size:clamp(24px,5vw,42px); line-height:1; letter-spacing:-.03em; color:var(--wy-sub)}
 .why-pillar.dark .why-no{color:var(--wy)}
-.why-tag{font-size:11.5px; letter-spacing:.18em; font-weight:800; color:var(--pri); margin-bottom:8px; line-height:1.1}
+.why-tag{font-size:12px; letter-spacing:.18em; font-weight:800; color:var(--pri); margin-bottom:8px; line-height:1.1}
 .why-pillar.dark .why-tag{color:var(--wy-warm)}
 .why-pillar h2{font-weight:800; font-size:clamp(23px,4.4vw,38px); line-height:1.18; letter-spacing:-.025em; color:var(--ink)}
 .why-pillar.dark h2{color:#fff}
 .why-grid{display:grid; gap:28px}
-.why-lede{font-size:14.5px; line-height:1.95; color:var(--ink2); font-weight:500; margin:0 0 10px}
+.why-lede{font-size:15.5px; line-height:1.9; color:var(--ink2); font-weight:500; margin:0 0 10px}
 .why-lede:last-child{margin-bottom:0}
 .why-pillar.dark .why-lede{color:rgba(255,255,255,.66)}
 .why-fig{margin:0; overflow:hidden; border-radius:16px}
@@ -522,11 +523,11 @@ p.lead:last-of-type{margin-bottom:14px}
 .why-pillar.dark .why-item{background:var(--wd)}
 .why-item:hover{background:var(--wy-lite)}
 .why-pillar.dark .why-item:hover{background:var(--wd-mid)}
-.why-item i{display:block; font-style:normal; font-size:10px; letter-spacing:.18em; color:var(--wy-sub); margin-bottom:12px; font-weight:700}
+.why-item i{display:block; font-style:normal; font-size:11px; letter-spacing:.18em; color:var(--wy-sub); margin-bottom:12px; font-weight:700}
 .why-pillar.dark .why-item i{color:var(--wy-warm)}
-.why-item b{display:block; font-size:15.5px; font-weight:800; color:var(--ink); margin-bottom:9px; line-height:1.4; letter-spacing:-.015em}
+.why-item b{display:block; font-size:16.5px; font-weight:800; color:var(--ink); margin-bottom:9px; line-height:1.4; letter-spacing:-.015em}
 .why-pillar.dark .why-item b{color:#fff}
-.why-item span{display:block; font-size:13px; line-height:1.8; color:var(--ink2); font-weight:500}
+.why-item span{display:block; font-size:14px; line-height:1.75; color:var(--ink2); font-weight:500}
 .why-pillar.dark .why-item span{color:rgba(255,255,255,.56)}
 
 /* 전환 문장 - 옐로우 풀블리드 */
@@ -537,7 +538,7 @@ p.lead:last-of-type{margin-bottom:14px}
 /* 클로징 - 다크 */
 .why-cta{background:var(--wd); color:#fff; padding:96px 22px 104px; text-align:center}
 .why-cta h2{font-weight:800; font-size:clamp(24px,4.6vw,38px); line-height:1.2; letter-spacing:-.025em; margin-bottom:22px}
-.why-cta p{max-width:600px; margin:0 auto; font-size:15px; line-height:1.9; color:rgba(255,255,255,.6); font-weight:500}
+.why-cta p{max-width:660px; margin:0 auto; font-size:16.5px; line-height:1.85; color:rgba(255,255,255,.6); font-weight:500}
 .why-cta-btns{margin-top:40px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
 .why-cta-btns .wb{padding:15px 28px; border-radius:100px; font-size:13.5px; font-weight:700; text-decoration:none; transition:transform var(--dur) var(--ease-std), background var(--dur) var(--ease-std)}
 .why-cta-btns .wb:hover{transform:translateY(-2px)}
@@ -546,19 +547,22 @@ p.lead:last-of-type{margin-bottom:14px}
 .why-cta-btns .wb.gh:hover{background:rgba(255,255,255,.08)}
 
 @media(min-width:1024px){
-  .why-hero{padding:120px 48px 96px}
+  .why-hero{padding:104px 48px 84px}
   .why-hero h1{font-size:clamp(48px,5.2vw,64px)}
-  .why-hero p{font-size:16px; margin-top:34px}
-  .why-stats{margin-top:60px; padding-top:32px; gap:20px}
-  .why-stats span{font-size:11px}
+  .why-hero p{font-size:19px; margin-top:28px}
+  .why-stats{margin-top:52px; padding-top:32px; gap:20px}
+  .why-stats span{font-size:12px; letter-spacing:.12em}
   .why-pillar{padding:110px 48px 116px}
   .why-pillar-head{gap:26px; margin-bottom:44px; align-items:baseline}
-  .why-grid{grid-template-columns:1fr 1fr; gap:64px; align-items:start}
-  .why-lede{font-size:16px; line-height:2.0}
+  .why-grid{grid-template-columns:1fr 1fr; gap:64px; align-items:center}
+  .why-lede{font-size:17.5px; line-height:1.95}
   .why-fig img{height:340px}
   .why-items{grid-template-columns:repeat(4,1fr); margin-top:64px}
   .why-items.three{grid-template-columns:repeat(3,1fr)}
   .why-item{padding:32px 26px 36px}
+  .why-item b{font-size:17.5px}
+  .why-item span{font-size:14.5px}
+  .why-cta p{font-size:18px}
   .why-bridge{padding:96px 48px}
   .why-cta{padding:130px 48px 140px}
 }
