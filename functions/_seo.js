@@ -2969,7 +2969,7 @@ const CENTER_PHOTOS = { gangdong: 4, bundang: 4, gimpo: 4 };
 const CENTER_ALT = ["교육 공간", "기구 실습 공간", "필라테스 강사 자격증 과정 수업 현장", "내부 전경"];
 /* 원본 비율 그대로 넣는다. 가로·세로·정사각이 섞여 있어 강제로 자르면
    공간이 실제와 달라 보인다. width/height 를 명시해 로딩 중 흔들림을 막는다. */
-const CENTER_DIM = {"bundang1": [900, 900], "bundang2": [900, 900], "bundang3": [900, 675], "bundang4": [900, 600], "gimpo1": [900, 675], "gimpo2": [818, 900], "gimpo3": [900, 675], "gimpo4": [900, 900], "gangdong1": [675, 900], "gangdong2": [900, 900], "gangdong3": [675, 900], "gangdong4": [675, 900]};
+const CENTER_DIM = {"bundang1": [900, 675], "bundang2": [900, 675], "bundang3": [900, 675], "bundang4": [900, 675], "gimpo1": [900, 675], "gimpo2": [900, 675], "gimpo3": [900, 675], "gimpo4": [900, 675], "gangdong1": [900, 675], "gangdong2": [900, 675], "gangdong3": [900, 675], "gangdong4": [900, 675]};
 function centerGalleryHTML(key, name) {
   const n = CENTER_PHOTOS[key];
   if (!n) return "";
